@@ -19,9 +19,9 @@ Todos os créditos pelo incrível trabalho, design e código original são de Wa
 
 Se você gosta desta ferramenta e tem interesse em apoiar o desenvolvedor, por favor, considere ajudá-lo diretamente. Você pode fazer isso acessando o site oficial e clicando em "Support this generator".
 
-(Apoie o criador original aqui!)[https://watabou.itch.io/one-page-dungeon/donate]
+[Apoie o criador original aqui!](https://watabou.itch.io/one-page-dungeon/donate)
 
 
-seed de testes abaixo:
+### seed de testes abaixo:
 
-(seed 178359700)[https://html-classic.itch.zone/html/13407546/bin/index.html?seed=178359700]
+[seed 178359700](https://html-classic.itch.zone/html/13407546/bin/index.html?seed=178359700)

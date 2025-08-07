@@ -2395,15 +2395,54 @@ var $lime_init = function (F, r) {
                 __class__: sa,
             };
             
-            var N = function () { }; g.HxOverrides = N; N.__name__ = "HxOverrides"; N.strDate = function (a) {
+            /**
+             * A classe HxOverrides (N) é como uma "caixa de ferramentas" interna gerada pelo compilador Haxe
+             * para garantir que funções do JavaScript se comportem da mesma forma
+             * que na linguagem Haxe original.
+             *
+             * @class
+             */
+            var N = function () {};
+            g.HxOverrides = N;
+            N.__name__ = "HxOverrides";
+            N.strDate = function (a) {
                 switch (a.length) {
-                    case 8: a = a.split(":"); var b = new Date; b.setTime(0); b.setUTCHours(a[0]);
-                        b.setUTCMinutes(a[1]); b.setUTCSeconds(a[2]); return b; case 10: return a = a.split("-"), new Date(a[0], a[1] - 1, a[2], 0, 0, 0); case 19: return a = a.split(" "), b = a[0].split("-"), a = a[1].split(":"), new Date(b[0], b[1] - 1, b[2], a[0], a[1], a[2]); default: throw Z.thrown("Invalid date format : " + a);
+                    case 8:
+                        a = a.split(":");
+                        var b = new Date();
+                        b.setTime(0);
+                        b.setUTCHours(a[0]);
+                        b.setUTCMinutes(a[1]);
+                        b.setUTCSeconds(a[2]);
+                        return b;
+                    case 10:
+                        return (a = a.split("-")), new Date(a[0], a[1] - 1, a[2], 0, 0, 0);
+                    case 19:
+                        return (a = a.split(" ")), (b = a[0].split("-")), (a = a[1].split(":")), new Date(b[0], b[1] - 1, b[2], a[0], a[1], a[2]);
+                    default:
+                        throw Z.thrown("Invalid date format : " + a);
                 }
-            }; N.cca = function (a, b) { a = a.charCodeAt(b); if (a == a) return a }; N.substr = function (a, b, c) { if (null == c) c = a.length; else if (0 > c) if (0 == b) c = a.length + c; else return ""; return a.substr(b, c) }; N.remove = function (a, b) {
-                b = a.indexOf(b); if (-1 == b) return !1;
-                a.splice(b, 1); return !0
-            }; N.now = function () { return Date.now() }; 
+            };
+            N.cca = function (a, b) {
+                a = a.charCodeAt(b);
+                if (a == a) return a;
+            };
+            N.substr = function (a, b, c) {
+                if (null == c) c = a.length;
+                else if (0 > c)
+                    if (0 == b) c = a.length + c;
+                    else return "";
+                return a.substr(b, c);
+            };
+            N.remove = function (a, b) {
+                b = a.indexOf(b);
+                if (-1 == b) return !1;
+                a.splice(b, 1);
+                return !0;
+            };
+            N.now = function () {
+                return Date.now();
+            };
             
             /**
              * Classe utilitária Lambda, para manipulação de estruturas de dados iteráveis.

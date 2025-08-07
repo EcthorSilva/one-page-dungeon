@@ -1494,96 +1494,184 @@ var $lime_init = function (F, r) {
                         return null;
                 }
             }; 
+            
+            /**
+             * Construtor para o VoxelData. Converte a masmorra 2D em um modelo 3D de voxels.
+             * @param {object} dungeon - O objeto da masmorra contendo salas e portas.
+             */
+            var VoxelData = function(dungeon) {
+                // Escala e margem para os voxels.
+                var margin = 1 / VoxelData.scale;
+                this.rect = dungeon.getRect();
+                this.voxBuilder = new VoxBuilder(this.rect.w * VoxelData.scale, this.rect.h * VoxelData.scale, 2 * VoxelData.scale);
 
-                    
-                    var Lc = function (a) {
-                        var b = 1 / Lc.scale; this.rect = a.getRect(); this.vb = new Ri(this.rect.w * Lc.scale, this.rect.h * Lc.scale, 2 * Lc.scale); for (var c = 0, d = a.doors; c < d.length;) { var f = d[c]; ++c; this.box(f.x - b, 1 + 2 * b, f.y - b, 1 + 2 * b, 1 - b, 1 + b, 1) } c = 0; for (d = a.rooms; c < d.length;)f = d[c], ++c,
-                            f = f.inflate(-1, -1), this.box(f.x - b, f.w + 2 * b, f.y - b, f.h + 2 * b, 1 - b, 1 + b, 1), this.box(f.x, f.w, f.y, f.h, 1, 1, 0); c = 0; for (d = a.doors; c < d.length;)switch (f = d[c], ++c, this.box(f.x, 1, f.y, 1, 1, 1, 0), f.type) {
-                                case 1: case 2: 0 == f.dir.x ? (this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1, 1), this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1 - b, 0)) : (this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1, 1), this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1 - b, 0)); break; case 3: a = 1; for (var h = Lc.scale; a < h;) {
-                                    var n = a++ / Lc.scale; 0 == f.dir.x ? 1 == f.dir.y ? this.box(f.x, 1, f.y + n - b, b, 1, 1 - n, 1) : this.box(f.x, 1, f.y + n, b, 1, n, 1) : 1 ==
-                                        f.dir.x ? this.box(f.x + n - b, b, f.y, 1, 1, 1 - n, 1) : this.box(f.x + n, b, f.y, 1, 1, n, 1)
-                                } break; case 4: case 7: this.box(f.x + b, b, f.y + b, b, 1, 1, 1)
+                // 1. Desenha as portas (primeiro como blocos sólidos para garantir a conexão)
+                for (var i = 0, doors = dungeon.doors; i < doors.length; i++) {
+                    var door = doors[i];
+                    this.box(door.x - margin, 1 + 2 * margin, door.y - margin, 1 + 2 * margin, 1 - margin, 1 + margin, 1);
+                }
+
+                // 2. Desenha o chão e as paredes das salas
+                for (var i = 0, rooms = dungeon.rooms; i < rooms.length; i++) {
+                    var room = rooms[i];
+                    room = room.inflate(-1, -1); // Encolhe a sala para obter a área interna
+                    // Desenha o bloco sólido (paredes + chão)
+                    this.box(room.x - margin, room.w + 2 * margin, room.y - margin, room.h + 2 * margin, 1 - margin, 1 + margin, 1);
+                    // Esculpe o espaço vazio dentro da sala
+                    this.box(room.x, room.w, room.y, room.h, 1, 1, 0);
+                }
+
+                // 3. Desenha os detalhes das portas (arcos, escadas, etc.)
+                for (var i = 0, doors = dungeon.doors; i < doors.length; i++) {
+                    var door = doors[i];
+                    // Abre o buraco da porta
+                    this.box(door.x, 1, door.y, 1, 1, 1, 0);
+
+                    switch (door.type) {
+                        // Portas normais e secretas (desenha o arco/moldura)
+                        case 1:
+                        case 2:
+                            if (door.dir.x == 0) { // Porta vertical
+                                this.box(door.x, 1, door.y + margin, 1 - 2 * margin, 1, 1, 1);
+                                this.box(door.x + margin, 1 - 2 * margin, door.y, 1, 1, 1 - margin, 0);
+                            } else { // Porta horizontal
+                                this.box(door.x + margin, 1 - 2 * margin, door.y, 1, 1, 1, 1);
+                                this.box(door.x, 1, door.y + margin, 1 - 2 * margin, 1, 1 - margin, 0);
                             }
-                    }; g["com.watabou.dungeon.model.VoxelData"] = Lc; Lc.__name__ = "com.watabou.dungeon.model.VoxelData"; Lc.prototype = { box: function (a, b, c, d, f, h, n) { this.vb.box(Math.round((a - this.rect.x) * Lc.scale), Math.round(b * Lc.scale), this.vb.ysize - Math.round((c - this.rect.y) * Lc.scale) - Math.round(d * Lc.scale), Math.round(d * Lc.scale), Math.round(f * Lc.scale), Math.round(h * Lc.scale), n) }, __class__: Lc }; var oe =
-                        function () { this.notes = []; oe.inst = this; Xb.call(this); G.restorePalette(); G.bw = eb.get("bw", !1); ta.gridScale = eb.get("gridScale", 1); var a = dc.DOTTED; ta.grid = lb.createEnum(dc, eb.get("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); a = Ga.NORMAL; Ha.mode = lb.createEnum(Ga, eb.get("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); this.map = new ja; this.addChild(this.map); this.createHeader(); this.keyEvent.add(k(this, this.onKey)); a = Zc.fromURL(); this.reset(null != a ? a : Zc.random()) }; g["com.watabou.dungeon.scenes.ViewScene"] =
-                            oe; oe.__name__ = "com.watabou.dungeon.scenes.ViewScene"; oe.__super__ = Xb; oe.prototype = u(Xb.prototype, {
-                                activate: function () {
-                                    Xb.prototype.activate.call(this); this.stage.set_color(G.paper); this.stage.addEventListener("rightClick", k(this, this.onRightClick)); this.addEventListener("touchTap", k(this, this.onTap)); this.longPress = new mg(this.stage); var a = this.dungeon.bp; if (null != a.export) {
-                                        switch (this.dungeon.bp.export.toLowerCase()) {
-                                            case "json": Ea.exportJSON(this.dungeon); break; case "md": Ea.exportMarkdown(this.dungeon);
-                                                break; case "png": Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight); this.recreateTextfields(); break; case "svg": Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight); break; case "vox": Ea.exportVOX(this.dungeon)
-                                        }a.export = null
+                            break;
+                        
+                        // Portas com escadas/rampas
+                        case 3:
+                            var step = 1;
+                            for (var totalSteps = VoxelData.scale; step < totalSteps;) {
+                                var n = step++ / VoxelData.scale;
+                                if (door.dir.x == 0) { // Escada vertical
+                                    if (door.dir.y == 1) {
+                                        this.box(door.x, 1, door.y + n - margin, margin, 1, 1 - n, 1);
+                                    } else {
+                                        this.box(door.x, 1, door.y + n, margin, 1, n, 1);
                                     }
-                                }, onKey: function (a, b) {
-                                    if (b && !(this.stage.get_focus() instanceof uc)) switch (a) {
-                                        case 9: case 84: this.showTagsForm(); break; case 13: this.newDungeon(Zc.random()); break; case 32: this.keyShift ? this.rerollNotes() : this.rearrangeNotes(); break; case 49: this.setGridScale(1); break; case 50: this.setGridScale(2);
-                                            break; case 69: this.keyShift ? Ea.exportPNG(this.dungeon, this.map) : (Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight), this.recreateTextfields()); break; case 71: this.toggleGrid(this.keyShift); break; case 72: this.toggleSecrets(); break; case 76: this.toggleLegend(); break; case 77: this.toggleBW(); break; case 78: this.toggleNotes(); break; case 80: this.toggleProps(); break; case 82: this.toggleRotation(); break; case 83: this.showPaletteForm(); break; case 87: this.keyShift ? this.raiseWater() : this.toggleWater()
+                                } else { // Escada horizontal
+                                    if (door.dir.x == 1) {
+                                        this.box(door.x + n - margin, margin, door.y, 1, 1, 1 - n, 1);
+                                    } else {
+                                        this.box(door.x + n, margin, door.y, 1, 1, n, 1);
                                     }
-                                }, onTap: function (a) {
-                                    this.longPress.activated ||
-                                    this.newDungeon(Zc.random())
-                                }, 
-                                // Função do menu de contexto
-                                onRightClick: function (a) { a = a.target; for (var b = a == T.layer; !b && null != a.parent;)a = a.parent, b = a == T.layer; b || this.showMenu() }, getMapPoint: function (a, b) { a = this.localToGlobal(new I(a, b)); a = this.map.globalToLocal(a); a.x *= .03333333333333333; a.y *= .03333333333333333; return a }, showMenu: function () { var a = new Jb, b = xa.fromPoint(this.getMapPoint(this.get_mouseX(), this.get_mouseY())); b = this.dungeon.findRoom(b.x, b.y); null != b && this.addRoomItems(a, b); this.buildMenu(a); T.showMenu(a) }, addRoomItems: function (a,
-                                    b) { var c = this; this.dungeon.planner.isSecret(b) && a.addItem("Hide room", function () { c.hideRoom(b) }); null == b.desc ? a.addItem("Add note", function () { c.addNote(b) }) : (a.addItem("Edit note...", function () { c.editNote(b) }), a.addItem("Delete note", function () { c.deleteNote(b) })); a.addSeparator() }, buildMenu: function (a) {
-                                        var b = this, c = new Jb; c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0)); c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0)); c.addItem("Full screen", k(this,
-                                            this.toggleFullScreen), 2 != this.stage.get_displayState()); c.addItem("Secret rooms", k(this, this.toggleSecrets), eb.get("secrets", !0)); var d = new Jb; Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem("Reroll notes", k(this, this.rerollNotes)); Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED || d.addItem("Rearrange notes", k(this, this.rearrangeNotes)); d.addSeparator(); var f = function (a, c) { d.addItem(a, function () { b.setNotesMode(c) }, Ha.mode == c) }; f("Off", Ga.HIDDEN); f("Default", Ga.NORMAL); f("Tailed", Ga.TAILED);
-                                        f("Legend", Ga.LEGEND); f("Symbols", Ga.SYMBOLS); f("Numbers", Ga.NUMBERS); var h = new Jb; f = function (a, c) { h.addItem(a, function () { b.setGridMode(c) }, ta.grid == c) }; f("Off", dc.HIDDEN); f("Dotted", dc.DOTTED); f("Dashed", dc.DASHED); f("Solid", dc.SOLID); f("Broken", dc.BROKEN); h.addSeparator(); h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale); f = new Jb; f.addSubmenu("Grid", h); f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible()); f.addItem("Water", k(this, this.toggleWater), eb.get("water",
-                                            !0)); f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0)); f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0)); f.addSeparator(); f.addItem("Water level...", k(this, this.showWaterForm)); var n = new Jb; n.addItem("PNG...", k(this, this.exportPNG)); n.addItem("SVG", k(this, this.exportSVG)); n.addItem("JSON", k(this, this.exportJSON)); n.addItem("VOX", k(this, this.exportVOX)); n.addItem("Markdown", k(this, this.exportMarkdown)); a.addItem("Procgen Arcana", k(this, this.arcana)); a.addSeparator();
-                                        a.addItem("New dungeon", function () { b.newDungeon(Zc.random()) }); a.addItem("Tags...", k(this, this.showTagsForm)); a.addSeparator(); a.addSubmenu("View", c); a.addSubmenu("Notes", d); a.addSubmenu("Layers", f); a.addItem("Monochrome", k(this, this.toggleBW), G.bw); a.addItem("Style...", k(this, this.showPaletteForm)); a.addSeparator(); a.addItem("Permalink...", k(this, this.showURL)); a.addItem("Save as PNG", k(this, this.savePNG)); a.addSubmenu("Export as", n)
-                                    }, 
-                                // Função para definir o layout
-                                layout: function () {
-                                        var a = this.rWidth - 100; this.layoutTitle(); this.layoutStory();
-                                        var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50, c = this.rHeight - b - 50, d = 0; if (Ha.mode == Ga.LEGEND) { for (var f = 0, h = this.notes; f < h.length;) { var n = h[f]; ++f; d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2)) } a -= d } h = 0; if (eb.get("autoRotation", !0)) { n = Math.log(a / c); var A = Infinity; for (f = -9; 9 > f;) { var p = f++ / 18 * Math.PI, g = this.dungeon.getBounds(p); g = Math.abs(n - Math.log(g.width / g.height)); 1.01 < A / g && (A = g, h = p) } } this.map.set_rotation(180 * h / Math.PI); g = this.dungeon.getBounds(h); a =
-                                            Math.min(a / g.width, c / g.height) / 30; 1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1); this.map.set_scaleX(this.map.set_scaleY(a)); this.shadow.adjustAngle(this.map.get_rotation()); f = ch.center(g); a *= 30; a = new I(f.x * a, f.y * a); this.map.set_x(this.rWidth / 2 - a.x + d / 2); this.map.set_y(b + c / 2 - a.y); this.layoutNotes()
-                                    }, 
-                                // Layout do titulo    
-                                layoutTitle: function () { this.title.set_scaleX(this.title.set_scaleY(Math.min((this.rWidth - 100) / this.title.get_textWidth(), 1))); this.title.set_x((this.rWidth - this.title.get_width()) / 2) }, layoutStory: function () {
-                                        this.story.set_autoSize(1);
-                                        this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100); var a = this.story.get_numLines(); if (1 < a) for (; 0 < this.story.get_width();) { var b = this.story; b.set_width(b.get_width() - 10); if (this.story.get_numLines() > a) { a = this.story; a.set_width(a.get_width() + 10); break } } a = this.story.get_width(); b = this.story.get_height(); this.story.set_autoSize(2); this.story.set_width(a); this.story.set_height(b); this.story.set_x((this.rWidth - this.story.get_width()) / 2); this.story.set_y(this.title.get_height())
-                                    },
-                                createHeader: function () { var a = this; this.title = Re.get(null, G.getFormat(G.fontTitle), k(this, this.layoutTitle), function () { a.dungeon.updateName(a.title.get_text()); a.layout() }); this.addChild(this.title); var b = G.getFormat(G.fontStory); b.align = 0; this.story = Re.get(null, b, null, k(this, this.layout)); this.story.set_multiline(!0); this.story.set_wordWrap(!0); this.addChild(this.story); this.title.set_visible(this.story.set_visible(eb.get("title", !0))) }, reset: function (a, b) {
-                                    null == b && (b = !0); if (b) {
-                                        this.dungeon = new Mi(a);
-                                        this.dungeon.build(); a = this.dungeon.planner.getSecrets(); if (0 < a.length && !eb.get("secrets", !0)) for (b = 0; b < a.length;) { var c = a[b]; ++b; c.hidden = !0 } this.updateDrawable(); this.notePosSeed = v.seed
-                                    } this.title.set_text(this.dungeon.story.name); this.story.set_text(this.dungeon.story.hook); this.drawAll(); this.recreateNotes()
-                                }, drawAll: function () {
-                                    this.recreateLayers(); this.drawShading(); for (var a = [], b = 0, c = this.drawable; b < c.length;) { var d = c[b]; ++b; a.push(rb.scale(d.getPoly(), 30, 30)) } var f = a, h = []; a = 0; for (b = this.drawable; a <
-                                        b.length;)for (d = b[a], ++a, c = 0, d = d.getSeams(); c < d.length;) { var n = d[c]; ++c; h.push(rb.scale(n, 30, 30)) } this.drawShape(f, h); this.drawWater(f); this.drawShadows(f); this.drawGrid(); a = 0; for (b = this.rooms; a < b.length;)for (f = b[a], ++a, c = 0, d = f.props; c < d.length;)f = d[c], ++c, f.draw(this.props.get_graphics()); a = 0; for (b = this.doors; a < b.length;)c = b[a], ++a, vb.draw(this.details.get_graphics(), c); a = 0; for (b = this.rooms; a < b.length;)f = b[a], ++a, ta.drawColonnades(this.details.get_graphics(), this.shadow.get_graphics(), f)
-                                }, newDungeon: function (a) {
-                                    this.reset(a);
-                                    this.layout()
-                                }, showTagsForm: function () { var a = this; null == T.findForm(ve) && (Kc.getTags = Tags.getPublic, Kc.resTags = Tags.resolve, Kc.getInfo = Tags.getInfo, T.showDialog(new ve(this.dungeon.tags, function (b) { a.newDungeon(Zc.fromTags(b)); return a.dungeon.tags }), "Tags").minimizable = !0) }, toggleRotation: function () { this.toggleFlag("autoRotation"); this.layout() }, toggleZoom: function () { this.toggleFlag("zoom2fit"); this.layout() }, toggleFullScreen: function () { this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2) },
-                                toggleSecrets: function () { var a = this.toggleFlag("secrets"), b = this.dungeon.planner.getSecrets(); if (0 < b.length) { for (var c = 0; c < b.length;) { var d = b[c]; ++c; d.hidden = !a } this.updateDrawable(); this.recreateNotes(); this.drawAll(); this.layout() } }, showPaletteForm: function () {
-                                    var a = this; if (null == T.findForm(Ab)) {
-                                        var b = new Ab(function (b) { G.fromPalette(b, !0); a.updatePalette() }, "Default default Ancient ancient Light light Modern modern Link link".split(" ")); b.getName = Ab.swatches(null, ["colorInk", "colorPaper"]); G.fillForm(b);
-                                        T.showDialog(b, "Style")
-                                    }
-                                }, toggleBW: function () { G.bw = this.toggleFlag("bw"); this.drawAll() }, showURL: function () { var a = this; null == T.findForm(ng) && T.showDialog(new ng(this.dungeon, function (b) { ob.fromString(b); a.newDungeon(Zc.fromURL()) })) }, rerollNotes: function () { Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && (this.dungeon.planner.rollNotes(), this.updateNotes()) }, rearrangeNotes: function () { if (Ha.mode == Ga.NORMAL || Ha.mode == Ga.TAILED) this.notePosSeed = v.seed, this.layoutNotes() }, toggleNotes: function () {
-                                    switch (Ha.mode._hx_index) {
-                                        case 0: var a =
-                                            Ga.TAILED; break; case 1: a = Ga.LEGEND; break; case 2: a = Ga.HIDDEN; break; default: a = Ga.NORMAL
-                                    }this.setNotesMode(a)
-                                }, toggleLegend: function () { this.setNotesMode(Ha.mode == Ga.LEGEND ? Ga.NORMAL : Ga.LEGEND) }, setNotesMode: function (a) { var b = Ha.mode; Ha.mode = a; this.recreateNotes(); a == Ga.LEGEND || b == Ga.LEGEND ? this.layout() : this.layoutNotes(); a = Ha.mode; eb.set("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name) }, addNote: function (a) {
-                                    var b = this; null == T.findForm(Ze) && T.showDialog(new Ze("", function (c) {
-                                        "" != c && (a.desc =
-                                            c, b.updateNotes())
-                                    }), "Add note")
-                                }, editNote: function (a) { var b = this; null == T.findForm(Ze) && T.showDialog(new Ze(a.desc, function (c) { "" == c ? b.deleteNote(a) : (a.desc = c, b.updateNotes()) }), "Note " + a.note.symb) }, deleteNote: function (a) { a.desc = null; this.updateNotes() }, updateNotes: function () { this.recreateNotes(); this.layoutNotes() }, recreateNotes: function () {
-                                    for (var a = 0, b = this.notes; a < b.length;) { var c = b[a]; ++a; this.removeChild(c) } this.notes = []; if (Ha.mode != Ga.HIDDEN) for (b = Ha.mode == Ga.NUMBERS ? this.dungeon.getNumbers() :
-                                        this.dungeon.getNotes(), a = 0; a < b.length;)c = b[a], ++a, c = new Ha(c), c.setWidth(Ha.mode == Ga.LEGEND ? 280 : 200), this.addChild(c), this.notes.push(c)
-                                }, layoutNotes: function () {
-                                    switch (Ha.mode._hx_index) {
-                                        case 0: case 1: this.layoutStickerNotes(); break; case 2: for (var a = this.rHeight - 50, b = 0, c = Fa.revert(this.notes); b < c.length;) { var d = c[b]; ++b; var f = d.note.point; f = new I(30 * f.x, 30 * f.y); f = this.globalToLocal(this.map.localToGlobal(f)); a -= d.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); d.place(new I(50, a), f) } break; case 3: case 4: for (b =
-                                            0, c = this.notes; b < c.length;)d = c[b], ++b, f = d.note.point, f = new I(30 * f.x, 30 * f.y), f = this.globalToLocal(this.map.localToGlobal(f)), d.place(f)
-                                    }
-                                }, layoutStickerNotes: function () {
-                                    var a = this, b = this.map.get_rotation() / 180 * Math.PI, c = Math.sin(b), d = Math.cos(b), f = this.dungeon.blocks.concat(this.dungeon.rooms); b = []; for (var h = 0; h < f.length;) { var n = f[h]; ++h; n = n.getBounds(c, d); ch.scale(n, 30 * this.map.get_scaleX()); n.offset(this.map.get_x(), this.map.get_y()); b.push(n) } var A = b; this.title.get_visible() && (A.push(this.title.getRect(this)),
-                                        A.push(this.story.getRect(this))); v.reset(this.notePosSeed); b = []; h = 0; for (var p = this.notes; h < p.length;)c = p[h], ++h, null != c.note.manual && b.push(c); h = b; c = Fa.difference(this.notes, h); d = function (b) { b = b.note.point; b = new I(30 * b.x, 30 * b.y); return a.globalToLocal(a.map.localToGlobal(b)) }; f = function (a, b, c) { A.push(new ha(a.x - b / 2 - 10, a.y - c / 2 - 10, b + 20, c + 20)) }; for (b = 0; b < h.length;) {
-                                            n = h[b]; ++b; var g = d(n), t = n.note.manual; t = new I(30 * t.x, 30 * t.y); t = this.globalToLocal(this.map.localToGlobal(t)); n.place(t, g); g = n.text.get_width() +
-                                                10 * (Ha.mode == Ga.LEGEND ? 1 : 2); var l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); f(t, g, l)
-                                        } for (b = 0; b < c.length;) {
+                                }
+                            }
+                            break;
+
+                        // Portas trancadas (desenha um pequeno detalhe)
+                        case 4:
+                        case 7:
+                            this.box(door.x + margin, margin, door.y + margin, margin, 1, 1, 1);
+                            break;
+                    }
+                }
+            };
+
+            g["com.watabou.dungeon.model.VoxelData"] = VoxelData;
+            VoxelData.__name__ = "com.watabou.dungeon.model.VoxelData";
+            VoxelData.prototype = {
+                /**
+                 * Função auxiliar que desenha uma caixa de voxels.
+                 * O último parâmetro (n) determina se é um bloco sólido (1) ou espaço vazio (0).
+                 */
+                box: function(a, b, c, d, f, h, n) {
+                    this.voxBuilder.box(
+                        Math.round((a - this.rect.x) * VoxelData.scale),
+                        Math.round(b * VoxelData.scale),
+                        this.voxBuilder.ysize - Math.round((c - this.rect.y) * VoxelData.scale) - Math.round(d * VoxelData.scale),
+                        Math.round(d * VoxelData.scale),
+                        Math.round(f * VoxelData.scale),
+                        Math.round(h * VoxelData.scale),
+                        n
+                    );
+                },
+                __class__: VoxelData
+            };
+            
+
+            var oe = function () { this.notes = []; oe.inst = this; Xb.call(this); G.restorePalette(); G.bw = eb.get("bw", !1); ta.gridScale = eb.get("gridScale", 1); var a = dc.DOTTED; ta.grid = lb.createEnum(dc, eb.get("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); a = Ga.NORMAL; Ha.mode = lb.createEnum(Ga, eb.get("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); this.map = new ja; this.addChild(this.map); this.createHeader(); this.keyEvent.add(k(this, this.onKey)); a = Zc.fromURL(); this.reset(null != a ? a : Zc.random()) }; g["com.watabou.dungeon.scenes.ViewScene"] =
+
+                oe; oe.__name__ = "com.watabou.dungeon.scenes.ViewScene"; oe.__super__ = Xb; oe.prototype = u(Xb.prototype, {
+                    activate: function () {
+                        Xb.prototype.activate.call(this); this.stage.set_color(G.paper); this.stage.addEventListener("rightClick", k(this, this.onRightClick)); this.addEventListener("touchTap", k(this, this.onTap)); this.longPress = new mg(this.stage); var a = this.dungeon.bp; if (null != a.export) {
+                            switch (this.dungeon.bp.export.toLowerCase()) {
+                                case "json": Ea.exportJSON(this.dungeon); break; case "md": Ea.exportMarkdown(this.dungeon);
+                                    break; case "png": Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight); this.recreateTextfields(); break; case "svg": Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight); break; case "vox": Ea.exportVOX(this.dungeon)
+                            }a.export = null
+                        }
+                    }, onKey: function (a, b) {
+                        if (b && !(this.stage.get_focus() instanceof uc)) switch (a) {
+                            case 9: case 84: this.showTagsForm(); break; case 13: this.newDungeon(Zc.random()); break; case 32: this.keyShift ? this.rerollNotes() : this.rearrangeNotes(); break; case 49: this.setGridScale(1); break; case 50: this.setGridScale(2);
+                                break; case 69: this.keyShift ? Ea.exportPNG(this.dungeon, this.map) : (Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight), this.recreateTextfields()); break; case 71: this.toggleGrid(this.keyShift); break; case 72: this.toggleSecrets(); break; case 76: this.toggleLegend(); break; case 77: this.toggleBW(); break; case 78: this.toggleNotes(); break; case 80: this.toggleProps(); break; case 82: this.toggleRotation(); break; case 83: this.showPaletteForm(); break; case 87: this.keyShift ? this.raiseWater() : this.toggleWater()
+                        }
+                    }, onTap: function (a) {
+                        this.longPress.activated ||
+                            this.newDungeon(Zc.random())
+                    },
+                    // Função do menu de contexto
+                    onRightClick: function (a) { a = a.target; for (var b = a == T.layer; !b && null != a.parent;)a = a.parent, b = a == T.layer; b || this.showMenu() }, getMapPoint: function (a, b) { a = this.localToGlobal(new I(a, b)); a = this.map.globalToLocal(a); a.x *= .03333333333333333; a.y *= .03333333333333333; return a }, showMenu: function () { var a = new Jb, b = xa.fromPoint(this.getMapPoint(this.get_mouseX(), this.get_mouseY())); b = this.dungeon.findRoom(b.x, b.y); null != b && this.addRoomItems(a, b); this.buildMenu(a); T.showMenu(a) }, addRoomItems: function (a,
+                        b) { var c = this; this.dungeon.planner.isSecret(b) && a.addItem("Hide room", function () { c.hideRoom(b) }); null == b.desc ? a.addItem("Add note", function () { c.addNote(b) }) : (a.addItem("Edit note...", function () { c.editNote(b) }), a.addItem("Delete note", function () { c.deleteNote(b) })); a.addSeparator() }, buildMenu: function (a) {
+                            var b = this, c = new Jb; c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0)); c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0)); c.addItem("Full screen", k(this,
+                                this.toggleFullScreen), 2 != this.stage.get_displayState()); c.addItem("Secret rooms", k(this, this.toggleSecrets), eb.get("secrets", !0)); var d = new Jb; Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem("Reroll notes", k(this, this.rerollNotes)); Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED || d.addItem("Rearrange notes", k(this, this.rearrangeNotes)); d.addSeparator(); var f = function (a, c) { d.addItem(a, function () { b.setNotesMode(c) }, Ha.mode == c) }; f("Off", Ga.HIDDEN); f("Default", Ga.NORMAL); f("Tailed", Ga.TAILED);
+                            f("Legend", Ga.LEGEND); f("Symbols", Ga.SYMBOLS); f("Numbers", Ga.NUMBERS); var h = new Jb; f = function (a, c) { h.addItem(a, function () { b.setGridMode(c) }, ta.grid == c) }; f("Off", dc.HIDDEN); f("Dotted", dc.DOTTED); f("Dashed", dc.DASHED); f("Solid", dc.SOLID); f("Broken", dc.BROKEN); h.addSeparator(); h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale); f = new Jb; f.addSubmenu("Grid", h); f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible()); f.addItem("Water", k(this, this.toggleWater), eb.get("water",
+                                !0)); f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0)); f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0)); f.addSeparator(); f.addItem("Water level...", k(this, this.showWaterForm)); var n = new Jb; n.addItem("PNG...", k(this, this.exportPNG)); n.addItem("SVG", k(this, this.exportSVG)); n.addItem("JSON", k(this, this.exportJSON)); n.addItem("VOX", k(this, this.exportVOX)); n.addItem("Markdown", k(this, this.exportMarkdown)); a.addItem("Procgen Arcana", k(this, this.arcana)); a.addSeparator();
+                            a.addItem("New dungeon", function () { b.newDungeon(Zc.random()) }); a.addItem("Tags...", k(this, this.showTagsForm)); a.addSeparator(); a.addSubmenu("View", c); a.addSubmenu("Notes", d); a.addSubmenu("Layers", f); a.addItem("Monochrome", k(this, this.toggleBW), G.bw); a.addItem("Style...", k(this, this.showPaletteForm)); a.addSeparator(); a.addItem("Permalink...", k(this, this.showURL)); a.addItem("Save as PNG", k(this, this.savePNG)); a.addSubmenu("Export as", n)
+                        },
+                    // Função para definir o layout
+                    layout: function () {
+                        var a = this.rWidth - 100; this.layoutTitle(); this.layoutStory();
+                        var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50, c = this.rHeight - b - 50, d = 0; if (Ha.mode == Ga.LEGEND) { for (var f = 0, h = this.notes; f < h.length;) { var n = h[f]; ++f; d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2)) } a -= d } h = 0; if (eb.get("autoRotation", !0)) { n = Math.log(a / c); var A = Infinity; for (f = -9; 9 > f;) { var p = f++ / 18 * Math.PI, g = this.dungeon.getBounds(p); g = Math.abs(n - Math.log(g.width / g.height)); 1.01 < A / g && (A = g, h = p) } } this.map.set_rotation(180 * h / Math.PI); g = this.dungeon.getBounds(h); a =
+                            Math.min(a / g.width, c / g.height) / 30; 1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1); this.map.set_scaleX(this.map.set_scaleY(a)); this.shadow.adjustAngle(this.map.get_rotation()); f = ch.center(g); a *= 30; a = new I(f.x * a, f.y * a); this.map.set_x(this.rWidth / 2 - a.x + d / 2); this.map.set_y(b + c / 2 - a.y); this.layoutNotes()
+                    },
+                    // Layout do titulo    
+                    layoutTitle: function () { this.title.set_scaleX(this.title.set_scaleY(Math.min((this.rWidth - 100) / this.title.get_textWidth(), 1))); this.title.set_x((this.rWidth - this.title.get_width()) / 2) }, layoutStory: function () {
+                        this.story.set_autoSize(1);
+                        this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100); var a = this.story.get_numLines(); if (1 < a) for (; 0 < this.story.get_width();) { var b = this.story; b.set_width(b.get_width() - 10); if (this.story.get_numLines() > a) { a = this.story; a.set_width(a.get_width() + 10); break } } a = this.story.get_width(); b = this.story.get_height(); this.story.set_autoSize(2); this.story.set_width(a); this.story.set_height(b); this.story.set_x((this.rWidth - this.story.get_width()) / 2); this.story.set_y(this.title.get_height())
+                    },
+                    createHeader: function () { var a = this; this.title = Re.get(null, G.getFormat(G.fontTitle), k(this, this.layoutTitle), function () { a.dungeon.updateName(a.title.get_text()); a.layout() }); this.addChild(this.title); var b = G.getFormat(G.fontStory); b.align = 0; this.story = Re.get(null, b, null, k(this, this.layout)); this.story.set_multiline(!0); this.story.set_wordWrap(!0); this.addChild(this.story); this.title.set_visible(this.story.set_visible(eb.get("title", !0))) }, reset: function (a, b) {
+                        null == b && (b = !0); if (b) {
+                            this.dungeon = new Mi(a);
+                            this.dungeon.build(); a = this.dungeon.planner.getSecrets(); if (0 < a.length && !eb.get("secrets", !0)) for (b = 0; b < a.length;) { var c = a[b]; ++b; c.hidden = !0 } this.updateDrawable(); this.notePosSeed = v.seed
+                        } this.title.set_text(this.dungeon.story.name); this.story.set_text(this.dungeon.story.hook); this.drawAll(); this.recreateNotes()
+                    }, drawAll: function () {
+                        this.recreateLayers(); this.drawShading(); for (var a = [], b = 0, c = this.drawable; b < c.length;) { var d = c[b]; ++b; a.push(rb.scale(d.getPoly(), 30, 30)) } var f = a, h = []; a = 0; for (b = this.drawable; a <
+                            b.length;)for (d = b[a], ++a, c = 0, d = d.getSeams(); c < d.length;) { var n = d[c]; ++c; h.push(rb.scale(n, 30, 30)) } this.drawShape(f, h); this.drawWater(f); this.drawShadows(f); this.drawGrid(); a = 0; for (b = this.rooms; a < b.length;)for (f = b[a], ++a, c = 0, d = f.props; c < d.length;)f = d[c], ++c, f.draw(this.props.get_graphics()); a = 0; for (b = this.doors; a < b.length;)c = b[a], ++a, vb.draw(this.details.get_graphics(), c); a = 0; for (b = this.rooms; a < b.length;)f = b[a], ++a, ta.drawColonnades(this.details.get_graphics(), this.shadow.get_graphics(), f)
+                    }, newDungeon: function (a) {
+                        this.reset(a);
+                        this.layout()
+                    }, showTagsForm: function () { var a = this; null == T.findForm(ve) && (Kc.getTags = Tags.getPublic, Kc.resTags = Tags.resolve, Kc.getInfo = Tags.getInfo, T.showDialog(new ve(this.dungeon.tags, function (b) { a.newDungeon(Zc.fromTags(b)); return a.dungeon.tags }), "Tags").minimizable = !0) }, toggleRotation: function () { this.toggleFlag("autoRotation"); this.layout() }, toggleZoom: function () { this.toggleFlag("zoom2fit"); this.layout() }, toggleFullScreen: function () { this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2) },
+                    toggleSecrets: function () { var a = this.toggleFlag("secrets"), b = this.dungeon.planner.getSecrets(); if (0 < b.length) { for (var c = 0; c < b.length;) { var d = b[c]; ++c; d.hidden = !a } this.updateDrawable(); this.recreateNotes(); this.drawAll(); this.layout() } }, showPaletteForm: function () {
+                        var a = this; if (null == T.findForm(Ab)) {
+                            var b = new Ab(function (b) { G.fromPalette(b, !0); a.updatePalette() }, "Default default Ancient ancient Light light Modern modern Link link".split(" ")); b.getName = Ab.swatches(null, ["colorInk", "colorPaper"]); G.fillForm(b);
+                            T.showDialog(b, "Style")
+                        }
+                    }, toggleBW: function () { G.bw = this.toggleFlag("bw"); this.drawAll() }, showURL: function () { var a = this; null == T.findForm(ng) && T.showDialog(new ng(this.dungeon, function (b) { ob.fromString(b); a.newDungeon(Zc.fromURL()) })) }, rerollNotes: function () { Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && (this.dungeon.planner.rollNotes(), this.updateNotes()) }, rearrangeNotes: function () { if (Ha.mode == Ga.NORMAL || Ha.mode == Ga.TAILED) this.notePosSeed = v.seed, this.layoutNotes() }, toggleNotes: function () {
+                        switch (Ha.mode._hx_index) {
+                            case 0: var a =
+                                Ga.TAILED; break; case 1: a = Ga.LEGEND; break; case 2: a = Ga.HIDDEN; break; default: a = Ga.NORMAL
+                        }this.setNotesMode(a)
+                    }, toggleLegend: function () { this.setNotesMode(Ha.mode == Ga.LEGEND ? Ga.NORMAL : Ga.LEGEND) }, setNotesMode: function (a) { var b = Ha.mode; Ha.mode = a; this.recreateNotes(); a == Ga.LEGEND || b == Ga.LEGEND ? this.layout() : this.layoutNotes(); a = Ha.mode; eb.set("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name) }, addNote: function (a) {
+                        var b = this; null == T.findForm(Ze) && T.showDialog(new Ze("", function (c) {
+                            "" != c && (a.desc =
+                                c, b.updateNotes())
+                        }), "Add note")
+                    }, editNote: function (a) { var b = this; null == T.findForm(Ze) && T.showDialog(new Ze(a.desc, function (c) { "" == c ? b.deleteNote(a) : (a.desc = c, b.updateNotes()) }), "Note " + a.note.symb) }, deleteNote: function (a) { a.desc = null; this.updateNotes() }, updateNotes: function () { this.recreateNotes(); this.layoutNotes() }, recreateNotes: function () {
+                        for (var a = 0, b = this.notes; a < b.length;) { var c = b[a]; ++a; this.removeChild(c) } this.notes = []; if (Ha.mode != Ga.HIDDEN) for (b = Ha.mode == Ga.NUMBERS ? this.dungeon.getNumbers() :
+                            this.dungeon.getNotes(), a = 0; a < b.length;)c = b[a], ++a, c = new Ha(c), c.setWidth(Ha.mode == Ga.LEGEND ? 280 : 200), this.addChild(c), this.notes.push(c)
+                    }, layoutNotes: function () {
+                        switch (Ha.mode._hx_index) {
+                            case 0: case 1: this.layoutStickerNotes(); break; case 2: for (var a = this.rHeight - 50, b = 0, c = Fa.revert(this.notes); b < c.length;) { var d = c[b]; ++b; var f = d.note.point; f = new I(30 * f.x, 30 * f.y); f = this.globalToLocal(this.map.localToGlobal(f)); a -= d.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); d.place(new I(50, a), f) } break; case 3: case 4: for (b =
+                                0, c = this.notes; b < c.length;)d = c[b], ++b, f = d.note.point, f = new I(30 * f.x, 30 * f.y), f = this.globalToLocal(this.map.localToGlobal(f)), d.place(f)
+                        }
+                    }, layoutStickerNotes: function () {
+                        var a = this, b = this.map.get_rotation() / 180 * Math.PI, c = Math.sin(b), d = Math.cos(b), f = this.dungeon.blocks.concat(this.dungeon.rooms); b = []; for (var h = 0; h < f.length;) { var n = f[h]; ++h; n = n.getBounds(c, d); ch.scale(n, 30 * this.map.get_scaleX()); n.offset(this.map.get_x(), this.map.get_y()); b.push(n) } var A = b; this.title.get_visible() && (A.push(this.title.getRect(this)),
+                            A.push(this.story.getRect(this))); v.reset(this.notePosSeed); b = []; h = 0; for (var p = this.notes; h < p.length;)c = p[h], ++h, null != c.note.manual && b.push(c); h = b; c = Fa.difference(this.notes, h); d = function (b) { b = b.note.point; b = new I(30 * b.x, 30 * b.y); return a.globalToLocal(a.map.localToGlobal(b)) }; f = function (a, b, c) { A.push(new ha(a.x - b / 2 - 10, a.y - c / 2 - 10, b + 20, c + 20)) }; for (b = 0; b < h.length;) {
+                                n = h[b]; ++b; var g = d(n), t = n.note.manual; t = new I(30 * t.x, 30 * t.y); t = this.globalToLocal(this.map.localToGlobal(t)); n.place(t, g); g = n.text.get_width() +
+                                    10 * (Ha.mode == Ga.LEGEND ? 1 : 2); var l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); f(t, g, l)
+                            } for (b = 0; b < c.length;) {
                                             n = c[b]; ++b; var m = d(n); g = n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); var y = this.rWidth - 100 - g, q = this.rHeight - 100 - l, w = Infinity; t = null; var k = new I, z = new ha(0, 0, g, l); for (h = 0; 1E3 > h;) {
                                                 h++; k.x = 50 + g / 2 + y * ((v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647); k.y = 50 + l / 2 + q * ((v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647); z.x = k.x - g / 2; z.y = k.y - l / 2; var H = !1;
                                                 for (p = 0; p < A.length;) { var E = A[p]; ++p; if (z.intersects(E)) { H = !0; break } } H || (p = I.distance(k, m), w > p && (w = p, t = k.clone()))
@@ -1626,6 +1714,8 @@ var $lime_init = function (F, r) {
                             }); var Ze = function (a, b) { var c = this; zb.call(this, ["OK", "Cancel"]); this.onOK = b; b = new Qe; this.area = new t(a); this.area.setSize(280, 140); this.area.enter.add(function (a) { c.onButton("OK") }); b.add(this.area); this.add(b) }; g["com.watabou.dungeon.ui.NoteForm"] =
                                 Ze; Ze.__name__ = "com.watabou.dungeon.ui.NoteForm"; Ze.__super__ = zb; Ze.prototype = u(zb.prototype, { onShow: function () { this.stage.set_focus(this.area) }, onButton: function (a) { if ("OK" == a) this.onOK(this.area.get_text()); zb.prototype.onButton.call(this, a) }, __class__: Ze }); var ng = function (a, b) { var c = this; zb.call(this, ["Copy", "Generate"]); this.onGenerate = b; a = new Qe; this.input = new y(ob.getURL()); this.input.enter.add(function (a) { c.onButton("Generate") }); this.input.set_width(500); a.add(this.input); this.add(a) }; g["com.watabou.dungeon.ui.URLForm"] =
                                     ng; ng.__name__ = "com.watabou.dungeon.ui.URLForm"; ng.__super__ = zb; ng.prototype = u(zb.prototype, { onShow: function () { this.highlight() }, getTitle: function () { return "Permalink" }, onButton: function (a) { switch (a) { case "Copy": Nd.get_generalClipboard().setData(2, this.input.get_text()); this.highlight(); break; case "Generate": this.onGenerate(this.input.get_text()); this.highlight(); break; default: zb.prototype.onButton.call(this, a) } }, highlight: function () { this.stage.set_focus(this.input); this.input.selecteAll() }, __class__: ng });
+
+
             var og = function (a, b) { zb.call(this, ["OK", "Cancel"]); this.prevLevel = a; this.onUpdate = b; b = new Yc; b.setMargins(12, 10); this.slLevel = new Zd(0, 1, 1); this.slLevel.set_value(a); this.slLevel.valign = "fill"; this.slLevel.change.add(k(this, this.onChanged)); b.add(this.slLevel); this.tiLevel = new y("0.1", !0); this.tiLevel.set_centered(!0); this.tiLevel.set_readOnly(!0); b.add(this.tiLevel); this.tiLevel.set_text(null == a ? "null" : "" + a); this.add(b) }; g["com.watabou.dungeon.ui.WaterLevelForm"] = og; og.__name__ = "com.watabou.dungeon.ui.WaterLevelForm";
             og.__super__ = zb; og.prototype = u(zb.prototype, { getTitle: function () { return "Water level" }, onChanged: function (a) { this.tiLevel.set_text(null == a ? "null" : "" + a); this.onUpdate(a) }, onButton: function (a) { if ("Cancel" == a) this.onUpdate(this.prevLevel); zb.prototype.onButton.call(this, a) }, __class__: og }); var Qi = function () { this.nodes = [] }; g["com.watabou.dungeon.utils.Graph"] = Qi; Qi.__name__ = "com.watabou.dungeon.utils.Graph"; Qi.prototype = {
                 add: function (a) { a = new Si(a); this.nodes.push(a); return a }, getNode: function (a) {
@@ -6784,7 +6874,7 @@ var $lime_init = function (F, r) {
                     }(this); G.ink = 2236450; G.shading = 13422286; G.water = 13422286; G.bg = 16316660; G.paper = 16316660; G.thick = 3; G.normal = 1.5; G.stroke = 1; G.thin = .5; G.shadowColor = 13421772; G.shadowDist = .2; G.fontTitle = { embedded: "title_font", size: 48, bold: !1, italic: !1 }; G.fontStory = { embedded: "regular_font", size: 24, bold: !1, italic: !0 }; G.fontNotes = { embedded: "regular_font", size: 20, bold: !1, italic: !1 }; G.fontLegend = {
                         embedded: "regular_font", size: 24, bold: !1,
                         italic: !1
-                    }; G.fontSymbols = { embedded: "regular_font", size: 30, bold: !0, italic: !1 }; G.bw = !1; xa.UP = new xa(0, -1); xa.DOWN = new xa(0, 1); xa.LEFT = new xa(-1, 0); xa.RIGHT = new xa(1, 0); Mc.REGULAR = [1, 2, 0]; Ta.columnRadius = .16666666666666666; Ta.columnSquare = !1; Ta.columnShattered = .0125; Ta.rotundaChance = 1; Ta.colonnadeChance = 1; Ta.waterLevel = .3; Ta.fountainChance = .1; Ta.wellChance = .02; Ta.tapestryChance = .5; Ta.crackChance = .1; Ta.stepsChance = .5; Ta.impassable = 4; Lc.scale = 3; I.__pool = new mb(function () { return new I }, function (a) {
+                    }; G.fontSymbols = { embedded: "regular_font", size: 30, bold: !0, italic: !1 }; G.bw = !1; xa.UP = new xa(0, -1); xa.DOWN = new xa(0, 1); xa.LEFT = new xa(-1, 0); xa.RIGHT = new xa(1, 0); Mc.REGULAR = [1, 2, 0]; Ta.columnRadius = .16666666666666666; Ta.columnSquare = !1; Ta.columnShattered = .0125; Ta.rotundaChance = 1; Ta.colonnadeChance = 1; Ta.waterLevel = .3; Ta.fountainChance = .1; Ta.wellChance = .02; Ta.tapestryChance = .5; Ta.crackChance = .1; Ta.stepsChance = .5; Ta.impassable = 4; VoxelData.scale = 3; I.__pool = new mb(function () { return new I }, function (a) {
                         a.setTo(0,
                             0)
                     }); vb.front = [new I(15, -15), new I(15, 15)]; Ha.mode = Ga.NORMAL; ta.grid = dc.BROKEN; ta.gridScale = 1; Ra.mode = "Default"; Ra.nStrokes = 3; Ra.clusterSize = 10; Ra.distance = 15; We.inst = new We; yf.inst = new yf; we.inst = [new we, new we, new we]; xf.inst = new xf; wf.inst = new wf; Ve.inst = new Ve; uf.inst = new uf; Xe.inst = new Xe; vf.inst = new vf; xe.inst = new xe; ce.instances = new Ub; Ye.inst = new Ye; Ue.inst = new Ue; Aa._p0 = new I(-819.2, 0); Aa._p1 = new I(819.2, 0); Tb.lx = 0; Tb.ly = 0; Qa.JOINTS = function (a) {
@@ -7420,7 +7510,7 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
         } function L(g) { return 0 <= g ? [g, 0] : [g + Zb, -Zb] } function V(g) { return 2147483648 <= g[0] ? ~~Math.max(Math.min(g[0] - Zb, 2147483647), -2147483648) : ~~Math.max(Math.min(g[0], 2147483647), -2147483648) } function u(g) {
             return 30 >=
                 g ? 1 << g : u(30) * u(g - 30)
-        } function W(g, k) { var t, m, y, q; if (k &= 63, g[0] == Ic[0] && g[1] == Ic[1]) return k ? Jb : g; if (0 > g[1]) throw Error("Neg"); return q = u(k), m = g[1] * q % 1.8446744073709552E19, y = g[0] * q, t = y - y % Zb, m += t, y -= t, 0x7fffffffffffffff <= m && (m -= 1.8446744073709552E19), [y, m] } function k(g, k) { var t; return k &= 63, t = u(k), K(Math.floor(g[0] / t), g[1] / t) } function g(g, k) { return g.Mc = k, g.Lc = 0, g.Yb = k.length, g } function q(g) { return g.Lc >= g.Yb ? -1 : 255 & g.Mc[g.Lc++] } function D(g) { return g.Mc = F(32), g.Yb = 0, g } function J(g) {
+        } function W(g, k) { var t, m, y, q; if (k &= 63, g[0] == Ic[0] && g[1] == Ic[1]) return k ? Jb : g; if (0 > g[1]) throw Error("Neg"); return q = u(k), m = g[1] * q % 1.8446744073709552E19, y = g[0] * q, t = y - y % Zb, m += t, y -= t, 0x7fffffffffffffff <= m && (m -= 1.8446744073709552E19), [y, m] } function k(g, k) { var t; return k &= 63, t = u(k), K(Math.floor(g[0] / t), g[1] / t) } function g(g, k) { return g.Mc = k, g.VoxelData = 0, g.Yb = k.length, g } function q(g) { return g.VoxelData >= g.Yb ? -1 : 255 & g.Mc[g.Lc++] } function D(g) { return g.Mc = F(32), g.Yb = 0, g } function J(g) {
             var k = g.Mc; return k.length =
                 g.Yb, k
         } function pa(g, k, m, q, r) { for (var t = 0; r > t; ++t)m[q + t] = g[k + t] } function ca(t, m, q) {
@@ -7442,7 +7532,7 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
         } function Bb(g, k) { return g.c[g.f + g.o + k] } function gc(g, k, m, q) {
             g.T && g.o + k + q > g.h && (q = g.h - (g.o + k)); ++m; var t = g.f + g.o + k; for (k = 0; q > k && g.c[t +
                 k] == g.c[t + k - m]; ++k); return k
-        } function ab(g) { return g.h - g.o } function ea(g) { var k, t, m; if (!g.T) for (; m = -g.f + g.Kb - g.h, m;) { var q = g.cc, r = m; if (k = q.Lc >= q.Yb ? -1 : (r = Math.min(r, q.Yb - q.Lc), pa(q.Mc, q.Lc, g.c, g.f + g.h, r), q.Lc += r, r), -1 == k) return g.zb = g.h, t = g.f + g.zb, t > g.H && (g.zb = g.H - g.f), void (g.T = 1); g.h += k; g.h >= g.o + g._b && (g.zb = g.h - g._b) } } function fb(g, k) { g.f += k; g.zb -= k; g.o -= k; g.h -= k } function ma(g) {
+        } function ab(g) { return g.h - g.o } function ea(g) { var k, t, m; if (!g.T) for (; m = -g.f + g.Kb - g.h, m;) { var q = g.cc, r = m; if (k = q.VoxelData >= q.Yb ? -1 : (r = Math.min(r, q.Yb - q.Lc), pa(q.Mc, q.Lc, g.c, g.f + g.h, r), q.VoxelData += r, r), -1 == k) return g.zb = g.h, t = g.f + g.zb, t > g.H && (g.zb = g.H - g.f), void (g.T = 1); g.h += k; g.h >= g.o + g._b && (g.zb = g.h - g._b) } } function fb(g, k) { g.f += k; g.zb -= k; g.o -= k; g.h -= k } function ma(g) {
             var k; ++g.k >= g.p && (g.k = 0); ++g.o; if (g.o > g.zb) {
                 var m = g.f + g.o; if (m > g.H) {
                     var t = g.f + g.o - g.Bc; 0 < t && --t; var q = g.f + g.h - t; for (m =

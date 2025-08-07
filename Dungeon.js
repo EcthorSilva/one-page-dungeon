@@ -26,63 +26,343 @@ $jscomp.polyfill("Array.prototype.includes", function (F) { return F ? F : funct
 var $lime_init = function (F, r) {
     var x = function (r, x) {
         (function (r, x) {
-            function u(a, b) { a = Object.create(a); for (var c in b) a[c] = b[c]; b.toString !== Object.prototype.toString && (a.toString = b.toString); return a } function K(a) { return a instanceof Array ? new Je(a) : a.iterator() } function k(a, b) { if (null == b) return null; null == b.__id__ && (b.__id__ = x.$haxeUID++); var c; null == a.hx__closures__ ? a.hx__closures__ = {} : c = a.hx__closures__[b.__id__]; null == c && (c = b.bind(a), a.hx__closures__[b.__id__] = c); return c } r.lime = r.lime || {}; var g =
-                {}, q = function () { return Ja.__string_rec(this, "") }, D = D || {}, J, pa = function () { }; g["lime.app.IModule"] = pa; pa.__name__ = "lime.app.IModule"; pa.__isInterface__ = !0; pa.prototype = { __class__: pa }; var ca = function () { this.onExit = new Ke }; g["lime.app.Module"] = ca; ca.__name__ = "lime.app.Module"; ca.__interfaces__ = [pa]; ca.prototype = { __registerLimeModule: function (a) { }, __unregisterLimeModule: function (a) { }, __class__: ca }; var B = function (a) {
-                    this.gameDeviceCache = new Ub; this.parent = a; this.nextUpdate = this.lastUpdate = this.currentUpdate =
-                        0; this.framePeriod = -1; Ud.init(); this.accelerometer = Vd.registerSensor(ek.ACCELEROMETER, 0)
-                }; g["lime._internal.backend.html5.HTML5Application"] = B; B.__name__ = "lime._internal.backend.html5.HTML5Application"; B.prototype = {
-                    convertKeyCode: function (a) {
-                        if (65 <= a && 90 >= a) return a + 32; switch (a) {
-                            case 12: return 1073741980; case 16: return 1073742049; case 17: return 1073742048; case 18: return 1073742050; case 19: return 1073741896; case 20: return 1073741881; case 33: return 1073741899; case 34: return 1073741902; case 35: return 1073741901;
-                            case 36: return 1073741898; case 37: return 1073741904; case 38: return 1073741906; case 39: return 1073741903; case 40: return 1073741905; case 41: return 1073741943; case 43: return 1073741940; case 44: return 1073741894; case 45: return 1073741897; case 46: return 127; case 91: return 1073742051; case 92: return 1073742055; case 93: return 1073742055; case 95: return 1073742106; case 96: return 1073741922; case 97: return 1073741913; case 98: return 1073741914; case 99: return 1073741915; case 100: return 1073741916; case 101: return 1073741917;
-                            case 102: return 1073741918; case 103: return 1073741919; case 104: return 1073741920; case 105: return 1073741921; case 106: return 1073741909; case 107: return 1073741911; case 108: return 1073741923; case 109: return 1073741910; case 110: return 1073741923; case 111: return 1073741908; case 112: return 1073741882; case 113: return 1073741883; case 114: return 1073741884; case 115: return 1073741885; case 116: return 1073741886; case 117: return 1073741887; case 118: return 1073741888; case 119: return 1073741889; case 120: return 1073741890;
-                            case 121: return 1073741891; case 122: return 1073741892; case 123: return 1073741893; case 124: return 1073741928; case 125: return 1073741929; case 126: return 1073741930; case 127: return 1073741931; case 128: return 1073741932; case 129: return 1073741933; case 130: return 1073741934; case 131: return 1073741935; case 132: return 1073741936; case 133: return 1073741937; case 134: return 1073741938; case 135: return 1073741939; case 144: return 1073741907; case 145: return 1073741895; case 160: return 94; case 161: return 33; case 163: return 35;
-                            case 164: return 36; case 166: return 1073742094; case 167: return 1073742095; case 168: return 1073742097; case 169: return 41; case 170: return 42; case 171: return 96; case 172: return 1073741898; case 173: return 45; case 174: return 1073741953; case 175: return 1073741952; case 176: return 1073742082; case 177: return 1073742083; case 178: return 1073742084; case 179: return 1073742085; case 180: return 1073742089; case 181: return 1073742086; case 182: return 1073741953; case 183: return 1073741952; case 186: return 59; case 187: return 61;
-                            case 188: return 44; case 189: return 45; case 190: return 46; case 191: return 47; case 192: return 96; case 193: return 63; case 194: return 1073741923; case 219: return 91; case 220: return 92; case 221: return 93; case 222: return 39; case 223: return 96; case 224: return 1073742051; case 226: return 92
-                        }return a
-                    }, exec: function () {
-                        window.addEventListener("keydown", k(this, this.handleKeyEvent), !1); window.addEventListener("keyup", k(this, this.handleKeyEvent), !1); window.addEventListener("focus", k(this, this.handleWindowEvent),
-                            !1); window.addEventListener("blur", k(this, this.handleWindowEvent), !1); window.addEventListener("resize", k(this, this.handleWindowEvent), !1); window.addEventListener("beforeunload", k(this, this.handleWindowEvent), !1); Object.prototype.hasOwnProperty.call(window, "Accelerometer") && window.addEventListener("devicemotion", k(this, this.handleSensorEvent), !1); CanvasRenderingContext2D.prototype.isPointInStroke || (CanvasRenderingContext2D.prototype.isPointInStroke = function (a, b, c) { return !1 }); CanvasRenderingContext2D.prototype.isPointInPath ||
-                                (CanvasRenderingContext2D.prototype.isPointInPath = function (a, b, c) { return !1 }); 0 == "performance" in window && (window.performance = {}); if (0 == "now" in window.performance) { var a = Date.now(); performance.timing && performance.timing.navigationStart && (a = performance.timing.navigationStart); window.performance.now = function () { return Date.now() - a } } for (var b = 0, c = ["ms", "moz", "webkit", "o"], d = 0; d < c.length && !window.requestAnimationFrame; ++d)window.requestAnimationFrame = window[c[d] + "RequestAnimationFrame"], window.cancelAnimationFrame =
-                                    window[c[d] + "CancelAnimationFrame"] || window[c[d] + "CancelRequestAnimationFrame"]; window.requestAnimationFrame || (window.requestAnimationFrame = function (a, c) { var d = window.performance.now(), f = Math.max(0, 16 - (d - b)); c = window.setTimeout(function () { a(d + f) }, f); b = d + f; return c }); window.cancelAnimationFrame || (window.cancelAnimationFrame = function (a) { clearTimeout(a) }); window.requestAnimFrame = window.requestAnimationFrame; this.lastUpdate = window.performance.now(); this.handleApplicationEvent(); return 0
-                    }, exit: function () { },
-                    handleApplicationEvent: function (a) {
-                        a = 0; for (var b = this.parent.__windows; a < b.length;) { var c = b[a]; ++a; c.__backend.updateSize() } this.updateGameDevices(); this.currentUpdate = window.performance.now(); if (this.currentUpdate >= this.nextUpdate) {
-                            this.deltaTime = this.currentUpdate - this.lastUpdate; a = 0; for (b = this.parent.__windows; a < b.length;)c = b[a], ++a, this.parent.onUpdate.dispatch(this.deltaTime | 0), null != c.context && c.onRender.dispatch(c.context); this.nextUpdate = 0 > this.framePeriod ? this.currentUpdate : this.currentUpdate -
-                                this.currentUpdate % this.framePeriod + this.framePeriod; this.lastUpdate = this.currentUpdate
-                        } window.requestAnimationFrame(k(this, this.handleApplicationEvent))
-                    }, handleKeyEvent: function (a) {
-                        if (null != this.parent.__window) {
-                            var b = this.convertKeyCode(null != a.keyCode ? a.keyCode : a.which), c = (a.shiftKey ? 3 : 0) | (a.ctrlKey ? 192 : 0) | (a.altKey ? 768 : 0) | (a.metaKey ? 3072 : 0); "keydown" == a.type ? (this.parent.__window.onKeyDown.dispatch(b, c), this.parent.__window.onKeyDown.canceled && a.cancelable && a.preventDefault()) : (this.parent.__window.onKeyUp.dispatch(b,
-                                c), this.parent.__window.onKeyUp.canceled && a.cancelable && a.preventDefault())
+            /**
+             * Função utilitária do Haxe para herança de protótipos.
+             * Cria um novo objeto com o protótipo de 'a' e copia as propriedades de 'b' para ele.
+             */
+            function u(a, b) {
+                a = Object.create(a);
+                for (var c in b) {
+                    a[c] = b[c];
+                }
+                if (b.toString !== Object.prototype.toString) {
+                    a.toString = b.toString;
+                }
+                return a;
+            }
+
+            /**
+             * Função utilitária do Haxe para obter um iterador de um objeto.
+             */
+            function K(a) {
+                return a instanceof Array ? new Je(a) : a.iterator();
+            }
+
+            /**
+             * Função utilitária do Haxe para "ligar" (bind) uma função a um escopo, com cache.
+             */
+            function k(a, b) {
+                if (null == b) return null;
+                if (null == b.__id__) {
+                    b.__id__ = x.$haxeUID++;
+                }
+                var c;
+                if (null == a.hx__closures__) {
+                    a.hx__closures__ = {};
+                } else {
+                    c = a.hx__closures__[b.__id__];
+                }
+                if (null == c) {
+                    c = b.bind(a);
+                    a.hx__closures__[b.__id__] = c;
+                }
+                return c;
+            }
+
+            r.lime = r.lime || {};
+            var g = {},
+                q = function() {
+                    return Ja.__string_rec(this, "");
+                },
+                D = D || {},
+                J,
+                pa = function() {};
+            g["lime.app.IModule"] = pa;
+            pa.__name__ = "lime.app.IModule";
+            pa.__isInterface__ = !0;
+            pa.prototype = {
+                __class__: pa,
+            };
+            var ca = function() {
+                this.onExit = new Ke();
+            };
+            g["lime.app.Module"] = ca;
+            ca.__name__ = "lime.app.Module";
+            ca.__interfaces__ = [pa];
+            ca.prototype = {
+                __registerLimeModule: function(a) {},
+                __unregisterLimeModule: function(a) {},
+                __class__: ca,
+            };
+            var B = function(a) {
+                this.gameDeviceCache = new Ub();
+                this.parent = a;
+                this.nextUpdate = this.lastUpdate = this.currentUpdate = 0;
+                this.framePeriod = -1;
+                Ud.init();
+                this.accelerometer = Vd.registerSensor(ek.ACCELEROMETER, 0);
+            };
+            g["lime._internal.backend.html5.HTML5Application"] = B;
+            B.__name__ = "lime._internal.backend.html5.HTML5Application";
+            B.prototype = {
+                convertKeyCode: function(a) {
+                    if (65 <= a && 90 >= a) return a + 32;
+                    switch (a) {
+                        case 12: return 1073741980; case 16: return 1073742049; case 17: return 1073742048; case 18: return 1073742050; case 19: return 1073741896; case 20: return 1073741881; case 33: return 1073741899; case 34: return 1073741902; case 35: return 1073741901;
+                        case 36: return 1073741898; case 37: return 1073741904; case 38: return 1073741906; case 39: return 1073741903; case 40: return 1073741905; case 41: return 1073741943; case 43: return 1073741940; case 44: return 1073741894; case 45: return 1073741897; case 46: return 127; case 91: return 1073742051; case 92: return 1073742055; case 93: return 1073742055; case 95: return 1073742106; case 96: return 1073741922; case 97: return 1073741913; case 98: return 1073741914; case 99: return 1073741915; case 100: return 1073741916; case 101: return 1073741917;
+                        case 102: return 1073741918; case 103: return 1073741919; case 104: return 1073741920; case 105: return 1073741921; case 106: return 1073741909; case 107: return 1073741911; case 108: return 1073741923; case 109: return 1073741910; case 110: return 1073741923; case 111: return 1073741908; case 112: return 1073741882; case 113: return 1073741883; case 114: return 1073741884; case 115: return 1073741885; case 116: return 1073741886; case 117: return 1073741887; case 118: return 1073741888; case 119: return 1073741889; case 120: return 1073741890;
+                        case 121: return 1073741891; case 122: return 1073741892; case 123: return 1073741893; case 124: return 1073741928; case 125: return 1073741929; case 126: return 1073741930; case 127: return 1073741931; case 128: return 1073741932; case 129: return 1073741933; case 130: return 1073741934; case 131: return 1073741935; case 132: return 1073741936; case 133: return 1073741937; case 134: return 1073741938; case 135: return 1073741939; case 144: return 1073741907; case 145: return 1073741895; case 160: return 94; case 161: return 33; case 163: return 35;
+                        case 164: return 36; case 166: return 1073742094; case 167: return 1073742095; case 168: return 1073742097; case 169: return 41; case 170: return 42; case 171: return 96; case 172: return 1073741898; case 173: return 45; case 174: return 1073741953; case 175: return 1073741952; case 176: return 1073742082; case 177: return 1073742083; case 178: return 1073742084; case 179: return 1073742085; case 180: return 1073742089; case 181: return 1073742086; case 182: return 1073741953; case 183: return 1073741952; case 186: return 59; case 187: return 61;
+                        case 188: return 44; case 189: return 45; case 190: return 46; case 191: return 47; case 192: return 96; case 193: return 63; case 194: return 1073741923; case 219: return 91; case 220: return 92; case 221: return 93; case 222: return 39; case 223: return 96; case 224: return 1073742051; case 226: return 92
+                    }
+                    return a;
+                },
+                exec: function() {
+                    window.addEventListener("keydown", k(this, this.handleKeyEvent), false);
+                    window.addEventListener("keyup", k(this, this.handleKeyEvent), false);
+                    window.addEventListener("focus", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("blur", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("resize", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("beforeunload", k(this, this.handleWindowEvent), false);
+                    if (Object.prototype.hasOwnProperty.call(window, "Accelerometer")) {
+                        window.addEventListener("devicemotion", k(this, this.handleSensorEvent), false);
+                    }
+                    if (!CanvasRenderingContext2D.prototype.isPointInStroke) {
+                        CanvasRenderingContext2D.prototype.isPointInStroke = function(a, b, c) {
+                            return false;
+                        };
+                    }
+                    if (!CanvasRenderingContext2D.prototype.isPointInPath) {
+                        CanvasRenderingContext2D.prototype.isPointInPath = function(a, b, c) {
+                            return false;
+                        };
+                    }
+                    if (("performance" in window) == 0) {
+                        window.performance = {};
+                    }
+                    if (("now" in window.performance) == 0) {
+                        var a = Date.now();
+                        if (performance.timing && performance.timing.navigationStart) {
+                            a = performance.timing.navigationStart;
                         }
-                    }, handleSensorEvent: function (a) { this.accelerometer.onUpdate.dispatch(a.accelerationIncludingGravity.x, a.accelerationIncludingGravity.y, a.accelerationIncludingGravity.z) }, handleWindowEvent: function (a) {
-                        if (null != this.parent.__window) switch (a.type) {
-                            case "blur": this.hidden || (this.parent.__window.onFocusOut.dispatch(), this.parent.__window.onDeactivate.dispatch(), this.hidden = !0); break; case "focus": this.hidden && (this.parent.__window.onFocusIn.dispatch(),
-                                this.parent.__window.onActivate.dispatch(), this.hidden = !1); break; case "resize": this.parent.__window.__backend.handleResizeEvent(a); break; case "visibilitychange": window.document.hidden ? this.hidden || (this.parent.__window.onFocusOut.dispatch(), this.parent.__window.onDeactivate.dispatch(), this.hidden = !0) : this.hidden && (this.parent.__window.onFocusIn.dispatch(), this.parent.__window.onActivate.dispatch(), this.hidden = !1)
-                        }
-                    }, updateGameDevices: function () {
-                        var a = ac.__getDeviceData(); if (null != a) for (var b, c, d, f,
-                            h, n = 0, A = a.length; n < A;)if (b = n++, f = a[b], null != f) {
-                                if (!this.gameDeviceCache.h.hasOwnProperty(b)) { h = new Di; h.id = b; h.connected = f.connected; c = 0; for (d = f.buttons.length; c < d;) { var p = c++; h.buttons.push(f.buttons[p].value) } c = 0; for (d = f.axes.length; c < d;)p = c++, h.axes.push(f.axes[p]); "standard" == f.mapping && (h.isGamepad = !0); this.gameDeviceCache.h[b] = h; f.connected && (ac.__connect(b), h.isGamepad && cc.__connect(b)) } h = this.gameDeviceCache.h[b]; d = ac.devices.h[b]; c = cc.devices.h[b]; if (f.connected) {
-                                    for (var g = 0, t = f.buttons.length; g <
-                                        t;) {
-                                            var l = g++; p = f.buttons[l].value; if (p != h.buttons[l]) {
-                                                if (6 == l) d.onAxisMove.dispatch(f.axes.length, p), null != c && c.onAxisMove.dispatch(4, p); else if (7 == l) d.onAxisMove.dispatch(f.axes.length + 1, p), null != c && c.onAxisMove.dispatch(5, p); else if (0 < p ? d.onButtonDown.dispatch(l) : d.onButtonUp.dispatch(l), null != c) {
-                                                    switch (l) {
-                                                        case 0: b = 0; break; case 1: b = 1; break; case 2: b = 2; break; case 3: b = 3; break; case 4: b = 9; break; case 5: b = 10; break; case 8: b = 4; break; case 9: b = 6; break; case 10: b = 7; break; case 11: b = 8; break; case 12: b = 11; break;
-                                                        case 13: b = 12; break; case 14: b = 13; break; case 15: b = 14; break; case 16: b = 5; break; default: continue
-                                                    }0 < p ? c.onButtonDown.dispatch(b) : c.onButtonUp.dispatch(b)
-                                                } h.buttons[l] = p
-                                            }
-                                    } b = 0; for (p = f.axes.length; b < p;)g = b++, f.axes[g] != h.axes[g] && (d.onAxisMove.dispatch(g, f.axes[g]), null != c && c.onAxisMove.dispatch(g, f.axes[g]), h.axes[g] = f.axes[g])
-                                } else h.connected && (h.connected = !1, ac.__disconnect(b), cc.__disconnect(b))
+                        window.performance.now = function() {
+                            return Date.now() - a;
+                        };
+                    }
+                    for (var b = 0, c = ["ms", "moz", "webkit", "o"], d = 0; d < c.length && !window.requestAnimationFrame; ++d) {
+                        window.requestAnimationFrame = window[c[d] + "RequestAnimationFrame"];
+                        window.cancelAnimationFrame = window[c[d] + "CancelAnimationFrame"] || window[c[d] + "CancelRequestAnimationFrame"];
+                    }
+                    if (!window.requestAnimationFrame) {
+                        window.requestAnimationFrame = function(a, c) {
+                            var d = window.performance.now();
+                            var f = Math.max(0, 16 - (d - b));
+                            c = window.setTimeout(function() {
+                                a(d + f);
+                            }, f);
+                            b = d + f;
+                            return c;
+                        };
+                    }
+                    if (!window.cancelAnimationFrame) {
+                        window.cancelAnimationFrame = function(a) {
+                            clearTimeout(a);
+                        };
+                    }
+                    window.requestAnimFrame = window.requestAnimationFrame;
+                    this.lastUpdate = window.performance.now();
+                    this.handleApplicationEvent();
+                    return 0;
+                },
+                exit: function() {},
+                handleApplicationEvent: function(a) {
+                    a = 0;
+                    for (var b = this.parent.__windows; a < b.length;) {
+                        var c = b[a];
+                        ++a;
+                        c.__backend.updateSize();
+                    }
+                    this.updateGameDevices();
+                    this.currentUpdate = window.performance.now();
+                    if (this.currentUpdate >= this.nextUpdate) {
+                        this.deltaTime = this.currentUpdate - this.lastUpdate;
+                        a = 0;
+                        for (b = this.parent.__windows; a < b.length;) {
+                            c = b[a];
+                            ++a;
+                            this.parent.onUpdate.dispatch(this.deltaTime | 0);
+                            if (null != c.context) {
+                                c.onRender.dispatch(c.context);
                             }
-                    }, __class__: B
-                }; var F = function () {
+                        }
+                        this.nextUpdate =
+                            0 > this.framePeriod ?
+                            this.currentUpdate :
+                            this.currentUpdate - (this.currentUpdate % this.framePeriod) + this.framePeriod;
+                        this.lastUpdate = this.currentUpdate;
+                    }
+                    window.requestAnimationFrame(k(this, this.handleApplicationEvent));
+                },
+                handleKeyEvent: function(a) {
+                    if (null != this.parent.__window) {
+                        var b = this.convertKeyCode(null != a.keyCode ? a.keyCode : a.which);
+                        var c = (a.shiftKey ? 3 : 0) | (a.ctrlKey ? 192 : 0) | (a.altKey ? 768 : 0) | (a.metaKey ? 3072 : 0);
+                        if ("keydown" == a.type) {
+                            this.parent.__window.onKeyDown.dispatch(b, c);
+                            if (this.parent.__window.onKeyDown.canceled && a.cancelable) {
+                                a.preventDefault();
+                            }
+                        } else {
+                            this.parent.__window.onKeyUp.dispatch(b, c);
+                            if (this.parent.__window.onKeyUp.canceled && a.cancelable) {
+                                a.preventDefault();
+                            }
+                        }
+                    }
+                },
+                handleSensorEvent: function(a) {
+                    this.accelerometer.onUpdate.dispatch(a.accelerationIncludingGravity.x, a.accelerationIncludingGravity.y, a.accelerationIncludingGravity.z);
+                },
+                handleWindowEvent: function(a) {
+                    if (null != this.parent.__window) {
+                        switch (a.type) {
+                            case "blur":
+                                if (!this.hidden) {
+                                    this.parent.__window.onFocusOut.dispatch();
+                                    this.parent.__window.onDeactivate.dispatch();
+                                    this.hidden = true;
+                                }
+                                break;
+                            case "focus":
+                                if (this.hidden) {
+                                    this.parent.__window.onFocusIn.dispatch();
+                                    this.parent.__window.onActivate.dispatch();
+                                    this.hidden = false;
+                                }
+                                break;
+                            case "resize":
+                                this.parent.__window.__backend.handleResizeEvent(a);
+                                break;
+                            case "visibilitychange":
+                                if (window.document.hidden) {
+                                    if (!this.hidden) {
+                                        this.parent.__window.onFocusOut.dispatch();
+                                        this.parent.__window.onDeactivate.dispatch();
+                                        this.hidden = true;
+                                    }
+                                } else if (this.hidden) {
+                                    this.parent.__window.onFocusIn.dispatch();
+                                    this.parent.__window.onActivate.dispatch();
+                                    this.hidden = false;
+                                }
+                        }
+                    }
+                },
+                updateGameDevices: function() {
+                    var a = ac.__getDeviceData();
+                    if (null != a) {
+                        for (var b, c, d, f, h, n = 0, A = a.length; n < A;) {
+                            b = n++;
+                            f = a[b];
+                            if (null != f) {
+                                if (!this.gameDeviceCache.h.hasOwnProperty(b)) {
+                                    h = new Di();
+                                    h.id = b;
+                                    h.connected = f.connected;
+                                    c = 0;
+                                    for (d = f.buttons.length; c < d;) {
+                                        var p = c++;
+                                        h.buttons.push(f.buttons[p].value);
+                                    }
+                                    c = 0;
+                                    for (d = f.axes.length; c < d;) {
+                                        p = c++;
+                                        h.axes.push(f.axes[p]);
+                                    }
+                                    if ("standard" == f.mapping) {
+                                        h.isGamepad = true;
+                                    }
+                                    this.gameDeviceCache.h[b] = h;
+                                    if (f.connected) {
+                                        ac.__connect(b);
+                                        if (h.isGamepad) {
+                                            cc.__connect(b);
+                                        }
+                                    }
+                                }
+                                h = this.gameDeviceCache.h[b];
+                                d = ac.devices.h[b];
+                                c = cc.devices.h[b];
+                                if (f.connected) {
+                                    for (var g = 0, t = f.buttons.length; g < t;) {
+                                        var l = g++;
+                                        p = f.buttons[l].value;
+                                        if (p != h.buttons[l]) {
+                                            if (6 == l) {
+                                                d.onAxisMove.dispatch(f.axes.length, p);
+                                                if (null != c) {
+                                                    c.onAxisMove.dispatch(4, p);
+                                                }
+                                            } else if (7 == l) {
+                                                d.onAxisMove.dispatch(f.axes.length + 1, p);
+                                                if (null != c) {
+                                                    c.onAxisMove.dispatch(5, p);
+                                                }
+                                            } else if (0 < p ? d.onButtonDown.dispatch(l) : d.onButtonUp.dispatch(l), null != c) {
+                                                switch (l) {
+                                                    case 0: b = 0; break;
+                                                    case 1: b = 1; break;
+                                                    case 2: b = 2; break;
+                                                    case 3: b = 3; break;
+                                                    case 4: b = 9; break;
+                                                    case 5: b = 10; break;
+                                                    case 8: b = 4; break;
+                                                    case 9: b = 6; break;
+                                                    case 10: b = 7; break;
+                                                    case 11: b = 8; break;
+                                                    case 12: b = 11; break;
+                                                    case 13: b = 12; break;
+                                                    case 14: b = 13; break;
+                                                    case 15: b = 14; break;
+                                                    case 16: b = 5; break;
+                                                    default: continue;
+                                                }
+                                                0 < p ? c.onButtonDown.dispatch(b) : c.onButtonUp.dispatch(b);
+                                            }
+                                            h.buttons[l] = p;
+                                        }
+                                    }
+                                    b = 0;
+                                    for (p = f.axes.length; b < p;) {
+                                        g = b++;
+                                        if (f.axes[g] != h.axes[g]) {
+                                            d.onAxisMove.dispatch(g, f.axes[g]);
+                                            if (null != c) {
+                                                c.onAxisMove.dispatch(g, f.axes[g]);
+                                            }
+                                            h.axes[g] = f.axes[g];
+                                        }
+                                    }
+                                } else if (h.connected) {
+                                    h.connected = false;
+                                    ac.__disconnect(b);
+                                    cc.__disconnect(b);
+                                }
+                            }
+                        }
+                    }
+                },
+                __class__: B,
+            };
+                
+                
+                
+                var F = function () {
                     this.onCreateWindow = new Ei; this.onUpdate = new Ke; this.onExit = new Ke; null == F.current &&
                         (F.current = this); this.meta = new Ma; this.modules = []; this.__windowByID = new Ub; this.__windows = []; this.__backend = new B(this); this.__registerLimeModule(this); this.__preloader = new Fi; this.__preloader.onProgress.add(k(this, this.onPreloadProgress)); this.__preloader.onComplete.add(k(this, this.onPreloadComplete))
-                }; g["lime.app.Application"] = F; F.__name__ = "lime.app.Application"; F.__super__ = ca; F.prototype = u(ca.prototype, {
+                }; 
+                
+                g["lime.app.Application"] = F; F.__name__ = "lime.app.Application"; F.__super__ = ca; F.prototype = u(ca.prototype, {
                     addModule: function (a) { a.__registerLimeModule(this); this.modules.push(a) }, exec: function () {
                         F.current =
                         this; return this.__backend.exec()
@@ -250,36 +530,122 @@ var $lime_init = function (F, r) {
                     }
                 };
                 
-                var L = function () { }; g["openfl.events.IEventDispatcher"] = L; L.__name__ = "openfl.events.IEventDispatcher"; L.__isInterface__ = !0; var ea = function (a) { null != a && (this.__targetDispatcher = a) }; 
+                var L = function () {};
+                g["openfl.events.IEventDispatcher"] = L;
+                L.__name__ = "openfl.events.IEventDispatcher";
+                L.__isInterface__ = !0;
+                var ea = function (a) {
+                    null != a && (this.__targetDispatcher = a);
+                };
                 
-                
-                g["openfl.events.EventDispatcher"] = ea; ea.__name__ = "openfl.events.EventDispatcher"; ea.__interfaces__ = [L]; ea.prototype = {
+                g["openfl.events.EventDispatcher"] = ea;
+                ea.__name__ = "openfl.events.EventDispatcher";
+                ea.__interfaces__ = [L];
+                ea.prototype = {
                     addEventListener: function (a, b, c, d, f) {
-                        null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); if (null != b) if (null == this.__eventMap && (this.__eventMap = new Ma, this.__iterators = new Ma), Object.prototype.hasOwnProperty.call(this.__eventMap.h,
-                            a)) { p = this.__eventMap.h[a]; for (var h = 0, n = p.length; h < n;) { var A = h++; if (p[A].match(b, c)) return } a = this.__iterators.h[a]; for (h = 0; h < a.length;)n = a[h], ++h, n.active && n.copy(); this.__addListenerByPriority(p, new Me(b, c, d, f)) } else { var p = []; p.push(new Me(b, c, d, f)); n = new dg(p); this.__eventMap.h[a] = p; this.__iterators.h[a] = [n] }
-                    }, dispatchEvent: function (a) { a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this; return this.__dispatchEvent(a) }, hasEventListener: function (a) {
-                        return null == this.__eventMap ? !1 :
-                            Object.prototype.hasOwnProperty.call(this.__eventMap.h, a)
-                    }, removeEventListener: function (a, b, c) {
-                        null == c && (c = !1); if (null != this.__eventMap && null != b) {
-                            var d = this.__eventMap.h[a]; if (null != d) {
-                                for (var f = this.__iterators.h[a], h = 0, n = d.length; h < n;) { var A = h++; if (d[A].match(b, c)) { for (b = 0; b < f.length;)c = f[b], ++b, c.remove(d[A], A); d.splice(A, 1); break } } 0 == d.length && (d = this.__eventMap, f = a, Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f], d = this.__iterators, f = a, Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f]);
-                                0 >= Object.keys(this.__eventMap.h).length && (this.__iterators = this.__eventMap = null)
+                        null == f && (f = !1);
+                        null == d && (d = 0);
+                        null == c && (c = !1);
+                        if (null != b)
+                            if ((null == this.__eventMap && ((this.__eventMap = new Ma()), (this.__iterators = new Ma())), Object.prototype.hasOwnProperty.call(this.__eventMap.h, a))) {
+                                p = this.__eventMap.h[a];
+                                for (var h = 0, n = p.length; h < n; ) {
+                                    var A = h++;
+                                    if (p[A].match(b, c)) return;
+                                }
+                                a = this.__iterators.h[a];
+                                for (h = 0; h < a.length; ) (n = a[h]), ++h, n.active && n.copy();
+                                this.__addListenerByPriority(p, new Me(b, c, d, f));
+                            } else {
+                                var p = [];
+                                p.push(new Me(b, c, d, f));
+                                n = new dg(p);
+                                this.__eventMap.h[a] = p;
+                                this.__iterators.h[a] = [n];
+                            }
+                    },
+                    dispatchEvent: function (a) {
+                        a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this;
+                        return this.__dispatchEvent(a);
+                    },
+                    hasEventListener: function (a) {
+                        return null == this.__eventMap ? !1 : Object.prototype.hasOwnProperty.call(this.__eventMap.h, a);
+                    },
+                    removeEventListener: function (a, b, c) {
+                        null == c && (c = !1);
+                        if (null != this.__eventMap && null != b) {
+                            var d = this.__eventMap.h[a];
+                            if (null != d) {
+                                for (var f = this.__iterators.h[a], h = 0, n = d.length; h < n; ) {
+                                    var A = h++;
+                                    if (d[A].match(b, c)) {
+                                        for (b = 0; b < f.length; ) (c = f[b]), ++b, c.remove(d[A], A);
+                                        d.splice(A, 1);
+                                        break;
+                                    }
+                                }
+                                0 == d.length && ((d = this.__eventMap), (f = a), Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f], (d = this.__iterators), (f = a), Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f]);
+                                0 >= Object.keys(this.__eventMap.h).length && (this.__iterators = this.__eventMap = null);
                             }
                         }
-                    }, __dispatchEvent: function (a) {
-                        if (null == this.__eventMap || null == a) return !0; var b = a.type, c = this.__eventMap.h[b]; if (null == c) return !0; null == a.target && (a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this); a.currentTarget = this; var d = 1 == a.eventPhase; b = this.__iterators.h[b]; var f = b[0]; f.active && (f = new dg(c), b.push(f)); f.start(); for (var h = f; h.hasNext();) {
-                            var n = h.next(); if (null != n && n.useCapture == d) {
-                                if (n.useWeakReference &&
-                                    null != n.weakRefCallback) { var A = n.weakRefCallback.deref(); if (null == A) A = f.index - 1, c.splice(A, 1), f.remove(n, A); else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) try { A(a) } catch (p) { Ca.lastError = p, n = Z.caught(p).unwrap(), a instanceof pf || Na.get_current().stage.__handleError(n) } else A(a) } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) try { n.callback(a) } catch (p) {
-                                        Ca.lastError =
-                                        p, n = Z.caught(p).unwrap(), a instanceof pf || Na.get_current().stage.__handleError(n)
-                                    } else n.callback(a); if (a.__isCanceledNow) break
+                    },
+                    __dispatchEvent: function (a) {
+                        if (null == this.__eventMap || null == a) return !0;
+                        var b = a.type,
+                            c = this.__eventMap.h[b];
+                        if (null == c) return !0;
+                        null == a.target && (a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this);
+                        a.currentTarget = this;
+                        var d = 1 == a.eventPhase;
+                        b = this.__iterators.h[b];
+                        var f = b[0];
+                        f.active && ((f = new dg(c)), b.push(f));
+                        f.start();
+                        for (var h = f; h.hasNext(); ) {
+                            var n = h.next();
+                            if (null != n && n.useCapture == d) {
+                                if (n.useWeakReference && null != n.weakRefCallback) {
+                                    var A = n.weakRefCallback.deref();
+                                    if (null == A) (A = f.index - 1), c.splice(A, 1), f.remove(n, A);
+                                    else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled)
+                                        try {
+                                            A(a);
+                                        } catch (p) {
+                                            (Ca.lastError = p), (n = Z.caught(p).unwrap()), a instanceof pf || Na.get_current().stage.__handleError(n);
+                                        }
+                                    else A(a);
+                                } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled)
+                                    try {
+                                        n.callback(a);
+                                    } catch (p) {
+                                        (Ca.lastError = p), (n = Z.caught(p).unwrap()), a instanceof pf || Na.get_current().stage.__handleError(n);
+                                    }
+                                else n.callback(a);
+                                if (a.__isCanceledNow) break;
                             }
-                        } f.stop(); f != b[0] ? N.remove(b, f) : f.reset(c); return !a.isDefaultPrevented()
-                    }, __addListenerByPriority: function (a, b) { for (var c = a.length, d = c, f = 0; f < c;) { var h = f++; if (a[h].priority < b.priority) { d = h; break } } a.splice(d, 0, b) }, __class__: ea
-                }; 
-                var fb = function () { }; g["openfl.display.IBitmapDrawable"] = fb; fb.__name__ = "openfl.display.IBitmapDrawable"; fb.__isInterface__ = !0; fb.prototype = { __class__: fb };
+                        }
+                        f.stop();
+                        f != b[0] ? N.remove(b, f) : f.reset(c);
+                        return !a.isDefaultPrevented();
+                    },
+                    __addListenerByPriority: function (a, b) {
+                        for (var c = a.length, d = c, f = 0; f < c; ) {
+                            var h = f++;
+                            if (a[h].priority < b.priority) {
+                                d = h;
+                                break;
+                            }
+                        }
+                        a.splice(d, 0, b);
+                    },
+                    __class__: ea,
+                };
+
+                var fb = function () { };
+                g["openfl.display.IBitmapDrawable"] = fb;
+                fb.__name__ = "openfl.display.IBitmapDrawable";
+                fb.__isInterface__ = !0;
+                fb.prototype = { __class__: fb };
                 
                 var ma = { toIntVector: function (a, b, c, d) { return new eg(b, c, d) }, toFloatVector: function (a, b, c, d) { return new Wd(b, c, d, !0) }, toObjectVector: function (a, b, c, d) { return new qf(b, c, d, !0) } }, mb = function (a, b, c) { this.__pool = new fa; this.inactiveObjects = this.activeObjects = 0; this.__inactiveObject1 = this.__inactiveObject0 = null; this.__inactiveObjectList = new La; null != a && (this.create = a); null != b && (this.clean = b); null != c && this.set_size(c) }; g["lime.utils.ObjectPool"] = mb; mb.__name__ = "lime.utils.ObjectPool"; mb.prototype = {
                 clean: function (a) { },
@@ -291,7 +657,10 @@ var $lime_init = function (F, r) {
                         (null != this.__inactiveObject0 && (this.__pool.remove(this.__inactiveObject0), this.__inactiveObject0 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects && (null != this.__inactiveObject1 && (this.__pool.remove(this.__inactiveObject1), this.__inactiveObject1 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects))) for (var b = this.__inactiveObjectList.h; null != b;) { var c = b.item; b = b.next; this.__pool.remove(c); this.__inactiveObjectList.remove(c); this.inactiveObjects--; --a; if (0 == a || 0 == this.inactiveObjects) break }
                 },
                 set_size: function (a) { if (null == a) this.__size = null; else { var b = this.inactiveObjects + this.activeObjects; this.__size = a; if (b > a) this.__removeInactive(b - a); else if (a > b) for (var c = 0, d = a - b; c < d;)if (c++, b = this.create(), null != b) this.__pool.set(b, !1), this.__inactiveObjectList.add(b), this.inactiveObjects++; else break } return a }, __class__: mb, __properties__: { set_size: "set_size" }
-            }; var U = function () { }; g["haxe.IMap"] = U; U.__name__ = "haxe.IMap"; U.__isInterface__ = !0; U.prototype = { __class__: U }; var fa = function () { this.h = { __keys__: {} } };
+            }; 
+            
+            
+            var U = function () { }; g["haxe.IMap"] = U; U.__name__ = "haxe.IMap"; U.__isInterface__ = !0; U.prototype = { __class__: U }; var fa = function () { this.h = { __keys__: {} } };
             g["haxe.ds.ObjectMap"] = fa; fa.__name__ = "haxe.ds.ObjectMap"; fa.__interfaces__ = [U]; fa.prototype = { set: function (a, b) { var c = a.__id__; null == c && (c = a.__id__ = x.$haxeUID++); this.h[c] = b; this.h.__keys__[c] = a }, get: function (a) { return this.h[a.__id__] }, remove: function (a) { a = a.__id__; if (null == this.h.__keys__[a]) return !1; delete this.h[a]; delete this.h.__keys__[a]; return !0 }, keys: function () { var a = [], b; for (b in this.h.__keys__) this.h.hasOwnProperty(b) && a.push(this.h.__keys__[b]); return new Je(a) }, __class__: fa }; var La =
                 function () { this.length = 0 }; g["haxe.ds.List"] = La; La.__name__ = "haxe.ds.List"; La.prototype = {
                     add: function (a) { a = new Qg(a, null); null == this.h ? this.h = a : this.q.next = a; this.q = a; this.length++ }, push: function (a) { this.h = a = new Qg(a, this.h); null == this.q && (this.q = a); this.length++ }, pop: function () { if (null == this.h) return null; var a = this.h.item; this.h = this.h.next; null == this.h && (this.q = null); this.length--; return a }, isEmpty: function () { return null == this.h }, clear: function () { this.q = this.h = null; this.length = 0 }, remove: function (a) {
@@ -474,6 +843,8 @@ var $lime_init = function (F, r) {
                         if (this.get_tabChildren()) for (var b, c = 0, d = this.__children; c < d.length;) { var f = d[c]; ++c; if (b = f.__getInteractive(null)) b = f, b.__tabTest(a) }
                     }, __update: function (a, b) { ka.prototype.__update.call(this, a, b); if (b) { b = 0; for (var c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__update(a, !0) } } }, get_numChildren: function () { return this.__children.length }, get_tabChildren: function () { return this.__tabChildren }, __class__: Ya, __properties__: u(ka.prototype.__properties__, { get_tabChildren: "get_tabChildren", get_numChildren: "get_numChildren" })
                 });
+
+
             var ja = function () { Ya.call(this); this.__drawableType = 4; this.__buttonMode = !1; this.useHandCursor = !0; if (null != this.__pendingBindLibrary) { var a = this.__pendingBindLibrary, b = this.__pendingBindClassName; this.__pendingBindClassName = this.__pendingBindLibrary = null; a.bind(b, this) } else null != ja.__constructor && (a = ja.__constructor, ja.__constructor = null, a(this)) }; g["openfl.display.Sprite"] = ja; ja.__name__ = "openfl.display.Sprite"; ja.__super__ = Ya; ja.prototype = u(Ya.prototype, {
                 stopDrag: function () { null != this.stage && this.stage.__stopDrag(this) },
                 __setStageReference: function (a) { this.stage != a && null != this.stage && this.stage.__dragObject == this && this.stopDrag(); Ya.prototype.__setStageReference.call(this, a) }, __getCursor: function () { return this.__buttonMode && this.useHandCursor ? "button" : null }, __hitTest: function (a, b, c, d, f, h) {

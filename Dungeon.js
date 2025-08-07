@@ -1797,13 +1797,57 @@ var $lime_init = function (F, r) {
             });
                 
                 
-                var ka = function () { aa.call(this); this.doubleClickEnabled = !1; this.mouseEnabled = !0; this.needsSoftKeyboard = !1; this.__tabEnabled = null; this.__tabIndex = -1 }; g["openfl.display.InteractiveObject"] = ka; ka.__name__ = "openfl.display.InteractiveObject"; ka.__super__ = aa; ka.prototype = u(aa.prototype, {
-                    __allowMouseFocus: function () {
-                        return this.mouseEnabled ?
-                            this.get_tabEnabled() : !1
-                    }, __getInteractive: function (a) { null != a && (a.push(this), null != this.parent && this.parent.__getInteractive(a)); return !0 }, __hitTest: function (a, b, c, d, f, h) { return !h.get_visible() || this.__isMask || f && !this.mouseEnabled ? !1 : aa.prototype.__hitTest.call(this, a, b, c, d, f, h) }, __tabTest: function (a) { this.get_tabEnabled() && a.push(this) }, get_tabEnabled: function () { return 1 == this.__tabEnabled ? !0 : !1 }, get_tabIndex: function () { return this.__tabIndex }, __class__: ka, __properties__: u(aa.prototype.__properties__,
-                        { get_tabIndex: "get_tabIndex", get_tabEnabled: "get_tabEnabled" })
-                }); var Ya = function () { ka.call(this); this.__tabChildren = this.mouseChildren = !0; this.__children = []; this.__removedChildren = ma.toObjectVector(null) }; g["openfl.display.DisplayObjectContainer"] = Ya; Ya.__name__ = "openfl.display.DisplayObjectContainer"; Ya.__super__ = ka; Ya.prototype = u(ka.prototype, {
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.InteractiveObject (ka)
+             * ==================================================================
+             *
+             * Esta classe é a base para todos os objetos visuais que podem
+             * interagir com o usuário através do mouse e do teclado. Ela
+             * herda de DisplayObject (aa).
+             *
+             * @class
+             * @extends {aa} // aa é DisplayObject
+             */
+            var ka = function () {
+                aa.call(this);
+                this.doubleClickEnabled = !1;
+                this.mouseEnabled = !0;
+                this.needsSoftKeyboard = !1;
+                this.__tabEnabled = null;
+                this.__tabIndex = -1;
+            };
+            g["openfl.display.InteractiveObject"] = ka;
+            ka.__name__ = "openfl.display.InteractiveObject";
+            ka.__super__ = aa;
+            ka.prototype = u(aa.prototype, {
+                __allowMouseFocus: function () {
+                    return this.mouseEnabled ? this.get_tabEnabled() : !1;
+                },
+                __getInteractive: function (a) {
+                    null != a && (a.push(this), null != this.parent && this.parent.__getInteractive(a));
+                    return !0;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    return !h.get_visible() || this.__isMask || (f && !this.mouseEnabled) ? !1 : aa.prototype.__hitTest.call(this, a, b, c, d, f, h);
+                },
+                __tabTest: function (a) {
+                    this.get_tabEnabled() && a.push(this);
+                },
+                get_tabEnabled: function () {
+                    return 1 == this.__tabEnabled ? !0 : !1;
+                },
+                get_tabIndex: function () {
+                    return this.__tabIndex;
+                },
+                __class__: ka,
+                __properties__: u(aa.prototype.__properties__, {
+                    get_tabIndex: "get_tabIndex",
+                    get_tabEnabled: "get_tabEnabled",
+                }),
+            });
+                
+                var Ya = function () { ka.call(this); this.__tabChildren = this.mouseChildren = !0; this.__children = []; this.__removedChildren = ma.toObjectVector(null) }; g["openfl.display.DisplayObjectContainer"] = Ya; Ya.__name__ = "openfl.display.DisplayObjectContainer"; Ya.__super__ = ka; Ya.prototype = u(ka.prototype, {
                     addChild: function (a) { return this.addChildAt(a, this.get_numChildren()) }, addChildAt: function (a, b) {
                         if (null == a) throw a = new Ne("Error #2007: Parameter child must be non-null."),
                             a.errorID = 2007, a; if (a == this) throw a = new rf("Error #2024: An object cannot be added as a child of itself."), a.errorID = 2024, a; if (a.stage == a) throw a = new rf("Error #3783: A Stage object cannot be added as the child of another object."), a.errorID = 3783, a; if (b > this.__children.length || 0 > b) throw Z.thrown("Invalid index position " + b); if (a.parent == this) this.__children[b] != a && (N.remove(this.__children, a), this.__children.splice(b, 0, a), this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()));

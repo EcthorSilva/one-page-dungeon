@@ -917,7 +917,7 @@ var $lime_init = function (F, r) {
                             var b = !1, c = 0; do {
                                 for (var d = 0; 20 >
                                     d;)if (d++, this.tags = [], this.story = new Story(this), Fa.difference(a.tags, this.tags).length <= c) { b = !0; break } ++c
-                            } while (!b); d = 0; for (b = a.tags; d < b.length;)c = b[d], ++d, -1 == this.tags.indexOf(c) && Pc.resolve(this.tags, c)
+                            } while (!b); d = 0; for (b = a.tags; d < b.length;)c = b[d], ++d, -1 == this.tags.indexOf(c) && Tags.resolve(this.tags, c)
                         } else this.tags = [], this.story = new Story(this); null != a.name && (this.story.name = a.name); Ta.init(this)
                     }; g["com.watabou.dungeon.model.Dungeon"] = Mi; Mi.__name__ = "com.watabou.dungeon.model.Dungeon"; Mi.prototype = {
                         getRect: function (a) {
@@ -1164,7 +1164,7 @@ var $lime_init = function (F, r) {
                     }, __class__: lg
                 }); var Story = function (a) {
                     this.dungeon = a; if (null == Story.grammar) { Bd.rng = v.float; var b = JSON.parse(Vb.getText("grammar")); Story.grammar = Bd.createGrammar(b); Story.grammar.addModifiers(Wa.get()); Story.grammar.defaultSelector = ah; Story.demonic = new de(Vb.getText("demons").split(" ")); Story.grammar.addExternal("demonicName", k(this, this.demonicName)) } else Story.grammar.clearState(); b = .6666666666666666; null == b && (b = .5);
-                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = Story.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), Story.grammar.fix("boss")); Story.grammar.fix("dung_noun"); Story.grammar.fix("dung"); Story.grammar.fix("raider"); Story.grammar.fix("native"); Story.grammar.fix("symbol"); Story.grammar.fix("location"); this.name = Story.grammar.flatten("#name#"); Fa.addAll(a.tags, Pc.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
+                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = Story.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), Story.grammar.fix("boss")); Story.grammar.fix("dung_noun"); Story.grammar.fix("dung"); Story.grammar.fix("raider"); Story.grammar.fix("native"); Story.grammar.fix("symbol"); Story.grammar.fix("location"); this.name = Story.grammar.flatten("#name#"); Fa.addAll(a.tags, Tags.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
                         (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "string"); -1 == a.tags.indexOf("flat") ? (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "deep"); var c = 0; for (a = a.tags; c < a.length;) { var d = a[c]; ++c; b = Story.grammar; d = d.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(d)) } this.hook = Story.grammar.flatten("#story#")
             };
 
@@ -1346,22 +1346,157 @@ var $lime_init = function (F, r) {
                 // Identificador da classe para o sistema de tipos
                 __class__: Story
             }; 
-                    
-                    
-                    var Pc = function () { }; g["com.watabou.dungeon.model.Tags"] = Pc; Pc.__name__ = "com.watabou.dungeon.model.Tags"; Pc.init = function () { if (null == Pc.anchors) { Pc.anchors = new Ma; for (var a = Vb.getText("tags").split("\r\n"), b = 0; b < a.length;) { var c = a[b]; ++b; var d = c.split(":"); c = d[0].split(","); d = d[1].split(","); for (var f = 0; f < c.length;) { var h = c[f]; ++f; h = w.trim(h); var n = Pc.anchors.h[h]; null == n && (n = [], Pc.anchors.h[h] = n); for (h = 0; h < d.length;) { var A = d[h]; ++h; Fa.add(n, w.trim(A)) } } } } }; Pc.deriveTags = function (a) {
-                        Pc.init();
-                        a = a.split(" "); for (var b = [], c = 0; c < a.length;) { var d = a[c]; ++c; d = Pc.anchors.h[d.toLowerCase()]; null != d && Fa.addAll(b, d) } return b
-                    }; Pc.getPublic = function () { return "chaotic;ordered;winding;compact;cramped;spacious;large;small;medium;string;flat;deep;secret;no secrets;treasure;dangerous;round;square;colonnades;dry;wet;flooded;temple;tomb;dwelling;crumbling;multi-level;single-level;backdoor;no backdoor".split(";") }; Pc.resolve = function (a, b) {
-                        for (var c = [["chaotic", "ordered"], ["winding", "compact"], ["cramped", "spacious"],
-                        ["large", "medium", "small"], ["round", "square"], ["dry", "wet", "flooded"], ["single-level", "multi-level"], ["secret", "no secrets"], ["backdoor", "no backdoor"], ["flat", "deep"]], d = 0; d < c.length;) { var f = c[d]; ++d; -1 != f.indexOf(b) && Fa.removeAll(a, Fa.difference(f, [b])) } null != b && a.push(b)
-                    }; Pc.getInfo = function (a) {
-                        switch (a) {
-                            case "backdoor": return "Alternative entrance"; case "chaotic": return "No symmetry"; case "colonnades": return "More colonnades"; case "compact": return "No corridors"; case "cramped": return "Small rooms";
-                            case "crumbling": return "More cracks and rubble"; case "dangerous": return "More dead bodies"; case "deep": return "Many steps"; case "dry": return "No water"; case "dwelling": return "A throne at the last room, more wells and tapestries"; case "flat": return "No steps"; case "flooded": return "Much water"; case "large": return "Larger dungeon"; case "medium": return "Normal-sized dungeon"; case "multi-level": return "Stairs down at the last room"; case "no backdoor": return "No alternative entrance"; case "no secrets": return "No secret rooms";
-                            case "ordered": return "More symmetry"; case "round": return "More round rooms"; case "secret": return "More secret rooms"; case "single-level": return "Strictly no stairs down"; case "small": return "Smaller dungeon"; case "spacious": return "More large rooms"; case "square": return "No round rooms"; case "string": return "A sequence of rooms without branching"; case "temple": return "Some altars"; case "tomb": return "Some coffins, fewer fountains"; case "treasure": return "More valuable or exotic loot"; case "wet": return "Some water";
-                            case "winding": return "More corridors"; default: return Rb.trace('No info for a public tag "' + a + '"!!!', { fileName: "Source/com/watabou/dungeon/model/Tags.hx", lineNumber: 143, className: "com.watabou.dungeon.model.Tags", methodName: "getInfo" }), null
+            
+            /**
+             * Objeto estático para gerenciar as tags que controlam a geração da masmorra.
+             * @namespace com.watabou.dungeon.model.Tags
+             */
+            var Tags = function() {};
+            g["com.watabou.dungeon.model.Tags"] = Tags;
+            Tags.__name__ = "com.watabou.dungeon.model.Tags";
+
+            /**
+             * Inicializa e processa o arquivo de definições de tags (tags.txt), criando
+             * um mapa de âncoras para derivar tags a partir de palavras-chave.
+             * Roda apenas uma vez.
+             */
+            Tags.init = function() {
+                if (null == Tags.anchors) {
+                    Tags.anchors = new Ma(); // Ma é um StringMap minificado
+                    var lines = Vb.getText("tags").split("\r\n"); // Vb é Assets.getText
+
+                    for (var i = 0; i < lines.length; i++) {
+                        var line = lines[i];
+                        var parts = line.split(":");
+                        var anchors = parts[0].split(",");
+                        var derivedTags = parts[1].split(",");
+
+                        for (var j = 0; j < anchors.length; j++) {
+                            var anchor = w.trim(anchors[j]); // w é StringTools.trim
+                            var tagList = Tags.anchors.h[anchor];
+                            if (null == tagList) {
+                                tagList = [];
+                                Tags.anchors.h[anchor] = tagList;
+                            }
+                            for (var k = 0; k < derivedTags.length; k++) {
+                                var tag = derivedTags[k];
+                                Fa.add(tagList, w.trim(tag)); // Fa é ArrayExtender.add
+                            }
                         }
-                    }; var Lc = function (a) {
+                    }
+                }
+            };
+
+            /**
+             * Deriva um conjunto de tags a partir de uma string (geralmente o nome da masmorra).
+             * @param {string} nameString - A string de onde derivar as tags.
+             * @returns {string[]} Uma lista de tags derivadas.
+             */
+            Tags.deriveTags = function(nameString) {
+                Tags.init();
+                var words = nameString.split(" ");
+                var derivedTags = [];
+                for (var i = 0; i < words.length; i++) {
+                    var word = words[i];
+                    var foundTags = Tags.anchors.h[word.toLowerCase()];
+                    if (null != foundTags) {
+                        Fa.addAll(derivedTags, foundTags); // Adiciona todas as tags encontradas
+                    }
+                }
+                return derivedTags;
+            };
+
+            /**
+             * Retorna a lista de todas as tags públicas que o usuário pode selecionar.
+             * @returns {string[]} A lista de tags.
+             */
+            Tags.getPublic = function() {
+                return "chaotic;ordered;winding;compact;cramped;spacious;large;small;medium;string;flat;deep;secret;no secrets;treasure;dangerous;round;square;colonnades;dry;wet;flooded;temple;tomb;dwelling;crumbling;multi-level;single-level;backdoor;no backdoor".split(";");
+            };
+
+            /**
+             * Resolve conflitos entre tags. Garante que tags mutuamente exclusivas não coexistam.
+             * Por exemplo, se a lista já tem "large" e "small" é adicionada, "large" é removida.
+             * @param {string[]} tagList - A lista de tags atual.
+             * @param {string} newTag - A nova tag a ser adicionada.
+             */
+            Tags.resolve = function(tagList, newTag) {
+                var mutuallyExclusiveGroups = [
+                    ["chaotic", "ordered"],
+                    ["winding", "compact"],
+                    ["cramped", "spacious"],
+                    ["large", "medium", "small"],
+                    ["round", "square"],
+                    ["dry", "wet", "flooded"],
+                    ["single-level", "multi-level"],
+                    ["secret", "no secrets"],
+                    ["backdoor", "no backdoor"],
+                    ["flat", "deep"]
+                ];
+
+                for (var i = 0; i < mutuallyExclusiveGroups.length; i++) {
+                    var group = mutuallyExclusiveGroups[i];
+                    if (group.indexOf(newTag) != -1) {
+                        // Remove todas as outras tags do mesmo grupo
+                        Fa.removeAll(tagList, Fa.difference(group, [newTag]));
+                    }
+                }
+
+                if (null != newTag) {
+                    tagList.push(newTag);
+                }
+            };
+
+            /**
+             * Retorna uma descrição em texto do efeito de uma tag específica.
+             * @param {string} tagName - O nome da tag.
+             * @returns {string|null} A descrição da tag.
+             */
+            Tags.getInfo = function(tagName) {
+                switch (tagName) {
+                    case "backdoor": return "Alternative entrance";
+                    case "chaotic": return "No symmetry";
+                    case "colonnades": return "More colonnades";
+                    case "compact": return "No corridors";
+                    case "cramped": return "Small rooms";
+                    case "crumbling": return "More cracks and rubble";
+                    case "dangerous": return "More dead bodies";
+                    case "deep": return "Many steps";
+                    case "dry": return "No water";
+                    case "dwelling": return "A throne at the last room, more wells and tapestries";
+                    case "flat": return "No steps";
+                    case "flooded": return "Much water";
+                    case "large": return "Larger dungeon";
+                    case "medium": return "Normal-sized dungeon";
+                    case "multi-level": return "Stairs down at the last room";
+                    case "no backdoor": return "No alternative entrance";
+                    case "no secrets": return "No secret rooms";
+                    case "ordered": return "More symmetry";
+                    case "round": return "More round rooms";
+                    case "secret": return "More secret rooms";
+                    case "single-level": return "Strictly no stairs down";
+                    case "small": return "Smaller dungeon";
+                    case "spacious": return "More large rooms";
+                    case "square": return "No round rooms";
+                    case "string": return "A sequence of rooms without branching";
+                    case "temple": return "Some altars";
+                    case "tomb": return "Some coffins, fewer fountains";
+                    case "treasure": return "More valuable or exotic loot";
+                    case "wet": return "Some water";
+                    case "winding": return "More corridors";
+                    default:
+                        Rb.trace('No info for a public tag "' + tagName + '"!!!', {
+                            fileName: "Source/com/watabou/dungeon/model/Tags.hx",
+                            lineNumber: 143,
+                            className: "com.watabou.dungeon.model.Tags",
+                            methodName: "getInfo"
+                        });
+                        return null;
+                }
+            }; 
+
+                    
+                    var Lc = function (a) {
                         var b = 1 / Lc.scale; this.rect = a.getRect(); this.vb = new Ri(this.rect.w * Lc.scale, this.rect.h * Lc.scale, 2 * Lc.scale); for (var c = 0, d = a.doors; c < d.length;) { var f = d[c]; ++c; this.box(f.x - b, 1 + 2 * b, f.y - b, 1 + 2 * b, 1 - b, 1 + b, 1) } c = 0; for (d = a.rooms; c < d.length;)f = d[c], ++c,
                             f = f.inflate(-1, -1), this.box(f.x - b, f.w + 2 * b, f.y - b, f.h + 2 * b, 1 - b, 1 + b, 1), this.box(f.x, f.w, f.y, f.h, 1, 1, 0); c = 0; for (d = a.doors; c < d.length;)switch (f = d[c], ++c, this.box(f.x, 1, f.y, 1, 1, 1, 0), f.type) {
                                 case 1: case 2: 0 == f.dir.x ? (this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1, 1), this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1 - b, 0)) : (this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1, 1), this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1 - b, 0)); break; case 3: a = 1; for (var h = Lc.scale; a < h;) {
@@ -1419,7 +1554,7 @@ var $lime_init = function (F, r) {
                                 }, newDungeon: function (a) {
                                     this.reset(a);
                                     this.layout()
-                                }, showTagsForm: function () { var a = this; null == T.findForm(ve) && (Kc.getTags = Pc.getPublic, Kc.resTags = Pc.resolve, Kc.getInfo = Pc.getInfo, T.showDialog(new ve(this.dungeon.tags, function (b) { a.newDungeon(Zc.fromTags(b)); return a.dungeon.tags }), "Tags").minimizable = !0) }, toggleRotation: function () { this.toggleFlag("autoRotation"); this.layout() }, toggleZoom: function () { this.toggleFlag("zoom2fit"); this.layout() }, toggleFullScreen: function () { this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2) },
+                                }, showTagsForm: function () { var a = this; null == T.findForm(ve) && (Kc.getTags = Tags.getPublic, Kc.resTags = Tags.resolve, Kc.getInfo = Tags.getInfo, T.showDialog(new ve(this.dungeon.tags, function (b) { a.newDungeon(Zc.fromTags(b)); return a.dungeon.tags }), "Tags").minimizable = !0) }, toggleRotation: function () { this.toggleFlag("autoRotation"); this.layout() }, toggleZoom: function () { this.toggleFlag("zoom2fit"); this.layout() }, toggleFullScreen: function () { this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2) },
                                 toggleSecrets: function () { var a = this.toggleFlag("secrets"), b = this.dungeon.planner.getSecrets(); if (0 < b.length) { for (var c = 0; c < b.length;) { var d = b[c]; ++c; d.hidden = !a } this.updateDrawable(); this.recreateNotes(); this.drawAll(); this.layout() } }, showPaletteForm: function () {
                                     var a = this; if (null == T.findForm(Ab)) {
                                         var b = new Ab(function (b) { G.fromPalette(b, !0); a.updatePalette() }, "Default default Ancient ancient Light light Modern modern Link link".split(" ")); b.getName = Ab.swatches(null, ["colorInk", "colorPaper"]); G.fillForm(b);

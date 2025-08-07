@@ -1115,7 +1115,10 @@ var $lime_init = function (F, r) {
             }; var lg = function (a, b, c, d, f) {
                 null ==
                 f && (f = 1); this.enviro = this.event = this.gate = this.loot = this.key = this.enemy = this.hidden = !1; var h = xa.UP; b.x == h.x && b.y == h.y ? pc.call(this, a.x - (c >> 1), a.y - d + 1, c, d) : (h = xa.DOWN, b.x == h.x && b.y == h.y ? pc.call(this, a.x - (c >> 1), a.y, c, d) : (h = xa.LEFT, b.x == h.x && b.y == h.y ? pc.call(this, a.x - d + 1, a.y - (c >> 1), d, c) : (h = xa.RIGHT, b.x == h.x && b.y == h.y ? pc.call(this, a.x, a.y - (c >> 1), d, c) : pc.call(this, a.x, this.y, c, this.h)))); this.origin = a; this.axis = b; this.width = c; this.depth = d; this.mirror = f; this.props = []
-            }; g["com.watabou.dungeon.model.Room"] =
+            }; 
+            
+            
+            g["com.watabou.dungeon.model.Room"] =
                 lg; lg.__name__ = "com.watabou.dungeon.model.Room"; lg.__interfaces__ = [kg]; lg.__super__ = pc; lg.prototype = u(pc.prototype, {
                     out: function (a) { return a.x == this.x ? xa.LEFT : a.x == this.x + this.w - 1 ? xa.RIGHT : a.y == this.y ? xa.UP : a.y == this.y + this.h - 1 ? xa.DOWN : null }, word: function () { if (3 < this.w && 3 < this.h) { var a = this.inflate(-1, -1); a = a.w * a.h; return 21 <= a ? Fa.random(["large room", "large chamber", "hall"]) : 15 <= a ? Fa.random(["room", "chamber"]) : Fa.random(["small room", "small chamber"]) } return Fa.fallOff(["corridor", "passage"]) }, getPoly: function () { return ta.getPoly(this) },
                     getHatchingArea: function () { return ta.getHatchingArea(this) }, getSeams: function () { return [] }, xy: function (a, b) { return new xa(this.origin.x - a * this.axis.y * this.mirror + b * this.axis.x, this.origin.y + b * this.axis.y + a * this.axis.x * this.mirror) }, pxy: function (a, b) { return new I(this.origin.x - a * this.axis.y * this.mirror + b * this.axis.x, this.origin.y + b * this.axis.y + a * this.axis.x * this.mirror) }, getDoors: function () { for (var a = [], b = 0, c = this.dungeon.doors; b < c.length;) { var d = c[b]; ++b; d.from != this && d.to != this || a.push(d) } return a },
@@ -1162,10 +1165,74 @@ var $lime_init = function (F, r) {
                                 b - d.y * a, d.y * b + d.x * a); return new ha(a.x - c, a.y - c, 2 * c, 2 * c)
                         } return pc.prototype.getBounds.call(this, a, b)
                     }, __class__: lg
-                }); var Story = function (a) {
-                    this.dungeon = a; if (null == Story.grammar) { Bd.rng = v.float; var b = JSON.parse(Vb.getText("grammar")); Story.grammar = Bd.createGrammar(b); Story.grammar.addModifiers(Wa.get()); Story.grammar.defaultSelector = ah; Story.demonic = new de(Vb.getText("demons").split(" ")); Story.grammar.addExternal("demonicName", k(this, this.demonicName)) } else Story.grammar.clearState(); b = .6666666666666666; null == b && (b = .5);
-                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = Story.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), Story.grammar.fix("boss")); Story.grammar.fix("dung_noun"); Story.grammar.fix("dung"); Story.grammar.fix("raider"); Story.grammar.fix("native"); Story.grammar.fix("symbol"); Story.grammar.fix("location"); this.name = Story.grammar.flatten("#name#"); Fa.addAll(a.tags, Tags.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
-                        (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "string"); -1 == a.tags.indexOf("flat") ? (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "deep"); var c = 0; for (a = a.tags; c < a.length;) { var d = a[c]; ++c; b = Story.grammar; d = d.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(d)) } this.hook = Story.grammar.flatten("#story#")
+                }); 
+                
+                
+            /**
+             * Construtor da classe Story. Responsável por toda a geração de texto procedural.
+             * @param {object} dungeon - A instância da masmorra, contendo a lista de tags.
+             */
+            var Story = function(dungeon) {
+                this.dungeon = dungeon;
+
+                // 1. INICIALIZA A GRAMÁTICA (apenas na primeira execução)
+                // Bd é Tracery, v é Random, Vb é Assets, Wa são os modificadores, de é Markov
+                if (null == Story.grammar) {
+                    Bd.rng = v.float;
+                    var grammarData = JSON.parse(Vb.getText("grammar"));
+                    Story.grammar = Bd.createGrammar(grammarData);
+                    Story.grammar.addModifiers(Wa.get());
+                    Story.grammar.defaultSelector = ah; // ah é um seletor de regras
+                    Story.demonic = new de(Vb.getText("demons").split(" "));
+                    Story.grammar.addExternal("demonicName", k(this, this.demonicName)); // k é a função de bind
+                } else {
+                    Story.grammar.clearState();
+                }
+
+                // Adiciona aleatoriamente a tag "BOSS"
+                if (Math.random() < 0.666) {
+                    var grammar = Story.grammar;
+                    Fa.addAll(grammar.flags, (new sa(", +", "")).split("BOSS")); // Fa é ArrayExtender
+                    Story.grammar.fix("boss");
+                }
+
+                // "Conserta" (gera e fixa) algumas regras básicas da gramática para consistência
+                Story.grammar.fix("dung_noun");
+                Story.grammar.fix("dung");
+                Story.grammar.fix("raider");
+                Story.grammar.fix("native");
+                Story.grammar.fix("symbol");
+                Story.grammar.fix("location");
+
+                // 2. GERA O NOME E DERIVA TAGS
+                this.name = Story.grammar.flatten("#name#");
+                Fa.addAll(dungeon.tags, Tags.deriveTags(this.name));
+
+                // 3. ADICIONA TAGS ALEATÓRIAS
+                // Adiciona "multi-level" com 50% de chance se não for "single-level"
+                if (dungeon.tags.indexOf("single-level") == -1 && Math.random() < 0.5) {
+                    Fa.add(dungeon.tags, "multi-level");
+                }
+                // Adiciona "string" (formato de corredor) com 5% de chance se não for "winding"
+                if (dungeon.tags.indexOf("winding") == -1 && Math.random() < 0.05) {
+                    Fa.add(dungeon.tags, "string");
+                }
+                // Adiciona "deep" (com escadas) com 5% de chance se não for "flat"
+                if (dungeon.tags.indexOf("flat") == -1 && Math.random() < 0.05) {
+                    Fa.add(dungeon.tags, "deep");
+                }
+
+                // 4. DEFINE O CONTEXTO DA GRAMÁTICA
+                // Adiciona todas as tags finais como "flags" para influenciar a geração de texto
+                for (var i = 0, tags = dungeon.tags; i < tags.length; i++) {
+                    var tag = tags[i];
+                    var grammar = Story.grammar;
+                    var upperTag = tag.toUpperCase();
+                    Fa.addAll(grammar.flags, (new sa(", +", "")).split(upperTag));
+                }
+
+                // 5. GERA A HISTÓRIA
+                this.hook = Story.grammar.flatten("#story#");
             };
 
             /**
@@ -1591,6 +1658,7 @@ var $lime_init = function (F, r) {
                 __class__: VoxelData
             };
             
+            /* REfatoração end*/
 
             var oe = function () { this.notes = []; oe.inst = this; Xb.call(this); G.restorePalette(); G.bw = eb.get("bw", !1); ta.gridScale = eb.get("gridScale", 1); var a = dc.DOTTED; ta.grid = lb.createEnum(dc, eb.get("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); a = Ga.NORMAL; Ha.mode = lb.createEnum(Ga, eb.get("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); this.map = new ja; this.addChild(this.map); this.createHeader(); this.keyEvent.add(k(this, this.onKey)); a = Zc.fromURL(); this.reset(null != a ? a : Zc.random()) }; g["com.watabou.dungeon.scenes.ViewScene"] =
 

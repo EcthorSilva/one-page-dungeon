@@ -1123,19 +1123,137 @@ var $lime_init = function (F, r) {
             };
             
             
-            var U = function () { }; g["haxe.IMap"] = U; U.__name__ = "haxe.IMap"; U.__isInterface__ = !0; U.prototype = { __class__: U }; var fa = function () { this.h = { __keys__: {} } };
-            g["haxe.ds.ObjectMap"] = fa; fa.__name__ = "haxe.ds.ObjectMap"; fa.__interfaces__ = [U]; fa.prototype = { set: function (a, b) { var c = a.__id__; null == c && (c = a.__id__ = x.$haxeUID++); this.h[c] = b; this.h.__keys__[c] = a }, get: function (a) { return this.h[a.__id__] }, remove: function (a) { a = a.__id__; if (null == this.h.__keys__[a]) return !1; delete this.h[a]; delete this.h.__keys__[a]; return !0 }, keys: function () { var a = [], b; for (b in this.h.__keys__) this.h.hasOwnProperty(b) && a.push(this.h.__keys__[b]); return new Je(a) }, __class__: fa }; var La =
-                function () { this.length = 0 }; g["haxe.ds.List"] = La; La.__name__ = "haxe.ds.List"; La.prototype = {
-                    add: function (a) { a = new Qg(a, null); null == this.h ? this.h = a : this.q.next = a; this.q = a; this.length++ }, push: function (a) { this.h = a = new Qg(a, this.h); null == this.q && (this.q = a); this.length++ }, pop: function () { if (null == this.h) return null; var a = this.h.item; this.h = this.h.next; null == this.h && (this.q = null); this.length--; return a }, isEmpty: function () { return null == this.h }, clear: function () { this.q = this.h = null; this.length = 0 }, remove: function (a) {
-                        for (var b =
-                            null, c = this.h; null != c;) { if (c.item == a) return null == b ? this.h = c.next : b.next = c.next, this.q == c && (this.q = b), this.length--, !0; b = c; c = c.next } return !1
-                    }, iterator: function () { return new Gi(this.h) }, __class__: La
-                }; var aa = function () {
+            /**
+             * Interface (U) que define um "contrato" para estruturas de dados
+             * do tipo mapa (chave-valor).
+             * @interface
+             */
+            var U = function() {};
+            g["haxe.IMap"] = U;
+            U.__name__ = "haxe.IMap";
+            U.__isInterface__ = true;
+            U.prototype = {
+                __class__: U
+            };
+
+            /**
+             * Classe ObjectMap (fa), um mapa que usa objetos como chaves.
+             * Utiliza um ID interno (`__id__`) dos objetos para o mapeamento.
+             * @class
+             * @implements {U}
+             */
+            var fa = function() {
+                this.h = {
+                    __keys__: {}
+                };
+            };
+            g["haxe.ds.ObjectMap"] = fa;
+            fa.__name__ = "haxe.ds.ObjectMap";
+            fa.__interfaces__ = [U];
+            fa.prototype = {
+                set: function(a, b) {
+                    var c = a.__id__;
+                    if (null == c) {
+                        c = a.__id__ = x.$haxeUID++;
+                    }
+                    this.h[c] = b;
+                    this.h.__keys__[c] = a;
+                },
+                get: function(a) {
+                    return this.h[a.__id__];
+                },
+                remove: function(a) {
+                    a = a.__id__;
+                    if (null == this.h.__keys__[a]) return false;
+                    delete this.h[a];
+                    delete this.h.__keys__[a];
+                    return true;
+                },
+                keys: function() {
+                    var a = [], b;
+                    for (b in this.h.__keys__) {
+                        if (this.h.hasOwnProperty(b)) {
+                            a.push(this.h.__keys__[b]);
+                        }
+                    }
+                    return new Je(a); // Je é ArrayIterator
+                },
+                __class__: fa
+            };
+
+            /**
+             * Classe List (La), uma implementação de lista duplamente encadeada.
+             * @class
+             */
+            var La = function() {
+                this.length = 0;
+            };
+            g["haxe.ds.List"] = La;
+            La.__name__ = "haxe.ds.List";
+            La.prototype = {
+                add: function(a) {
+                    a = new Qg(a, null); // Qg é um nó da lista (ListNode)
+                    if (null == this.h) {
+                        this.h = a;
+                    } else {
+                        this.q.next = a;
+                    }
+                    this.q = a;
+                    this.length++;
+                },
+                push: function(a) {
+                    this.h = a = new Qg(a, this.h);
+                    if (null == this.q) {
+                        this.q = a;
+                    }
+                    this.length++;
+                },
+                pop: function() {
+                    if (null == this.h) return null;
+                    var a = this.h.item;
+                    this.h = this.h.next;
+                    if (null == this.h) {
+                        this.q = null;
+                    }
+                    this.length--;
+                    return a;
+                },
+                isEmpty: function() {
+                    return null == this.h;
+                },
+                clear: function() {
+                    this.q = this.h = null;
+                    this.length = 0;
+                },
+                remove: function(a) {
+                    for (var b = null, c = this.h; null != c;) {
+                        if (c.item == a) {
+                            if (null == b) {
+                                this.h = c.next;
+                            } else {
+                                b.next = c.next;
+                            }
+                            if (this.q == c) {
+                                this.q = b;
+                            }
+                            this.length--;
+                            return true;
+                        }
+                        b = c;
+                        c = c.next;
+                    }
+                    return false;
+                },
+                iterator: function() {
+                    return new Gi(this.h); // Gi é o iterador da lista (ListIterator)
+                },
+                __class__: La
+            };
+                
+                var aa = function () {
                     ea.call(this); this.__alpha = this.__drawableType = 1; this.__blendMode = 10; this.__cacheAsBitmap = !1; this.__transform = new na; this.__visible = !0; this.__rotationSine = this.__rotation = 0; this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1; this.__worldBlendMode = 10; this.__worldTransform =
                         new na; this.__worldColorTransform = new Cb; this.__renderTransform = new na; this.__worldVisible = !0; this.set_name("instance" + ++aa.__instanceCount); null != aa.__initStage && (this.stage = aa.__initStage, aa.__initStage = null, this.stage.addChild(this))
-                }; 
-                
-                
+                };                
                 g["openfl.display.DisplayObject"] = aa; aa.__name__ = "openfl.display.DisplayObject"; aa.__interfaces__ = [fb]; aa.__super__ = ea; aa.prototype = u(ea.prototype, {
                     addEventListener: function (a, b, c, d, f) {
                         null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); switch (a) {
@@ -1335,7 +1453,9 @@ var $lime_init = function (F, r) {
                     null != hb.scene && (hb.scene.deactivate(), this.removeChild(hb.scene), hb.scene = null); null != a && (hb.scene = lb.createInstance(a, []), this.addChild(hb.scene), this.layout(), hb.scene.activate());
                     this.stage.set_focus(this.stage)
                 }, __class__: hb
-            }); var nc = function () { v.reset(); O.useDefault(); this.stage.showDefaultContextMenu = !1; ob.baseURL += "one-page-dungeon/"; hb.call(this, oe) }; g["com.watabou.dungeon.Main"] = nc; nc.__name__ = "com.watabou.dungeon.Main"; nc.__super__ = hb; nc.prototype = u(hb.prototype, {
+            }); 
+            
+            var nc = function () { v.reset(); O.useDefault(); this.stage.showDefaultContextMenu = !1; ob.baseURL += "one-page-dungeon/"; hb.call(this, oe) }; g["com.watabou.dungeon.Main"] = nc; nc.__name__ = "com.watabou.dungeon.Main"; nc.__super__ = hb; nc.prototype = u(hb.prototype, {
                 switchSceneImp: function (a) { null == T.layer && (T.layer = new S); hb.prototype.switchSceneImp.call(this, a); this.addChild(T.layer); T.wipe() }, layout: function () {
                     hb.prototype.layout.call(this); var a = this.stage.stageWidth,
                         b = this.stage.stageHeight; T.layer.set_scaleX(T.layer.set_scaleY(1)); T.layer.setSize(a / 1, b / 1); a = this.stage.stageWidth; b = this.stage.stageHeight; var c = 1 * G.normal; this.get_graphics().clear(); this.get_graphics().beginFill(G.ink); this.get_graphics().drawRect(0, 0, a, c); this.get_graphics().drawRect(0, c, c, b - 2 * c); this.get_graphics().drawRect(a - c, c, c, b - 2 * c); this.get_graphics().drawRect(0, b - c, a, c)

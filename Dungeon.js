@@ -355,309 +355,772 @@ var $lime_init = function (F, r) {
                 __class__: B,
             };
                 
-                
-                
-                var F = function () {
-                    this.onCreateWindow = new Ei; this.onUpdate = new Ke; this.onExit = new Ke; null == F.current &&
-                        (F.current = this); this.meta = new Ma; this.modules = []; this.__windowByID = new Ub; this.__windows = []; this.__backend = new B(this); this.__registerLimeModule(this); this.__preloader = new Fi; this.__preloader.onProgress.add(k(this, this.onPreloadProgress)); this.__preloader.onComplete.add(k(this, this.onPreloadComplete))
-                }; 
-                
-                g["lime.app.Application"] = F; F.__name__ = "lime.app.Application"; F.__super__ = ca; F.prototype = u(ca.prototype, {
-                    addModule: function (a) { a.__registerLimeModule(this); this.modules.push(a) }, exec: function () {
-                        F.current =
-                        this; return this.__backend.exec()
-                    }, onGamepadAxisMove: function (a, b, c) { }, onGamepadButtonDown: function (a, b) { }, onGamepadButtonUp: function (a, b) { }, onGamepadConnect: function (a) { }, onGamepadDisconnect: function (a) { }, onJoystickAxisMove: function (a, b, c) { }, onJoystickButtonDown: function (a, b) { }, onJoystickButtonUp: function (a, b) { }, onJoystickConnect: function (a) { }, onJoystickDisconnect: function (a) { }, onJoystickHatMove: function (a, b, c) { }, onKeyDown: function (a, b) { }, onKeyUp: function (a, b) { }, onModuleExit: function (a) { }, onMouseDown: function (a,
-                        b, c) { }, onMouseMove: function (a, b) { }, onMouseMoveRelative: function (a, b) { }, onMouseUp: function (a, b, c) { }, onMouseWheel: function (a, b, c) { }, onPreloadComplete: function () { }, onPreloadProgress: function (a, b) { }, onRenderContextLost: function () { }, onRenderContextRestored: function (a) { }, onTextEdit: function (a, b, c) { }, onTextInput: function (a) { }, onTouchCancel: function (a) { }, onTouchEnd: function (a) { }, onTouchMove: function (a) { }, onTouchStart: function (a) { }, onWindowActivate: function () { }, onWindowClose: function () { }, onWindowCreate: function () { },
-                    onWindowDeactivate: function () { }, onWindowDropFile: function (a) { }, onWindowEnter: function () { }, onWindowExpose: function () { }, onWindowFocusIn: function () { }, onWindowFocusOut: function () { }, onWindowFullscreen: function () { }, onWindowLeave: function () { }, onWindowMove: function (a, b) { }, onWindowMinimize: function () { }, onWindowResize: function (a, b) { }, onWindowRestore: function () { }, removeModule: function (a) { null != a && (a.__unregisterLimeModule(this), N.remove(this.modules, a)) }, render: function (a) { }, update: function (a) { }, __registerLimeModule: function (a) {
-                        a.onUpdate.add(k(this,
-                            this.update)); a.onExit.add(k(this, this.onModuleExit), !1, 0); a.onExit.add(k(this, this.__onModuleExit), !1, -1E3); for (a = cc.devices.iterator(); a.hasNext();) { var b = a.next(); this.__onGamepadConnect(b) } cc.onConnect.add(k(this, this.__onGamepadConnect)); for (a = ac.devices.iterator(); a.hasNext();)b = a.next(), this.__onJoystickConnect(b); ac.onConnect.add(k(this, this.__onJoystickConnect)); Pb.onCancel.add(k(this, this.onTouchCancel)); Pb.onStart.add(k(this, this.onTouchStart)); Pb.onMove.add(k(this, this.onTouchMove)); Pb.onEnd.add(k(this,
-                                this.onTouchEnd))
-                    }, __removeWindow: function (a) { null != a && this.__windowByID.h.hasOwnProperty(a.id) && (this.__window == a && (this.__window = null), N.remove(this.__windows, a), this.__windowByID.remove(a.id), a.close(), this.__checkForAllWindowsClosed()) }, __checkForAllWindowsClosed: function () { 0 == this.__windows.length && mc.exit(0) }, __onGamepadConnect: function (a) {
-                        this.onGamepadConnect(a); var b = this, c = function (c, d) { b.onGamepadAxisMove(a, c, d) }; a.onAxisMove.add(c); var d = this; c = function (b) { d.onGamepadButtonDown(a, b) };
-                        a.onButtonDown.add(c); var f = this; c = function (b) { f.onGamepadButtonUp(a, b) }; a.onButtonUp.add(c); var h = this; a.onDisconnect.add(function () { h.onGamepadDisconnect(a) })
-                    }, __onJoystickConnect: function (a) {
-                        this.onJoystickConnect(a); var b = this, c = function (c, d) { b.onJoystickAxisMove(a, c, d) }; a.onAxisMove.add(c); var d = this; c = function (b) { d.onJoystickButtonDown(a, b) }; a.onButtonDown.add(c); var f = this; c = function (b) { f.onJoystickButtonUp(a, b) }; a.onButtonUp.add(c); var h = this; a.onDisconnect.add(function () { h.onJoystickDisconnect(a) });
-                        var n = this; c = function (b, c) { n.onJoystickHatMove(a, b, c) }; a.onHatMove.add(c)
-                    }, __onModuleExit: function (a) { this.onExit.canceled || (this.__unregisterLimeModule(this), this.__backend.exit(), F.current == this && (F.current = null)) }, __onWindowClose: function (a) { if (this.__window == a) this.onWindowClose(); this.__removeWindow(a) }, __unregisterLimeModule: function (a) {
-                        a.onUpdate.remove(k(this, this.update)); a.onExit.remove(k(this, this.__onModuleExit)); a.onExit.remove(k(this, this.onModuleExit)); cc.onConnect.remove(k(this, this.__onGamepadConnect));
-                        ac.onConnect.remove(k(this, this.__onJoystickConnect)); Pb.onCancel.remove(k(this, this.onTouchCancel)); Pb.onStart.remove(k(this, this.onTouchStart)); Pb.onMove.remove(k(this, this.onTouchMove)); Pb.onEnd.remove(k(this, this.onTouchEnd))
-                    }, __class__: F
-                }); 
+            /**
+             * A classe Application (F) é a classe principal da aplicação, responsável pelo
+             * ciclo de vida, gerenciamento de módulos e eventos.
+             * @class
+             * @extends {ca} // ca é lime.app.Module
+             */
+            var F = function() {
+                this.onCreateWindow = new Ei(); // Ei é Event<Window>
+                this.onUpdate = new Ke(); // Ke é Event<Int>
+                this.onExit = new Ke(); // Ke é Event<Int>
+
+                if (null == F.current) {
+                    F.current = this;
+                }
+
+                this.meta = new Ma(); // Ma é StringMap
+                this.modules = [];
+                this.__windowByID = new Ub(); // Ub é IntMap
+                this.__windows = [];
+                this.__backend = new B(this); // B é HTML5Application
+                this.__registerLimeModule(this);
+                this.__preloader = new Fi(); // Fi é Preloader
+                this.__preloader.onProgress.add(k(this, this.onPreloadProgress));
+                this.__preloader.onComplete.add(k(this, this.onPreloadComplete));
+            };
+
+            g["lime.app.Application"] = F;
+            F.__name__ = "lime.app.Application";
+            F.__super__ = ca; // ca é lime.app.Module
+
+            F.prototype = u(ca.prototype, {
+                /**
+                 * Adiciona um módulo à aplicação.
+                 * @param {object} a - O módulo a ser adicionado.
+                 */
+                addModule: function(a) {
+                    a.__registerLimeModule(this);
+                    this.modules.push(a);
+                },
 
                 /**
-                 * A classe estática ApplicationMain é o ponto de entrada principal da aplicação.
-                 * Ela é responsável por configurar o ambiente, carregar os recursos e
-                 * iniciar a cena principal do jogo.
+                 * Inicia a execução do backend da aplicação.
                  */
-                var ApplicationMain = function() {};
-                g.ApplicationMain = ApplicationMain;
-                ApplicationMain.__name__ = "ApplicationMain";
+                exec: function() {
+                    F.current = this;
+                    return this.__backend.exec();
+                },
+
+                // --- Placeholder de Handlers de Eventos ---
+                // Estes métodos vazios são projetados para serem sobrescritos pelas classes filhas.
+                onGamepadAxisMove: function(a, b, c) {},
+                onGamepadButtonDown: function(a, b) {},
+                onGamepadButtonUp: function(a, b) {},
+                onGamepadConnect: function(a) {},
+                onGamepadDisconnect: function(a) {},
+                onJoystickAxisMove: function(a, b, c) {},
+                onJoystickButtonDown: function(a, b) {},
+                onJoystickButtonUp: function(a, b) {},
+                onJoystickConnect: function(a) {},
+                onJoystickDisconnect: function(a) {},
+                onJoystickHatMove: function(a, b, c) {},
+                onKeyDown: function(a, b) {},
+                onKeyUp: function(a, b) {},
+                onModuleExit: function(a) {},
+                onMouseDown: function(a, b, c) {},
+                onMouseMove: function(a, b) {},
+                onMouseMoveRelative: function(a, b) {},
+                onMouseUp: function(a, b, c) {},
+                onMouseWheel: function(a, b, c) {},
+                onPreloadComplete: function() {},
+                onPreloadProgress: function(a, b) {},
+                onRenderContextLost: function() {},
+                onRenderContextRestored: function(a) {},
+                onTextEdit: function(a, b, c) {},
+                onTextInput: function(a) {},
+                onTouchCancel: function(a) {},
+                onTouchEnd: function(a) {},
+                onTouchMove: function(a) {},
+                onTouchStart: function(a) {},
+                onWindowActivate: function() {},
+                onWindowClose: function() {},
+                onWindowCreate: function() {},
+                onWindowDeactivate: function() {},
+                onWindowDropFile: function(a) {},
+                onWindowEnter: function() {},
+                onWindowExpose: function() {},
+                onWindowFocusIn: function() {},
+                onWindowFocusOut: function() {},
+                onWindowFullscreen: function() {},
+                onWindowLeave: function() {},
+                onWindowMove: function(a, b) {},
+                onWindowMinimize: function() {},
+                onWindowResize: function(a, b) {},
+                onWindowRestore: function() {},
 
                 /**
-                 * O método main, que registra o ponto de entrada da aplicação.
+                 * Remove um módulo da aplicação.
                  */
-                ApplicationMain.main = function() {
-                    // mc é lime.system.System
-                    mc.__registerEntryPoint("Dungeon", ApplicationMain.create);
-                };
+                removeModule: function(a) {
+                    if (null != a) {
+                        a.__unregisterLimeModule(this);
+                        N.remove(this.modules, a); // N é HxOverrides
+                    }
+                },
 
                 /**
-                 * Cria e configura a aplicação, o preloader e a janela principal.
-                 * @param {object} config - Configurações de inicialização do Lime.
+                 * Placeholder para o evento de renderização.
                  */
-                ApplicationMain.create = function(config) {
-                    // bg é openfl.display.Application
-                    var app = new bg();
-                    ManifestResources.init(config);
+                render: function(a) {},
 
-                    // Define os metadados da aplicação
-                    app.meta.h.build = "159";
-                    app.meta.h.company = "Retronic Games";
-                    app.meta.h.file = "Dungeon";
-                    app.meta.h.name = "One Page Dungeon Generator";
-                    app.meta.h.packageName = "com.watabou.dungeon";
-                    app.meta.h.version = "1.2.5";
+                /**
+                 * Placeholder para o evento de atualização.
+                 */
+                update: function(a) {},
 
-                    // Configurações padrão da janela
-                    var windowConfig = {
-                        allowHighDPI: true,
-                        alwaysOnTop: false,
-                        borderless: false,
-                        element: null,
-                        frameRate: 60,
-                        height: 0,
-                        hidden: false,
-                        maximized: false,
-                        minimized: false,
-                        parameters: {},
-                        resizable: true,
-                        title: "One Page Dungeon Generator",
-                        width: 0,
-                        x: null,
-                        y: null,
-                        context: {
-                            antialiasing: 4,
-                            background: 16316660,
-                            colorDepth: 32,
-                            depth: true,
-                            hardware: true,
-                            stencil: true,
-                            type: null,
-                            vsync: true
+                /**
+                 * Registra os listeners de eventos para um módulo.
+                 */
+                __registerLimeModule: function(a) {
+                    a.onUpdate.add(k(this, this.update));
+                    a.onExit.add(k(this, this.onModuleExit), false, 0);
+                    a.onExit.add(k(this, this.__onModuleExit), false, -1000);
+
+                    for (var b, a = cc.devices.iterator(); a.hasNext();) {
+                        b = a.next();
+                        this.__onGamepadConnect(b);
+                    }
+                    cc.onConnect.add(k(this, this.__onGamepadConnect));
+
+                    for (a = ac.devices.iterator(); a.hasNext();) {
+                        b = a.next();
+                        this.__onJoystickConnect(b);
+                    }
+                    ac.onConnect.add(k(this, this.__onJoystickConnect));
+
+                    Pb.onCancel.add(k(this, this.onTouchCancel));
+                    Pb.onStart.add(k(this, this.onTouchStart));
+                    Pb.onMove.add(k(this, this.onTouchMove));
+                    Pb.onEnd.add(k(this, this.onTouchEnd));
+                },
+
+                /**
+                 * Remove uma janela da aplicação.
+                 */
+                __removeWindow: function(a) {
+                    if (null != a && this.__windowByID.h.hasOwnProperty(a.id)) {
+                        if (this.__window == a) {
+                            this.__window = null;
                         }
+                        N.remove(this.__windows, a);
+                        this.__windowByID.remove(a.id);
+                        a.close();
+                        this.__checkForAllWindowsClosed();
+                    }
+                },
+
+                /**
+                 * Verifica se todas as janelas foram fechadas para encerrar a aplicação.
+                 */
+                __checkForAllWindowsClosed: function() {
+                    if (this.__windows.length == 0) {
+                        mc.exit(0);
+                    }
+                },
+
+                /**
+                 * Handler interno para conexão de gamepad.
+                 */
+                __onGamepadConnect: function(a) {
+                    this.onGamepadConnect(a);
+                    var b = this,
+                        c = function(c, d) {
+                            b.onGamepadAxisMove(a, c, d);
+                        };
+                    a.onAxisMove.add(c);
+                    var d = this;
+                    c = function(b) {
+                        d.onGamepadButtonDown(a, b);
                     };
-
-                    // Sobrescreve as configurações padrão com as recebidas
-                    if (null == app.__window && null != config) {
-                        for (var i = 0, fields = oa.fields(config); i < fields.length;) {
-                            var field = fields[i];
-                            ++i;
-                            if (Object.prototype.hasOwnProperty.call(windowConfig, field)) {
-                                windowConfig[field] = oa.field(config, field);
-                            } else if (Object.prototype.hasOwnProperty.call(windowConfig.context, field)) {
-                                windowConfig.context[field] = oa.field(config, field);
-                            }
-                        }
-                    }
-
-                    app.createWindow(windowConfig);
-
-                    // Cria o preloader
-                    // Pg é openfl.display.Preloader, cg é openfl.display.DefaultPreloader
-                    var preloader = new Pg(new cg());
-                    app.__preloader.onProgress.add(function(loaded, total) {
-                        preloader.update(loaded, total);
+                    a.onButtonDown.add(c);
+                    var f = this;
+                    c = function(b) {
+                        f.onGamepadButtonUp(a, b);
+                    };
+                    a.onButtonUp.add(c);
+                    var h = this;
+                    a.onDisconnect.add(function() {
+                        h.onGamepadDisconnect(a);
                     });
-                    app.__preloader.onComplete.add(function() {
-                        preloader.start();
-                    });
-
-                    var stage = app.__window.stage;
-                    preloader.onComplete.add(function() {
-                        ApplicationMain.start(stage);
-                    });
-
-                    // Adiciona as bibliotecas de assets ao preloader e inicia o carregamento
-                    for (var i = 0, libs = ManifestResources.preloadLibraries; i < libs.length;) {
-                        var lib = libs[i];
-                        ++i;
-                        app.__preloader.addLibrary(lib);
-                    }
-                    for (var i = 0, libNames = ManifestResources.preloadLibraryNames; i < libNames.length;) {
-                        var libName = libNames[i];
-                        ++i;
-                        app.__preloader.addLibraryName(libName);
-                    }
-
-                    app.__preloader.load();
-                    app.exec();
-                };
+                },
 
                 /**
-                 * Chamado após o carregamento de todos os assets.
-                 * Inicia a classe principal da aplicação.
-                 * @param {object} stage - O palco principal da aplicação.
+                 * Handler interno para conexão de joystick.
                  */
-                ApplicationMain.start = function(stage) {
-                    if (stage.__uncaughtErrorEvents.__enabled) {
-                        try {
-                            var root = stage.getChildAt(0);
-                            if (null == root || !(root instanceof Ya)) { // Ya é DisplayObjectContainer
-                                root = new Le(); // Le é MovieClip
-                                stage.addChild(root);
-                            }
-                            new Wb(root); // Wb é a DocumentClass (Main)
-                            stage.dispatchEvent(new ra("resize", false, false)); // ra é Event
-                            if (stage.window.__fullscreen) {
-                                stage.dispatchEvent(new ne("fullScreen", false, false, true, true)); // ne é FullScreenEvent
-                            }
-                        } catch (e) {
-                            Ca.lastError = e;
-                            var error = Z.caught(e).unwrap();
-                            stage.__handleError(error);
+                __onJoystickConnect: function(a) {
+                    this.onJoystickConnect(a);
+                    var b = this,
+                        c = function(c, d) {
+                            b.onJoystickAxisMove(a, c, d);
+                        };
+                    a.onAxisMove.add(c);
+                    var d = this;
+                    c = function(b) {
+                        d.onJoystickButtonDown(a, b);
+                    };
+                    a.onButtonDown.add(c);
+                    var f = this;
+                    c = function(b) {
+                        f.onJoystickButtonUp(a, b);
+                    };
+                    a.onButtonUp.add(c);
+                    var h = this;
+                    a.onDisconnect.add(function() {
+                        h.onJoystickDisconnect(a);
+                    });
+                    var n = this;
+                    c = function(b, c) {
+                        n.onJoystickHatMove(a, b, c);
+                    };
+                    a.onHatMove.add(c);
+                },
+
+                /**
+                 * Handler interno para a saída de um módulo.
+                 */
+                __onModuleExit: function(a) {
+                    if (!this.onExit.canceled) {
+                        this.__unregisterLimeModule(this);
+                        this.__backend.exit();
+                        if (F.current == this) {
+                            F.current = null;
                         }
-                    } else {
+                    }
+                },
+
+                /**
+                 * Handler interno para o fechamento de uma janela.
+                 */
+                __onWindowClose: function(a) {
+                    if (this.__window == a) {
+                        this.onWindowClose();
+                    }
+                    this.__removeWindow(a);
+                },
+
+                /**
+                 * Desregistra os listeners de eventos para um módulo.
+                 */
+                __unregisterLimeModule: function(a) {
+                    a.onUpdate.remove(k(this, this.update));
+                    a.onExit.remove(k(this, this.__onModuleExit));
+                    a.onExit.remove(k(this, this.onModuleExit));
+                    cc.onConnect.remove(k(this, this.__onGamepadConnect));
+                    ac.onConnect.remove(k(this, this.__onJoystickConnect));
+                    Pb.onCancel.remove(k(this, this.onTouchCancel));
+                    Pb.onStart.remove(k(this, this.onTouchStart));
+                    Pb.onMove.remove(k(this, this.onTouchMove));
+                    Pb.onEnd.remove(k(this, this.onTouchEnd));
+                },
+
+                __class__: F,
+            });
+
+            /**
+             * A classe estática ApplicationMain (V) é o ponto de entrada principal da aplicação.
+             * Ela é responsável por configurar o ambiente, carregar os recursos e
+             * iniciar a cena principal do jogo.
+             */
+            var ApplicationMain = function() {};
+            g.ApplicationMain = ApplicationMain;
+            ApplicationMain.__name__ = "ApplicationMain";
+
+            /**
+             * O método main, que registra o ponto de entrada da aplicação.
+             */
+            ApplicationMain.main = function() {
+                // mc é lime.system.System
+                mc.__registerEntryPoint("Dungeon", ApplicationMain.create);
+            };
+
+            /**
+             * Cria e configura a aplicação, o preloader e a janela principal.
+             * @param {object} config - Configurações de inicialização do Lime.
+             */
+            ApplicationMain.create = function(config) {
+                // bg é openfl.display.Application
+                var app = new bg();
+                ManifestResources.init(config);
+
+                // Define os metadados da aplicação
+                app.meta.h.build = "159";
+                app.meta.h.company = "Retronic Games";
+                app.meta.h.file = "Dungeon";
+                app.meta.h.name = "One Page Dungeon Generator";
+                app.meta.h.packageName = "com.watabou.dungeon";
+                app.meta.h.version = "1.2.5";
+
+                // Configurações padrão da janela
+                var windowConfig = {
+                    allowHighDPI: true,
+                    alwaysOnTop: false,
+                    borderless: false,
+                    element: null,
+                    frameRate: 60,
+                    height: 0,
+                    hidden: false,
+                    maximized: false,
+                    minimized: false,
+                    parameters: {},
+                    resizable: true,
+                    title: "One Page Dungeon Generator",
+                    width: 0,
+                    x: null,
+                    y: null,
+                    context: {
+                        antialiasing: 4,
+                        background: 16316660,
+                        colorDepth: 32,
+                        depth: true,
+                        hardware: true,
+                        stencil: true,
+                        type: null,
+                        vsync: true
+                    }
+                };
+
+                // Sobrescreve as configurações padrão com as recebidas
+                if (null == app.__window && null != config) {
+                    for (var i = 0, fields = oa.fields(config); i < fields.length;) {
+                        var field = fields[i];
+                        ++i;
+                        if (Object.prototype.hasOwnProperty.call(windowConfig, field)) {
+                            windowConfig[field] = oa.field(config, field);
+                        } else if (Object.prototype.hasOwnProperty.call(windowConfig.context, field)) {
+                            windowConfig.context[field] = oa.field(config, field);
+                        }
+                    }
+                }
+
+                app.createWindow(windowConfig);
+
+                // Cria o preloader
+                // Pg é openfl.display.Preloader, cg é openfl.display.DefaultPreloader
+                var preloader = new Pg(new cg());
+                app.__preloader.onProgress.add(function(loaded, total) {
+                    preloader.update(loaded, total);
+                });
+                app.__preloader.onComplete.add(function() {
+                    preloader.start();
+                });
+
+                var stage = app.__window.stage;
+                preloader.onComplete.add(function() {
+                    ApplicationMain.start(stage);
+                });
+
+                // Adiciona as bibliotecas de assets ao preloader e inicia o carregamento
+                for (var i = 0, libs = ManifestResources.preloadLibraries; i < libs.length;) {
+                    var lib = libs[i];
+                    ++i;
+                    app.__preloader.addLibrary(lib);
+                }
+                for (var i = 0, libNames = ManifestResources.preloadLibraryNames; i < libNames.length;) {
+                    var libName = libNames[i];
+                    ++i;
+                    app.__preloader.addLibraryName(libName);
+                }
+
+                app.__preloader.load();
+                app.exec();
+            };
+
+            /**
+             * Chamado após o carregamento de todos os assets.
+             * Inicia a classe principal da aplicação.
+             * @param {object} stage - O palco principal da aplicação.
+             */
+            ApplicationMain.start = function(stage) {
+                if (stage.__uncaughtErrorEvents.__enabled) {
+                    try {
                         var root = stage.getChildAt(0);
-                        if (null == root || !(root instanceof Ya)) {
-                            root = new Le();
+                        if (null == root || !(root instanceof Ya)) { // Ya é DisplayObjectContainer
+                            root = new Le(); // Le é MovieClip
                             stage.addChild(root);
                         }
-                        new Wb(root);
-                        stage.dispatchEvent(new ra("resize", false, false));
+                        new Wb(root); // Wb é a DocumentClass (Main)
+                        stage.dispatchEvent(new ra("resize", false, false)); // ra é Event
                         if (stage.window.__fullscreen) {
-                            stage.dispatchEvent(new ne("fullScreen", false, false, true, true));
+                            stage.dispatchEvent(new ne("fullScreen", false, false, true, true)); // ne é FullScreenEvent
+                        }
+                    } catch (e) {
+                        Ca.lastError = e;
+                        var error = Z.caught(e).unwrap();
+                        stage.__handleError(error);
+                    }
+                } else {
+                    var root = stage.getChildAt(0);
+                    if (null == root || !(root instanceof Ya)) {
+                        root = new Le();
+                        stage.addChild(root);
+                    }
+                    new Wb(root);
+                    stage.dispatchEvent(new ra("resize", false, false));
+                    if (stage.window.__fullscreen) {
+                        stage.dispatchEvent(new ne("fullScreen", false, false, true, true));
+                    }
+                }
+            };
+                
+            /**
+             * A interface IEventDispatcher (L) define um "contrato" para qualquer classe
+             * que precise despachar eventos no OpenFL.
+             * @interface
+             */
+            var L = function() {};
+            g["openfl.events.IEventDispatcher"] = L;
+            L.__name__ = "openfl.events.IEventDispatcher";
+            L.__isInterface__ = true;
+
+            /**
+             * Construtor da classe EventDispatcher, a implementação base da
+             * interface IEventDispatcher e classe pai para todos os objetos
+             * que podem despachar eventos.
+             * @class
+             * @param {object} a - O objeto que será o alvo padrão para os eventos.
+             */
+            var ea = function(a) {
+                if (null != a) {
+                    this.__targetDispatcher = a;
+                }
+            };
+            
+            /**
+             * classe EventDispatcher (ea) é a implementação padrão de IEventDispatcher.
+             * Gerenciando comos os objetos podem registrar, despachar e remover ouvintes de eventos.
+             * @class
+             * @extends {L} // L é a interface IEventDispatcher
+             * @param {object} a - O objeto que será o alvo padrão para os eventos
+             */ 
+            g["openfl.events.EventDispatcher"] = ea;
+            ea.__name__ = "openfl.events.EventDispatcher";
+            ea.__interfaces__ = [L]; // L é a interface IEventDispatcher
+
+            ea.prototype = {
+                /**
+                 * Registra um ouvinte de evento para um objeto EventDispatcher.
+                 * @param {string} a - O tipo do evento (ex: "click").
+                 * @param {function} b - A função a ser chamada quando o evento ocorrer.
+                 * @param {boolean} c - Se o ouvinte deve ser ativado na fase de captura.
+                 * @param {number} d - A prioridade do ouvinte de evento.
+                 * @param {boolean} f - (Não aplicável em JS, mantido por compatibilidade).
+                 */
+                addEventListener: function(a, b, c, d, f) {
+                    if (null == f) f = false;
+                    if (null == d) d = 0;
+                    if (null == c) c = false;
+
+                    if (null != b) {
+                        if (null == this.__eventMap) {
+                            this.__eventMap = new Ma(); // Ma é StringMap
+                            this.__iterators = new Ma();
+                        }
+
+                        if (Object.prototype.hasOwnProperty.call(this.__eventMap.h, a)) {
+                            var p = this.__eventMap.h[a];
+                            for (var h = 0, n = p.length; h < n;) {
+                                var A = h++;
+                                if (p[A].match(b, c)) return;
+                            }
+
+                            var iterators = this.__iterators.h[a];
+                            for (h = 0; h < iterators.length;) {
+                                n = iterators[h];
+                                ++h;
+                                if (n.active) n.copy();
+                            }
+                            this.__addListenerByPriority(p, new Me(b, c, d, f)); // Me é um Listener
+                        } else {
+                            var p = [];
+                            p.push(new Me(b, c, d, f));
+                            var n = new dg(p); // dg é um DispatchIterator
+                            this.__eventMap.h[a] = p;
+                            this.__iterators.h[a] = [n];
                         }
                     }
-                };
-                
-                var L = function () {};
-                g["openfl.events.IEventDispatcher"] = L;
-                L.__name__ = "openfl.events.IEventDispatcher";
-                L.__isInterface__ = !0;
-                var ea = function (a) {
-                    null != a && (this.__targetDispatcher = a);
-                };
-                
-                g["openfl.events.EventDispatcher"] = ea;
-                ea.__name__ = "openfl.events.EventDispatcher";
-                ea.__interfaces__ = [L];
-                ea.prototype = {
-                    addEventListener: function (a, b, c, d, f) {
-                        null == f && (f = !1);
-                        null == d && (d = 0);
-                        null == c && (c = !1);
-                        if (null != b)
-                            if ((null == this.__eventMap && ((this.__eventMap = new Ma()), (this.__iterators = new Ma())), Object.prototype.hasOwnProperty.call(this.__eventMap.h, a))) {
-                                p = this.__eventMap.h[a];
-                                for (var h = 0, n = p.length; h < n; ) {
-                                    var A = h++;
-                                    if (p[A].match(b, c)) return;
-                                }
-                                a = this.__iterators.h[a];
-                                for (h = 0; h < a.length; ) (n = a[h]), ++h, n.active && n.copy();
-                                this.__addListenerByPriority(p, new Me(b, c, d, f));
-                            } else {
-                                var p = [];
-                                p.push(new Me(b, c, d, f));
-                                n = new dg(p);
-                                this.__eventMap.h[a] = p;
-                                this.__iterators.h[a] = [n];
-                            }
-                    },
-                    dispatchEvent: function (a) {
-                        a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this;
-                        return this.__dispatchEvent(a);
-                    },
-                    hasEventListener: function (a) {
-                        return null == this.__eventMap ? !1 : Object.prototype.hasOwnProperty.call(this.__eventMap.h, a);
-                    },
-                    removeEventListener: function (a, b, c) {
-                        null == c && (c = !1);
-                        if (null != this.__eventMap && null != b) {
-                            var d = this.__eventMap.h[a];
-                            if (null != d) {
-                                for (var f = this.__iterators.h[a], h = 0, n = d.length; h < n; ) {
-                                    var A = h++;
-                                    if (d[A].match(b, c)) {
-                                        for (b = 0; b < f.length; ) (c = f[b]), ++b, c.remove(d[A], A);
-                                        d.splice(A, 1);
-                                        break;
-                                    }
-                                }
-                                0 == d.length && ((d = this.__eventMap), (f = a), Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f], (d = this.__iterators), (f = a), Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f]);
-                                0 >= Object.keys(this.__eventMap.h).length && (this.__iterators = this.__eventMap = null);
-                            }
-                        }
-                    },
-                    __dispatchEvent: function (a) {
-                        if (null == this.__eventMap || null == a) return !0;
-                        var b = a.type,
-                            c = this.__eventMap.h[b];
-                        if (null == c) return !0;
-                        null == a.target && (a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this);
-                        a.currentTarget = this;
-                        var d = 1 == a.eventPhase;
-                        b = this.__iterators.h[b];
-                        var f = b[0];
-                        f.active && ((f = new dg(c)), b.push(f));
-                        f.start();
-                        for (var h = f; h.hasNext(); ) {
-                            var n = h.next();
-                            if (null != n && n.useCapture == d) {
-                                if (n.useWeakReference && null != n.weakRefCallback) {
-                                    var A = n.weakRefCallback.deref();
-                                    if (null == A) (A = f.index - 1), c.splice(A, 1), f.remove(n, A);
-                                    else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled)
-                                        try {
-                                            A(a);
-                                        } catch (p) {
-                                            (Ca.lastError = p), (n = Z.caught(p).unwrap()), a instanceof pf || Na.get_current().stage.__handleError(n);
-                                        }
-                                    else A(a);
-                                } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled)
-                                    try {
-                                        n.callback(a);
-                                    } catch (p) {
-                                        (Ca.lastError = p), (n = Z.caught(p).unwrap()), a instanceof pf || Na.get_current().stage.__handleError(n);
-                                    }
-                                else n.callback(a);
-                                if (a.__isCanceledNow) break;
-                            }
-                        }
-                        f.stop();
-                        f != b[0] ? N.remove(b, f) : f.reset(c);
-                        return !a.isDefaultPrevented();
-                    },
-                    __addListenerByPriority: function (a, b) {
-                        for (var c = a.length, d = c, f = 0; f < c; ) {
-                            var h = f++;
-                            if (a[h].priority < b.priority) {
-                                d = h;
-                                break;
-                            }
-                        }
-                        a.splice(d, 0, b);
-                    },
-                    __class__: ea,
-                };
-
-                var fb = function () { };
-                g["openfl.display.IBitmapDrawable"] = fb;
-                fb.__name__ = "openfl.display.IBitmapDrawable";
-                fb.__isInterface__ = !0;
-                fb.prototype = { __class__: fb };
-                
-                var ma = { toIntVector: function (a, b, c, d) { return new eg(b, c, d) }, toFloatVector: function (a, b, c, d) { return new Wd(b, c, d, !0) }, toObjectVector: function (a, b, c, d) { return new qf(b, c, d, !0) } }, mb = function (a, b, c) { this.__pool = new fa; this.inactiveObjects = this.activeObjects = 0; this.__inactiveObject1 = this.__inactiveObject0 = null; this.__inactiveObjectList = new La; null != a && (this.create = a); null != b && (this.clean = b); null != c && this.set_size(c) }; g["lime.utils.ObjectPool"] = mb; mb.__name__ = "lime.utils.ObjectPool"; mb.prototype = {
-                clean: function (a) { },
-                create: function () { return null }, get: function () {
-                    var a = null; if (0 < this.inactiveObjects) null != this.__inactiveObject0 ? (a = this.__inactiveObject0, this.__inactiveObject0 = null) : null != this.__inactiveObject1 ? (a = this.__inactiveObject1, this.__inactiveObject1 = null) : (a = this.__inactiveObjectList.pop(), 0 < this.__inactiveObjectList.length && (this.__inactiveObject0 = this.__inactiveObjectList.pop()), 0 < this.__inactiveObjectList.length && (this.__inactiveObject1 = this.__inactiveObjectList.pop())), this.inactiveObjects--, this.activeObjects++;
-                    else if (null == this.__size || this.activeObjects < this.__size) a = this.create(), null != a && (this.__pool.set(a, !0), this.activeObjects++); return a
-                }, release: function (a) { this.activeObjects--; null == this.__size || this.activeObjects + this.inactiveObjects < this.__size ? (this.clean(a), null == this.__inactiveObject0 ? this.__inactiveObject0 = a : null == this.__inactiveObject1 ? this.__inactiveObject1 = a : this.__inactiveObjectList.add(a), this.inactiveObjects++) : this.__pool.remove(a) }, __removeInactive: function (a) {
-                    if (!(0 >= a || 0 == this.inactiveObjects) &&
-                        (null != this.__inactiveObject0 && (this.__pool.remove(this.__inactiveObject0), this.__inactiveObject0 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects && (null != this.__inactiveObject1 && (this.__pool.remove(this.__inactiveObject1), this.__inactiveObject1 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects))) for (var b = this.__inactiveObjectList.h; null != b;) { var c = b.item; b = b.next; this.__pool.remove(c); this.__inactiveObjectList.remove(c); this.inactiveObjects--; --a; if (0 == a || 0 == this.inactiveObjects) break }
                 },
-                set_size: function (a) { if (null == a) this.__size = null; else { var b = this.inactiveObjects + this.activeObjects; this.__size = a; if (b > a) this.__removeInactive(b - a); else if (a > b) for (var c = 0, d = a - b; c < d;)if (c++, b = this.create(), null != b) this.__pool.set(b, !1), this.__inactiveObjectList.add(b), this.inactiveObjects++; else break } return a }, __class__: mb, __properties__: { set_size: "set_size" }
-            }; 
+
+                /**
+                 * Despacha um evento no fluxo de eventos.
+                 * @param {object} a - O objeto Event a ser despachado.
+                 * @returns {boolean} Verdadeiro se a ação padrão não foi prevenida.
+                 */
+                dispatchEvent: function(a) {
+                    a.target = (null != this.__targetDispatcher) ? this.__targetDispatcher : this;
+                    return this.__dispatchEvent(a);
+                },
+
+                /**
+                 * Verifica se o EventDispatcher tem algum ouvinte registrado para um tipo específico de evento.
+                 * @param {string} a - O tipo do evento.
+                 * @returns {boolean} Verdadeiro se houver um ouvinte.
+                 */
+                hasEventListener: function(a) {
+                    return null == this.__eventMap ? false : Object.prototype.hasOwnProperty.call(this.__eventMap.h, a);
+                },
+
+                /**
+                 * Remove um ouvinte do EventDispatcher.
+                 * @param {string} a - O tipo do evento.
+                 * @param {function} b - A função ouvinte a ser removida.
+                 * @param {boolean} c - Se o ouvinte estava na fase de captura.
+                 */
+                removeEventListener: function(a, b, c) {
+                    if (null == c) c = false;
+
+                    if (null != this.__eventMap && null != b) {
+                        var d = this.__eventMap.h[a];
+                        if (null != d) {
+                            var f = this.__iterators.h[a];
+                            for (var h = 0, n = d.length; h < n;) {
+                                var A = h++;
+                                if (d[A].match(b, c)) {
+                                    for (var i = 0; i < f.length;) {
+                                        var j = f[i];
+                                        ++i;
+                                        j.remove(d[A], A);
+                                    }
+                                    d.splice(A, 1);
+                                    break;
+                                }
+                            }
+
+                            if (0 == d.length) {
+                                var map = this.__eventMap;
+                                var key = a;
+                                if (Object.prototype.hasOwnProperty.call(map.h, key)) delete map.h[key];
+
+                                map = this.__iterators;
+                                key = a;
+                                if (Object.prototype.hasOwnProperty.call(map.h, key)) delete map.h[key];
+                            }
+
+                            if (0 >= Object.keys(this.__eventMap.h).length) {
+                                this.__iterators = this.__eventMap = null;
+                            }
+                        }
+                    }
+                },
+
+                /**
+                 * Método interno que executa a lógica de despacho de eventos.
+                 * @private
+                 */
+                __dispatchEvent: function(a) {
+                    if (null == this.__eventMap || null == a) return true;
+
+                    var b = a.type;
+                    var c = this.__eventMap.h[b];
+                    if (null == c) return true;
+
+                    if (null == a.target) {
+                        a.target = (null != this.__targetDispatcher) ? this.__targetDispatcher : this;
+                    }
+                    a.currentTarget = this;
+
+                    var d = 1 == a.eventPhase;
+                    b = this.__iterators.h[b];
+                    var f = b[0];
+
+                    if (f.active) {
+                        f = new dg(c);
+                        b.push(f);
+                    }
+                    f.start();
+
+                    for (var h = f; h.hasNext();) {
+                        var n = h.next();
+                        if (null != n && n.useCapture == d) {
+                            if (n.useWeakReference && null != n.weakRefCallback) {
+                                var A = n.weakRefCallback.deref();
+                                if (null == A) {
+                                    A = f.index - 1;
+                                    c.splice(A, 1);
+                                    f.remove(n, A);
+                                } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) {
+                                    try {
+                                        A(a);
+                                    } catch (p) {
+                                        Ca.lastError = p;
+                                        n = Z.caught(p).unwrap();
+                                        if (!(a instanceof pf)) Na.get_current().stage.__handleError(n);
+                                    }
+                                } else {
+                                    A(a);
+                                }
+                            } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) {
+                                try {
+                                    n.callback(a);
+                                } catch (p) {
+                                    Ca.lastError = p;
+                                    n = Z.caught(p).unwrap();
+                                    if (!(a instanceof pf)) Na.get_current().stage.__handleError(n);
+                                }
+                            } else {
+                                n.callback(a);
+                            }
+                            if (a.__isCanceledNow) break;
+                        }
+                    }
+                    f.stop();
+
+                    if (f != b[0]) {
+                        N.remove(b, f); // N é HxOverrides
+                    } else {
+                        f.reset(c);
+                    }
+
+                    return !a.isDefaultPrevented();
+                },
+
+                /**
+                 * Método interno para adicionar um ouvinte mantendo a ordem de prioridade.
+                 * @private
+                 */
+                __addListenerByPriority: function(a, b) {
+                    for (var c = a.length, d = c, f = 0; f < c;) {
+                        var h = f++;
+                        if (a[h].priority < b.priority) {
+                            d = h;
+                            break;
+                        }
+                    }
+                    a.splice(d, 0, b);
+                },
+
+                __class__: ea,
+            };
+
+            /**
+             * Interface (fb) que identifica objetos que podem ser desenhados em um BitmapData.
+             * @interface
+             */
+            var fb = function() {};
+            g["openfl.display.IBitmapDrawable"] = fb;
+            fb.__name__ = "openfl.display.IBitmapDrawable";
+            fb.__isInterface__ = true;
+            fb.prototype = {
+                __class__: fb
+            };
+
+            /**
+             * ==================================================================
+             * CLASSE lime.utils.ObjectPool (mb)
+             * ==================================================================
+             *
+             * Uma piscina de objetos para reutilização, otimizando a performance ao
+             * evitar a criação e destruição constante de objetos. O objeto 'ma'
+             * contém funções utilitárias para criar vetores (arrays tipados)
+             * específicos do Haxe.
+             *
+             * @class
+             * @param {function} a - Função para criar um novo objeto.
+             * @param {function} b - Função para limpar/resetar um objeto ao ser devolvido.
+             * @param {number} c - Tamanho máximo da piscina.
+             */
+            var ma = {
+                toIntVector: function(a, b, c, d) { return new eg(b, c, d); },
+                toFloatVector: function(a, b, c, d) { return new Wd(b, c, d, true); },
+                toObjectVector: function(a, b, c, d) { return new qf(b, c, d, true); }
+            };
+            var mb = function(a, b, c) {
+                this.__pool = new fa(); // fa é haxe.ds.ObjectMap
+                this.inactiveObjects = this.activeObjects = 0;
+                this.__inactiveObject1 = this.__inactiveObject0 = null;
+                this.__inactiveObjectList = new La(); // La é haxe.ds.List
+                if (null != a) this.create = a;
+                if (null != b) this.clean = b;
+                if (null != c) this.set_size(c);
+            };
+            g["lime.utils.ObjectPool"] = mb;
+            mb.__name__ = "lime.utils.ObjectPool";
+            mb.prototype = {
+                clean: function(a) {},
+                create: function() {
+                    return null;
+                },
+                get: function() {
+                    var a = null;
+                    if (0 < this.inactiveObjects) {
+                        if (null != this.__inactiveObject0) {
+                            a = this.__inactiveObject0;
+                            this.__inactiveObject0 = null;
+                        } else if (null != this.__inactiveObject1) {
+                            a = this.__inactiveObject1;
+                            this.__inactiveObject1 = null;
+                        } else {
+                            a = this.__inactiveObjectList.pop();
+                            if (0 < this.__inactiveObjectList.length) this.__inactiveObject0 = this.__inactiveObjectList.pop();
+                            if (0 < this.__inactiveObjectList.length) this.__inactiveObject1 = this.__inactiveObjectList.pop();
+                        }
+                        this.inactiveObjects--;
+                        this.activeObjects++;
+                    } else if (null == this.__size || this.activeObjects < this.__size) {
+                        a = this.create();
+                        if (null != a) {
+                            this.__pool.set(a, true);
+                            this.activeObjects++;
+                        }
+                    }
+                    return a;
+                },
+                release: function(a) {
+                    this.activeObjects--;
+                    if (null == this.__size || this.activeObjects + this.inactiveObjects < this.__size) {
+                        this.clean(a);
+                        if (null == this.__inactiveObject0) {
+                            this.__inactiveObject0 = a;
+                        } else if (null == this.__inactiveObject1) {
+                            this.__inactiveObject1 = a;
+                        } else {
+                            this.__inactiveObjectList.add(a);
+                        }
+                        this.inactiveObjects++;
+                    } else {
+                        this.__pool.remove(a);
+                    }
+                },
+                __removeInactive: function(a) {
+                    if (!(0 >= a || 0 == this.inactiveObjects) &&
+                        (null != this.__inactiveObject0 && (this.__pool.remove(this.__inactiveObject0), this.__inactiveObject0 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects && (null != this.__inactiveObject1 && (this.__pool.remove(this.__inactiveObject1), this.__inactiveObject1 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects))) {
+                        for (var b = this.__inactiveObjectList.h; null != b;) {
+                            var c = b.item;
+                            b = b.next;
+                            this.__pool.remove(c);
+                            this.__inactiveObjectList.remove(c);
+                            this.inactiveObjects--;
+                            --a;
+                            if (0 == a || 0 == this.inactiveObjects) break;
+                        }
+                    }
+                },
+                set_size: function(a) {
+                    if (null == a) {
+                        this.__size = null;
+                    } else {
+                        var b = this.inactiveObjects + this.activeObjects;
+                        this.__size = a;
+                        if (b > a) {
+                            this.__removeInactive(b - a);
+                        } else if (a > b) {
+                            for (var c = 0, d = a - b; c < d;) {
+                                if (c++, b = this.create(), null != b) {
+                                    this.__pool.set(b, false);
+                                    this.__inactiveObjectList.add(b);
+                                    this.inactiveObjects++;
+                                } else break;
+                            }
+                        }
+                    }
+                    return a;
+                },
+                __class__: mb,
+                __properties__: {
+                    set_size: "set_size"
+                }
+            };
             
             
             var U = function () { }; g["haxe.IMap"] = U; U.__name__ = "haxe.IMap"; U.__isInterface__ = !0; U.prototype = { __class__: U }; var fa = function () { this.h = { __keys__: {} } };
@@ -670,7 +1133,10 @@ var $lime_init = function (F, r) {
                 }; var aa = function () {
                     ea.call(this); this.__alpha = this.__drawableType = 1; this.__blendMode = 10; this.__cacheAsBitmap = !1; this.__transform = new na; this.__visible = !0; this.__rotationSine = this.__rotation = 0; this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1; this.__worldBlendMode = 10; this.__worldTransform =
                         new na; this.__worldColorTransform = new Cb; this.__renderTransform = new na; this.__worldVisible = !0; this.set_name("instance" + ++aa.__instanceCount); null != aa.__initStage && (this.stage = aa.__initStage, aa.__initStage = null, this.stage.addChild(this))
-                }; g["openfl.display.DisplayObject"] = aa; aa.__name__ = "openfl.display.DisplayObject"; aa.__interfaces__ = [fb]; aa.__super__ = ea; aa.prototype = u(ea.prototype, {
+                }; 
+                
+                
+                g["openfl.display.DisplayObject"] = aa; aa.__name__ = "openfl.display.DisplayObject"; aa.__interfaces__ = [fb]; aa.__super__ = ea; aa.prototype = u(ea.prototype, {
                     addEventListener: function (a, b, c, d, f) {
                         null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); switch (a) {
                             case "activate": case "deactivate": case "enterFrame": case "exitFrame": case "frameConstructed": case "render": Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h,
@@ -858,6 +1324,9 @@ var $lime_init = function (F, r) {
                         new fd(this)); return this.__graphics
                 }, get_tabEnabled: function () { return null == this.__tabEnabled ? this.__buttonMode : this.__tabEnabled }, get_buttonMode: function () { return this.__buttonMode }, set_buttonMode: function (a) { return this.__buttonMode = a }, __class__: ja, __properties__: u(Ya.prototype.__properties__, { get_graphics: "get_graphics", set_buttonMode: "set_buttonMode", get_buttonMode: "get_buttonMode" })
             }); var hb = function (a) { hb.instance = this; ja.call(this); this.prepareStage(); Va.useEnterFrame(this); hb.switchScene(a) };
+            
+            
+            
             g["com.watabou.coogee.Game"] = hb; hb.__name__ = "com.watabou.coogee.Game"; hb.switchScene = function (a) { hb.instance.switchSceneImp(a) }; hb.quit = function () { }; hb.__super__ = ja; hb.prototype = u(ja.prototype, {
                 prepareStage: function () {
                     var a = this; this.stage.align = 6; this.stage.set_scaleMode(2); this.stage.addEventListener("resize", function (b) { a.layout() }); this.stage.application.onExit.add(k(this, this.onExit)); this.stage.application.__window.onActivate.add(k(this, this.onResume)); this.stage.application.__window.onDeactivate.add(k(this,
@@ -8081,7 +8550,7 @@ var $lime_init = function (F, r) {
             } function g(g, k, q, r) {
                 var u; g = g.state; return null === g.window && (g.wsize = 1 << g.wbits, g.wnext = 0, g.whave = 0, g.window = new J.Buf8(g.wsize)), r >= g.wsize ? (J.arraySet(g.window, k, q - g.wsize, g.wsize, 0), g.wnext = 0, g.whave = g.wsize) : (u = g.wsize - g.wnext, u > r && (u = r), J.arraySet(g.window, k, q - r, u, g.wnext), r -= u, r ? (J.arraySet(g.window, k, q - r, r, 0), g.wnext = r, g.whave = g.wsize) : (g.wnext += u, g.wnext === g.wsize && (g.wnext = 0), g.whave < g.wsize && (g.whave += u))),
                     0
-            } var q, D, J = r("../utils/common"), pa = r("./adler32"), ca = r("./crc32"), bb = r("./inffast"), Bb = r("./inftrees"), gc = 0, ab = -2, ea = 1, fb = 852, ma = 592, mb = !0; B.inflateReset = u; B.inflateReset2 = W; B.inflateResetKeep = V; B.inflateInit = function (g) { return k(g, 15) }; B.inflateInit2 = k; B.inflate = function (k, r) {
+            } var q, D, J = r("../utils/common"), pa = r("./adler32"), ca = r("./crc32"), bb = r("./inffast"), Bb = r("./inftrees"), gc = 0, ab = -2, ea = 1, fb = 852, ma = 592, mb = !0; B.inflateReset = u; B.inflateReset2 = W; B.inflateResetKeep = ApplicationMain; B.inflateInit = function (g) { return k(g, 15) }; B.inflateInit2 = k; B.inflate = function (k, r) {
                 var u, x, B, L, U, ApplicationMain, W, fa = 0, sa = new J.Buf8(4), N = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]; if (!k || !k.state || !k.output || !k.input && 0 !== k.avail_in) return ab; var C = k.state; 12 === C.mode && (C.mode = 13); var ma = k.next_out; var za = k.output;
                 var Ka = k.avail_out; var Oa = k.next_in; var Pa = k.input; var qa = k.avail_in; var M = C.hold; var R = C.bits; var fb = qa; var va = Ka; var Ib = gc; a: for (; ;)switch (C.mode) {
                     case ea: if (0 === C.wrap) { C.mode = 13; break } for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (2 & C.wrap && 35615 === M) { C.check = 0; sa[0] = 255 & M; sa[1] = M >>> 8 & 255; C.check = ca(C.check, sa, 2, 0); R = M = 0; C.mode = 2; break } if (C.flags = 0, C.head && (C.head.done = !1), !(1 & C.wrap) || (((255 & M) << 8) + (M >> 8)) % 31) { k.msg = "incorrect header check"; C.mode = 30; break } if (8 !== (15 & M)) {

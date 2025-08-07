@@ -916,9 +916,9 @@ var $lime_init = function (F, r) {
                         this.maxSize = 15; this.minSize = 6; this.style = [0, 0, 0, 1, 2, 3, 3]; this.order = [!0, !0, !0, !0, !1]; this.bp = a; this.rooms = []; this.doors = []; this.blocks = []; v.reset(a.seed); Rb.trace("Seed: " + v.seed, { fileName: "Source/com/watabou/dungeon/model/Dungeon.hx", lineNumber: 71, className: "com.watabou.dungeon.model.Dungeon", methodName: "new" }); if (null != a.tags) {
                             var b = !1, c = 0; do {
                                 for (var d = 0; 20 >
-                                    d;)if (d++, this.tags = [], this.story = new $a(this), Fa.difference(a.tags, this.tags).length <= c) { b = !0; break } ++c
+                                    d;)if (d++, this.tags = [], this.story = new Story(this), Fa.difference(a.tags, this.tags).length <= c) { b = !0; break } ++c
                             } while (!b); d = 0; for (b = a.tags; d < b.length;)c = b[d], ++d, -1 == this.tags.indexOf(c) && Pc.resolve(this.tags, c)
-                        } else this.tags = [], this.story = new $a(this); null != a.name && (this.story.name = a.name); Ta.init(this)
+                        } else this.tags = [], this.story = new Story(this); null != a.name && (this.story.name = a.name); Ta.init(this)
                     }; g["com.watabou.dungeon.model.Dungeon"] = Mi; Mi.__name__ = "com.watabou.dungeon.model.Dungeon"; Mi.prototype = {
                         getRect: function (a) {
                             null == a && (a = !0); for (var b = null, c = 0, d = this.rooms; c < d.length;) {
@@ -1162,24 +1162,193 @@ var $lime_init = function (F, r) {
                                 b - d.y * a, d.y * b + d.x * a); return new ha(a.x - c, a.y - c, 2 * c, 2 * c)
                         } return pc.prototype.getBounds.call(this, a, b)
                     }, __class__: lg
-                }); var $a = function (a) {
-                    this.dungeon = a; if (null == $a.grammar) { Bd.rng = v.float; var b = JSON.parse(Vb.getText("grammar")); $a.grammar = Bd.createGrammar(b); $a.grammar.addModifiers(Wa.get()); $a.grammar.defaultSelector = ah; $a.demonic = new de(Vb.getText("demons").split(" ")); $a.grammar.addExternal("demonicName", k(this, this.demonicName)) } else $a.grammar.clearState(); b = .6666666666666666; null == b && (b = .5);
-                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = $a.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), $a.grammar.fix("boss")); $a.grammar.fix("dung_noun"); $a.grammar.fix("dung"); $a.grammar.fix("raider"); $a.grammar.fix("native"); $a.grammar.fix("symbol"); $a.grammar.fix("location"); this.name = $a.grammar.flatten("#name#"); Fa.addAll(a.tags, Pc.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
-                        (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "string"); -1 == a.tags.indexOf("flat") ? (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "deep"); var c = 0; for (a = a.tags; c < a.length;) { var d = a[c]; ++c; b = $a.grammar; d = d.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(d)) } this.hook = $a.grammar.flatten("#story#")
-                }; g["com.watabou.dungeon.model.Story"] = $a; $a.__name__ = "com.watabou.dungeon.model.Story"; $a.num2text =
-                    function (a) { switch (a) { case 0: return "zero"; case 1: return "one"; case 2: return "two"; case 3: return "three"; case 4: return "four"; case 5: return "five"; default: return "many" } }; $a.prototype = {
-                        demonicName: function () { var a = .25; null == a && (a = .5); return (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < a ? bh.capitalize($a.demonic.generate(3)) + "-" + bh.capitalize($a.demonic.generate(3)) : bh.capitalize($a.demonic.generate(4)) }, getRoomDesc: function (a, b) {
-                            $a.grammar.pushRules("room", [b.word()]); var c = []; b == a.backdoor && c.push("A rear entrance into the " +
-                                $a.grammar.flatten("#dung_noun#") + "."); b.event && c.push(this.getEventText(a, b)); b.gate && c.push(this.getGateText(a, b)); b.loot && c.push(this.getLootText(a, b)); b.key && c.push(this.getKeyText(a, b)); $a.grammar.popRules("room"); return 0 < c.length ? c.join(" ") : null
-                        }, getGateText: function (a, b) {
-                            for (var c = [], d = 0, f = b.getExits(); d < f.length;) { var h = f[d]; ++d; 5 == h.type && c.push(h) } b = this.dir2text(b, c[0]); $a.grammar.pushRules("dir", [b]); $a.grammar.pushRules("num", [$a.num2text(a.nKeys)]); switch (a.nKeys) {
-                                case 0: a = "#gate_nokey#";
-                                    break; case 1: a = "#gate_onekey#"; break; default: a = "#gate_manykeys#"
-                            }a = $a.grammar.flatten(a); $a.grammar.popRules("num"); $a.grammar.popRules("dir"); return a
-                        }, getKeyText: function (a, b) { a = this.keys.pop(); $a.grammar.pushRules("treasure", [a]); $a.grammar.pushRules("special_item", [a]); a = $a.grammar.flatten("#loot#"); $a.grammar.popRules("special_item"); $a.grammar.popRules("treasure"); return a }, getLootText: function (a, b) { return $a.grammar.flatten("#loot#") }, getEventText: function (a, b) { return $a.grammar.flatten("#event#") },
-                        dir2text: function (a, b) { a = b.from == a ? b.dir : new xa(-b.dir.x, -b.dir.y); b = xa.UP; if (a.x == b.x && a.y == b.y) return $a.grammar.flatten("#north#"); b = xa.DOWN; if (a.x == b.x && a.y == b.y) return $a.grammar.flatten("#south#"); b = xa.LEFT; return a.x == b.x && a.y == b.y ? $a.grammar.flatten("#west#") : $a.grammar.flatten("#east#") }, initKeys: function (a) { var b = $a.grammar.flatten("#key.a#"), c = [], d = 0; for (a = a.nKeys; d < a;)d++, c.push(b); this.keys = c }, setFlag: function (a) { var b = $a.grammar; a = a.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(a)) },
-                        __class__: $a
-                    }; var Pc = function () { }; g["com.watabou.dungeon.model.Tags"] = Pc; Pc.__name__ = "com.watabou.dungeon.model.Tags"; Pc.init = function () { if (null == Pc.anchors) { Pc.anchors = new Ma; for (var a = Vb.getText("tags").split("\r\n"), b = 0; b < a.length;) { var c = a[b]; ++b; var d = c.split(":"); c = d[0].split(","); d = d[1].split(","); for (var f = 0; f < c.length;) { var h = c[f]; ++f; h = w.trim(h); var n = Pc.anchors.h[h]; null == n && (n = [], Pc.anchors.h[h] = n); for (h = 0; h < d.length;) { var A = d[h]; ++h; Fa.add(n, w.trim(A)) } } } } }; Pc.deriveTags = function (a) {
+                }); var Story = function (a) {
+                    this.dungeon = a; if (null == Story.grammar) { Bd.rng = v.float; var b = JSON.parse(Vb.getText("grammar")); Story.grammar = Bd.createGrammar(b); Story.grammar.addModifiers(Wa.get()); Story.grammar.defaultSelector = ah; Story.demonic = new de(Vb.getText("demons").split(" ")); Story.grammar.addExternal("demonicName", k(this, this.demonicName)) } else Story.grammar.clearState(); b = .6666666666666666; null == b && (b = .5);
+                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = Story.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), Story.grammar.fix("boss")); Story.grammar.fix("dung_noun"); Story.grammar.fix("dung"); Story.grammar.fix("raider"); Story.grammar.fix("native"); Story.grammar.fix("symbol"); Story.grammar.fix("location"); this.name = Story.grammar.flatten("#name#"); Fa.addAll(a.tags, Pc.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
+                        (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "string"); -1 == a.tags.indexOf("flat") ? (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "deep"); var c = 0; for (a = a.tags; c < a.length;) { var d = a[c]; ++c; b = Story.grammar; d = d.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(d)) } this.hook = Story.grammar.flatten("#story#")
+            };
+
+            /**
+            * Define a classe `com.watabou.dungeon.model.Story`.
+            * Esta classe é responsável por toda a geração de texto procedural,
+            * criando nomes, descrições e a história da masmorra.
+            */
+            g["com.watabou.dungeon.model.Story"] = Story;
+            Story.__name__ = "com.watabou.dungeon.model.Story";
+
+            /**
+             * (Método Estático) Converte um número para sua representação em texto.
+             * @param {number} a - O número a ser convertido.
+             * @returns {string} O número por extenso.
+             */
+            Story.num2text = function (a) {
+                switch (a) {
+                    case 0: return "zero";
+                    case 1: return "one";
+                    case 2: return "two";
+                    case 3: return "three";
+                    case 4: return "four";
+                    case 5: return "five";
+                    default: return "many";
+                }
+            };
+
+            // Define os métodos da instância da classe Story
+            Story.prototype = {
+                /**
+                 * Gera um nome demoníaco proceduralmente.
+                 * @returns {string} Um nome demoníaco.
+                 */
+                demonicName: function () {
+                    var a = 0.25;
+                    if (null == a) {
+                        a = 0.5;
+                    }
+                    // Utiliza um gerador de Markov ($a.demonic.generate) para criar o nome
+                    return (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < a
+                        ? bh.capitalize(Story.demonic.generate(3)) + "-" + bh.capitalize(Story.demonic.generate(3))
+                        : bh.capitalize(Story.demonic.generate(4));
+                },
+
+                /**
+                 * Gera a descrição de uma sala com base em suas propriedades (evento, tesouro, chave, etc.).
+                 * @param {object} a - O objeto planejador da masmorra.
+                 * @param {object} b - O objeto da sala.
+                 * @returns {string|null} A descrição completa da sala ou nulo se não houver.
+                 */
+                getRoomDesc: function (a, b) {
+                    Story.grammar.pushRules("room", [b.word()]);
+                    var c = [];
+
+                    if (b == a.backdoor) {
+                        c.push("A rear entrance into the " + Story.grammar.flatten("#dung_noun#") + ".");
+                    }
+                    if (b.event) {
+                        c.push(this.getEventText(a, b));
+                    }
+                    if (b.gate) {
+                        c.push(this.getGateText(a, b));
+                    }
+                    if (b.loot) {
+                        c.push(this.getLootText(a, b));
+                    }
+                    if (b.key) {
+                        c.push(this.getKeyText(a, b));
+                    }
+
+                    Story.grammar.popRules("room");
+                    return c.length > 0 ? c.join(" ") : null;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um portão, considerando o número de chaves necessárias.
+                 * @param {object} a - O objeto planejador da masmorra.
+                 * @param {object} b - O objeto da sala.
+                 * @returns {string} O texto gerado para o portão.
+                 */
+                getGateText: function (a, b) {
+                    var c = [];
+                    for (var d = 0, f = b.getExits(); d < f.length;) {
+                        var h = f[d];
+                        ++d;
+                        if (h.type == 5) {
+                            c.push(h);
+                        }
+                    }
+                    b = this.dir2text(b, c[0]);
+
+                    Story.grammar.pushRules("dir", [b]);
+                    Story.grammar.pushRules("num", [Story.num2text(a.nKeys)]);
+
+                    switch (a.nKeys) {
+                        case 0: a = "#gate_nokey#"; break;
+                        case 1: a = "#gate_onekey#"; break;
+                        default: a = "#gate_manykeys#";
+                    }
+
+                    a = Story.grammar.flatten(a);
+                    Story.grammar.popRules("num");
+                    Story.grammar.popRules("dir");
+                    return a;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém uma chave.
+                 * @returns {string} O texto gerado.
+                 */
+                getKeyText: function (a, b) {
+                    a = this.keys.pop();
+                    Story.grammar.pushRules("treasure", [a]);
+                    Story.grammar.pushRules("special_item", [a]);
+                    a = Story.grammar.flatten("#loot#");
+                    Story.grammar.popRules("special_item");
+                    Story.grammar.popRules("treasure");
+                    return a;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um tesouro (loot).
+                 * @returns {string} O texto gerado.
+                 */
+                getLootText: function (a, b) {
+                    return Story.grammar.flatten("#loot#");
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um evento.
+                 * @returns {string} O texto gerado.
+                 */
+                getEventText: function (a, b) {
+                    return Story.grammar.flatten("#event#");
+                },
+
+                /**
+                 * Converte um vetor de direção em uma palavra (norte, sul, leste, oeste).
+                 * @param {object} a - A sala de origem.
+                 * @param {object} b - A porta que contém o vetor de direção.
+                 * @returns {string} A direção por extenso.
+                 */
+                dir2text: function (a, b) {
+                    a = (b.from == a) ? b.dir : new xa(-b.dir.x, -b.dir.y);
+                    b = xa.UP;
+                    if (a.x == b.x && a.y == b.y) return Story.grammar.flatten("#north#");
+                    b = xa.DOWN;
+                    if (a.x == b.x && a.y == b.y) return Story.grammar.flatten("#south#");
+                    b = xa.LEFT;
+                    return (a.x == b.x && a.y == b.y) ? Story.grammar.flatten("#west#") : Story.grammar.flatten("#east#");
+                },
+
+                /**
+                 * Inicializa a lista de descrições de chaves com base na quantidade necessária.
+                 * @param {object} a - O objeto planejador da masmorra.
+                 */
+                initKeys: function (a) {
+                    var b = Story.grammar.flatten("#key.a#");
+                    var c = [];
+                    var d = 0;
+                    for (a = a.nKeys; d < a;) {
+                        d++;
+                        c.push(b);
+                    }
+                    this.keys = c;
+                },
+
+                /**
+                 * Adiciona uma flag (etiqueta) ao estado da gramática, podendo alterar o resultado da geração de texto.
+                 * @param {string} a - A flag a ser adicionada (ex: "WATER").
+                 */
+                setFlag: function (a) {
+                    var b = Story.grammar;
+                    a = a.toUpperCase();
+                    Fa.addAll(b.flags, (new sa(", +", "")).split(a));
+                },
+
+                // Identificador da classe para o sistema de tipos
+                __class__: Story
+            }; 
+                    
+                    
+                    var Pc = function () { }; g["com.watabou.dungeon.model.Tags"] = Pc; Pc.__name__ = "com.watabou.dungeon.model.Tags"; Pc.init = function () { if (null == Pc.anchors) { Pc.anchors = new Ma; for (var a = Vb.getText("tags").split("\r\n"), b = 0; b < a.length;) { var c = a[b]; ++b; var d = c.split(":"); c = d[0].split(","); d = d[1].split(","); for (var f = 0; f < c.length;) { var h = c[f]; ++f; h = w.trim(h); var n = Pc.anchors.h[h]; null == n && (n = [], Pc.anchors.h[h] = n); for (h = 0; h < d.length;) { var A = d[h]; ++h; Fa.add(n, w.trim(A)) } } } } }; Pc.deriveTags = function (a) {
                         Pc.init();
                         a = a.split(" "); for (var b = [], c = 0; c < a.length;) { var d = a[c]; ++c; d = Pc.anchors.h[d.toLowerCase()]; null != d && Fa.addAll(b, d) } return b
                     }; Pc.getPublic = function () { return "chaotic;ordered;winding;compact;cramped;spacious;large;small;medium;string;flat;deep;secret;no secrets;treasure;dangerous;round;square;colonnades;dry;wet;flooded;temple;tomb;dwelling;crumbling;multi-level;single-level;backdoor;no backdoor".split(";") }; Pc.resolve = function (a, b) {
@@ -1227,18 +1396,18 @@ var $lime_init = function (F, r) {
                                         f("Legend", Ga.LEGEND); f("Symbols", Ga.SYMBOLS); f("Numbers", Ga.NUMBERS); var h = new Jb; f = function (a, c) { h.addItem(a, function () { b.setGridMode(c) }, ta.grid == c) }; f("Off", dc.HIDDEN); f("Dotted", dc.DOTTED); f("Dashed", dc.DASHED); f("Solid", dc.SOLID); f("Broken", dc.BROKEN); h.addSeparator(); h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale); f = new Jb; f.addSubmenu("Grid", h); f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible()); f.addItem("Water", k(this, this.toggleWater), eb.get("water",
                                             !0)); f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0)); f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0)); f.addSeparator(); f.addItem("Water level...", k(this, this.showWaterForm)); var n = new Jb; n.addItem("PNG...", k(this, this.exportPNG)); n.addItem("SVG", k(this, this.exportSVG)); n.addItem("JSON", k(this, this.exportJSON)); n.addItem("VOX", k(this, this.exportVOX)); n.addItem("Markdown", k(this, this.exportMarkdown)); a.addItem("Procgen Arcana", k(this, this.arcana)); a.addSeparator();
                                         a.addItem("New dungeon", function () { b.newDungeon(Zc.random()) }); a.addItem("Tags...", k(this, this.showTagsForm)); a.addSeparator(); a.addSubmenu("View", c); a.addSubmenu("Notes", d); a.addSubmenu("Layers", f); a.addItem("Monochrome", k(this, this.toggleBW), G.bw); a.addItem("Style...", k(this, this.showPaletteForm)); a.addSeparator(); a.addItem("Permalink...", k(this, this.showURL)); a.addItem("Save as PNG", k(this, this.savePNG)); a.addSubmenu("Export as", n)
-                                    },
+                                    }, 
                                 // Função para definir o layout
                                 layout: function () {
-                                    var a = this.rWidth - 100; this.layoutTitle(); this.layoutStory();
-                                    var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50, c = this.rHeight - b - 50, d = 0; if (Ha.mode == Ga.LEGEND) { for (var f = 0, h = this.notes; f < h.length;) { var n = h[f]; ++f; d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2)) } a -= d } h = 0; if (eb.get("autoRotation", !0)) { n = Math.log(a / c); var A = Infinity; for (f = -9; 9 > f;) { var p = f++ / 18 * Math.PI, g = this.dungeon.getBounds(p); g = Math.abs(n - Math.log(g.width / g.height)); 1.01 < A / g && (A = g, h = p) } } this.map.set_rotation(180 * h / Math.PI); g = this.dungeon.getBounds(h); a =
-                                        Math.min(a / g.width, c / g.height) / 30; 1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1); this.map.set_scaleX(this.map.set_scaleY(a)); this.shadow.adjustAngle(this.map.get_rotation()); f = ch.center(g); a *= 30; a = new I(f.x * a, f.y * a); this.map.set_x(this.rWidth / 2 - a.x + d / 2); this.map.set_y(b + c / 2 - a.y); this.layoutNotes()
-                                },
+                                        var a = this.rWidth - 100; this.layoutTitle(); this.layoutStory();
+                                        var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50, c = this.rHeight - b - 50, d = 0; if (Ha.mode == Ga.LEGEND) { for (var f = 0, h = this.notes; f < h.length;) { var n = h[f]; ++f; d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2)) } a -= d } h = 0; if (eb.get("autoRotation", !0)) { n = Math.log(a / c); var A = Infinity; for (f = -9; 9 > f;) { var p = f++ / 18 * Math.PI, g = this.dungeon.getBounds(p); g = Math.abs(n - Math.log(g.width / g.height)); 1.01 < A / g && (A = g, h = p) } } this.map.set_rotation(180 * h / Math.PI); g = this.dungeon.getBounds(h); a =
+                                            Math.min(a / g.width, c / g.height) / 30; 1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1); this.map.set_scaleX(this.map.set_scaleY(a)); this.shadow.adjustAngle(this.map.get_rotation()); f = ch.center(g); a *= 30; a = new I(f.x * a, f.y * a); this.map.set_x(this.rWidth / 2 - a.x + d / 2); this.map.set_y(b + c / 2 - a.y); this.layoutNotes()
+                                    }, 
                                 // Layout do titulo    
                                 layoutTitle: function () { this.title.set_scaleX(this.title.set_scaleY(Math.min((this.rWidth - 100) / this.title.get_textWidth(), 1))); this.title.set_x((this.rWidth - this.title.get_width()) / 2) }, layoutStory: function () {
-                                    this.story.set_autoSize(1);
-                                    this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100); var a = this.story.get_numLines(); if (1 < a) for (; 0 < this.story.get_width();) { var b = this.story; b.set_width(b.get_width() - 10); if (this.story.get_numLines() > a) { a = this.story; a.set_width(a.get_width() + 10); break } } a = this.story.get_width(); b = this.story.get_height(); this.story.set_autoSize(2); this.story.set_width(a); this.story.set_height(b); this.story.set_x((this.rWidth - this.story.get_width()) / 2); this.story.set_y(this.title.get_height())
-                                },
+                                        this.story.set_autoSize(1);
+                                        this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100); var a = this.story.get_numLines(); if (1 < a) for (; 0 < this.story.get_width();) { var b = this.story; b.set_width(b.get_width() - 10); if (this.story.get_numLines() > a) { a = this.story; a.set_width(a.get_width() + 10); break } } a = this.story.get_width(); b = this.story.get_height(); this.story.set_autoSize(2); this.story.set_width(a); this.story.set_height(b); this.story.set_x((this.rWidth - this.story.get_width()) / 2); this.story.set_y(this.title.get_height())
+                                    },
                                 createHeader: function () { var a = this; this.title = Re.get(null, G.getFormat(G.fontTitle), k(this, this.layoutTitle), function () { a.dungeon.updateName(a.title.get_text()); a.layout() }); this.addChild(this.title); var b = G.getFormat(G.fontStory); b.align = 0; this.story = Re.get(null, b, null, k(this, this.layout)); this.story.set_multiline(!0); this.story.set_wordWrap(!0); this.addChild(this.story); this.title.set_visible(this.story.set_visible(eb.get("title", !0))) }, reset: function (a, b) {
                                     null == b && (b = !0); if (b) {
                                         this.dungeon = new Mi(a);
@@ -4519,10 +4688,10 @@ var $lime_init = function (F, r) {
                                                 }l.prev = ba.DRAW_TRIANGLES; var ua = l, ta = ua.buffer.o[ua.oPos], Ya = ua.buffer.o[ua.oPos + 1], ja = ua.buffer.o[ua.oPos + 2], wa = null, fb = null == z.bitmapFill; if (fb && null != ja) break a; if (!fb) {
                                                     if (null == ja) { ja = ma.toFloatVector(null); for (var ya = 0, Ba = ta.get_length() / 2 | 0; ya < Ba;) { var Aa = ya++; ja.push(ta.get(2 * Aa) - c / z.bitmapFill.width); ja.push(ta.get(2 * Aa + 1) - d / z.bitmapFill.height) } } var Fa = ja.get_length() != ta.get_length(), Da = z.normalizeUVT(ja, Fa), Ka = Da.max; ja = Da.uvt; wa = 1 < Ka ? z.createTempPatternCanvas(z.bitmapFill,
                                                         z.bitmapRepeat, z.bounds.width | 0, z.bounds.height | 0) : z.createTempPatternCanvas(z.bitmapFill, z.bitmapRepeat, z.bitmapFill.width, z.bitmapFill.height)
-                                                } for (var xa = 0, gc = Ya.get_length(), Ia, hb, Ma, Na, Oa, Pa, qb, Qa, yd, Ca, Ja, Ea, Ga, Ha, za, Ta, Ua, Kb, Ab, Ra, cb, Wa, $a, mb, db, eb, ae, gb; xa < gc;) {
+                                                } for (var xa = 0, gc = Ya.get_length(), Ia, hb, Ma, Na, Oa, Pa, qb, Qa, yd, Ca, Ja, Ea, Ga, Ha, za, Ta, Ua, Kb, Ab, Ra, cb, Wa, Story, mb, db, eb, ae, gb; xa < gc;) {
                                                     Ia = xa; hb = xa + 1; Ma = xa + 2; Na = 2 * Ya.get(Ia); Oa = 2 * Ya.get(Ia) + 1; Pa = 2 * Ya.get(hb); qb = 2 * Ya.get(hb) + 1; Qa = 2 * Ya.get(Ma); yd = 2 * Ya.get(Ma) + 1; Ca = ta.get(Na) - c; Ja = ta.get(Oa) - d; Ea = ta.get(Pa) - c; Ga = ta.get(qb) - d; Ha = ta.get(Qa) - c; za = ta.get(yd) - d; switch (ua.buffer.o[ua.oPos +
                                                         3]) { case 0: if (0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca)) { xa += 3; continue } break; case 2: if (!(0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca))) { xa += 3; continue } }fb ? (z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.hitTesting || z.context.fill(z.windingRule), xa += 3) : (Ta = ja.get(Na) * wa.width, Kb = ja.get(Pa) * wa.width, Ra = ja.get(Qa) * wa.width, Ua = ja.get(Oa) * wa.height, Ab = ja.get(qb) * wa.height, cb = ja.get(yd) * wa.height, Wa = Ta * (cb - Ab) - Kb * cb + Ra * Ab + (Kb - Ra) * Ua, 0 == Wa ? (xa += 3, z.context.restore()) :
-                                                            (z.context.save(), z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.context.clip(), $a = -(Ua * (Ha - Ea) - Ab * Ha + cb * Ea + (Ab - cb) * Ca) / Wa, mb = (Ab * za + Ua * (Ga - za) - cb * Ga + (cb - Ab) * Ja) / Wa, db = (Ta * (Ha - Ea) - Kb * Ha + Ra * Ea + (Kb - Ra) * Ca) / Wa, eb = -(Kb * za + Ta * (Ga - za) - Ra * Ga + (Ra - Kb) * Ja) / Wa, ae = (Ta * (cb * Ea - Ab * Ha) + Ua * (Kb * Ha - Ra * Ea) + (Ra * Ab - Kb * cb) * Ca) / Wa, gb = (Ta * (cb * Ga - Ab * za) + Ua * (Kb * za - Ra * Ga) + (Ra * Ab - Kb * cb) * Ja) / Wa, z.context.transform($a, mb, db, eb, ae, gb), z.context.drawImage(wa,
+                                                            (z.context.save(), z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.context.clip(), Story = -(Ua * (Ha - Ea) - Ab * Ha + cb * Ea + (Ab - cb) * Ca) / Wa, mb = (Ab * za + Ua * (Ga - za) - cb * Ga + (cb - Ab) * Ja) / Wa, db = (Ta * (Ha - Ea) - Kb * Ha + Ra * Ea + (Kb - Ra) * Ca) / Wa, eb = -(Kb * za + Ta * (Ga - za) - Ra * Ga + (Ra - Kb) * Ja) / Wa, ae = (Ta * (cb * Ea - Ab * Ha) + Ua * (Kb * Ha - Ra * Ea) + (Ra * Ab - Kb * cb) * Ca) / Wa, gb = (Ta * (cb * Ga - Ab * za) + Ua * (Kb * za - Ra * Ga) + (Ra * Ab - Kb * cb) * Ja) / Wa, z.context.transform(Story, mb, db, eb, ae, gb), z.context.drawImage(wa,
                                                                 0, 0, wa.width, wa.height), z.context.restore(), xa += 3))
                                                 } break; case 14: switch (l.prev._hx_index) {
                                                     case 0: l.oPos += 2; l.bPos += 2; break; case 1: l.iPos += 1; l.fPos += 1; break; case 2: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 3: l.oPos += 1; break; case 4: l.fPos += 6; break; case 5: l.fPos += 4; break; case 6: l.fPos += 3; break; case 7: l.fPos += 4; break; case 8: l.oPos += 3; break; case 9: l.fPos += 4; break; case 10: l.fPos += 5; l.oPos += 1; break; case 12: l.oPos += 4; break; case 14: l.oPos += 2; l.bPos += 2; break; case 15: l.oPos += 4; l.iiPos += 2; l.ffPos +=

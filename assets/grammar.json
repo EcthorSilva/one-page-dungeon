@@ -1,344 +1,399 @@
 {
-	"dramaticEntity" : ["#dramaticNoun#", "#dungName1# #symbol#"],
-	"dramaticNoun" : [
-		"Ash", "Bones", "Chaos", "Darkness", "Death", "Doom", "Dreams", "Evil", "Fate", 
-		"Madness", "Secrets", "Shadows", "Sorrows", "Tears", "Terror", "Void", "Blood", 
-		"Reflection", "Twilight", "Thunder", "Fear", "Spirits", "Sorrows", "Pain", "Fire", 
-		"Illusions", "Embers", "Blades", "Ghosts", "Sky", "Deep"],
-	"symbol" : [
-		"cross", "skull", "moon", "star", "eye", "arrow", "fish", "crown", "bat", "heart",
-		"bird", "lily", "leaf", "palm", "claw", "seashell", "snail", "fist"],
-	"native" : ["#race#"],
-	"raider" : ["orc", "goblin", "hobgoblin", "kobold", "gnoll", "pirate", "bandit", "cultist", "thug", "ogre"],
-	"creature" : ["#race#", "#animal#", "#raider#", "#native#"],
-	"enemy" : ["#native#", "#raider#"],
-	"person" : ["#race#", "#native#", "#raider#", "#npc_class#"],
-	"race" : ["human", "elf", "dwarf", "halfling", "gnome"],
-	"animal" : [
-		"snake", "lizard", "spider", "rabbit", "cat", "bear", "lion", "sparrow", "turtle", "wasp",
-		"mammoth", "goat", "rat", "chicken", "boar", "wolf", "crow", "rhino", "eagle", "owl", "scorpion",
-		"ant", "pig", "ape", "pigeon", "worm", "bat", "centipede", "monkey", "were#animal#", "beast",
-		"WATER?-seal", "WATER?-octopus", "WATER?-alligator", "WATER?-shark", "WATER?-piranha"],
-	"monster" : [
-		"dragon", "basilisk", "manticore", "beholder", "sphinx", "chimera", "hydra", "wyvern", "wyrm"],
-	"beast" : ["#monster_adj# #animal#", "#monster#"],
-	"monster_adj" : [
-		"venomous", "mutant", "man-eating", "albino", "blood-sucking", "spectral",
-		"soul-{eating|sucking}", "intelligent", "fire-breathing", "invisible"],
-
-	"north" : ["to the north", "on the northern wall{ of the #room#}"],
-	"south" : ["to the south", "on the southern wall{ of the #room#}"],
-	"east" : ["to the east", "on the eastern wall{ of the #room#}"],
-	"west" : ["to the west", "on the western wall{ of the #room#}"],
-	"color" : ["red", "yellow", "green", "blue", "purple", "black", "white"],
-
-	"loot" : [
-		"#loot_container#", "#loot_container#", 
+	"dramaticEntity": ["#dramaticNoun#", "#dungName1# #symbol#"],
+	"dramaticNoun": [
+		"Cinzas", "Ossos", "Caos", "Escuridão", "Morte", "Perdição", "Sonhos", "Mal", "Destino",
+		"Loucura", "Segredos", "Sombras", "Tristezas", "Lágrimas", "Terror", "Vazio", "Sangue",
+		"Reflexo", "Crepúsculo", "Trovão", "Medo", "Espíritos", "Dores", "Fogo",
+		"Ilusões", "Brasas", "Lâminas", "Fantasmas", "Céu", "Profundezas"
+	],
+	"symbol": [
+		"cruz", "caveira", "lua", "estrela", "olho", "flecha", "peixe", "coroa", "morcego", "coração",
+		"pássaro", "lírio", "folha", "palma", "garra", "concha", "caracol", "punho"
+	],
+	"native": ["#race#"],
+	"raider": ["orc", "goblin", "hobgoblin", "kobold", "gnoll", "pirata", "bandido", "cultista", "brutamontes", "ogro"],
+	"raider_plural": ["orcs", "goblins", "hobgoblins", "kobolds", "gnolls", "piratas", "bandidos", "cultistas", "brutamontes", "ogros"],
+	"creature": ["#race#", "#animal#", "#raider#", "#native#"],
+	"enemy": ["#native#", "#raider#"],
+	"person": ["#race#", "#native#", "#raider#", "#npc_class#"],
+	"race": ["humano(a)", "elfo(a)", "anão(ã)", "halfling", "gnomo(a)"],
+	"animal": [
+		"cobra", "lagarto", "aranha", "coelho", "gato", "urso", "leão", "pardal", "tartaruga", "vespa",
+		"mamute", "cabra", "rato", "galinha", "javali", "lobo", "corvo", "rinoceronte", "águia", "coruja", "escorpião",
+		"formiga", "porco", "macaco", "pombo", "verme", "morcego", "centopeia", "símio", "lican-#animal#", "fera",
+		"WATER?-foca", "WATER?-polvo", "WATER?-crocodilo", "WATER?-tubarão", "WATER?-piranha"
+	],
+	"animal_plural": [
+		"cobras", "lagartos", "aranhas", "coelhos", "gatos", "ursos", "leões", "pardais", "tartarugas", "vespas",
+		"mamutes", "cabras", "ratos", "galinhas", "javalis", "lobos", "corvos", "rinocerontes", "águias", "corujas", "escorpiões",
+		"formigas", "porcos", "macacos", "pombos", "vermes", "morcegos", "centopeias", "símios", "lican-#animal_plural#", "feras",
+		"WATER?-focas", "WATER?-polvos", "WATER?-crocodilos", "WATER?-tubarões", "WATER?-piranhas"
+	],
+	"monster": [
+		"dragão", "basilisco", "manticora", "beholder", "esfinge", "quimera", "hidra", "serpe", "verme"
+	],
+	"beast": ["#animal# #monster_adj#", "#monster#"],
+	"monster_adj": [
+		"venenoso(a)", "mutante", "devorador(a) de homens", "albino(a)", "sanguessuga", "espectral",
+		"devorador(a) de {almas|espíritos}", "inteligente", "cuspidor(a) de fogo", "invisível"
+	],
+	"north": ["ao norte", "na parede norte{ da #sala#}"],
+	"south": ["ao sul", "na parede sul{ da #sala#}"],
+	"east": ["a leste", "na parede leste{ da #sala#}"],
+	"west": ["a oeste", "na parede oeste{ da #sala#}"],
+	"color": ["vermelho", "amarelo", "verde", "azul", "roxo", "preto", "branco"],
+	"sala": ["sala", "câmara", "área"],
+	"loot": [
+		"#loot_container#", "#loot_container#",
 		"#loot_ground#", "#loot_corpse#", "#loot_display#",
 		"TREASURE?-#loot_display#", "TREASURE?-#loot_display#",
 		"DANGEROUS?-#loot_corpse#", "DANGEROUS?-#loot_corpse#",
-		"CRUMBLING?-#loot_ground#", "CRUMBLING?-#loot_ground#"],
-	"loot_container" : [
-		"#container.a.capitalize# containing #treasure#.",
-		"#container.a.capitalize# with #treasure#{ in it}.",
-		"#treasure.capitalize# in #container.a#.",
-		"#container.a.capitalize# holds #treasure#."],
-	"loot_ground" : [
-		"#treasure.capitalize# among rubble on the ground.",
-		"#treasure.capitalize# hidden in a {crack|crevice} of the {wall|floor}.",
-		"#treasure.capitalize# tucked under some debris.",
-		"A {{giant|large} }pile of rubble hides #treasure#.",
-		"WATER?-#treasure.capitalize# at the bottom of a {small }pool.",
-		"DWELLING?-#treasure.capitalize# under pieces of broken furniture.",
-		"DWELLING?-A wall panel conceals #treasure#."],
-	"loot_corpse" : [
-		"A corpse of #person.a#, #treasure# #nearby#.",
-		"A dying #person#, #treasure# among his belongings.",
-		"Remains of #person.a#{ apparently killed by #creature.s#}, #treasure# {clutched }in his hands.",
-		"#body_state.a.capitalize# body of #person.a#, #treasure# #nearby#."],
-	"loot_display" : [
-		"A {lifelike }{statue|sculpture} of #native.a#{ #npc_class#}, #special_item# in its hands.",
-		"A stuffed #race#{ #npc_class#} with #special_item# in their hands.",
-		"#special_item.capitalize# in a {magically locked |shattered |glass |}{display|trophy|curio} case.",
-		"#special_item.capitalize# on a pedestal{ table}.",
-		"#special_item.capitalize# locked in a {magical |mechanical | }safe.",
-		"#special_item.capitalize# in the middle of a {pentagram|circle of runes} on the ground.",
-		"#special_item.capitalize# hovering in the middle of the #room#.",
-		"TEMPLE?-#special_item.capitalize# on an altar."],
-	"special_item" : "{#magic_item#|#mystery_item#}",
-	"nearby" : ["nearby", "close to it", "close by"],
-	"body_state" : [
-		"decapitated", "incenerated", "petrified", "mutilated", "{mold|ooze|slime}-covered",
-		"half-eaten", "{fungus|moss|ivy|lichen}-covered", "crystalized", "still warm", "desiccated",
-		"skinless", "jellyfied", "frozen"],
-	"container" : "{#container_adj# }#container_noun#",
-	"container_noun" : [
-		"chest", "chest", "chest", "crate", "crate", "box", "trunk", "basket", "TOMB?-coffin", "TOMB?-sarcophagus", "locker", "strongbox"],
-	"container_adj" : ["medium", "large", "battered", "reinforced", "broken", "rotten"],
-	"treasure" : ["#loot_item#", "#loot_list# and #loot_item#", "#treasure_item#"],
-	"loot_list" : ["#loot_item#", "#loot_item#", "#loot_item#", "#loot_list#, #loot_item#"],
-	"loot_item" : ["some gold", "#weapon.a#", "#armor.a#", "#gear#"],
-	"weapon" : [
-		"{#weapon_adj# }#weapon_noun#", "0.1?-#weapon_noun# of #weapon_spell#"],
-	"weapon_noun" : [
-		"sword", "axe", "dagger", "spear", "mace", "hammer", "spear", "flail", "rapier",
-		"halberd", "long sword", "katana", "glaive", "sword", "staff", "javelin", "scimitar"],
-	"weapon_adj" : [
-		"rusty", "enchanted", "cursed", "ornate", "ancient", "blood-stained", "exotic", "regular", "vorpal"],
-	"weapon_spell" :[
-		"slaying", "venom", "lightning", "smiting", "life stealing", "vengeance"],
-	"armor" : [
-		"chainmail", "leather armor", "scale mail", "breastplate", "shield", "helm",
-		"{cloak|mantle|cape|robe}", "scarf"],
-	"gear" : [
-		"candles", "a crowbar", "a flask of holy water", "a lamp", "a rope", "rations", "a torch", 
-		"{an unknown potion|a potion of #potion_of#}", "arrows", "a bottle of wine", "a map{ of the #dung_noun#}", "lockpicks"],
-	"potion_of" : [
-		"healing", "greater healing", "invisibility", "fire breath", "resistence", "growth", 
-		"poison", "heroism", "mind reading", "speed", "flying", "vitality"],
-	"treasure_item" : [
-		"gems", "#jewelry_adj.a# #jewelry_noun#", "#magic_item#", "#mystery_item#"],
-	"jewelry_adj" : ["silver", "golden", "{carved }ivory", "bronze", "{jeweled|jewel-encrusted}", "magic"],
-	"jewelry_noun" : [
-		"statuette", "bracelet", "ring", "ring", "necklace", "{crown|tiara}", "idol", "brooch",
-		"chain", "figurine", "mirror", "box", "pin", "chess piece", "comb", "mask", "egg", "dice",
-		"medallion"],
-	"magic_item" : [
-		"#magic_adj.a# #magic_noun#",
-		"#magic_noun.a# of #spell#"],
-	"magic_adj" : ["magic", "magic", "magic", "eldritch", "holy", "unholy", "enchanted"],
-	"magic_noun" : [
-		"staff", "wand", "rod", "orb", "ball", "tarot deck", "stone", "horn", "tome", "doll", "coin",
-		"gem", "compass", "cube", "niddle", "quill", "flask", "knife", "cape", "lamp", "book", "rod",
-		"scroll", "amulet", "blade", "bow", "lantern", "relic", "tablet", "looking glass", "censer",
-		"skull", "carpet", "{spellbook|grimoire}", "hourglass", "flute", "#jewelry_noun#"],
-	"mystery_item" : "#mysterious_adj.a#, #mysterious_trait# {#magic_noun#|#weapon_noun#|#armor#|#jewelry_noun#|object}",
-	"mysterious_adj" : ["mysterious", "strange", "uncanny", "weird"],
-	"mysterious_trait" : [
-		"covered with {glyphs|runes|hieroglyphs|carvings|sigils}",
-		"{ice-cold|warm|sticky} to touch",
-		"{slightly }{vibrating|humming|glowing|sparkling|translucent}",
-		"unnaturally {light|heavy}",
-		"made of an unknown material",
-		"{whispering|singing|bleeding|smoking|burning|vibrating}"],
-	"spell" :[
-		"magic missile", "death wish", "fear", "invisibility", "intellect", "invocation", "protection", "force", "health",
-		"illusions", "charming", "blasting", "power", "haunting", "summoning", "resurection", "frost", "binding"],
-
-	"event" : ["#curiosity#", "#npc#", "#enviro#"],
-	"curiosity" : [
-		"A bottomless {well|pit}, #action# if a coin is dropped into it.",
-		"A {stone|iron|jeweled} throne, #action# when sat on.",
-		"A {simple|stone|wooden|blood-covered} altar, #action# when {the candles on it are lit|a sacrifice is made}.",
-		"A {dusty }{book|tome} on a lectern, #action# when opened.",
-		"A {mundane-looking|suspicious} door, #action# when the knob is touched.",
-		"A {burning }fire in a {brazier|fireplace}, #action# when touched.",
-		"A {pool|puddle} of {{dark|murky|clear} }water, #action# when drank from.",
-		"A fresco on the {ceiling|wall}, #action# when looked at.",
-		"A statue of a #creature#, #action# when touched.",
-		"{A brain|An eye|A heart} preserved in a jar, #action# when shaken.",
-		"A {rusty|ticking} {gearwork|clockwork} {machine|apparatus}, #action# when the lever is pulled.",
-		"The #room# is filled with {dense|swirly} {mist|fog|haze|vapour|smoke}. It #action# when {breathed in|inhaled}.",
-		"A {tapestry|mural|painting} on the wall, #action# when {brushed|examined}.",
-		"A {floor|wall} mirror, #action# when looked in.",
-		"A creepy doll, #action# when picked up.",
-		"An ornate {lantern|lamp}, #action# when lit.",
-		"An {intricate|impossible} puzzle, #action# when solved.",
-		"A skeleton on the ground, #action# if disturbed.",
-		"A {giant }stuffed #animal#, #action# when stroked.",
-		"An enormous {#color# }crystal, #action# if struck hard."],
-	"action" : [
-		"ages a person", "makes a person {slightly }{smaller|bigger}", "puts a person to sleep",
-		"animates", "turns into {dust|ashes}", "tells a story of {this place|the #dung_noun#}",
-		"wails loudly", "makes a person forget his name", "heals a person", "sounds the alarm",
-		"teleports a person outside the #dung_noun#", "transforms a person into #creature.a#",
-		"turns a person to stone", "answers one question", "tells where a treasure is hidden",
-		"tells an unwanted truth", "turns out to be a mimic", "swears", "pleads to be killed",
-		"spawns #special_item#", "bursts into flames", "drives a person mad",
-		"shows visions of the distant {past|future}", "{blinds|mutes|deafens} a person",
-		"allows a person to {breath under water|see in darkness|speak to the spirits}",
-		"makes a person {hallucinate|giggle|glow|cough|puke|hiccup}"],
-
-	"npc" : [
-		"#npc_desc.a.capitalize#, {sitting|lying|sleeping|resting} {in a corner|on the ground}.",
-		"#npc_desc.a.capitalize#. #npc_desire.capitalize#.",
-		"#npc_desc.a.capitalize#, #npc_state#."],
-	"npc_desc" : ["{#npc_trait# }{#npc_look# }{#npc_class#|#race#}", "#civilian#"],
-	"npc_class" : [
-		"bard", "{cleric|priest}", "barbarian", "knight", "{hunter|ranger}", "{thief|rogue}", 
-		"wizard", "monk", "druid", "warlock", "artificer", "shaman"],
+		"CRUMBLING?-#loot_ground#", "CRUMBLING?-#loot_ground#"
+	],
+	"loot_container": [
+		"Um(a) #container# contendo #tesouro#.",
+		"Um(a) #container# com #tesouro# {dentro dele(a)}.",
+		"#tesouro.capitalize# em um(a) #container#.",
+		"Um(a) #container# guarda #tesouro#."
+	],
+	"loot_ground": [
+		"#tesouro.capitalize# entre escombros no chão.",
+		"#tesouro.capitalize# escondido em uma {fenda|fissura} da {parede|do chão}.",
+		"#tesouro.capitalize# guardado sob alguns detritos.",
+		"Uma pilha {gigante|grande} de escombros esconde #tesouro#.",
+		"WATER?-#tesouro.capitalize# no fundo de uma {pequena }poça.",
+		"DWELLING?-#tesouro.capitalize# sob pedaços de mobília quebrada.",
+		"DWELLING?-Um painel na parede esconde #tesouro#."
+	],
+	"loot_corpse": [
+		"Um cadáver de um(a) #person#, #tesouro# #nearby#.",
+		"Um(a) #person# moribundo(a), #tesouro# entre seus pertences.",
+		"Restos de um(a) #person#{, aparentemente morto(a) por #creature_plural#}, #tesouro# {seguro(a)} em suas mãos.",
+		"O corpo #body_state# de um(a) #person#, #tesouro# #nearby#."
+	],
+	"body_state": [
+		"decapitado", "incinerado", "petrificado", "mutilado", "coberto de {mofo|lodo|gosma}",
+		"semidevorado", "coberto de {fungos|musgo|hera|líquen}", "cristalizado", "ainda quente", "dessecado",
+		"sem pele", "gelatinoso", "congelado"
+	],
+	"loot_display": [
+		"Uma {estátua|escultura} {realista }de um(a) #native# {#npc_class#}, com #special_item# em suas mãos.",
+		"Um(a) #race# {empalhado(a)|#npc_class# empalhado(a)} com #special_item# em suas mãos.",
+		"#special_item.capitalize# em um expositor {de vidro|estilhaçado|magicamente trancado}.",
+		"#special_item.capitalize# em um pedestal{ de mesa}.",
+		"#special_item.capitalize# trancado em um cofre {mágico|mecânico}.",
+		"#special_item.capitalize# no meio de um {pentagrama|círculo de runas} no chão.",
+		"#special_item.capitalize# flutuando no meio da #sala#.",
+		"TEMPLE?-#special_item.capitalize# em um altar."
+	],
+	"special_item": "{#magic_item#|#mystery_item#}",
+	"nearby": ["por perto", "próximo(a)", "nas redondezas"],
+	"container": "#container_noun# {#container_adj#}",
+	"container_noun": [
+		"baú", "baú", "baú", "caixote", "caixote", "caixa", "arca", "cesta", "TOMB?-caixão", "TOMB?-sarcófago", "armário", "cofre"
+	],
+	"container_adj": ["médio(a)", "grande", "maltratado(a)", "reforçado(a)", "quebrado(a)", "apodrecido(a)"],
+	"treasure": ["#loot_item#", "#loot_list# e #loot_item#", "#treasure_item#"],
+	"loot_list": ["#loot_item#", "#loot_item#", "#loot_item#", "#loot_list#, #loot_item#"],
+	"loot_item": ["um pouco de ouro", "um(a) #weapon#", "um(a) #armor#", "#gear#"],
+	"weapon": [
+		"#weapon_noun# {#weapon_adj#}", "0.1?-#weapon_noun# de #weapon_spell#"
+	],
+	"weapon_noun": [
+		"espada", "machado", "adaga", "lança", "maça", "martelo", "lança", "mangual", "rapieira",
+		"alabarda", "espada longa", "katana", "glaive", "espada", "cajado", "dardo", "cimitarra"
+	],
+	"weapon_adj": [
+		"enferrujado(a)", "encantado(a)", "amaldiçoado(a)", "ornamentado(a)", "antigo(a)", "manchado(a) de sangue", "exótico(a)", "comum", "vorpal"
+	],
+	"weapon_spell": [
+		"abate", "veneno", "relâmpago", "punição", "roubo de vida", "vingança"
+	],
+	"armor": [
+		"cota de malha", "armadura de couro", "brunea", "peitoral de placas", "escudo", "elmo",
+		"{manto|capa|robe}", "cachecol"
+	],
+	"gear": [
+		"velas", "um pé de cabra", "um frasco de água benta", "uma lamparina", "uma corda", "rações", "uma tocha",
+		"{uma poção desconhecida|uma poção de #potion_of#}", "flechas", "uma garrafa de vinho", "um mapa{ do #dung_noun#}", "gazua"
+	],
+	"potion_of": [
+		"cura", "cura maior", "invisibilidade", "sopro de fogo", "resistência", "crescimento",
+		"veneno", "heroísmo", "leitura de mentes", "velocidade", "voo", "vitalidade"
+	],
+	"treasure_item": [
+		"gemas", "um(a) #jewelry_noun# #jewelry_adj#", "#magic_item#", "#mystery_item#"
+	],
+	"jewelry_adj": ["de prata", "de ouro", "de marfim {entalhado}", "de bronze", "{cravejado(a) de joias}", "mágico(a)"],
+	"jewelry_noun": [
+		"estatueta", "bracelete", "anel", "anel", "colar", "{coroa|tiara}", "ídolo", "broche",
+		"corrente", "figura", "espelho", "caixa", "alfinete", "peça de xadrez", "pente", "máscara", "ovo", "dados",
+		"medalhão"
+	],
+	"magic_item": [
+		"um(a) #magic_noun# #magic_adj#",
+		"um(a) #magic_noun# de #spell#"
+	],
+	"magic_adj": ["mágico(a)", "mágico(a)", "mágico(a)", "arcano(a)", "sagrado(a)", "profano(a)", "encantado(a)"],
+	"magic_noun": [
+		"cajado", "varinha", "bastão", "orbe", "bola", "baralho de tarô", "pedra", "chifre", "tomo", "boneca", "moeda",
+		"gema", "bússola", "cubo", "agulha", "pena", "frasco", "faca", "capa", "lâmpada", "livro", "bastão",
+		"pergaminho", "amuleto", "lâmina", "arco", "lanterna", "relíquia", "tabuleta", "luneta", "incensário",
+		"crânio", "tapete", "{grimório|livro de feitiços}", "ampulheta", "flauta", "#jewelry_noun#"
+	],
+	"mystery_item": "um(a) {#magic_noun#|#weapon_noun#|#armor#|#jewelry_noun#|objeto} #mysterious_adj#, #mysterious_trait#",
+	"mysterious_adj": ["misterioso(a)", "estranho(a)", "insólito(a)", "bizarro(a)"],
+	"mysterious_trait": [
+		"coberto(a) de {glifos|runas|hieróglifos|entalhes|sigilos}",
+		"{gelado(a)|quente|pegajoso(a)} ao toque",
+		"{levemente }{vibrante|zumbindo|brilhando|cintilando|translúcido(a)}",
+		"anormalmente {leve|pesado(a)}",
+		"feito(a) de um material desconhecido",
+		"{sussurrando|cantando|sangrando|fumegando|queimando|vibrando}"
+	],
+	"spell": [
+		"míssil mágico", "desejo de morte", "medo", "invisibilidade", "intelecto", "invocação", "proteção", "força", "saúde",
+		"ilusões", "encantamento", "explosão", "poder", "assombração", "invocação", "ressurreição", "gelo", "aprisionamento"
+	],
+	"event": ["#curiosity#", "#npc#", "#enviro#"],
+	"curiosity": [
+		"Um {poço|abismo} sem fundo. #action# se uma moeda for jogada nele.",
+		"Um trono de {pedra|ferro|joias}. #action# quando alguém se senta nele.",
+		"Um altar {simples|de pedra|de madeira|coberto de sangue}. #action# quando {as velas sobre ele são acesas|um sacrifício é feito}.",
+		"Um {livro|tomo} {empoeirado} em um púlpito. #action# quando aberto.",
+		"Uma porta {comum|suspeita}. #action# quando a maçaneta é tocada.",
+		"Um fogo {ardente} em um {braseiro|lareira}. #action# quando tocado.",
+		"Uma {poça|lagoa} de água {escura|turva|clara}. #action# quando se bebe dela.",
+		"Um afresco no {teto|na parede}. #action# quando observado.",
+		"Uma estátua de um(a) #creature#. #action# quando tocada.",
+		"Um(a) {cérebro|olho|coração} preservado em um jarro. #action# quando agitado.",
+		"Uma {máquina|aparelhagem} {de engrenagens|de relojoaria} {enferrujada|funcionando}. #action# quando a alavanca é puxada.",
+		"A #sala# está cheia de {névoa|neblina|fumaça} {densa|espiralada}. #action# quando {inspirada|inalada}.",
+		"Uma {tapeçaria|mural|pintura} na parede. #action# quando {tocada|examinada}.",
+		"Um espelho de {chão|parede}. #action# quando se olha para ele.",
+		"Uma boneca assustadora. #action# quando pega.",
+		"Uma {lanterna|lâmpada} ornamentada. #action# quando acesa.",
+		"Um quebra-cabeça {intrincado|impossível}. #action# quando resolvido.",
+		"Um esqueleto no chão. #action# se for perturbado.",
+		"Um(a) #animal# {gigante} empalhado(a). #action# quando acariciado(a).",
+		"Um enorme cristal {#color#}. #action# se for atingido com força."
+	],
+	"action": [
+		"envelhece uma pessoa", "torna uma pessoa {um pouco} {menor|maior}", "põe uma pessoa para dormir",
+		"ganha vida", "vira {pó|cinzas}", "conta a história {deste lugar|de #dung_noun#}",
+		"grita alto", "faz uma pessoa esquecer seu nome", "cura uma pessoa", "soa o alarme",
+		"teleporta uma pessoa para fora de #dung_noun#", "transforma uma pessoa em um(a) #creature#",
+		"transforma uma pessoa em pedra", "responde a uma pergunta", "diz onde um tesouro está escondido",
+		"revela uma verdade indesejada", "revela-se um mímico", "xinga", "implora para ser morto(a)",
+		"gera #special_item#", "explode em chamas", "enlouquece uma pessoa",
+		"mostra visões de um {passado|futuro} distante", "{cega|emudece|ensurdece} uma pessoa",
+		"permite que uma pessoa {respire debaixo d'água|veja no escuro|fale com os espíritos}",
+		"faz uma pessoa {alucinar|rir|brilhar|tossir|vomitar|soluçar}"
+	],
+	"npc": [
+		"Um(a) #npc_desc#, {sentado(a)|deitado(a)|dormindo|descansando} {em um canto|no chão}.",
+		"Um(a) #npc_desc#. #npc_desire.capitalize#.",
+		"Um(a) #npc_desc#, #npc_state#."
+	],
+	"npc_desc": ["{#npc_class#|#race#} {#npc_look# }e {#npc_trait#}", "#civilian#"],
+	"npc_class": [
+		"bardo(a)", "{clérigo(a)|sacerdote(isa)}", "bárbaro(a)", "cavaleiro(a)", "{caçador(a)|guarda}", "{ladrão(ladra)|gatuno(a)}",
+		"mago(a)", "monge(monja)", "druida", "bruxo(a)", "artífice", "xamã"
+	],
 	"npc_trait": [
-		"charming", "brash", "suspicious", "shy", "fierce", "arrogant", "subtle", "enigmatic", 
-		"calm", "cheerful", "polite", "sarcastic", "creepy", "cold", "confident", "mysterious",
-		"quiet"],
-	"npc_look" : [
-		"large", "slim", "short", "bony", "maimed", "tall", "rough", "old", "mute", "pockmarked",
-		"young", "stout", "bearded", "handsome", "elegant", "bald", "scarred", "tattoed",
-		"sad-eyed", "dead-eyed", "one-eyed", "tanned", "hooded", "wild-haired", "ugly", "naked",
-		"long-haired", "dark", "rough", "one-armed", "well-dressed", "blind"],
-	"npc_state" : [
-		"mortally wounded", "slightly drunk", "chained to the wall", "{tightly }tied to a stake",
-		"cooking over a campfire", "apparently expecting you", "standing over a killed #enemy#",
-		"lying in ambush", "utterly surprised", "trying to hide {something|#mystery_item#} behind their back",
-		"weak of starvation", "shaking out of fear", "lost and confused", "eager to talk",
-		"muttering gibberish", "looking sick", "talking to an invisible friend",
-		"whistling tunelessly", "checking the content of #container.a#", "locked in a cage",
-		"examining #mystery_item#"],
-	"npc_desire" : [
-		"needs help to get out from the #dung_noun#", "desperately needs help",
-		"claims to have a message for you", "wants to join you",
-		"would like to join you for a reward", "pleads to borrow #gear#",
-		"has #loot_item# for trade", "has a quest for you",
-		"would like to hire you for a job", "wants to pay you to get rid of #mystery_item#",
-		"can be convinced to help you in your mission"],
-	"civilian" : [
-		"child", "teenager", "girl", "smith", "travelling merchant", "noble", "old lady", "artist", 
-		"hooded figure", "{adventurer|explorer}", "old friend", "villager", "{soldier|sellsword}", "pilgrim",
-		"smuggler", "witch",
-		"#raider#", "#race#"],
-
-	"enviro" : [
-		"#enviro_walls#"],
-	"enviro_walls" : [
+		"charmoso(a)", "impulsivo(a)", "desconfiado(a)", "tímido(a)", "feroz", "arrogante", "sutil", "enigmático(a)",
+		"calmo(a)", "alegre", "educado(a)", "sarcástico(a)", "assustador(a)", "frio(a)", "confiante", "misterioso(a)",
+		"quieto(a)"
+	],
+	"npc_look": [
+		"grande", "magro(a)", "baixo(a)", "ossudo(a)", "aleijado(a)", "alto(a)", "rude", "velho(a)", "mudo(a)", "com o rosto marcado por varíola",
+		"jovem", "robusto(a)", "barbudo(a)", "bonito(a)", "elegante", "careca", "com cicatrizes", "tatuado(a)",
+		"de olhos tristes", "de olhos mortos", "de um olho só", "bronzeado(a)", "encapuzado(a)", "de cabelos selvagens", "feio(a)", "nu(a)",
+		"de cabelos compridos", "sombrio(a)", "rude", "sem um braço", "bem-vestido(a)", "cego(a)"
+	],
+	"npc_state": [
+		"mortalmente ferido(a)", "ligeiramente bêbado(a)", "acorrentado(a) à parede", "amarrado(a) {firmemente} a uma estaca",
+		"cozinhando em uma fogueira", "aparentemente esperando por você", "parado(a) sobre um #enemy# morto",
+		"deitado(a) em uma emboscada", "completamente surpreso(a)", "tentando esconder {algo|#mystery_item#} atrás das costas",
+		"fraco(a) de fome", "tremendo de medo", "perdido(a) e confuso(a)", "ansioso(a) para conversar",
+		"resmungando coisas sem sentido", "parecendo doente", "falando com um amigo invisível",
+		"assobiando desafinadamente", "verificando o conteúdo de um(a) #container#", "preso(a) em uma jaula",
+		"examinando #mystery_item#"
+	],
+	"npc_desire": [
+		"precisa de ajuda para sair de #dung_noun#", "precisa desesperadamente de ajuda",
+		"afirma ter uma mensagem para você", "quer se juntar a você",
+		"gostaria de se juntar a você por uma recompensa", "implora para pegar #gear# emprestado",
+		"tem #loot_item# para trocar", "tem uma missão para você",
+		"gostaria de contratá-lo(a) para um trabalho", "quer pagar para que você se livre de #mystery_item#",
+		"pode ser convencido(a) a ajudá-lo(a) em sua missão"
+	],
+	"civilian": [
+		"criança", "adolescente", "garota", "ferreiro(a)", "mercador(a) viajante", "nobre", "senhora idosa", "artista",
+		"figura encapuzada", "{aventureiro(a)|explorador(a)}", "velho(a) amigo(a)", "aldeão(ã)", "{soldado(a)|mercenário(a)}", "peregrino(a)",
+		"contrabandista", "bruxa",
+		"#raider#", "#race#"
+	],
+	"enviro": [
+		"#enviro_walls#"
+	],
+	"enviro_walls": [
 		"#painting_depicting.capitalize#",
-		"#painting.a.capitalize#, totally destroyed by {fire|mold|#raider# vandals}.",
-		"A mosaic of #symbol.a# pattern on the {floor|walls|ceiling}",
-		"#writing.a.capitalize# on the {wall|0.5?-floor|0.1?-ceiling}{ painted in blood}: #sign.caps#"],
-	"painting_depicting" : [
-		"#painting.a# depicting a scene of #scene#.",
-		"#painting.a# depicting #depictedNPC#{ with #magic_noun.a# in one hand and a symbol of #symbol# in the other}.",
-		"#painting.a# depicting the {landscape|land|#location#} around the #dung_noun#{ as it looked in the distant past}."],
-	"painting" : "{painting|tapestry|fresco|relief|{colorful }mosaic|graffiti|carving}{ on the wall}",
-	"scene" : ["battle", "wedding", "sacrifice", "hunt", "celebration", "ascension", "execution", "inauguration", "siege"],
-	"writing" : ["sign", "writing"],
-	"sign" : [
-		"the road of #dramaticNoun# leads to the palace of #dramaticNoun#",
-		"{beware of|don't pet} #animal.s#",
-		"#animal.s# are not what they seem",
-		"#native.s# {rule|suck|unite!|power}",
-		"death to #raider.s#",
-		"BOSS?-{beware of|all hail} #boss#{!}",
-		"BOSS?-#boss# {must die|lives|is back}",
-		"BOSS?-#boss# brings #dramaticNoun#",
-		"#[noun:#dramaticNoun#][_:#noun# #noun.is#]_# {#dramaticNoun#|coming}",
-		"{no more|embrace the} #dramaticNoun#",
-		"#demonicName#{ was here}",
-		"this {is the {best|worst} #dung_noun#|#dung_noun# is the {best|worst}}{ ever}",
-		"where {in hell }is my {{damned|bloody} }{#weapon#|#armor#}",
-		"it's not #dung_adj# if it's {not }#dung_adj#",
-		"{reveal|uncover} your {{inner }#dramaticNoun#|inner {#npc_class#|#animal#}}"],
-	"enviro_statue" : [
-		"A {crumbling }{stone|marble|granite} statue of #depictedNPC# {fighting|strangling|slaying|feeding|healing|talking to|blessing|sacrificing|confronting} #creature.a#."],
-	"depictedNPC" :["BOSS?-#boss#", "#npc_look.a# #native#"],
-	"enviro_fire" : [
-		"A {crackling|cold|hot|magical|smoldering|roaring} fire is burning in #fireplace.a#.",
-		"#fireplace.a.capitalize# full of {ash|ashes|embers|cinders}.",
-		"A recently abandoned camp, {ashes are still warm|#treasure# {#nearby#|left in a hurry}}."],
-	"fireplace" : ["fireplace", "hearth"],
-
-	"gate_nokey" : "#gate_desc.a.capitalize# #dir#.",
-	"gate_onekey" : "#gate_desc.a.capitalize# with a keyhole #dir#.",
-	"gate_manykeys" : "#gate_desc.a.capitalize# with #num# keyholes #dir#.",
-	"gate_desc" : "#gate_adj# {#gate_material# }#gate_noun#",
-	"gate_noun" : ["door", "gate", "double door"],
-	"gate_adj" : ["large", "huge", "massive", "notable", "round", "mouth-shaped", "lavishly decorated", "battered", "scorched", "great"],
-	"gate_material" : ["wooden", "{iron|ironclad|ironbound}", "stone"],
-	"key" : ["{{#symbol#-shaped|#key_adj#} }key"],
-	"key_adj" : ["iron", "iron", "brass", "golden", "silver", "copper"],
-
-	"BOSS?-name" : ["#dung# of #boss#"],
-	"BOSS?-mention" : ["the #dung_noun# of #boss#"],
-	"name" : ["#dung# of {the }#dramaticEntity.capitalizeAll#", "#compound_name#"],
-	"mention" : ["the #dung_noun#"],
-	"dung" : "{#dung_adj.capitalize# }#dung_noun.capitalize#",
-	"dung_adj" : [
-		"lost", "forgotten", "forsaken", "hidden", "secret", "abandoned", "ruined",
-		"frozen",  "sunken", "haunted", "shattered", "forbidden", "eternal", "desert",
-		"mountain", "undeground", "swamp", "subterranean", "underwater", "twilight",
-		"forlorn", "veiled", "mystery", "infected", "lower", "upper", "ancient"],
-	"dung_noun" : [
-		"BOSS?-lair", "BOSS?-den", "BOSS?-sepulcher", 
-		"maze", "catacombs", "tomb", "crypt", "pyramid", "mausoleum", "hall",
-		"temple", "shrine", "monastery", "abbey", "chapel", "chambers", "halls", "house",
-		"mansion", "palace", "dungeon", "vault", "castle", "stronghold", "citadel", "keep",
-		"library", "archive", "prison", "labyrinth", "hold", "sanctum", "manor", "asylum", 
-		"fort{ress}", "observatory", "basilica"],
-	"dungName1" : [
-		"rage", "shadow", "black", "ice", "hell", "way", "iron", "storm", "dark", "under",
-		"grim", "blood", "frost", "night", "silver", "scarlet", "plague", "ebon", "dawn",
-		"death", "thunder", "dusk", "proud", "dread", "blight"],
-	"dungName2" : [
-		"fire", "fang", "rock", "wing", "crown", "moon", "crest", "throne", "heart", "stone", "root",
-		"blade", "hill", "mist", "sun", "star", "spear", "scar", "fall", "wind", "fist", "tooth",
-		"claw", "ring", "skull", "scar"],
-	"compound_name" : "#dungName1.capitalize##dungName2# #dung_noun.capitalize#",
-	"boss_adj" : [
-		"serpent", "viper", "spider", "raven", "dread", "mad", "shadow", "dark", "blood",
-		"cursed", "iron", "golden", "diamond", "jade", "storm", "fire", "ice", "void",
-		"purple", "black", "red", "white", "vampire", "undead", "zombie", "silent", "moon",
-		"immortal", "shadow", "fallen", "obsidian", "scarlet", "great", "one-eyed", "lich",
-		"amber", "leper", "grey", "blind", "demon", "blasphemous"],
-	"boss_noun" : [
-		"king", "queen", "prince", "emperor", "lord", "lady", "baron", "magus", "savant", 
-		"titan", "god", "dragon", "one", "master", "general", "beast", "knight", "witch", "lady",
-		"reaper", "messiah", "priest", "oracle"],
-	"bossTitle" : "the #boss_adj.capitalize# #boss_noun.capitalize#",
-	"boss" : ["#bossTitle#", "#bossTitle#", "#demonicName#"],
-
-	"story" : "#storyIntro# #rumorInhabitated#{ #rumorReward#}",
-	"storyIntro" : ["BOSS?-#storyBoss#", "#storyAbandoned#", "#storyLocation#"],
-	"storyBoss" : [
-		"#boss.capitalize# is long {dead|gone}, but people are still {reluctant|afraid} to come close to the #dung_noun#.",
-		"{Since|After} the #demise# of #boss# the #dung_noun# has changed hands many times.",
-		"Long after #boss#'s #demise# the #dung_noun# remained #deserted#."],
-	"demise" : ["demise", "death", "fall", "defeat"],
-	"deserted" : ["deserted", "abandoned", "uninhabited"],
-	"storyAbandoned" : [
-		"For #longTime# #mention# #dung_noun.was# considered lost.",
-		"For #longTime# #mention# remained {#deserted#|sealed}.",
-		"After being destroyed {by #terrible.a# #disaster#|in #terrible.a# battle} #longTime# ago #mention# remained #deserted#."
+		"Um(a) #painting#, totalmente destruído(a) por {fogo|mofo|vândalos #raider_plural#}.",
+		"Um mosaico de um padrão de #symbol# no {chão|nas paredes|no teto}",
+		"Uma #writing# na {parede|0.5?-no chão|0.1?-no teto}{ pintada com sangue}: #sign.caps#"
 	],
-	"storyLocation" : "#mention.capitalize# #dung_noun.is# situated {#locationDeep#|#locationFar#}.",
-	"locationDeep" : "deep in the #location#, {#farFrom#|protected by the {#protection#|#protection# and #protection#}}",
-	"locationFar" : [
-		"on a {remote|distant|lonely} island", 
-		"high in the #proper.capitalize# {mountains|{mountain }peaks}", 
-		"at the center of a {{{mist|fog}-shrouded|tranquil|dark} }lake",
-		"on a {forgotten|distant|remote} {shore|coast}",
-		"at a bend of the {river|winding|deep} #proper.capitalize#"],
-	"longTime" : ["{several }centuries", "{many }years", "a long time", "decades", "a millenium"],
-	"recently" : ["recently", "lately"],
-	"currently" : ["currently", "these days"],
-	"terrible" : ["terrible", "horrible", "great", "devastating"],
-	"disaster" : ["fire", "flood", "{magic }storm", "arcane disaster", "earthquake"],
-	"rumorInhabitated" : ["#rumorBand#", "#rumorFauna#", "#rumorBeast#"],
-	"rumorReward" : ["#rumorFlora#", "#rumorArtifact#", "#rumorTreasure#"],
-	"rumor" : ["#rumorFauna#", "#rumorFlora#", "#rumorLair#", "#rumorBand#", "#rumorArtifact#", "#rumorTreasure#"],
-	"rumorFauna" : "#currently.capitalize# #dung_noun.they# #dung_noun.is# {{badly }infested by|overrun with} #animal.s#{, {which don't care about|indifferent to} the {history|past} of the place}.",
-	"rumorFlora" : "#mention.capitalize# #dung_noun.is# {home to|a place of growth of} a {rare|valuable|highly valued} specie of {fungi|flowers|mushrooms|plants|herbs|berries|blooms}.",
-	"rumorBeast" : "#recently.capitalize# {#beastAdj.a# #beast# has|0.5?-a pack of #beast.s# have} made its {home|lair} here.",
-	"rumorBand" : [
-		"#recently.capitalize# #gang.a# of #raider.s# rediscovered #dung_noun.them#{, making #dung_noun.them# their {headquarters|center of operation}}.", 
-		"#recently.capitalize# #dung_noun.they# #dung_noun.was# squatted by a #gang# of #raider.s#.",
-		"Now #dung_noun.they# #dung_noun.is# controlled by #gang.a# of #raider.s#."],
-	"rumorArtifact" : "#rumorsSay# {#demonicName#, a legendary #magic_noun#,|a legendary #magic_noun# #demonicName#} is {still }hidden here.",
-	"rumorTreasure" : [
-		"#rumorsSay# {countless|untold} treasures of {#treasures#|#treasures# and #treasures#} {are stored|can be found} here.",
-		"#rumorsSay# the #dung_noun# #dung_noun.is# rich with {treasures of }{#treasures#|#treasures# and #treasures#}."
+	"painting_depicting": [
+		"Um(a) #painting# retratando uma cena de #scene#.",
+		"Um(a) #painting# retratando #depictedNPC#{ com um(a) #magic_noun# em uma mão e um símbolo de #symbol# na outra}.",
+		"Um(a) #painting# retratando a {paisagem|terra|#location#} ao redor de #dung_noun#{ como era no passado distante}."
 	],
-	"rumorsSay" : ["Rumors say that", "It is said that", "Word is that", "It is rumored that"],
-	"treasures" : ["gold{ and jewels}", "ancient books", "magical artifacts", "0.1?-maps and charts"],
-	"gang" : ["gang", "party", "band"],
-	"beastAdj" : ["{huge|giant}", "{terryfying|fearsome}", "undead"],
-	"location" : [
-		"wasteland",
-		"{dark|enchanted} {forest|wood{s}|woodland}", 
-		"{{high|snowy} }mountains", 
-		"{sun-drenched }desert{ of #color# sand}", 
-		"{swamps|{salt }marshes}", 
-		"{dense }jungle", 
-		"{frozen lands|snowy plains}"],
-	"farFrom" : ["far from the nearest {town|settlement}", "away from busy roads", "in uncharted lands", "far from civilization"],
-	"protection" : ["harsh weather", "dangerous local fauna", "impassable terrain"],
-	"proper" : ["#demonicName#", "#dungName1##dungName2#"]
+	"painting": "{pintura|tapeçaria|afresco|relevo|mosaico {colorido}|grafite|entalhe}{ na parede}",
+	"scene": ["batalha", "casamento", "sacrifício", "caçada", "celebração", "ascensão", "execução", "inauguração", "cerco"],
+	"writing": ["inscrição", "escrita"],
+	"sign": [
+		"a estrada de #dramaticNoun# leva ao palácio de #dramaticNoun#",
+		"{cuidado com|não acaricie} os #animal_plural#",
+		"os #animal_plural# não são o que parecem",
+		"#native_plural# {governam|são péssimos|uní-vos!|poder}",
+		"morte aos #raider_plural#",
+		"BOSS?-{cuidado com|todos saúdam} #boss#{!}",
+		"BOSS?-#boss# {deve morrer|vive|está de volta}",
+		"BOSS?-#boss# traz #dramaticNoun#",
+		"#[noun:#dramaticNoun#][_:#noun# #noun.is#]_# {#dramaticNoun#|está vindo}",
+		"{chega de|abrace o} #dramaticNoun#",
+		"#demonicName#{ esteve aqui}",
+		"este(a) {é o(a) {melhor|pior} #dung_noun#|#dung_noun# é o(a) {melhor|pior}}{ de todos}",
+		"onde {diabos} está meu(minha) {{maldito(a)|sangrento(a)} }{#weapon#|#armor#}",
+		"não é #dung_adj# se não for #dung_adj#",
+		"{revele|descubra} seu(sua) {{#dramaticNoun# interior}|seu {#npc_class#|#animal#} interior}"
+	],
+	"enviro_statue": [
+		"Uma estátua de {pedra|mármore|granito} {em ruínas} de #depictedNPC# {lutando|estrangulando|matando|alimentando|curando|conversando com|abençoando|sacrificando|confrontando} um(a) #creature#."
+	],
+	"depictedNPC": ["BOSS?-#boss#", "um(a) #native# #npc_look#"],
+	"enviro_fire": [
+		"Um fogo {crepitante|frio|quente|mágico|fumegante|crepitante} está queimando em um(a) #fireplace#.",
+		"Um(a) #fireplace# cheio(a) de {cinzas|brasas|carvão}.",
+		"Um acampamento recentemente abandonado, {as cinzas ainda estão quentes|#tesouro# {#nearby#|deixado às pressas}}."
+	],
+	"fireplace": ["lareira", "fogueira"],
+	"gate_nokey": "Um(a) #gate_desc# #dir#.",
+	"gate_onekey": "Um(a) #gate_desc# com uma fechadura #dir#.",
+	"gate_manykeys": "Um(a) #gate_desc# com #num# fechaduras #dir#.",
+	"gate_desc": "#gate_noun# #gate_material# {#gate_adj#}",
+	"gate_noun": ["porta", "portão", "porta dupla"],
+	"gate_adj": ["grande", "enorme", "massiço(a)", "notável", "redondo(a)", "em forma de boca", "ricamente decorado(a)", "maltratado(a)", "chamuscado(a)", "grande"],
+	"gate_material": ["de madeira", "{de ferro|revestido(a) de ferro}", "de pedra"],
+	"key": ["chave {#key_adj#|em forma de #symbol#}"],
+	"key_adj": ["de ferro", "de ferro", "de latão", "de ouro", "de prata", "de cobre"],
+	"BOSS?-name": ["#dung# de #boss#"],
+	"BOSS?-mention": ["o(a) #dung_noun# de #boss#"],
+	"name": ["#dung# de #dramaticEntity.capitalizeAll#", "#compound_name#"],
+	"mention": ["o(a) #dung_noun#"],
+	"dung": "#dung_noun.capitalize# {#dung_adj#}",
+	"dung_adj": [
+		"perdido(a)", "esquecido(a)", "abandonado(a)", "escondido(a)", "secreto(a)", "desamparado(a)", "em ruínas",
+		"congelado(a)", "submerso(a)", "assombrado(a)", "despedaçado(a)", "proibido(a)", "eterno(a)", "do deserto",
+		"da montanha", "subterrâneo(a)", "do pântano", "subterrâneo(a)", "subaquático(a)", "do crepúsculo",
+		"desolado(a)", "velado(a)", "misterioso(a)", "infectado(a)", "inferior", "superior", "antigo(a)"
+	],
+	"dung_noun": [
+		"BOSS?-covil", "BOSS?-toca", "BOSS?-sepulcro",
+		"labirinto", "catacumbas", "tumba", "cripta", "pirâmide", "mausoléu", "salão",
+		"templo", "santuário", "mosteiro", "abadia", "capela", "câmaras", "salões", "casa",
+		"mansão", "palácio", "masmorra", "cofre", "castelo", "fortaleza", "cidadela", "torre",
+		"biblioteca", "arquivo", "prisão", "labirinto", "forte", "santuário", "solar", "asilo",
+		"forte", "observatório", "basílica"
+	],
+	"dungName1": [
+		"Fúria", "Sombra", "Negro", "Gelo", "Inferno", "Caminho", "Ferro", "Tempestade", "Escuro", "Sub",
+		"Sombrio", "Sangue", "Gelo", "Noite", "Prata", "Escarlate", "Praga", "Ébano", "Alvorada",
+		"Morte", "Trovão", "Crepúsculo", "Orgulho", "Pavor", "Ruína"
+	],
+	"dungName2": [
+		"de Fogo", "da Presa", "da Rocha", "da Asa", "da Coroa", "da Lua", "da Crista", "do Trono", "do Coração", "da Pedra", "da Raiz",
+		"da Lâmina", "da Colina", "da Névoa", "do Sol", "da Estrela", "da Lança", "da Cicatriz", "da Queda", "do Vento", "do Punho",
+		"do Dente", "da Garra", "do Anel", "da Caveira", "da Cicatriz"
+	],
+	"compound_name": "#dung_noun.capitalize# #dungName1##dungName2#",
+	"boss_adj": [
+		"Serpente", "Víbora", "Aranha", "Corvo", "Terrível", "Louco(a)", "Sombrio(a)", "Escuro(a)", "de Sangue",
+		"Amaldiçoado(a)", "de Ferro", "Dourado(a)", "de Diamante", "de Jade", "da Tempestade", "de Fogo", "de Gelo", "do Vazio",
+		"Roxo(a)", "Negro(a)", "Vermelho(a)", "Branco(a)", "Vampiro(a)", "Morto(a)-vivo(a)", "Zumbi", "Silencioso(a)", "da Lua",
+		"Imortal", "Caído(a)", "de Obsidiana", "Escarlate", "Grande", "de Um Olho Só", "Lich",
+		"de Âmbar", "Leproso(a)", "Cinzento(a)", "Cego(a)", "Demônio", "Blasfemo(a)"
+	],
+	"boss_noun": [
+		"Rei", "Rainha", "Príncipe", "Imperador(atriz)", "Lorde", "Dama", "Barão(onesa)", "Mago(a)", "Sábio(a)",
+		"Titã", "Deus(a)", "Dragão(oa)", "Único(a)", "Mestre(a)", "General", "Fera", "Cavaleiro", "Bruxa",
+		"Ceifador(a)", "Messias", "Sacerdote(isa)", "Oráculo"
+	],
+	"bossTitle": "o(a) #boss_noun.capitalize# #boss_adj#",
+	"boss": ["#bossTitle#", "#bossTitle#", "#demonicName#"],
+	"story": "#storyIntro# #rumorInhabitated#{ #rumorReward#}",
+	"storyIntro": ["BOSS?-#storyBoss#", "#storyAbandoned#", "#storyLocation#"],
+	"storyBoss": [
+		"#boss.capitalize# está {morto(a)|desaparecido(a)} há muito tempo, mas as pessoas ainda {relutam|têm medo} de se aproximar de #dung_noun#.",
+		"{Desde|Após} a #demise# de #boss#, #mention# já trocou de mãos muitas vezes.",
+		"Muito depois da #demise# de #boss#, #mention# permaneceu #deserted#."
+	],
+	"demise": ["morte", "queda", "derrota"],
+	"deserted": ["deserto(a)", "abandonado(a)", "desabitado(a)"],
+	"storyAbandoned": [
+		"Por #longTime#, #mention# foi considerado(a) perdido(a).",
+		"Por #longTime#, #mention# permaneceu {#deserted#|selado(a)}.",
+		"Depois de ser destruído(a) {por um(a) #terrible# #disaster#|em uma #terrible# batalha} há #longTime#, #mention# permaneceu #deserted#."
+	],
+	"storyLocation": "#mention.capitalize# fica situado(a) {#locationDeep#|#locationFar#}.",
+	"locationDeep": "nas profundezas de #location#, {#farFrom#|protegido(a) por {#protection#|#protection# e #protection#}}",
+	"locationFar": [
+		"em uma ilha {remota|distante|solitária}",
+		"no alto das {montanhas|picos das montanhas} de #proper.capitalize#",
+		"no centro de um lago {tranquilo|escuro|envolto em névoa}",
+		"em uma {costa|praia} {esquecida|distante|remota}",
+		"em uma curva do {rio|sinuoso|profundo} #proper.capitalize#"
+	],
+	"longTime": ["{vários} séculos", "{muitos} anos", "muito tempo", "décadas", "um milênio"],
+	"recently": ["recentemente", "ultimamente"],
+	"currently": ["atualmente", "hoje em dia"],
+	"terrible": ["terrível", "horrível", "grande", "devastador(a)"],
+	"disaster": ["incêndio", "inundação", "tempestade {mágica}", "desastre arcano", "terremoto"],
+	"rumorInhabitated": ["#rumorBand#", "#rumorFauna#", "#rumorBeast#"],
+	"rumorReward": ["#rumorFlora#", "#rumorArtifact#", "#rumorTreasure#"],
+	"rumor": ["#rumorFauna#", "#rumorFlora#", "#rumorLair#", "#rumorBand#", "#rumorArtifact#", "#rumorTreasure#"],
+	"rumorFauna": "#currently.capitalize#, #mention# está {{terrivelmente} infestado(a) por|repleto(a) de} #animal_plural#{, que {não se importam com|são indiferentes à} {história|ao passado} do lugar}.",
+	"rumorFlora": "#mention.capitalize# é {o lar de|um local de crescimento de} uma espécie {rara|valiosa|muito valorizada} de {fungos|flores|cogumelos|plantas|ervas|bagas|flores}.",
+	"rumorBeast": "#recently.capitalize# {um(a) #beast# #beastAdj#|0.5?-uma matilha de #beast_plural#} fez seu {lar|covil} aqui.",
+	"rumorBand": [
+		"#recently.capitalize#, um(a) #gang# de #raider_plural# redescobriu #mention#{, tornando-o seu {quartel-general|centro de operações}}.",
+		"#recently.capitalize#, #mention# foi ocupado(a) por um(a) #gang# de #raider_plural#.",
+		"Agora, #mention# é controlado(a) por um(a) #gang# de #raider_plural#."
+	],
+	"rumorArtifact": "#rumorsSay# que {#demonicName#, um(a) lendário(a) #magic_noun#,|um(a) lendário(a) #magic_noun# chamado(a) #demonicName#} ainda está escondido(a) aqui.",
+	"rumorTreasure": [
+		"#rumorsSay# que tesouros {incontáveis|imensos} de {#treasures#|#treasures# e #treasures#} {estão guardados|podem ser encontrados} aqui.",
+		"#rumorsSay# que #mention# é rico(a) em {tesouros de }{#treasures#|#treasures# e #treasures#}."
+	],
+	"rumorsSay": ["Dizem os rumores que", "Diz-se que", "Corre o boato que", "Há um rumor de que"],
+	"treasures": ["ouro{ e joias}", "livros antigos", "artefatos mágicos", "0.1?-mapas e cartas"],
+	"gang": ["gangue", "grupo", "bando"],
+	"beastAdj": ["{enorme|gigante}", "{aterrorizante|temível}", "morto(a)-vivo(a)"],
+	"beast_plural": ["#animal_plural# #monster_adj#", "#monster_plural#"],
+	"monster_plural": ["dragões", "basiliscos", "manticoras", "beholders", "esfinges", "quimeras", "hidras", "serpes", "vermes"],
+	"native_plural": ["#race_plural#"],
+	"race_plural": ["humanos", "elfos", "anões", "halflings", "gnomos"],
+	"location": [
+		"terras devastadas",
+		"{floresta|bosque} {sombrio(a)|encantado(a)}",
+		"montanhas {{altas|nevadas}}",
+		"deserto {ensolarado}{ de areia #color#}",
+		"{pântanos|pântanos de sal}",
+		"selva {densa}",
+		"{terras congeladas|planícies nevadas}"
+	],
+	"farFrom": ["longe da {cidade|povoado} mais próximo", "longe de estradas movimentadas", "em terras inexploradas", "longe da civilização"],
+	"protection": ["clima severo", "fauna local perigosa", "terreno intransponível"],
+	"proper": ["#demonicName#", "#dungName1##dungName2#"],
+	"foi_era": ["foi", "era"]
 }

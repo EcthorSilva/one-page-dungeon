@@ -1847,68 +1847,282 @@ var $lime_init = function (F, r) {
                 }),
             });
                 
-                var Ya = function () { ka.call(this); this.__tabChildren = this.mouseChildren = !0; this.__children = []; this.__removedChildren = ma.toObjectVector(null) }; g["openfl.display.DisplayObjectContainer"] = Ya; Ya.__name__ = "openfl.display.DisplayObjectContainer"; Ya.__super__ = ka; Ya.prototype = u(ka.prototype, {
-                    addChild: function (a) { return this.addChildAt(a, this.get_numChildren()) }, addChildAt: function (a, b) {
-                        if (null == a) throw a = new Ne("Error #2007: Parameter child must be non-null."),
-                            a.errorID = 2007, a; if (a == this) throw a = new rf("Error #2024: An object cannot be added as a child of itself."), a.errorID = 2024, a; if (a.stage == a) throw a = new rf("Error #3783: A Stage object cannot be added as the child of another object."), a.errorID = 3783, a; if (b > this.__children.length || 0 > b) throw Z.thrown("Invalid index position " + b); if (a.parent == this) this.__children[b] != a && (N.remove(this.__children, a), this.__children.splice(b, 0, a), this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()));
-                        else { null != a.parent && a.parent.removeChild(a); this.__children.splice(b, 0, a); a.parent = this; (b = null != this.stage && null == a.stage) && a.__setStageReference(this.stage); a.__setTransformDirty(); a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()); this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); var c = new ra("added"); c.bubbles = !0; c.target = a; a.__dispatchWithCapture(c); b && (c = new ra("addedToStage", !1, !1), a.__dispatchWithCapture(c), a.__dispatchChildren(c)) } return a
-                    }, getChildAt: function (a) {
-                        return 0 <=
-                            a && a < this.__children.length ? this.__children[a] : null
-                    }, getChildByName: function (a) { for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; if (d.get_name() == a) return d } return null }, getChildIndex: function (a) { for (var b = 0, c = this.__children.length; b < c;) { var d = b++; if (this.__children[d] == a) return d } return -1 }, removeChild: function (a) {
-                        if (null != a && a.parent == this) {
-                            a.__setTransformDirty(); a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()); this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty());
-                            var b = new ra("removed", !0); a.__dispatchWithCapture(b); null != this.stage && (null != a.stage && this.stage.get_focus() == a && this.stage.set_focus(null), b = new ra("removedFromStage", !1, !1), a.__dispatchWithCapture(b), a.__dispatchChildren(b), a.__setStageReference(null)); a.parent = null; N.remove(this.__children, a); this.__removedChildren.push(a); a.__setTransformDirty()
-                        } return a
-                    }, removeChildAt: function (a) { return 0 <= a && a < this.__children.length ? this.removeChild(this.__children[a]) : null }, removeChildren: function (a, b) {
-                        null ==
-                        b && (b = 2147483647); null == a && (a = 0); if (2147483647 == b && (b = this.__children.length - 1, 0 > b)) return; if (!(a > this.__children.length - 1)) { if (b < a || 0 > a || b > this.__children.length) throw new fg("The supplied index is out of bounds."); for (b -= a; 0 <= b;)this.removeChildAt(a), --b }
-                    }, __cleanup: function () { ka.prototype.__cleanup.call(this); for (var a = 0, b = this.__children; a < b.length;) { var c = b[a]; ++a; c.__cleanup() } for (a = this.__removedChildren.iterator(); a.hasNext();)b = a.next(), null == b.stage && b.__cleanup(); this.__removedChildren.set_length(0) },
-                    __dispatchChildren: function (a) { if (null != this.__children) for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; a.target = d; if (!d.__dispatchWithCapture(a)) break; d.__dispatchChildren(a) } }, __enterFrame: function (a) { for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__enterFrame(a) } }, __getBounds: function (a, b) {
-                        ka.prototype.__getBounds.call(this, a, b); if (0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 != h.__scaleY) {
-                                    var n =
-                                        h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b * b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; h.__getBounds(a, c)
-                                }
-                            } na.__pool.release(c)
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.DisplayObjectContainer (Ya)
+             * ==================================================================
+             *
+             * A classe base para todos os objetos que podem servir como
+             * contêineres para outros objetos na lista de exibição. Ela herda
+             * de InteractiveObject (ka).
+             *
+             * @class
+             * @extends {ka} // ka é InteractiveObject
+             */
+            var Ya = function () {
+                ka.call(this);
+                this.__tabChildren = this.mouseChildren = !0;
+                this.__children = [];
+                this.__removedChildren = ma.toObjectVector(null);
+            };
+            g["openfl.display.DisplayObjectContainer"] = Ya;
+            Ya.__name__ = "openfl.display.DisplayObjectContainer";
+            Ya.__super__ = ka;
+            Ya.prototype = u(ka.prototype, {
+                addChild: function (a) {
+                    return this.addChildAt(a, this.get_numChildren());
+                },
+                addChildAt: function (a, b) {
+                    if (null == a) throw ((a = new Ne("Error #2007: Parameter child must be non-null.")), (a.errorID = 2007), a);
+                    if (a == this) throw ((a = new rf("Error #2024: An object cannot be added as a child of itself.")), (a.errorID = 2024), a);
+                    if (a.stage == a) throw ((a = new rf("Error #3783: A Stage object cannot be added as the child of another object.")), (a.errorID = 3783), a);
+                    if (b > this.__children.length || 0 > b) throw Z.thrown("Invalid index position " + b);
+                    if (a.parent == this) this.__children[b] != a && (N.remove(this.__children, a), this.__children.splice(b, 0, a), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty()));
+                    else {
+                        null != a.parent && a.parent.removeChild(a);
+                        this.__children.splice(b, 0, a);
+                        a.parent = this;
+                        (b = null != this.stage && null == a.stage) && a.__setStageReference(this.stage);
+                        a.__setTransformDirty();
+                        a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                        this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                        var c = new ra("added");
+                        c.bubbles = !0;
+                        c.target = a;
+                        a.__dispatchWithCapture(c);
+                        b && ((c = new ra("addedToStage", !1, !1)), a.__dispatchWithCapture(c), a.__dispatchChildren(c));
+                    }
+                    return a;
+                },
+                getChildAt: function (a) {
+                    return 0 <= a && a < this.__children.length ? this.__children[a] : null;
+                },
+                getChildByName: function (a) {
+                    for (var b = 0, c = this.__children; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        if (d.get_name() == a) return d;
+                    }
+                    return null;
+                },
+                getChildIndex: function (a) {
+                    for (var b = 0, c = this.__children.length; b < c; ) {
+                        var d = b++;
+                        if (this.__children[d] == a) return d;
+                    }
+                    return -1;
+                },
+                removeChild: function (a) {
+                    if (null != a && a.parent == this) {
+                        a.__setTransformDirty();
+                        a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                        this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                        var b = new ra("removed", !0);
+                        a.__dispatchWithCapture(b);
+                        null != this.stage && (null != a.stage && this.stage.get_focus() == a && this.stage.set_focus(null), (b = new ra("removedFromStage", !1, !1)), a.__dispatchWithCapture(b), a.__dispatchChildren(b), a.__setStageReference(null));
+                        a.parent = null;
+                        N.remove(this.__children, a);
+                        this.__removedChildren.push(a);
+                        a.__setTransformDirty();
+                    }
+                    return a;
+                },
+                removeChildAt: function (a) {
+                    return 0 <= a && a < this.__children.length ? this.removeChild(this.__children[a]) : null;
+                },
+                removeChildren: function (a, b) {
+                    null == b && (b = 2147483647);
+                    null == a && (a = 0);
+                    if (2147483647 == b && ((b = this.__children.length - 1), 0 > b)) return;
+                    if (!(a > this.__children.length - 1)) {
+                        if (b < a || 0 > a || b > this.__children.length) throw new fg("The supplied index is out of bounds.");
+                        for (b -= a; 0 <= b; ) this.removeChildAt(a), --b;
+                    }
+                },
+                __cleanup: function () {
+                    ka.prototype.__cleanup.call(this);
+                    for (var a = 0, b = this.__children; a < b.length; ) {
+                        var c = b[a];
+                        ++a;
+                        c.__cleanup();
+                    }
+                    for (a = this.__removedChildren.iterator(); a.hasNext(); ) (b = a.next()), null == b.stage && b.__cleanup();
+                    this.__removedChildren.set_length(0);
+                },
+                __dispatchChildren: function (a) {
+                    if (null != this.__children)
+                        for (var b = 0, c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            a.target = d;
+                            if (!d.__dispatchWithCapture(a)) break;
+                            d.__dispatchChildren(a);
                         }
-                    }, __getFilterBounds: function (a, b) {
-                        ka.prototype.__getFilterBounds.call(this, a, b); if (null == this.__scrollRect && 0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
-                                    var n = h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b *
-                                        b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; n = ha.__pool.get(); h.__getFilterBounds(n, c); a.__expand(n.x, n.y, n.width, n.height); ha.__pool.release(n)
-                                }
-                            } na.__pool.release(c)
-                        }
-                    }, __getRenderBounds: function (a, b) {
-                        if (null != this.__scrollRect) ka.prototype.__getRenderBounds.call(this, a, b); else if (ka.prototype.__getBounds.call(this, a, b), 0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 !=
-                                    h.__scaleY && !h.__isMask) { var n = h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b * b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; h.__getRenderBounds(a, c) }
-                            } na.__pool.release(c)
-                        }
-                    }, __hitTest: function (a, b, c, d, f, h) {
-                        if (!h.get_visible() || this.__isMask || f && !this.mouseEnabled && !this.mouseChildren || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return !1; if (null != this.__scrollRect) {
-                            var n = I.__pool.get(); n.setTo(a, b); var A = this.__getRenderTransform(),
-                                p = A.a * A.d - A.b * A.c; if (0 == p) n.x = -A.tx, n.y = -A.ty; else { var g = 1 / p * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx)); n.y = 1 / p * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x)); n.x = g } if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), !1; I.__pool.release(n)
-                        } n = this.__children.length; if (f) if (null == d || !this.mouseChildren) for (; 0 <= --n;) { if (this.__children[n].__hitTest(a, b, c, null, !0, this.__children[n])) return null != d && d.push(h), !0 } else {
-                            if (null != d) {
-                                f = d.length; for (p = !1; 0 <= --n && !(((A = this.__children[n].__getInteractive(null)) || this.mouseEnabled &&
-                                    !p) && this.__children[n].__hitTest(a, b, c, d, !0, this.__children[n]) && (p = !0, A && d.length > f));); if (p) return d.splice(f, 0, h), !0
+                },
+                __enterFrame: function (a) {
+                    for (var b = 0, c = this.__children; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        d.__enterFrame(a);
+                    }
+                },
+                __getBounds: function (a, b) {
+                    ka.prototype.__getBounds.call(this, a, b);
+                    if (0 != this.__children.length) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                h.__getBounds(a, c);
                             }
-                        } else { for (p = !1; 0 <= --n && (!this.__children[n].__hitTest(a, b, c, d, !1, this.__children[n]) || (p = !0, null != d));); return p } return !1
-                    }, __hitTestMask: function (a, b) { for (var c = this.__children.length; 0 <= --c;)if (this.__children[c].__hitTestMask(a, b)) return !0; return !1 }, __readGraphicsData: function (a, b) {
-                        ka.prototype.__readGraphicsData.call(this, a, b); if (b) for (var c = 0, d = this.__children; c < d.length;) {
-                            var f =
-                                d[c]; ++c; f.__readGraphicsData(a, b)
                         }
-                    }, __setStageReference: function (a) { ka.prototype.__setStageReference.call(this, a); if (null != this.__children) for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__setStageReference(a) } }, __setWorldTransformInvalid: function () { if (!this.__worldTransformInvalid && (this.__worldTransformInvalid = !0, null != this.__children)) for (var a = 0, b = this.__children; a < b.length;) { var c = b[a]; ++a; c.__setWorldTransformInvalid() } }, __tabTest: function (a) {
-                        ka.prototype.__tabTest.call(this, a);
-                        if (this.get_tabChildren()) for (var b, c = 0, d = this.__children; c < d.length;) { var f = d[c]; ++c; if (b = f.__getInteractive(null)) b = f, b.__tabTest(a) }
-                    }, __update: function (a, b) { ka.prototype.__update.call(this, a, b); if (b) { b = 0; for (var c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__update(a, !0) } } }, get_numChildren: function () { return this.__children.length }, get_tabChildren: function () { return this.__tabChildren }, __class__: Ya, __properties__: u(ka.prototype.__properties__, { get_tabChildren: "get_tabChildren", get_numChildren: "get_numChildren" })
-                });
+                        na.__pool.release(c);
+                    }
+                },
+                __getFilterBounds: function (a, b) {
+                    ka.prototype.__getFilterBounds.call(this, a, b);
+                    if (null == this.__scrollRect && 0 != this.__children.length) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                n = ha.__pool.get();
+                                h.__getFilterBounds(n, c);
+                                a.__expand(n.x, n.y, n.width, n.height);
+                                ha.__pool.release(n);
+                            }
+                        }
+                        na.__pool.release(c);
+                    }
+                },
+                __getRenderBounds: function (a, b) {
+                    if (null != this.__scrollRect) ka.prototype.__getRenderBounds.call(this, a, b);
+                    else if ((ka.prototype.__getBounds.call(this, a, b), 0 != this.__children.length)) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                h.__getRenderBounds(a, c);
+                            }
+                        }
+                        na.__pool.release(c);
+                    }
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (!h.get_visible() || this.__isMask || (f && !this.mouseEnabled && !this.mouseChildren) || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return !1;
+                    if (null != this.__scrollRect) {
+                        var n = I.__pool.get();
+                        n.setTo(a, b);
+                        var A = this.__getRenderTransform(),
+                            p = A.a * A.d - A.b * A.c;
+                        if (0 == p) (n.x = -A.tx), (n.y = -A.ty);
+                        else {
+                            var g = (1 / p) * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx));
+                            n.y = (1 / p) * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x));
+                            n.x = g;
+                        }
+                        if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), !1;
+                        I.__pool.release(n);
+                    }
+                    n = this.__children.length;
+                    if (f)
+                        if (null == d || !this.mouseChildren)
+                            for (; 0 <= --n; ) {
+                                if (this.__children[n].__hitTest(a, b, c, null, !0, this.__children[n])) return null != d && d.push(h), !0;
+                            }
+                        else {
+                            if (null != d) {
+                                f = d.length;
+                                for (p = !1; 0 <= --n && !(((A = this.__children[n].__getInteractive(null)) || (this.mouseEnabled && !p)) && this.__children[n].__hitTest(a, b, c, d, !0, this.__children[n]) && ((p = !0), A && d.length > f)); );
+                                if (p) return d.splice(f, 0, h), !0;
+                            }
+                        }
+                    else {
+                        for (p = !1; 0 <= --n && (!this.__children[n].__hitTest(a, b, c, d, !1, this.__children[n]) || ((p = !0), null != d)); );
+                        return p;
+                    }
+                    return !1;
+                },
+                __hitTestMask: function (a, b) {
+                    for (var c = this.__children.length; 0 <= --c; ) if (this.__children[c].__hitTestMask(a, b)) return !0;
+                    return !1;
+                },
+                __readGraphicsData: function (a, b) {
+                    ka.prototype.__readGraphicsData.call(this, a, b);
+                    if (b)
+                        for (var c = 0, d = this.__children; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            f.__readGraphicsData(a, b);
+                        }
+                },
+                __setStageReference: function (a) {
+                    ka.prototype.__setStageReference.call(this, a);
+                    if (null != this.__children)
+                        for (var b = 0, c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            d.__setStageReference(a);
+                        }
+                },
+                __setWorldTransformInvalid: function () {
+                    if (!this.__worldTransformInvalid && ((this.__worldTransformInvalid = !0), null != this.__children))
+                        for (var a = 0, b = this.__children; a < b.length; ) {
+                            var c = b[a];
+                            ++a;
+                            c.__setWorldTransformInvalid();
+                        }
+                },
+                __tabTest: function (a) {
+                    ka.prototype.__tabTest.call(this, a);
+                    if (this.get_tabChildren())
+                        for (var b, c = 0, d = this.__children; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            if ((b = f.__getInteractive(null))) (b = f), b.__tabTest(a);
+                        }
+                },
+                __update: function (a, b) {
+                    ka.prototype.__update.call(this, a, b);
+                    if (b) {
+                        b = 0;
+                        for (var c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            d.__update(a, !0);
+                        }
+                    }
+                },
+                get_numChildren: function () {
+                    return this.__children.length;
+                },
+                get_tabChildren: function () {
+                    return this.__tabChildren;
+                },
+                __class__: Ya,
+                __properties__: u(ka.prototype.__properties__, { get_tabChildren: "get_tabChildren", get_numChildren: "get_numChildren" }),
+            });
 
 
             var ja = function () { Ya.call(this); this.__drawableType = 4; this.__buttonMode = !1; this.useHandCursor = !0; if (null != this.__pendingBindLibrary) { var a = this.__pendingBindLibrary, b = this.__pendingBindClassName; this.__pendingBindClassName = this.__pendingBindLibrary = null; a.bind(b, this) } else null != ja.__constructor && (a = ja.__constructor, ja.__constructor = null, a(this)) }; g["openfl.display.Sprite"] = ja; ja.__name__ = "openfl.display.Sprite"; ja.__super__ = Ya; ja.prototype = u(Ya.prototype, {

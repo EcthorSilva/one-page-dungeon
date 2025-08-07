@@ -1122,7 +1122,6 @@ var $lime_init = function (F, r) {
                 }
             };
             
-            
             /**
              * Interface (U) que define um "contrato" para estruturas de dados
              * do tipo mapa (chave-valor).
@@ -1249,117 +1248,556 @@ var $lime_init = function (F, r) {
                 },
                 __class__: La
             };
-                
-                var aa = function () {
-                    ea.call(this); this.__alpha = this.__drawableType = 1; this.__blendMode = 10; this.__cacheAsBitmap = !1; this.__transform = new na; this.__visible = !0; this.__rotationSine = this.__rotation = 0; this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1; this.__worldBlendMode = 10; this.__worldTransform =
-                        new na; this.__worldColorTransform = new Cb; this.__renderTransform = new na; this.__worldVisible = !0; this.set_name("instance" + ++aa.__instanceCount); null != aa.__initStage && (this.stage = aa.__initStage, aa.__initStage = null, this.stage.addChild(this))
-                };                
-                g["openfl.display.DisplayObject"] = aa; aa.__name__ = "openfl.display.DisplayObject"; aa.__interfaces__ = [fb]; aa.__super__ = ea; aa.prototype = u(ea.prototype, {
-                    addEventListener: function (a, b, c, d, f) {
-                        null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); switch (a) {
-                            case "activate": case "deactivate": case "enterFrame": case "exitFrame": case "frameConstructed": case "render": Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h,
-                                a) || (aa.__broadcastEvents.h[a] = []); var h = aa.__broadcastEvents.h[a]; -1 == h.indexOf(this) && h.push(this); break; case "clearDOM": case "renderCairo": case "renderCanvas": case "renderDOM": case "renderOpenGL": null == this.__customRenderEvent && (this.__customRenderEvent = new Rg(null), this.__customRenderEvent.objectColorTransform = new Cb, this.__customRenderEvent.objectMatrix = new na, this.__customRenderClear = !0)
-                        }ea.prototype.addEventListener.call(this, a, b, c, d, f)
-                    }, dispatchEvent: function (a) {
-                        if (a instanceof wb) {
-                            var b =
-                                this.__getRenderTransform(); a.stageX = a.localX * b.a + a.localY * b.c + b.tx; b = this.__getRenderTransform(); a.stageY = a.localX * b.b + a.localY * b.d + b.ty
-                        } else a instanceof vd && (b = this.__getRenderTransform(), a.stageX = a.localX * b.a + a.localY * b.c + b.tx, b = this.__getRenderTransform(), a.stageY = a.localX * b.b + a.localY * b.d + b.ty); a.target = this; return this.__dispatchWithCapture(a)
-                    }, getBounds: function (a) {
-                        var b = na.__pool.get(); if (null != a && a != this) {
-                            b.copyFrom(this.__getWorldTransform()); var c = na.__pool.get(); c.copyFrom(a.__getWorldTransform());
-                            c.invert(); b.concat(c); na.__pool.release(c)
-                        } else b.identity(); a = new ha; this.__getBounds(a, b); na.__pool.release(b); return a
-                    }, getRect: function (a) { return this.getBounds(a) }, globalToLocal: function (a) { return this.__globalToLocal(a, new I) }, hitTestPoint: function (a, b, c) { null == c && (c = !1); return null != this.stage ? this.__hitTest(a, b, c, null, !1, this) : !1 }, localToGlobal: function (a) { return this.__getRenderTransform().transformPoint(a) }, removeEventListener: function (a, b, c) {
-                        null == c && (c = !1); ea.prototype.removeEventListener.call(this,
-                            a, b, c); switch (a) {
-                                case "activate": case "deactivate": case "enterFrame": case "exitFrame": case "frameConstructed": case "render": this.hasEventListener(a) || Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) && N.remove(aa.__broadcastEvents.h[a], this); break; case "clearDOM": case "renderCairo": case "renderCanvas": case "renderDOM": case "renderOpenGL": this.hasEventListener("clearDOM") || this.hasEventListener("renderCairo") || this.hasEventListener("renderCanvas") || this.hasEventListener("renderDOM") ||
-                                    this.hasEventListener("renderOpenGL") || (this.__customRenderEvent = null)
-                            }
-                    }, __cleanup: function () { this.__context = this.__canvas = this.__cairo = null; null != this.__graphics && this.__graphics.__cleanup(); null != this.__cacheBitmap && (this.__cacheBitmap.__cleanup(), this.__cacheBitmap = null); null != this.__cacheBitmapData && (this.__cacheBitmapData.dispose(), this.__cacheBitmapData = null) }, __dispatch: function (a) {
-                        if (null != this.__eventMap && this.hasEventListener(a.type)) {
-                            var b = ea.prototype.__dispatchEvent.call(this, a); return a.__isCanceled ?
-                                !0 : b
-                        } return !0
-                    }, __dispatchChildren: function (a) { }, __dispatchEvent: function (a) { var b = a.bubbles ? this.parent : null, c = ea.prototype.__dispatchEvent.call(this, a); if (a.__isCanceled) return !0; null != b && b != this && (a.eventPhase = 3, null == a.target && (a.target = this), b.__dispatchEvent(a)); return c }, __dispatchWithCapture: function (a) {
-                        null == a.target && (a.target = this); if (null != this.parent) if (a.eventPhase = 1, this.parent == this.stage) this.parent.__dispatch(a); else {
-                            for (var b = aa.__tempStack.get(), c = this.parent, d = 0; null != c;)b.set(d,
-                                c), c = c.parent, ++d; c = 0; for (var f = d; c < f;) { var h = c++; b.get(d - h - 1).__dispatch(a) } aa.__tempStack.release(b)
-                        } a.eventPhase = 2; return this.__dispatchEvent(a)
-                    }, __enterFrame: function (a) { }, __getBounds: function (a, b) { null != this.__graphics && this.__graphics.__getBounds(a, b) }, __getCursor: function () { return null }, __getFilterBounds: function (a, b) {
-                        this.__getRenderBounds(a, b); if (null != this.__filters) {
-                            b = ha.__pool.get(); for (var c = 0, d = this.__filters; c < d.length;) {
-                                var f = d[c]; ++c; b.__expand(-f.__leftExtension, -f.__topExtension,
-                                    f.__leftExtension + f.__rightExtension, f.__topExtension + f.__bottomExtension)
-                            } a.width += b.width; a.height += b.height; a.x += b.x; a.y += b.y; ha.__pool.release(b)
-                        }
-                    }, __getInteractive: function (a) { return !1 }, __getLocalBounds: function (a) { this.__getBounds(a, this.__transform); a.x -= this.__transform.tx; a.y -= this.__transform.ty }, __getRenderBounds: function (a, b) {
-                        if (null == this.__scrollRect) this.__getBounds(a, b); else {
-                            var c = ha.__pool.get(); c.copyFrom(this.__scrollRect); c.__transform(c, b); a.__expand(c.x, c.y, c.width, c.height);
-                            ha.__pool.release(c)
-                        }
-                    }, __getRenderTransform: function () { this.__getWorldTransform(); return this.__renderTransform }, __getWorldTransform: function () { if (this.__transformDirty || this.__worldTransformInvalid) { var a = [], b = this; if (null == this.parent) this.__update(!0, !1); else for (; b != this.stage && (a.push(b), b = b.parent, null != b);); for (var c = a.length; 0 <= --c;)b = a[c], b.__update(!0, !1) } return this.__worldTransform }, __globalToLocal: function (a, b) {
-                        this.__getRenderTransform(); if (a == b) {
-                            var c = this.__renderTransform, d = c.a * c.d -
-                                c.b * c.c; if (0 == d) a.x = -c.tx, a.y = -c.ty; else { var f = 1 / d * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx)); a.y = 1 / d * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)); a.x = f }
-                        } else c = this.__renderTransform, d = c.a * c.d - c.b * c.c, b.x = 0 == d ? -c.tx : 1 / d * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx)), c = this.__renderTransform, d = c.a * c.d - c.b * c.c, b.y = 0 == d ? -c.ty : 1 / d * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)); return b
-                    }, __hitTest: function (a, b, c, d, f, h) {
-                        if (null != this.__graphics) {
-                            if (!h.__visible || this.__isMask || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return !1; if (this.__graphics.__hitTest(a,
-                                b, c, this.__getRenderTransform())) return null == d || f || d.push(h), !0
-                        } return !1
-                    }, __hitTestMask: function (a, b) { return null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1 }, __readGraphicsData: function (a, b) { null != this.__graphics && this.__graphics.__readGraphicsData(a) }, __setParentRenderDirty: function () { var a = null != this.__renderParent ? this.__renderParent : this.parent; null == a || a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()) }, __setStageReference: function (a) {
-                        this.stage =
-                        a
-                    }, __setTransformDirty: function () { this.__transformDirty || (this.__transformDirty = !0, this.__setWorldTransformInvalid(), this.__setParentRenderDirty()) }, __setWorldTransformInvalid: function () { this.__worldTransformInvalid = !0 }, __update: function (a, b) {
-                        var c = null != this.__renderParent ? this.__renderParent : this.parent; this.__isMask && null == c && (c = this.__maskTarget); this.__renderable = this.__visible && 0 != this.__scaleX && 0 != this.__scaleY && !this.__isMask && (null == c || !c.__isMask); this.__updateTransforms(); this.__worldTransformInvalid =
-                            this.__transformDirty = !1; if (!a) if (aa.__supportDOM && (this.__renderTransformChanged = !this.__renderTransform.equals(this.__renderTransformCache), null == this.__renderTransformCache ? this.__renderTransformCache = this.__renderTransform.clone() : this.__renderTransformCache.copyFrom(this.__renderTransform)), null != c) {
-                                if (aa.__supportDOM) { var d = c.__worldVisible && this.__visible; this.__worldVisibleChanged = this.__worldVisible != d; this.__worldVisible = d } d = this.get_alpha() * c.__worldAlpha; this.__worldAlphaChanged = this.__worldAlpha !=
-                                    d; this.__worldAlpha = d; null != this.__objectTransform ? (this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform), this.__worldColorTransform.__combine(c.__worldColorTransform)) : this.__worldColorTransform.__copyFrom(c.__worldColorTransform); this.__worldBlendMode = null == this.__blendMode || 10 == this.__blendMode ? c.__worldBlendMode : this.__blendMode; this.__worldShader = null == this.__shader ? c.__shader : this.__shader; this.__worldScale9Grid = null == this.__scale9Grid ? c.__scale9Grid : this.__scale9Grid
-                            } else this.__worldAlpha =
-                                this.get_alpha(), aa.__supportDOM && (this.__worldVisibleChanged = this.__worldVisible != this.__visible, this.__worldVisible = this.__visible), this.__worldAlphaChanged = this.__worldAlpha != this.get_alpha(), null != this.__objectTransform ? this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform) : this.__worldColorTransform.__identity(), this.__worldBlendMode = this.__blendMode, this.__worldShader = this.__shader, this.__worldScale9Grid = this.__scale9Grid; b && null != this.get_mask() && this.get_mask().__update(a,
-                                    !0)
-                    }, __updateTransforms: function (a) {
-                        var b = null != a; a = b ? a : this.__transform; null == this.__worldTransform && (this.__worldTransform = new na); null == this.__renderTransform && (this.__renderTransform = new na); var c = null != this.__renderParent ? this.__renderParent : this.parent; if (b || null == this.parent) this.__worldTransform.copyFrom(a); else {
-                            var d = this.parent.__worldTransform, f = this.__worldTransform; f.a = a.a * d.a + a.b * d.c; f.b = a.a * d.b + a.b * d.d; f.c = a.c * d.a + a.d * d.c; f.d = a.c * d.b + a.d * d.d; f.tx = a.tx * d.a + a.ty * d.c + d.tx; f.ty = a.tx * d.b +
-                                a.ty * d.d + d.ty
-                        } b || null == c ? this.__renderTransform.copyFrom(a) : (d = c.__renderTransform, f = this.__renderTransform, f.a = a.a * d.a + a.b * d.c, f.b = a.a * d.b + a.b * d.d, f.c = a.c * d.a + a.d * d.c, f.d = a.c * d.b + a.d * d.d, f.tx = a.tx * d.a + a.ty * d.c + d.tx, f.ty = a.tx * d.b + a.ty * d.d + d.ty); null != this.__scrollRect && (b = this.__renderTransform, a = -this.__scrollRect.x, c = -this.__scrollRect.y, b.tx = a * b.a + c * b.c + b.tx, b.ty = a * b.b + c * b.d + b.ty)
-                    }, get_alpha: function () { return this.__alpha }, set_alpha: function (a) {
-                        1 < a && (a = 1); 0 > a && (a = 0); a == this.__alpha || this.get_cacheAsBitmap() ||
-                            this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__alpha = a
-                    }, get_blendMode: function () { return this.__blendMode }, set_blendMode: function (a) { null == a && (a = 10); a == this.__blendMode || this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__blendMode = a }, get_cacheAsBitmap: function () { return null == this.__filters ? this.__cacheAsBitmap : !0 }, get_filters: function () { return null == this.__filters ? [] : this.__filters.slice() }, get_height: function () {
-                        var a = ha.__pool.get();
-                        this.__getLocalBounds(a); var b = a.height; ha.__pool.release(a); return b
-                    }, set_height: function (a) { var b = ha.__pool.get(), c = na.__pool.get(); c.identity(); this.__getBounds(b, c); a != b.height ? this.set_scaleY(a / b.height) : this.set_scaleY(1); ha.__pool.release(b); na.__pool.release(c); return a }, get_loaderInfo: function () { return null != this.stage ? xc.current.__loaderInfo : null }, get_mask: function () { return this.__mask }, set_mask: function (a) {
-                        if (a == this.__mask) return a; a != this.__mask && (this.__setTransformDirty(), this.__renderDirty ||
-                            (this.__renderDirty = !0, this.__setParentRenderDirty())); if (null != this.__mask) { this.__mask.__isMask = !1; this.__mask.__maskTarget = null; this.__mask.__setTransformDirty(); var b = this.__mask; b.__renderDirty || (b.__renderDirty = !0, b.__setParentRenderDirty()) } null != a && (a.__isMask = !0, a.__maskTarget = this, a.__setWorldTransformInvalid()); null != this.__cacheBitmap && this.__cacheBitmap.get_mask() != a && this.__cacheBitmap.set_mask(a); return this.__mask = a
-                    }, get_mouseX: function () {
-                        var a = null != this.stage ? this.stage.__mouseX :
-                            xc.current.stage.__mouseX, b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY, c = this.__getRenderTransform(), d = c.a * c.d - c.b * c.c; return 0 == d ? -c.tx : 1 / d * (c.c * (c.ty - b) + c.d * (a - c.tx))
-                    }, get_mouseY: function () { var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX, b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY, c = this.__getRenderTransform(), d = c.a * c.d - c.b * c.c; return 0 == d ? -c.ty : 1 / d * (c.a * (b - c.ty) + c.b * (c.tx - a)) }, get_name: function () { return this.__name }, set_name: function (a) {
-                        return this.__name =
-                            a
-                    }, get_root: function () { return null != this.stage ? xc.current : null }, get_rotation: function () { return this.__rotation }, set_rotation: function (a) {
-                        if (a != this.__rotation) {
-                            a %= 360; 180 < a ? a -= 360 : -180 > a && (a += 360); this.__rotation = a; var b = Math.PI / 180 * this.__rotation; this.__rotationSine = Math.sin(b); this.__rotationCosine = Math.cos(b); this.__transform.a = this.__rotationCosine * this.__scaleX; this.__transform.b = this.__rotationSine * this.__scaleX; this.__transform.c = -this.__rotationSine * this.__scaleY; this.__transform.d = this.__rotationCosine *
-                                this.__scaleY; this.__setTransformDirty()
-                        } return a
-                    }, get_scaleX: function () { return this.__scaleX }, set_scaleX: function (a) { if (a != this.__scaleX) if (this.__scaleX = a, 0 == this.__transform.b) a != this.__transform.a && this.__setTransformDirty(), this.__transform.a = a; else { var b = this.__rotationCosine * a, c = this.__rotationSine * a; this.__transform.a == b && this.__transform.b == c || this.__setTransformDirty(); this.__transform.a = b; this.__transform.b = c } return a }, get_scaleY: function () { return this.__scaleY }, set_scaleY: function (a) {
-                        if (a !=
-                            this.__scaleY) if (this.__scaleY = a, 0 == this.__transform.c) a != this.__transform.d && this.__setTransformDirty(), this.__transform.d = a; else { var b = -this.__rotationSine * a, c = this.__rotationCosine * a; this.__transform.d == c && this.__transform.c == b || this.__setTransformDirty(); this.__transform.c = b; this.__transform.d = c } return a
-                    }, get_scrollRect: function () { return null == this.__scrollRect ? null : this.__scrollRect.clone() }, get_transform: function () { null == this.__objectTransform && (this.__objectTransform = new Sg(this)); return this.__objectTransform },
-                    set_transform: function (a) {
-                        if (null == a) throw new Ne("Parameter transform must be non-null."); null == this.__objectTransform && (this.__objectTransform = new Sg(this)); this.__setTransformDirty(); this.__objectTransform.set_matrix(a.get_matrix()); if (!this.__objectTransform.__colorTransform.__equals(a.__colorTransform, !0) || !this.get_cacheAsBitmap() && this.__objectTransform.__colorTransform.alphaMultiplier != a.__colorTransform.alphaMultiplier) this.__objectTransform.__colorTransform.__copyFrom(a.get_colorTransform()),
-                            this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__objectTransform
-                    }, get_visible: function () { return this.__visible }, set_visible: function (a) { a == this.__visible || this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__visible = a }, get_width: function () { var a = ha.__pool.get(); this.__getLocalBounds(a); var b = a.width; ha.__pool.release(a); return b }, set_width: function (a) {
-                        var b = ha.__pool.get(), c = na.__pool.get(); c.identity(); this.__getBounds(b, c);
-                        a != b.width ? this.set_scaleX(a / b.width) : this.set_scaleX(1); ha.__pool.release(b); na.__pool.release(c); return a
-                    }, get_x: function () { return this.__transform.tx }, set_x: function (a) { a != this.__transform.tx && this.__setTransformDirty(); return this.__transform.tx = a }, get_y: function () { return this.__transform.ty }, set_y: function (a) { a != this.__transform.ty && this.__setTransformDirty(); return this.__transform.ty = a }, __class__: aa, __properties__: {
-                        set_y: "set_y", get_y: "get_y", set_x: "set_x", get_x: "get_x", set_width: "set_width",
-                        get_width: "get_width", set_visible: "set_visible", get_visible: "get_visible", set_transform: "set_transform", get_transform: "get_transform", get_scrollRect: "get_scrollRect", set_scaleY: "set_scaleY", get_scaleY: "get_scaleY", set_scaleX: "set_scaleX", get_scaleX: "get_scaleX", set_rotation: "set_rotation", get_rotation: "get_rotation", get_root: "get_root", set_name: "set_name", get_name: "get_name", get_mouseY: "get_mouseY", get_mouseX: "get_mouseX", set_mask: "set_mask", get_mask: "get_mask", get_loaderInfo: "get_loaderInfo", set_height: "set_height",
-                        get_height: "get_height", get_filters: "get_filters", get_cacheAsBitmap: "get_cacheAsBitmap", set_blendMode: "set_blendMode", get_blendMode: "get_blendMode", set_alpha: "set_alpha", get_alpha: "get_alpha"
+
+            /**
+             * Classe DisplayObject (aa) é base para todos os objetos que podem ser colocados
+             * na lista de exibição. Define as propriedades fundamentais para
+             * renderização, transformação e manipulação de eventos.
+             *
+             * @class
+             * @extends {ea} // ea é EventDispatcher
+             */
+            var aa = function () {
+                ea.call(this);
+                this.__alpha = this.__drawableType = 1;
+                this.__blendMode = 10;
+                this.__cacheAsBitmap = !1;
+                this.__transform = new na();
+                this.__visible = !0;
+                this.__rotationSine = this.__rotation = 0;
+                this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1;
+                this.__worldBlendMode = 10;
+                this.__worldTransform = new na();
+                this.__worldColorTransform = new Cb();
+                this.__renderTransform = new na();
+                this.__worldVisible = !0;
+                this.set_name("instance" + ++aa.__instanceCount);
+                null != aa.__initStage && ((this.stage = aa.__initStage), (aa.__initStage = null), this.stage.addChild(this));
+            };
+
+            g["openfl.display.DisplayObject"] = aa;
+            aa.__name__ = "openfl.display.DisplayObject";
+            aa.__interfaces__ = [fb];
+            aa.__super__ = ea;
+            aa.prototype = u(ea.prototype, {
+                addEventListener: function (a, b, c, d, f) {
+                    null == f && (f = !1);
+                    null == d && (d = 0);
+                    null == c && (c = !1);
+                    switch (a) {
+                        case "activate":
+                        case "deactivate":
+                        case "enterFrame":
+                        case "exitFrame":
+                        case "frameConstructed":
+                        case "render":
+                            Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) || (aa.__broadcastEvents.h[a] = []);
+                            var h = aa.__broadcastEvents.h[a];
+                            -1 == h.indexOf(this) && h.push(this);
+                            break;
+                        case "clearDOM":
+                        case "renderCairo":
+                        case "renderCanvas":
+                        case "renderDOM":
+                        case "renderOpenGL":
+                            null == this.__customRenderEvent &&
+                                ((this.__customRenderEvent = new Rg(null)), (this.__customRenderEvent.objectColorTransform = new Cb()), (this.__customRenderEvent.objectMatrix = new na()), (this.__customRenderClear = !0));
                     }
-                }); var ka = function () { aa.call(this); this.doubleClickEnabled = !1; this.mouseEnabled = !0; this.needsSoftKeyboard = !1; this.__tabEnabled = null; this.__tabIndex = -1 }; g["openfl.display.InteractiveObject"] = ka; ka.__name__ = "openfl.display.InteractiveObject"; ka.__super__ = aa; ka.prototype = u(aa.prototype, {
+                    ea.prototype.addEventListener.call(this, a, b, c, d, f);
+                },
+                dispatchEvent: function (a) {
+                    if (a instanceof wb) {
+                        var b = this.__getRenderTransform();
+                        a.stageX = a.localX * b.a + a.localY * b.c + b.tx;
+                        b = this.__getRenderTransform();
+                        a.stageY = a.localX * b.b + a.localY * b.d + b.ty;
+                    } else a instanceof vd && ((b = this.__getRenderTransform()), (a.stageX = a.localX * b.a + a.localY * b.c + b.tx), (b = this.__getRenderTransform()), (a.stageY = a.localX * b.b + a.localY * b.d + b.ty));
+                    a.target = this;
+                    return this.__dispatchWithCapture(a);
+                },
+                getBounds: function (a) {
+                    var b = na.__pool.get();
+                    if (null != a && a != this) {
+                        b.copyFrom(this.__getWorldTransform());
+                        var c = na.__pool.get();
+                        c.copyFrom(a.__getWorldTransform());
+                        c.invert();
+                        b.concat(c);
+                        na.__pool.release(c);
+                    } else b.identity();
+                    a = new ha();
+                    this.__getBounds(a, b);
+                    na.__pool.release(b);
+                    return a;
+                },
+                getRect: function (a) {
+                    return this.getBounds(a);
+                },
+                globalToLocal: function (a) {
+                    return this.__globalToLocal(a, new I());
+                },
+                hitTestPoint: function (a, b, c) {
+                    null == c && (c = !1);
+                    return null != this.stage ? this.__hitTest(a, b, c, null, !1, this) : !1;
+                },
+                localToGlobal: function (a) {
+                    return this.__getRenderTransform().transformPoint(a);
+                },
+                removeEventListener: function (a, b, c) {
+                    null == c && (c = !1);
+                    ea.prototype.removeEventListener.call(this, a, b, c);
+                    switch (a) {
+                        case "activate":
+                        case "deactivate":
+                        case "enterFrame":
+                        case "exitFrame":
+                        case "frameConstructed":
+                        case "render":
+                            this.hasEventListener(a) || (Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) && N.remove(aa.__broadcastEvents.h[a], this));
+                            break;
+                        case "clearDOM":
+                        case "renderCairo":
+                        case "renderCanvas":
+                        case "renderDOM":
+                        case "renderOpenGL":
+                            this.hasEventListener("clearDOM") ||
+                                this.hasEventListener("renderCairo") ||
+                                this.hasEventListener("renderCanvas") ||
+                                this.hasEventListener("renderDOM") ||
+                                this.hasEventListener("renderOpenGL") ||
+                                (this.__customRenderEvent = null);
+                    }
+                },
+                __cleanup: function () {
+                    this.__context = this.__canvas = this.__cairo = null;
+                    null != this.__graphics && this.__graphics.__cleanup();
+                    null != this.__cacheBitmap && (this.__cacheBitmap.__cleanup(), (this.__cacheBitmap = null));
+                    null != this.__cacheBitmapData && (this.__cacheBitmapData.dispose(), (this.__cacheBitmapData = null));
+                },
+                __dispatch: function (a) {
+                    if (null != this.__eventMap && this.hasEventListener(a.type)) {
+                        var b = ea.prototype.__dispatchEvent.call(this, a);
+                        return a.__isCanceled ? !0 : b;
+                    }
+                    return !0;
+                },
+                __dispatchChildren: function (a) {},
+                __dispatchEvent: function (a) {
+                    var b = a.bubbles ? this.parent : null,
+                        c = ea.prototype.__dispatchEvent.call(this, a);
+                    if (a.__isCanceled) return !0;
+                    null != b && b != this && ((a.eventPhase = 3), null == a.target && (a.target = this), b.__dispatchEvent(a));
+                    return c;
+                },
+                __dispatchWithCapture: function (a) {
+                    null == a.target && (a.target = this);
+                    if (null != this.parent)
+                        if (((a.eventPhase = 1), this.parent == this.stage)) this.parent.__dispatch(a);
+                        else {
+                            for (var b = aa.__tempStack.get(), c = this.parent, d = 0; null != c; ) b.set(d, c), (c = c.parent), ++d;
+                            c = 0;
+                            for (var f = d; c < f; ) {
+                                var h = c++;
+                                b.get(d - h - 1).__dispatch(a);
+                            }
+                            aa.__tempStack.release(b);
+                        }
+                    a.eventPhase = 2;
+                    return this.__dispatchEvent(a);
+                },
+                __enterFrame: function (a) {},
+                __getBounds: function (a, b) {
+                    null != this.__graphics && this.__graphics.__getBounds(a, b);
+                },
+                __getCursor: function () {
+                    return null;
+                },
+                __getFilterBounds: function (a, b) {
+                    this.__getRenderBounds(a, b);
+                    if (null != this.__filters) {
+                        b = ha.__pool.get();
+                        for (var c = 0, d = this.__filters; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            b.__expand(-f.__leftExtension, -f.__topExtension, f.__leftExtension + f.__rightExtension, f.__topExtension + f.__bottomExtension);
+                        }
+                        a.width += b.width;
+                        a.height += b.height;
+                        a.x += b.x;
+                        a.y += b.y;
+                        ha.__pool.release(b);
+                    }
+                },
+                __getInteractive: function (a) {
+                    return !1;
+                },
+                __getLocalBounds: function (a) {
+                    this.__getBounds(a, this.__transform);
+                    a.x -= this.__transform.tx;
+                    a.y -= this.__transform.ty;
+                },
+                __getRenderBounds: function (a, b) {
+                    if (null == this.__scrollRect) this.__getBounds(a, b);
+                    else {
+                        var c = ha.__pool.get();
+                        c.copyFrom(this.__scrollRect);
+                        c.__transform(c, b);
+                        a.__expand(c.x, c.y, c.width, c.height);
+                        ha.__pool.release(c);
+                    }
+                },
+                __getRenderTransform: function () {
+                    this.__getWorldTransform();
+                    return this.__renderTransform;
+                },
+                __getWorldTransform: function () {
+                    if (this.__transformDirty || this.__worldTransformInvalid) {
+                        var a = [],
+                            b = this;
+                        if (null == this.parent) this.__update(!0, !1);
+                        else for (; b != this.stage && (a.push(b), (b = b.parent), null != b); );
+                        for (var c = a.length; 0 <= --c; ) (b = a[c]), b.__update(!0, !1);
+                    }
+                    return this.__worldTransform;
+                },
+                __globalToLocal: function (a, b) {
+                    this.__getRenderTransform();
+                    if (a == b) {
+                        var c = this.__renderTransform,
+                            d = c.a * c.d - c.b * c.c;
+                        if (0 == d) (a.x = -c.tx), (a.y = -c.ty);
+                        else {
+                            var f = (1 / d) * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx));
+                            a.y = (1 / d) * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x));
+                            a.x = f;
+                        }
+                    } else
+                        (c = this.__renderTransform),
+                            (d = c.a * c.d - c.b * c.c),
+                            (b.x = 0 == d ? -c.tx : (1 / d) * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx))),
+                            (c = this.__renderTransform),
+                            (d = c.a * c.d - c.b * c.c),
+                            (b.y = 0 == d ? -c.ty : (1 / d) * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)));
+                    return b;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (null != this.__graphics) {
+                        if (!h.__visible || this.__isMask || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return !1;
+                        if (this.__graphics.__hitTest(a, b, c, this.__getRenderTransform())) return null == d || f || d.push(h), !0;
+                    }
+                    return !1;
+                },
+                __hitTestMask: function (a, b) {
+                    return null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1;
+                },
+                __readGraphicsData: function (a, b) {
+                    null != this.__graphics && this.__graphics.__readGraphicsData(a);
+                },
+                __setParentRenderDirty: function () {
+                    var a = null != this.__renderParent ? this.__renderParent : this.parent;
+                    null == a || a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                },
+                __setStageReference: function (a) {
+                    this.stage = a;
+                },
+                __setTransformDirty: function () {
+                    this.__transformDirty || ((this.__transformDirty = !0), this.__setWorldTransformInvalid(), this.__setParentRenderDirty());
+                },
+                __setWorldTransformInvalid: function () {
+                    this.__worldTransformInvalid = !0;
+                },
+                __update: function (a, b) {
+                    var c = null != this.__renderParent ? this.__renderParent : this.parent;
+                    this.__isMask && null == c && (c = this.__maskTarget);
+                    this.__renderable = this.__visible && 0 != this.__scaleX && 0 != this.__scaleY && !this.__isMask && (null == c || !c.__isMask);
+                    this.__updateTransforms();
+                    this.__worldTransformInvalid = this.__transformDirty = !1;
+                    if (!a)
+                        if (
+                            (aa.__supportDOM &&
+                                ((this.__renderTransformChanged = !this.__renderTransform.equals(this.__renderTransformCache)),
+                                null == this.__renderTransformCache ? (this.__renderTransformCache = this.__renderTransform.clone()) : this.__renderTransformCache.copyFrom(this.__renderTransform)),
+                            null != c)
+                        ) {
+                            if (aa.__supportDOM) {
+                                var d = c.__worldVisible && this.__visible;
+                                this.__worldVisibleChanged = this.__worldVisible != d;
+                                this.__worldVisible = d;
+                            }
+                            d = this.get_alpha() * c.__worldAlpha;
+                            this.__worldAlphaChanged = this.__worldAlpha != d;
+                            this.__worldAlpha = d;
+                            null != this.__objectTransform
+                                ? (this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform), this.__worldColorTransform.__combine(c.__worldColorTransform))
+                                : this.__worldColorTransform.__copyFrom(c.__worldColorTransform);
+                            this.__worldBlendMode = null == this.__blendMode || 10 == this.__blendMode ? c.__worldBlendMode : this.__blendMode;
+                            this.__worldShader = null == this.__shader ? c.__shader : this.__shader;
+                            this.__worldScale9Grid = null == this.__scale9Grid ? c.__scale9Grid : this.__scale9Grid;
+                        } else
+                            (this.__worldAlpha = this.get_alpha()),
+                                aa.__supportDOM && ((this.__worldVisibleChanged = this.__worldVisible != this.__visible), (this.__worldVisible = this.__visible)),
+                                (this.__worldAlphaChanged = this.__worldAlpha != this.get_alpha()),
+                                null != this.__objectTransform ? this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform) : this.__worldColorTransform.__identity(),
+                                (this.__worldBlendMode = this.__blendMode),
+                                (this.__worldShader = this.__shader),
+                                (this.__worldScale9Grid = this.__scale9Grid);
+                    b && null != this.get_mask() && this.get_mask().__update(a, !0);
+                },
+                __updateTransforms: function (a) {
+                    var b = null != a;
+                    a = b ? a : this.__transform;
+                    null == this.__worldTransform && (this.__worldTransform = new na());
+                    null == this.__renderTransform && (this.__renderTransform = new na());
+                    var c = null != this.__renderParent ? this.__renderParent : this.parent;
+                    if (b || null == this.parent) this.__worldTransform.copyFrom(a);
+                    else {
+                        var d = this.parent.__worldTransform,
+                            f = this.__worldTransform;
+                        f.a = a.a * d.a + a.b * d.c;
+                        f.b = a.a * d.b + a.b * d.d;
+                        f.c = a.c * d.a + a.d * d.c;
+                        f.d = a.c * d.b + a.d * d.d;
+                        f.tx = a.tx * d.a + a.ty * d.c + d.tx;
+                        f.ty = a.tx * d.b + a.ty * d.d + d.ty;
+                    }
+                    b || null == c
+                        ? this.__renderTransform.copyFrom(a)
+                        : ((d = c.__renderTransform),
+                        (f = this.__renderTransform),
+                        (f.a = a.a * d.a + a.b * d.c),
+                        (f.b = a.a * d.b + a.b * d.d),
+                        (f.c = a.c * d.a + a.d * d.c),
+                        (f.d = a.c * d.b + a.d * d.d),
+                        (f.tx = a.tx * d.a + a.ty * d.c + d.tx),
+                        (f.ty = a.tx * d.b + a.ty * d.d + d.ty));
+                    null != this.__scrollRect && ((b = this.__renderTransform), (a = -this.__scrollRect.x), (c = -this.__scrollRect.y), (b.tx = a * b.a + c * b.c + b.tx), (b.ty = a * b.b + c * b.d + b.ty));
+                },
+                get_alpha: function () {
+                    return this.__alpha;
+                },
+                set_alpha: function (a) {
+                    1 < a && (a = 1);
+                    0 > a && (a = 0);
+                    a == this.__alpha || this.get_cacheAsBitmap() || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__alpha = a);
+                },
+                get_blendMode: function () {
+                    return this.__blendMode;
+                },
+                set_blendMode: function (a) {
+                    null == a && (a = 10);
+                    a == this.__blendMode || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__blendMode = a);
+                },
+                get_cacheAsBitmap: function () {
+                    return null == this.__filters ? this.__cacheAsBitmap : !0;
+                },
+                get_filters: function () {
+                    return null == this.__filters ? [] : this.__filters.slice();
+                },
+                get_height: function () {
+                    var a = ha.__pool.get();
+                    this.__getLocalBounds(a);
+                    var b = a.height;
+                    ha.__pool.release(a);
+                    return b;
+                },
+                set_height: function (a) {
+                    var b = ha.__pool.get(),
+                        c = na.__pool.get();
+                    c.identity();
+                    this.__getBounds(b, c);
+                    a != b.height ? this.set_scaleY(a / b.height) : this.set_scaleY(1);
+                    ha.__pool.release(b);
+                    na.__pool.release(c);
+                    return a;
+                },
+                get_loaderInfo: function () {
+                    return null != this.stage ? xc.current.__loaderInfo : null;
+                },
+                get_mask: function () {
+                    return this.__mask;
+                },
+                set_mask: function (a) {
+                    if (a == this.__mask) return a;
+                    a != this.__mask && (this.__setTransformDirty(), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty()));
+                    if (null != this.__mask) {
+                        this.__mask.__isMask = !1;
+                        this.__mask.__maskTarget = null;
+                        this.__mask.__setTransformDirty();
+                        var b = this.__mask;
+                        b.__renderDirty || ((b.__renderDirty = !0), b.__setParentRenderDirty());
+                    }
+                    null != a && ((a.__isMask = !0), (a.__maskTarget = this), a.__setWorldTransformInvalid());
+                    null != this.__cacheBitmap && this.__cacheBitmap.get_mask() != a && this.__cacheBitmap.set_mask(a);
+                    return (this.__mask = a);
+                },
+                get_mouseX: function () {
+                    var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX,
+                        b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY,
+                        c = this.__getRenderTransform(),
+                        d = c.a * c.d - c.b * c.c;
+                    return 0 == d ? -c.tx : (1 / d) * (c.c * (c.ty - b) + c.d * (a - c.tx));
+                },
+                get_mouseY: function () {
+                    var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX,
+                        b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY,
+                        c = this.__getRenderTransform(),
+                        d = c.a * c.d - c.b * c.c;
+                    return 0 == d ? -c.ty : (1 / d) * (c.a * (b - c.ty) + c.b * (c.tx - a));
+                },
+                get_name: function () {
+                    return this.__name;
+                },
+                set_name: function (a) {
+                    return (this.__name = a);
+                },
+                get_root: function () {
+                    return null != this.stage ? xc.current : null;
+                },
+                get_rotation: function () {
+                    return this.__rotation;
+                },
+                set_rotation: function (a) {
+                    if (a != this.__rotation) {
+                        a %= 360;
+                        180 < a ? (a -= 360) : -180 > a && (a += 360);
+                        this.__rotation = a;
+                        var b = (Math.PI / 180) * this.__rotation;
+                        this.__rotationSine = Math.sin(b);
+                        this.__rotationCosine = Math.cos(b);
+                        this.__transform.a = this.__rotationCosine * this.__scaleX;
+                        this.__transform.b = this.__rotationSine * this.__scaleX;
+                        this.__transform.c = -this.__rotationSine * this.__scaleY;
+                        this.__transform.d = this.__rotationCosine * this.__scaleY;
+                        this.__setTransformDirty();
+                    }
+                    return a;
+                },
+                get_scaleX: function () {
+                    return this.__scaleX;
+                },
+                set_scaleX: function (a) {
+                    if (a != this.__scaleX)
+                        if (((this.__scaleX = a), 0 == this.__transform.b)) a != this.__transform.a && this.__setTransformDirty(), (this.__transform.a = a);
+                        else {
+                            var b = this.__rotationCosine * a,
+                                c = this.__rotationSine * a;
+                            (this.__transform.a == b && this.__transform.b == c) || this.__setTransformDirty();
+                            this.__transform.a = b;
+                            this.__transform.b = c;
+                        }
+                    return a;
+                },
+                get_scaleY: function () {
+                    return this.__scaleY;
+                },
+                set_scaleY: function (a) {
+                    if (a != this.__scaleY)
+                        if (((this.__scaleY = a), 0 == this.__transform.c)) a != this.__transform.d && this.__setTransformDirty(), (this.__transform.d = a);
+                        else {
+                            var b = -this.__rotationSine * a,
+                                c = this.__rotationCosine * a;
+                            (this.__transform.d == c && this.__transform.c == b) || this.__setTransformDirty();
+                            this.__transform.c = b;
+                            this.__transform.d = c;
+                        }
+                    return a;
+                },
+                get_scrollRect: function () {
+                    return null == this.__scrollRect ? null : this.__scrollRect.clone();
+                },
+                get_transform: function () {
+                    null == this.__objectTransform && (this.__objectTransform = new Sg(this));
+                    return this.__objectTransform;
+                },
+                set_transform: function (a) {
+                    if (null == a) throw new Ne("Parameter transform must be non-null.");
+                    null == this.__objectTransform && (this.__objectTransform = new Sg(this));
+                    this.__setTransformDirty();
+                    this.__objectTransform.set_matrix(a.get_matrix());
+                    if (!this.__objectTransform.__colorTransform.__equals(a.__colorTransform, !0) || (!this.get_cacheAsBitmap() && this.__objectTransform.__colorTransform.alphaMultiplier != a.__colorTransform.alphaMultiplier))
+                        this.__objectTransform.__colorTransform.__copyFrom(a.get_colorTransform()), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return this.__objectTransform;
+                },
+                get_visible: function () {
+                    return this.__visible;
+                },
+                set_visible: function (a) {
+                    a == this.__visible || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__visible = a);
+                },
+                get_width: function () {
+                    var a = ha.__pool.get();
+                    this.__getLocalBounds(a);
+                    var b = a.width;
+                    ha.__pool.release(a);
+                    return b;
+                },
+                set_width: function (a) {
+                    var b = ha.__pool.get(),
+                        c = na.__pool.get();
+                    c.identity();
+                    this.__getBounds(b, c);
+                    a != b.width ? this.set_scaleX(a / b.width) : this.set_scaleX(1);
+                    ha.__pool.release(b);
+                    na.__pool.release(c);
+                    return a;
+                },
+                get_x: function () {
+                    return this.__transform.tx;
+                },
+                set_x: function (a) {
+                    a != this.__transform.tx && this.__setTransformDirty();
+                    return (this.__transform.tx = a);
+                },
+                get_y: function () {
+                    return this.__transform.ty;
+                },
+                set_y: function (a) {
+                    a != this.__transform.ty && this.__setTransformDirty();
+                    return (this.__transform.ty = a);
+                },
+                __class__: aa,
+                __properties__: {
+                    set_y: "set_y",
+                    get_y: "get_y",
+                    set_x: "set_x",
+                    get_x: "get_x",
+                    set_width: "set_width",
+                    get_width: "get_width",
+                    set_visible: "set_visible",
+                    get_visible: "get_visible",
+                    set_transform: "set_transform",
+                    get_transform: "get_transform",
+                    get_scrollRect: "get_scrollRect",
+                    set_scaleY: "set_scaleY",
+                    get_scaleY: "get_scaleY",
+                    set_scaleX: "set_scaleX",
+                    get_scaleX: "get_scaleX",
+                    set_rotation: "set_rotation",
+                    get_rotation: "get_rotation",
+                    get_root: "get_root",
+                    set_name: "set_name",
+                    get_name: "get_name",
+                    get_mouseY: "get_mouseY",
+                    get_mouseX: "get_mouseX",
+                    set_mask: "set_mask",
+                    get_mask: "get_mask",
+                    get_loaderInfo: "get_loaderInfo",
+                    set_height: "set_height",
+                    get_height: "get_height",
+                    get_filters: "get_filters",
+                    get_cacheAsBitmap: "get_cacheAsBitmap",
+                    set_blendMode: "set_blendMode",
+                    get_blendMode: "get_blendMode",
+                    set_alpha: "set_alpha",
+                    get_alpha: "get_alpha",
+                },
+            });
+                
+                
+                var ka = function () { aa.call(this); this.doubleClickEnabled = !1; this.mouseEnabled = !0; this.needsSoftKeyboard = !1; this.__tabEnabled = null; this.__tabIndex = -1 }; g["openfl.display.InteractiveObject"] = ka; ka.__name__ = "openfl.display.InteractiveObject"; ka.__super__ = aa; ka.prototype = u(aa.prototype, {
                     __allowMouseFocus: function () {
                         return this.mouseEnabled ?
                             this.get_tabEnabled() : !1

@@ -51,25 +51,25 @@
 		"CRUMBLING?-#loot_ground#", "CRUMBLING?-#loot_ground#"
 	],
 	"loot_container": [
-		"Um(a) #container# contendo #tesouro#.",
-		"Um(a) #container# com #tesouro# {dentro dele(a)}.",
-		"#tesouro.capitalize# em um(a) #container#.",
-		"Um(a) #container# guarda #tesouro#."
+		"Um(a) #container# contendo #treasure#.",
+		"Um(a) #container# com #treasure# {dentro dele(a)}.",
+		"#treasure.capitalize# em um(a) #container#.",
+		"Um(a) #container# guarda #treasure#."
 	],
 	"loot_ground": [
-		"#tesouro.capitalize# entre escombros no chão.",
-		"#tesouro.capitalize# escondido em uma {fenda|fissura} da {parede|do chão}.",
-		"#tesouro.capitalize# guardado sob alguns detritos.",
-		"Uma pilha {gigante|grande} de escombros esconde #tesouro#.",
-		"WATER?-#tesouro.capitalize# no fundo de uma {pequena }poça.",
-		"DWELLING?-#tesouro.capitalize# sob pedaços de mobília quebrada.",
-		"DWELLING?-Um painel na parede esconde #tesouro#."
+		"#treasure.capitalize# entre escombros no chão.",
+		"#treasure.capitalize# escondido em uma {fenda|fissura} da {parede|do chão}.",
+		"#treasure.capitalize# guardado sob alguns detritos.",
+		"Uma pilha {gigante|grande} de escombros esconde #treasure#.",
+		"WATER?-#treasure.capitalize# no fundo de uma {pequena }poça.",
+		"DWELLING?-#treasure.capitalize# sob pedaços de mobília quebrada.",
+		"DWELLING?-Um painel na parede esconde #treasure#."
 	],
 	"loot_corpse": [
-		"Um cadáver de um(a) #person#, #tesouro# #nearby#.",
-		"Um(a) #person# moribundo(a), #tesouro# entre seus pertences.",
-		"Restos de um(a) #person#{, aparentemente morto(a) por #creature_plural#}, #tesouro# {seguro(a)} em suas mãos.",
-		"O corpo #body_state# de um(a) #person#, #tesouro# #nearby#."
+		"Um cadáver de um(a) #person#, #treasure# #nearby#.",
+		"Um(a) #person# moribundo(a), #treasure# entre seus pertences.",
+		"Restos de um(a) #person#{, aparentemente morto(a) por #creature_plural#}, #treasure# {seguro(a)} em suas mãos.",
+		"O corpo #body_state# de um(a) #person#, #treasure# #nearby#."
 	],
 	"body_state": [
 		"decapitado", "incinerado", "petrificado", "mutilado", "coberto de {mofo|lodo|gosma}",
@@ -275,7 +275,7 @@
 	"enviro_fire": [
 		"Um fogo {crepitante|frio|quente|mágico|fumegante|crepitante} está queimando em um(a) #fireplace#.",
 		"Um(a) #fireplace# cheio(a) de {cinzas|brasas|carvão}.",
-		"Um acampamento recentemente abandonado, {as cinzas ainda estão quentes|#tesouro# {#nearby#|deixado às pressas}}."
+		"Um acampamento recentemente abandonado, {as cinzas ainda estão quentes|#treasure# {#nearby#|deixado às pressas}}."
 	],
 	"fireplace": ["lareira", "fogueira"],
 	"gate_nokey": "Um(a) #gate_desc# #dir#.",

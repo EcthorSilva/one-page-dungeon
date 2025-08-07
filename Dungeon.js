@@ -250,7 +250,10 @@ var $lime_init = function (F, r) {
                     }
                 };
                 
-                var L = function () { }; g["openfl.events.IEventDispatcher"] = L; L.__name__ = "openfl.events.IEventDispatcher"; L.__isInterface__ = !0; var ea = function (a) { null != a && (this.__targetDispatcher = a) }; g["openfl.events.EventDispatcher"] = ea; ea.__name__ = "openfl.events.EventDispatcher"; ea.__interfaces__ = [L]; ea.prototype = {
+                var L = function () { }; g["openfl.events.IEventDispatcher"] = L; L.__name__ = "openfl.events.IEventDispatcher"; L.__isInterface__ = !0; var ea = function (a) { null != a && (this.__targetDispatcher = a) }; 
+                
+                
+                g["openfl.events.EventDispatcher"] = ea; ea.__name__ = "openfl.events.EventDispatcher"; ea.__interfaces__ = [L]; ea.prototype = {
                     addEventListener: function (a, b, c, d, f) {
                         null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); if (null != b) if (null == this.__eventMap && (this.__eventMap = new Ma, this.__iterators = new Ma), Object.prototype.hasOwnProperty.call(this.__eventMap.h,
                             a)) { p = this.__eventMap.h[a]; for (var h = 0, n = p.length; h < n;) { var A = h++; if (p[A].match(b, c)) return } a = this.__iterators.h[a]; for (h = 0; h < a.length;)n = a[h], ++h, n.active && n.copy(); this.__addListenerByPriority(p, new Me(b, c, d, f)) } else { var p = []; p.push(new Me(b, c, d, f)); n = new dg(p); this.__eventMap.h[a] = p; this.__iterators.h[a] = [n] }
@@ -275,8 +278,10 @@ var $lime_init = function (F, r) {
                             }
                         } f.stop(); f != b[0] ? N.remove(b, f) : f.reset(c); return !a.isDefaultPrevented()
                     }, __addListenerByPriority: function (a, b) { for (var c = a.length, d = c, f = 0; f < c;) { var h = f++; if (a[h].priority < b.priority) { d = h; break } } a.splice(d, 0, b) }, __class__: ea
-                }; var fb = function () { }; g["openfl.display.IBitmapDrawable"] = fb; fb.__name__ = "openfl.display.IBitmapDrawable"; fb.__isInterface__ = !0; fb.prototype = { __class__: fb };
-            var ma = { toIntVector: function (a, b, c, d) { return new eg(b, c, d) }, toFloatVector: function (a, b, c, d) { return new Wd(b, c, d, !0) }, toObjectVector: function (a, b, c, d) { return new qf(b, c, d, !0) } }, mb = function (a, b, c) { this.__pool = new fa; this.inactiveObjects = this.activeObjects = 0; this.__inactiveObject1 = this.__inactiveObject0 = null; this.__inactiveObjectList = new La; null != a && (this.create = a); null != b && (this.clean = b); null != c && this.set_size(c) }; g["lime.utils.ObjectPool"] = mb; mb.__name__ = "lime.utils.ObjectPool"; mb.prototype = {
+                }; 
+                var fb = function () { }; g["openfl.display.IBitmapDrawable"] = fb; fb.__name__ = "openfl.display.IBitmapDrawable"; fb.__isInterface__ = !0; fb.prototype = { __class__: fb };
+                
+                var ma = { toIntVector: function (a, b, c, d) { return new eg(b, c, d) }, toFloatVector: function (a, b, c, d) { return new Wd(b, c, d, !0) }, toObjectVector: function (a, b, c, d) { return new qf(b, c, d, !0) } }, mb = function (a, b, c) { this.__pool = new fa; this.inactiveObjects = this.activeObjects = 0; this.__inactiveObject1 = this.__inactiveObject0 = null; this.__inactiveObjectList = new La; null != a && (this.create = a); null != b && (this.clean = b); null != c && this.set_size(c) }; g["lime.utils.ObjectPool"] = mb; mb.__name__ = "lime.utils.ObjectPool"; mb.prototype = {
                 clean: function (a) { },
                 create: function () { return null }, get: function () {
                     var a = null; if (0 < this.inactiveObjects) null != this.__inactiveObject0 ? (a = this.__inactiveObject0, this.__inactiveObject0 = null) : null != this.__inactiveObject1 ? (a = this.__inactiveObject1, this.__inactiveObject1 = null) : (a = this.__inactiveObjectList.pop(), 0 < this.__inactiveObjectList.length && (this.__inactiveObject0 = this.__inactiveObjectList.pop()), 0 < this.__inactiveObjectList.length && (this.__inactiveObject1 = this.__inactiveObjectList.pop())), this.inactiveObjects--, this.activeObjects++;
@@ -571,9 +576,34 @@ var $lime_init = function (F, r) {
                 M.registerFont(va);
                 M.registerFont(Ib);
 
-                // Processa a string do manifesto de assets embutido
+                var manifestObject = {
+                    "name": null,
+                    "assets": [
+                        { "path": "assets/tags.txt", "size": 1234, "type": "TEXT", "id": "tags", "preload": true },
+                        { "path": "assets/grammar.json", "size": 21664, "type": "TEXT", "id": "grammar", "preload": true },
+                        { "path": "assets/demons.txt", "size": 677, "type": "TEXT", "id": "demons", "preload": true },
+                        { "path": "assets/default.json", "size": 1028, "type": "TEXT", "id": "default", "preload": true },
+                        { "path": "assets/ancient.json","size": 1028,"type": "TEXT","id": "ancient","preload": true },
+                        { "path": "assets/modern.json","size": 1030,"type": "TEXT","id": "modern","preload": true },
+                        { "path": "assets/light.json","size": 1043,"type": "TEXT","id": "light","preload": true },
+                        { "path": "assets/link.json","size": 1027,"type": "TEXT","id": "link","preload": true },
+                        { "path": "__ASSET__assets_pathwaygothicone_regular_ttf","size": 48956,"type": "FONT","className": "__ASSET__assets_pathwaygothicone_regular_ttf","id": "regular_font","preload": true },
+                        { "path": "__ASSET__assets_germaniaone_regular_ttf","size": 30424,"type": "FONT","className": "__ASSET__assets_germaniaone_regular_ttf","id": "title_font","preload": true },
+                        { "path": "__ASSET__assets_sharetech_regular_ttf","size": 46596,"type": "FONT","className": "__ASSET__assets_sharetech_regular_ttf","id": "ui_font","preload": true },
+                        { "path": "__ASSET__assets_sharetechmono_regular_ttf","size": 42756,"type": "FONT","className": "__ASSET__assets_sharetechmono_regular_ttf","id": "ui_font_mono","preload": true }
+                    ],
+                    "rootPath": null,
+                    "version": 2,
+                    "libraryArgs": [],
+                    "libraryType": null
+                };
+
+                var serializedAssets = bd.run(manifestObject.assets);
+
+                var finalManifestString = '{"name":null,"assets":' + JSON.stringify(serializedAssets) + ',"rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+
                 var manifestData = Xc.parse(
-                    '{"name":null,"assets":"aoy4:pathy17:assets%2Ftags.txty4:sizei1234y4:typey4:TEXTy2:idy4:tagsy7:preloadtgoR0y21:assets%2Fgrammar.jsonR2i21664R3R4R5y7:grammarR7tgoR0y19:assets%2Fdemons.txtR2i677R3R4R5y6:demonsR7tgoR0y21:assets%2Fdefault.jsonR2i1028R3R4R5y7:defaultR7tgoR0y21:assets%2Fancient.jsonR2i1028R3R4R5y7:ancientR7tgoR0y20:assets%2Fmodern.jsonR2i1030R3R4R5y6:modernR7tgoR0y19:assets%2Flight.jsonR2i1043R3R4R5y5:lightR7tgoR0y18:assets%2Flink.jsonR2i1027R3R4R5y4:linkR7tgoR2i48956R3y4:FONTy9:classNamey44:__ASSET__assets_pathwaygothicone_regular_ttfR5y12:regular_fontR7tgoR2i30424R3R22R23y39:__ASSET__assets_germaniaone_regular_ttfR5y10:title_fontR7tgoR2i46596R3R22R23y37:__ASSET__assets_sharetech_regular_ttfR5y7:ui_fontR7tgoR2i42756R3R22R23y41:__ASSET__assets_sharetechmono_regular_ttfR5y12:ui_font_monoR7tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}',
+                    finalManifestString,
                     ManifestResources.rootPath
                 );
 

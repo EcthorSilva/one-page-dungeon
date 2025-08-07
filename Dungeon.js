@@ -2125,19 +2125,91 @@ var $lime_init = function (F, r) {
             });
 
 
-            var ja = function () { Ya.call(this); this.__drawableType = 4; this.__buttonMode = !1; this.useHandCursor = !0; if (null != this.__pendingBindLibrary) { var a = this.__pendingBindLibrary, b = this.__pendingBindClassName; this.__pendingBindClassName = this.__pendingBindLibrary = null; a.bind(b, this) } else null != ja.__constructor && (a = ja.__constructor, ja.__constructor = null, a(this)) }; g["openfl.display.Sprite"] = ja; ja.__name__ = "openfl.display.Sprite"; ja.__super__ = Ya; ja.prototype = u(Ya.prototype, {
-                stopDrag: function () { null != this.stage && this.stage.__stopDrag(this) },
-                __setStageReference: function (a) { this.stage != a && null != this.stage && this.stage.__dragObject == this && this.stopDrag(); Ya.prototype.__setStageReference.call(this, a) }, __getCursor: function () { return this.__buttonMode && this.useHandCursor ? "button" : null }, __hitTest: function (a, b, c, d, f, h) {
-                    if (f && !this.mouseEnabled && !this.mouseChildren) return !1; if (!h.get_visible() || this.__isMask || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return this.__hitTestHitArea(a, b, c, d, f, h); if (null != this.__scrollRect) {
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.Sprite (ja)
+             * ==================================================================
+             *
+             * Um Sprite é um bloco de construção fundamental da lista de exibição.
+             * É um DisplayObjectContainer que possui uma linha do tempo e pode
+             * ter seus próprios gráficos vetoriais.
+             *
+             * @class
+             * @extends {Ya} // Ya é DisplayObjectContainer
+             */
+            var ja = function () {
+                Ya.call(this);
+                this.__drawableType = 4;
+                this.__buttonMode = !1;
+                this.useHandCursor = !0;
+                if (null != this.__pendingBindLibrary) {
+                    var a = this.__pendingBindLibrary,
+                        b = this.__pendingBindClassName;
+                    this.__pendingBindClassName = this.__pendingBindLibrary = null;
+                    a.bind(b, this);
+                } else null != ja.__constructor && ((a = ja.__constructor), (ja.__constructor = null), a(this));
+            };
+            g["openfl.display.Sprite"] = ja;
+            ja.__name__ = "openfl.display.Sprite";
+            ja.__super__ = Ya;
+            ja.prototype = u(Ya.prototype, {
+                stopDrag: function () {
+                    null != this.stage && this.stage.__stopDrag(this);
+                },
+                __setStageReference: function (a) {
+                    this.stage != a && null != this.stage && this.stage.__dragObject == this && this.stopDrag();
+                    Ya.prototype.__setStageReference.call(this, a);
+                },
+                __getCursor: function () {
+                    return this.__buttonMode && this.useHandCursor ? "button" : null;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (f && !this.mouseEnabled && !this.mouseChildren) return !1;
+                    if (!h.get_visible() || this.__isMask || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return this.__hitTestHitArea(a, b, c, d, f, h);
+                    if (null != this.__scrollRect) {
                         var n = I.__pool.get();
-                        n.setTo(a, b); var A = this.__getRenderTransform(), p = A.a * A.d - A.b * A.c; if (0 == p) n.x = -A.tx, n.y = -A.ty; else { var g = 1 / p * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx)); n.y = 1 / p * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x)); n.x = g } if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), this.__hitTestHitArea(a, b, c, d, !0, h); I.__pool.release(n)
-                    } return Ya.prototype.__hitTest.call(this, a, b, c, d, f, h) ? null != d ? f : !0 : null == this.hitArea && null != this.__graphics && this.__graphics.__hitTest(a, b, c, this.__getRenderTransform()) ? (null == d || f && !this.mouseEnabled ||
-                        d.push(h), !0) : this.__hitTestHitArea(a, b, c, d, f, h)
-                }, __hitTestHitArea: function (a, b, c, d, f, h) { return null == this.hitArea || this.hitArea.mouseEnabled ? !1 : (this.hitArea.mouseEnabled = !0, a = this.hitArea.__hitTest(a, b, c, null, !0, h), this.hitArea.mouseEnabled = !1, null != d && a && (d[d.length] = h), a) }, __hitTestMask: function (a, b) { return Ya.prototype.__hitTestMask.call(this, a, b) || null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1 }, get_graphics: function () {
-                    null == this.__graphics && (this.__graphics =
-                        new fd(this)); return this.__graphics
-                }, get_tabEnabled: function () { return null == this.__tabEnabled ? this.__buttonMode : this.__tabEnabled }, get_buttonMode: function () { return this.__buttonMode }, set_buttonMode: function (a) { return this.__buttonMode = a }, __class__: ja, __properties__: u(Ya.prototype.__properties__, { get_graphics: "get_graphics", set_buttonMode: "set_buttonMode", get_buttonMode: "get_buttonMode" })
-            }); var hb = function (a) { hb.instance = this; ja.call(this); this.prepareStage(); Va.useEnterFrame(this); hb.switchScene(a) };
+                        n.setTo(a, b);
+                        var A = this.__getRenderTransform(),
+                            p = A.a * A.d - A.b * A.c;
+                        if (0 == p) (n.x = -A.tx), (n.y = -A.ty);
+                        else {
+                            var g = (1 / p) * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx));
+                            n.y = (1 / p) * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x));
+                            n.x = g;
+                        }
+                        if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), this.__hitTestHitArea(a, b, c, d, !0, h);
+                        I.__pool.release(n);
+                    }
+                    return Ya.prototype.__hitTest.call(this, a, b, c, d, f, h)
+                        ? null != d
+                            ? f
+                            : !0
+                        : null == this.hitArea && null != this.__graphics && this.__graphics.__hitTest(a, b, c, this.__getRenderTransform())
+                        ? (null == d || (f && !this.mouseEnabled) || d.push(h), !0)
+                        : this.__hitTestHitArea(a, b, c, d, f, h);
+                },
+                __hitTestHitArea: function (a, b, c, d, f, h) {
+                    return null == this.hitArea || this.hitArea.mouseEnabled ? !1 : ((this.hitArea.mouseEnabled = !0), (a = this.hitArea.__hitTest(a, b, c, null, !0, h)), (this.hitArea.mouseEnabled = !1), null != d && a && (d[d.length] = h), a);
+                },
+                __hitTestMask: function (a, b) {
+                    return Ya.prototype.__hitTestMask.call(this, a, b) || (null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform())) ? !0 : !1;
+                },
+                get_graphics: function () {
+                    null == this.__graphics && (this.__graphics = new fd(this));
+                    return this.__graphics;
+                },
+                get_tabEnabled: function () {
+                    return null == this.__tabEnabled ? this.__buttonMode : this.__tabEnabled;
+                },
+                get_buttonMode: function () {
+                    return this.__buttonMode;
+                },
+                set_buttonMode: function (a) {
+                    return (this.__buttonMode = a);
+                },
+                __class__: ja,
+                __properties__: u(Ya.prototype.__properties__, { get_graphics: "get_graphics", set_buttonMode: "set_buttonMode", get_buttonMode: "get_buttonMode" }),
+            });
             
             
             

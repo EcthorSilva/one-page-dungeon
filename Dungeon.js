@@ -373,8 +373,25 @@ var $lime_init = function (F, r) {
                 a.splice(b, 1); return !0
             }; N.now = function () { return Date.now() }; 
             
-            var C = function () { }; g.Lambda = C; C.__name__ = "Lambda"; C.array = function (a) { var b = []; for (a = K(a); a.hasNext();) { var c = a.next(); b.push(c) } return b }; 
-            
+            /**
+             * Classe utilitária Lambda, para manipulação de estruturas de dados iteráveis.
+             */
+            var C = function () { }; 
+            g.Lambda = C; 
+            C.__name__ = "Lambda"; 
+
+            /**
+             * Converte um objeto iterável em um Array padrão do JavaScript.
+             * @param {object} iterable - O objeto iterável a ser convertido (ex: uma Lista).
+             * @returns {Array} Um novo array contendo os elementos do iterável.
+             */
+            C.array = function (a) { 
+                var b = []; 
+                // K(a) é o mesmo que a.iterator()
+                for (a = K(a); a.hasNext();) { 
+                    var c = a.next(); b.push(c) 
+                } return b 
+            }; 
             
             /**
              * A classe ManifestResources é responsável por inicializar

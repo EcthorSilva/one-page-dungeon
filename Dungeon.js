@@ -1,5 +1,9 @@
-/*
- howler.js v2.2.4 | (c) 2013-2020, James Simpson of GoldFire Studios | MIT License | howlerjs.com  Spatial Plugin  @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+/* howler.js v2.2.4 | (c) 2013-2020, James Simpson of GoldFire Studios | MIT License | howlerjs.com  Spatial Plugin  @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+
+/**
+ * BIBLIOTECA DE COMPATIBILIDADE (POLYFILL) DO GOOGLE CLOSURE COMPILER
+ * O código a seguir (tudo dentro do objeto "$jscomp") não faz parte da lógica de geração da masmorra.
+*/
 var $jscomp = $jscomp || {}; $jscomp.scope = {}; $jscomp.arrayIteratorImpl = function (F) { var r = 0; return function () { return r < F.length ? { done: !1, value: F[r++] } : { done: !0 } } }; $jscomp.arrayIterator = function (F) { return { next: $jscomp.arrayIteratorImpl(F) } }; $jscomp.ASSUME_ES5 = !1; $jscomp.ASSUME_NO_NATIVE_MAP = !1; $jscomp.ASSUME_NO_NATIVE_SET = !1; $jscomp.SIMPLE_FROUND_POLYFILL = !1;
 $jscomp.defineProperty = $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties ? Object.defineProperty : function (F, r, x) { F != Array.prototype && F != Object.prototype && (F[r] = x.value) }; $jscomp.getGlobal = function (F) { F = ["object" == typeof window && window, "object" == typeof self && self, "object" == typeof global && global, F]; for (var r = 0; r < F.length; ++r) { var x = F[r]; if (x && x.Math == Math) return x } throw Error("Cannot find global object"); }; $jscomp.global = $jscomp.getGlobal(this); $jscomp.SYMBOL_PREFIX = "jscomp_symbol_";
 $jscomp.initSymbol = function () { $jscomp.initSymbol = function () { }; $jscomp.global.Symbol || ($jscomp.global.Symbol = $jscomp.Symbol) }; $jscomp.SymbolClass = function (F, r) { this.$jscomp$symbol$id_ = F; $jscomp.defineProperty(this, "description", { configurable: !0, writable: !0, value: r }) }; $jscomp.SymbolClass.prototype.toString = function () { return this.$jscomp$symbol$id_ };
@@ -13,369 +17,2533 @@ $jscomp.polyfill("String.prototype.endsWith", function (F) { return F ? F : func
 $jscomp.polyfill("String.fromCodePoint", function (F) { return F ? F : function (r) { for (var x = "", B = 0; B < arguments.length; B++) { var K = Number(arguments[B]); if (0 > K || 1114111 < K || K !== Math.floor(K)) throw new RangeError("invalid_code_point " + K); 65535 >= K ? x += String.fromCharCode(K) : (K -= 65536, x += String.fromCharCode(K >>> 10 & 1023 | 55296), x += String.fromCharCode(K & 1023 | 56320)) } return x } }, "es6", "es3");
 $jscomp.polyfill("Array.prototype.values", function (F) { return F ? F : function () { return $jscomp.iteratorFromArray(this, function (r, x) { return x }) } }, "es8", "es3"); $jscomp.findInternal = function (F, r, x) { F instanceof String && (F = String(F)); for (var B = F.length, K = 0; K < B; K++) { var L = F[K]; if (r.call(x, L, K, F)) return { i: K, v: L } } return { i: -1, v: void 0 } }; $jscomp.polyfill("Array.prototype.find", function (F) { return F ? F : function (r, x) { return $jscomp.findInternal(this, r, x).v } }, "es6", "es3");
 $jscomp.polyfill("Array.prototype.fill", function (F) { return F ? F : function (r, x, B) { var K = this.length || 0; 0 > x && (x = Math.max(0, K + x)); if (null == B || B > K) B = K; B = Number(B); 0 > B && (B = Math.max(0, K + B)); for (x = Number(x || 0); x < B; x++)this[x] = r; return this } }, "es6", "es3");
-$jscomp.polyfill("String.prototype.startsWith", function (F) { return F ? F : function (r, x) { var B = $jscomp.checkStringArgs(this, r, "startsWith"); r += ""; var K = B.length, F = r.length; x = Math.max(0, Math.min(x | 0, B.length)); for (var V = 0; V < F && x < K;)if (B[x++] != r[V++]) return !1; return V >= F } }, "es6", "es3"); $jscomp.underscoreProtoCanBeSet = function () { var F = { a: !0 }, r = {}; try { return r.__proto__ = F, r.a } catch (x) { } return !1 };
+$jscomp.polyfill("String.prototype.startsWith", function (F) { return F ? F : function (r, x) { var B = $jscomp.checkStringArgs(this, r, "startsWith"); r += ""; var K = B.length, F = r.length; x = Math.max(0, Math.min(x | 0, B.length)); for (var ApplicationMain = 0; ApplicationMain < F && x < K;)if (B[x++] != r[V++]) return !1; return ApplicationMain >= F } }, "es6", "es3"); $jscomp.underscoreProtoCanBeSet = function () { var F = { a: !0 }, r = {}; try { return r.__proto__ = F, r.a } catch (x) { } return !1 };
 $jscomp.setPrototypeOf = "function" == typeof Object.setPrototypeOf ? Object.setPrototypeOf : $jscomp.underscoreProtoCanBeSet() ? function (F, r) { F.__proto__ = r; if (F.__proto__ !== r) throw new TypeError(F + " is not extensible"); return F } : null; $jscomp.polyfill("Object.setPrototypeOf", function (F) { return F || $jscomp.setPrototypeOf }, "es6", "es5"); $jscomp.owns = function (F, r) { return Object.prototype.hasOwnProperty.call(F, r) };
 $jscomp.polyfill("Object.values", function (F) { return F ? F : function (r) { var x = [], B; for (B in r) $jscomp.owns(r, B) && x.push(r[B]); return x } }, "es8", "es3"); $jscomp.polyfill("Object.is", function (F) { return F ? F : function (r, x) { return r === x ? 0 !== r || 1 / r === 1 / x : r !== r && x !== x } }, "es6", "es3");
 $jscomp.polyfill("Array.prototype.includes", function (F) { return F ? F : function (r, x) { var B = this; B instanceof String && (B = String(B)); var K = B.length; x = x || 0; for (0 > x && (x = Math.max(x + K, 0)); x < K; x++) { var F = B[x]; if (F === r || Object.is(F, r)) return !0 } return !1 } }, "es7", "es3"); $jscomp.polyfill("String.prototype.includes", function (F) { return F ? F : function (r, x) { return -1 !== $jscomp.checkStringArgs(this, r, "includes").indexOf(r, x || 0) } }, "es6", "es3");
+
+
 var $lime_init = function (F, r) {
     var x = function (r, x) {
         (function (r, x) {
-            function u(a, b) { a = Object.create(a); for (var c in b) a[c] = b[c]; b.toString !== Object.prototype.toString && (a.toString = b.toString); return a } function K(a) { return a instanceof Array ? new Je(a) : a.iterator() } function k(a, b) { if (null == b) return null; null == b.__id__ && (b.__id__ = x.$haxeUID++); var c; null == a.hx__closures__ ? a.hx__closures__ = {} : c = a.hx__closures__[b.__id__]; null == c && (c = b.bind(a), a.hx__closures__[b.__id__] = c); return c } r.lime = r.lime || {}; var g =
-                {}, q = function () { return Ja.__string_rec(this, "") }, D = D || {}, J, pa = function () { }; g["lime.app.IModule"] = pa; pa.__name__ = "lime.app.IModule"; pa.__isInterface__ = !0; pa.prototype = { __class__: pa }; var ca = function () { this.onExit = new Ke }; g["lime.app.Module"] = ca; ca.__name__ = "lime.app.Module"; ca.__interfaces__ = [pa]; ca.prototype = { __registerLimeModule: function (a) { }, __unregisterLimeModule: function (a) { }, __class__: ca }; var B = function (a) {
-                    this.gameDeviceCache = new Ub; this.parent = a; this.nextUpdate = this.lastUpdate = this.currentUpdate =
-                        0; this.framePeriod = -1; Ud.init(); this.accelerometer = Vd.registerSensor(ek.ACCELEROMETER, 0)
-                }; g["lime._internal.backend.html5.HTML5Application"] = B; B.__name__ = "lime._internal.backend.html5.HTML5Application"; B.prototype = {
-                    convertKeyCode: function (a) {
-                        if (65 <= a && 90 >= a) return a + 32; switch (a) {
-                            case 12: return 1073741980; case 16: return 1073742049; case 17: return 1073742048; case 18: return 1073742050; case 19: return 1073741896; case 20: return 1073741881; case 33: return 1073741899; case 34: return 1073741902; case 35: return 1073741901;
-                            case 36: return 1073741898; case 37: return 1073741904; case 38: return 1073741906; case 39: return 1073741903; case 40: return 1073741905; case 41: return 1073741943; case 43: return 1073741940; case 44: return 1073741894; case 45: return 1073741897; case 46: return 127; case 91: return 1073742051; case 92: return 1073742055; case 93: return 1073742055; case 95: return 1073742106; case 96: return 1073741922; case 97: return 1073741913; case 98: return 1073741914; case 99: return 1073741915; case 100: return 1073741916; case 101: return 1073741917;
-                            case 102: return 1073741918; case 103: return 1073741919; case 104: return 1073741920; case 105: return 1073741921; case 106: return 1073741909; case 107: return 1073741911; case 108: return 1073741923; case 109: return 1073741910; case 110: return 1073741923; case 111: return 1073741908; case 112: return 1073741882; case 113: return 1073741883; case 114: return 1073741884; case 115: return 1073741885; case 116: return 1073741886; case 117: return 1073741887; case 118: return 1073741888; case 119: return 1073741889; case 120: return 1073741890;
-                            case 121: return 1073741891; case 122: return 1073741892; case 123: return 1073741893; case 124: return 1073741928; case 125: return 1073741929; case 126: return 1073741930; case 127: return 1073741931; case 128: return 1073741932; case 129: return 1073741933; case 130: return 1073741934; case 131: return 1073741935; case 132: return 1073741936; case 133: return 1073741937; case 134: return 1073741938; case 135: return 1073741939; case 144: return 1073741907; case 145: return 1073741895; case 160: return 94; case 161: return 33; case 163: return 35;
-                            case 164: return 36; case 166: return 1073742094; case 167: return 1073742095; case 168: return 1073742097; case 169: return 41; case 170: return 42; case 171: return 96; case 172: return 1073741898; case 173: return 45; case 174: return 1073741953; case 175: return 1073741952; case 176: return 1073742082; case 177: return 1073742083; case 178: return 1073742084; case 179: return 1073742085; case 180: return 1073742089; case 181: return 1073742086; case 182: return 1073741953; case 183: return 1073741952; case 186: return 59; case 187: return 61;
-                            case 188: return 44; case 189: return 45; case 190: return 46; case 191: return 47; case 192: return 96; case 193: return 63; case 194: return 1073741923; case 219: return 91; case 220: return 92; case 221: return 93; case 222: return 39; case 223: return 96; case 224: return 1073742051; case 226: return 92
-                        }return a
-                    }, exec: function () {
-                        window.addEventListener("keydown", k(this, this.handleKeyEvent), !1); window.addEventListener("keyup", k(this, this.handleKeyEvent), !1); window.addEventListener("focus", k(this, this.handleWindowEvent),
-                            !1); window.addEventListener("blur", k(this, this.handleWindowEvent), !1); window.addEventListener("resize", k(this, this.handleWindowEvent), !1); window.addEventListener("beforeunload", k(this, this.handleWindowEvent), !1); Object.prototype.hasOwnProperty.call(window, "Accelerometer") && window.addEventListener("devicemotion", k(this, this.handleSensorEvent), !1); CanvasRenderingContext2D.prototype.isPointInStroke || (CanvasRenderingContext2D.prototype.isPointInStroke = function (a, b, c) { return !1 }); CanvasRenderingContext2D.prototype.isPointInPath ||
-                                (CanvasRenderingContext2D.prototype.isPointInPath = function (a, b, c) { return !1 }); 0 == "performance" in window && (window.performance = {}); if (0 == "now" in window.performance) { var a = Date.now(); performance.timing && performance.timing.navigationStart && (a = performance.timing.navigationStart); window.performance.now = function () { return Date.now() - a } } for (var b = 0, c = ["ms", "moz", "webkit", "o"], d = 0; d < c.length && !window.requestAnimationFrame; ++d)window.requestAnimationFrame = window[c[d] + "RequestAnimationFrame"], window.cancelAnimationFrame =
-                                    window[c[d] + "CancelAnimationFrame"] || window[c[d] + "CancelRequestAnimationFrame"]; window.requestAnimationFrame || (window.requestAnimationFrame = function (a, c) { var d = window.performance.now(), f = Math.max(0, 16 - (d - b)); c = window.setTimeout(function () { a(d + f) }, f); b = d + f; return c }); window.cancelAnimationFrame || (window.cancelAnimationFrame = function (a) { clearTimeout(a) }); window.requestAnimFrame = window.requestAnimationFrame; this.lastUpdate = window.performance.now(); this.handleApplicationEvent(); return 0
-                    }, exit: function () { },
-                    handleApplicationEvent: function (a) {
-                        a = 0; for (var b = this.parent.__windows; a < b.length;) { var c = b[a]; ++a; c.__backend.updateSize() } this.updateGameDevices(); this.currentUpdate = window.performance.now(); if (this.currentUpdate >= this.nextUpdate) {
-                            this.deltaTime = this.currentUpdate - this.lastUpdate; a = 0; for (b = this.parent.__windows; a < b.length;)c = b[a], ++a, this.parent.onUpdate.dispatch(this.deltaTime | 0), null != c.context && c.onRender.dispatch(c.context); this.nextUpdate = 0 > this.framePeriod ? this.currentUpdate : this.currentUpdate -
-                                this.currentUpdate % this.framePeriod + this.framePeriod; this.lastUpdate = this.currentUpdate
-                        } window.requestAnimationFrame(k(this, this.handleApplicationEvent))
-                    }, handleKeyEvent: function (a) {
-                        if (null != this.parent.__window) {
-                            var b = this.convertKeyCode(null != a.keyCode ? a.keyCode : a.which), c = (a.shiftKey ? 3 : 0) | (a.ctrlKey ? 192 : 0) | (a.altKey ? 768 : 0) | (a.metaKey ? 3072 : 0); "keydown" == a.type ? (this.parent.__window.onKeyDown.dispatch(b, c), this.parent.__window.onKeyDown.canceled && a.cancelable && a.preventDefault()) : (this.parent.__window.onKeyUp.dispatch(b,
-                                c), this.parent.__window.onKeyUp.canceled && a.cancelable && a.preventDefault())
-                        }
-                    }, handleSensorEvent: function (a) { this.accelerometer.onUpdate.dispatch(a.accelerationIncludingGravity.x, a.accelerationIncludingGravity.y, a.accelerationIncludingGravity.z) }, handleWindowEvent: function (a) {
-                        if (null != this.parent.__window) switch (a.type) {
-                            case "blur": this.hidden || (this.parent.__window.onFocusOut.dispatch(), this.parent.__window.onDeactivate.dispatch(), this.hidden = !0); break; case "focus": this.hidden && (this.parent.__window.onFocusIn.dispatch(),
-                                this.parent.__window.onActivate.dispatch(), this.hidden = !1); break; case "resize": this.parent.__window.__backend.handleResizeEvent(a); break; case "visibilitychange": window.document.hidden ? this.hidden || (this.parent.__window.onFocusOut.dispatch(), this.parent.__window.onDeactivate.dispatch(), this.hidden = !0) : this.hidden && (this.parent.__window.onFocusIn.dispatch(), this.parent.__window.onActivate.dispatch(), this.hidden = !1)
-                        }
-                    }, updateGameDevices: function () {
-                        var a = ac.__getDeviceData(); if (null != a) for (var b, c, d, f,
-                            h, n = 0, A = a.length; n < A;)if (b = n++, f = a[b], null != f) {
-                                if (!this.gameDeviceCache.h.hasOwnProperty(b)) { h = new Di; h.id = b; h.connected = f.connected; c = 0; for (d = f.buttons.length; c < d;) { var p = c++; h.buttons.push(f.buttons[p].value) } c = 0; for (d = f.axes.length; c < d;)p = c++, h.axes.push(f.axes[p]); "standard" == f.mapping && (h.isGamepad = !0); this.gameDeviceCache.h[b] = h; f.connected && (ac.__connect(b), h.isGamepad && cc.__connect(b)) } h = this.gameDeviceCache.h[b]; d = ac.devices.h[b]; c = cc.devices.h[b]; if (f.connected) {
-                                    for (var g = 0, t = f.buttons.length; g <
-                                        t;) {
-                                            var l = g++; p = f.buttons[l].value; if (p != h.buttons[l]) {
-                                                if (6 == l) d.onAxisMove.dispatch(f.axes.length, p), null != c && c.onAxisMove.dispatch(4, p); else if (7 == l) d.onAxisMove.dispatch(f.axes.length + 1, p), null != c && c.onAxisMove.dispatch(5, p); else if (0 < p ? d.onButtonDown.dispatch(l) : d.onButtonUp.dispatch(l), null != c) {
-                                                    switch (l) {
-                                                        case 0: b = 0; break; case 1: b = 1; break; case 2: b = 2; break; case 3: b = 3; break; case 4: b = 9; break; case 5: b = 10; break; case 8: b = 4; break; case 9: b = 6; break; case 10: b = 7; break; case 11: b = 8; break; case 12: b = 11; break;
-                                                        case 13: b = 12; break; case 14: b = 13; break; case 15: b = 14; break; case 16: b = 5; break; default: continue
-                                                    }0 < p ? c.onButtonDown.dispatch(b) : c.onButtonUp.dispatch(b)
-                                                } h.buttons[l] = p
-                                            }
-                                    } b = 0; for (p = f.axes.length; b < p;)g = b++, f.axes[g] != h.axes[g] && (d.onAxisMove.dispatch(g, f.axes[g]), null != c && c.onAxisMove.dispatch(g, f.axes[g]), h.axes[g] = f.axes[g])
-                                } else h.connected && (h.connected = !1, ac.__disconnect(b), cc.__disconnect(b))
-                            }
-                    }, __class__: B
-                }; var F = function () {
-                    this.onCreateWindow = new Ei; this.onUpdate = new Ke; this.onExit = new Ke; null == F.current &&
-                        (F.current = this); this.meta = new Ma; this.modules = []; this.__windowByID = new Ub; this.__windows = []; this.__backend = new B(this); this.__registerLimeModule(this); this.__preloader = new Fi; this.__preloader.onProgress.add(k(this, this.onPreloadProgress)); this.__preloader.onComplete.add(k(this, this.onPreloadComplete))
-                }; g["lime.app.Application"] = F; F.__name__ = "lime.app.Application"; F.__super__ = ca; F.prototype = u(ca.prototype, {
-                    addModule: function (a) { a.__registerLimeModule(this); this.modules.push(a) }, exec: function () {
-                        F.current =
-                        this; return this.__backend.exec()
-                    }, onGamepadAxisMove: function (a, b, c) { }, onGamepadButtonDown: function (a, b) { }, onGamepadButtonUp: function (a, b) { }, onGamepadConnect: function (a) { }, onGamepadDisconnect: function (a) { }, onJoystickAxisMove: function (a, b, c) { }, onJoystickButtonDown: function (a, b) { }, onJoystickButtonUp: function (a, b) { }, onJoystickConnect: function (a) { }, onJoystickDisconnect: function (a) { }, onJoystickHatMove: function (a, b, c) { }, onKeyDown: function (a, b) { }, onKeyUp: function (a, b) { }, onModuleExit: function (a) { }, onMouseDown: function (a,
-                        b, c) { }, onMouseMove: function (a, b) { }, onMouseMoveRelative: function (a, b) { }, onMouseUp: function (a, b, c) { }, onMouseWheel: function (a, b, c) { }, onPreloadComplete: function () { }, onPreloadProgress: function (a, b) { }, onRenderContextLost: function () { }, onRenderContextRestored: function (a) { }, onTextEdit: function (a, b, c) { }, onTextInput: function (a) { }, onTouchCancel: function (a) { }, onTouchEnd: function (a) { }, onTouchMove: function (a) { }, onTouchStart: function (a) { }, onWindowActivate: function () { }, onWindowClose: function () { }, onWindowCreate: function () { },
-                    onWindowDeactivate: function () { }, onWindowDropFile: function (a) { }, onWindowEnter: function () { }, onWindowExpose: function () { }, onWindowFocusIn: function () { }, onWindowFocusOut: function () { }, onWindowFullscreen: function () { }, onWindowLeave: function () { }, onWindowMove: function (a, b) { }, onWindowMinimize: function () { }, onWindowResize: function (a, b) { }, onWindowRestore: function () { }, removeModule: function (a) { null != a && (a.__unregisterLimeModule(this), N.remove(this.modules, a)) }, render: function (a) { }, update: function (a) { }, __registerLimeModule: function (a) {
-                        a.onUpdate.add(k(this,
-                            this.update)); a.onExit.add(k(this, this.onModuleExit), !1, 0); a.onExit.add(k(this, this.__onModuleExit), !1, -1E3); for (a = cc.devices.iterator(); a.hasNext();) { var b = a.next(); this.__onGamepadConnect(b) } cc.onConnect.add(k(this, this.__onGamepadConnect)); for (a = ac.devices.iterator(); a.hasNext();)b = a.next(), this.__onJoystickConnect(b); ac.onConnect.add(k(this, this.__onJoystickConnect)); Pb.onCancel.add(k(this, this.onTouchCancel)); Pb.onStart.add(k(this, this.onTouchStart)); Pb.onMove.add(k(this, this.onTouchMove)); Pb.onEnd.add(k(this,
-                                this.onTouchEnd))
-                    }, __removeWindow: function (a) { null != a && this.__windowByID.h.hasOwnProperty(a.id) && (this.__window == a && (this.__window = null), N.remove(this.__windows, a), this.__windowByID.remove(a.id), a.close(), this.__checkForAllWindowsClosed()) }, __checkForAllWindowsClosed: function () { 0 == this.__windows.length && mc.exit(0) }, __onGamepadConnect: function (a) {
-                        this.onGamepadConnect(a); var b = this, c = function (c, d) { b.onGamepadAxisMove(a, c, d) }; a.onAxisMove.add(c); var d = this; c = function (b) { d.onGamepadButtonDown(a, b) };
-                        a.onButtonDown.add(c); var f = this; c = function (b) { f.onGamepadButtonUp(a, b) }; a.onButtonUp.add(c); var h = this; a.onDisconnect.add(function () { h.onGamepadDisconnect(a) })
-                    }, __onJoystickConnect: function (a) {
-                        this.onJoystickConnect(a); var b = this, c = function (c, d) { b.onJoystickAxisMove(a, c, d) }; a.onAxisMove.add(c); var d = this; c = function (b) { d.onJoystickButtonDown(a, b) }; a.onButtonDown.add(c); var f = this; c = function (b) { f.onJoystickButtonUp(a, b) }; a.onButtonUp.add(c); var h = this; a.onDisconnect.add(function () { h.onJoystickDisconnect(a) });
-                        var n = this; c = function (b, c) { n.onJoystickHatMove(a, b, c) }; a.onHatMove.add(c)
-                    }, __onModuleExit: function (a) { this.onExit.canceled || (this.__unregisterLimeModule(this), this.__backend.exit(), F.current == this && (F.current = null)) }, __onWindowClose: function (a) { if (this.__window == a) this.onWindowClose(); this.__removeWindow(a) }, __unregisterLimeModule: function (a) {
-                        a.onUpdate.remove(k(this, this.update)); a.onExit.remove(k(this, this.__onModuleExit)); a.onExit.remove(k(this, this.onModuleExit)); cc.onConnect.remove(k(this, this.__onGamepadConnect));
-                        ac.onConnect.remove(k(this, this.__onJoystickConnect)); Pb.onCancel.remove(k(this, this.onTouchCancel)); Pb.onStart.remove(k(this, this.onTouchStart)); Pb.onMove.remove(k(this, this.onTouchMove)); Pb.onEnd.remove(k(this, this.onTouchEnd))
-                    }, __class__: F
-                }); var V = function () { }; g.ApplicationMain = V; V.__name__ = "ApplicationMain"; V.main = function () { mc.__registerEntryPoint("Dungeon", V.create) }; V.create = function (a) {
-                    var b = new bg; cb.init(a); b.meta.h.build = "159"; b.meta.h.company = "Retronic Games"; b.meta.h.file = "Dungeon"; b.meta.h.name =
-                        "One Page Dungeon Generator"; b.meta.h.packageName = "com.watabou.dungeon"; b.meta.h.version = "1.2.5"; var c = { allowHighDPI: !0, alwaysOnTop: !1, borderless: !1, element: null, frameRate: 60, height: 0, hidden: !1, maximized: !1, minimized: !1, parameters: {}, resizable: !0, title: "One Page Dungeon Generator", width: 0, x: null, y: null, context: { antialiasing: 4, background: 16316660, colorDepth: 32, depth: !0, hardware: !0, stencil: !0, type: null, vsync: !0 } }; if (null == b.__window && null != a) for (var d = 0, f = oa.fields(a); d < f.length;) {
-                            var h = f[d]; ++d; Object.prototype.hasOwnProperty.call(c,
-                                h) ? c[h] = oa.field(a, h) : Object.prototype.hasOwnProperty.call(c.context, h) && (c.context[h] = oa.field(a, h))
-                        } b.createWindow(c); var n = new Pg(new cg); b.__preloader.onProgress.add(function (a, b) { n.update(a, b) }); b.__preloader.onComplete.add(function () { n.start() }); var A = b.__window.stage; n.onComplete.add(function () { V.start(A) }); d = 0; for (f = cb.preloadLibraries; d < f.length;)a = f[d], ++d, b.__preloader.addLibrary(a); d = 0; for (f = cb.preloadLibraryNames; d < f.length;)a = f[d], ++d, b.__preloader.addLibraryName(a); b.__preloader.load();
-                    b.exec()
-                }; V.start = function (a) {
-                    if (a.__uncaughtErrorEvents.__enabled) try { var b = a.getChildAt(0); null != b && b instanceof Ya || (b = new Le, a.addChild(b)); new Wb(b); a.dispatchEvent(new ra("resize", !1, !1)); a.window.__fullscreen && a.dispatchEvent(new ne("fullScreen", !1, !1, !0, !0)) } catch (c) { Ca.lastError = c, b = Z.caught(c).unwrap(), a.__handleError(b) } else b = a.getChildAt(0), null != b && b instanceof Ya || (b = new Le, a.addChild(b)), new Wb(b), a.dispatchEvent(new ra("resize", !1, !1)), a.window.__fullscreen && a.dispatchEvent(new ne("fullScreen",
-                        !1, !1, !0, !0))
-                }; var L = function () { }; g["openfl.events.IEventDispatcher"] = L; L.__name__ = "openfl.events.IEventDispatcher"; L.__isInterface__ = !0; var ea = function (a) { null != a && (this.__targetDispatcher = a) }; g["openfl.events.EventDispatcher"] = ea; ea.__name__ = "openfl.events.EventDispatcher"; ea.__interfaces__ = [L]; ea.prototype = {
-                    addEventListener: function (a, b, c, d, f) {
-                        null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); if (null != b) if (null == this.__eventMap && (this.__eventMap = new Ma, this.__iterators = new Ma), Object.prototype.hasOwnProperty.call(this.__eventMap.h,
-                            a)) { p = this.__eventMap.h[a]; for (var h = 0, n = p.length; h < n;) { var A = h++; if (p[A].match(b, c)) return } a = this.__iterators.h[a]; for (h = 0; h < a.length;)n = a[h], ++h, n.active && n.copy(); this.__addListenerByPriority(p, new Me(b, c, d, f)) } else { var p = []; p.push(new Me(b, c, d, f)); n = new dg(p); this.__eventMap.h[a] = p; this.__iterators.h[a] = [n] }
-                    }, dispatchEvent: function (a) { a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this; return this.__dispatchEvent(a) }, hasEventListener: function (a) {
-                        return null == this.__eventMap ? !1 :
-                            Object.prototype.hasOwnProperty.call(this.__eventMap.h, a)
-                    }, removeEventListener: function (a, b, c) {
-                        null == c && (c = !1); if (null != this.__eventMap && null != b) {
-                            var d = this.__eventMap.h[a]; if (null != d) {
-                                for (var f = this.__iterators.h[a], h = 0, n = d.length; h < n;) { var A = h++; if (d[A].match(b, c)) { for (b = 0; b < f.length;)c = f[b], ++b, c.remove(d[A], A); d.splice(A, 1); break } } 0 == d.length && (d = this.__eventMap, f = a, Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f], d = this.__iterators, f = a, Object.prototype.hasOwnProperty.call(d.h, f) && delete d.h[f]);
-                                0 >= Object.keys(this.__eventMap.h).length && (this.__iterators = this.__eventMap = null)
-                            }
-                        }
-                    }, __dispatchEvent: function (a) {
-                        if (null == this.__eventMap || null == a) return !0; var b = a.type, c = this.__eventMap.h[b]; if (null == c) return !0; null == a.target && (a.target = null != this.__targetDispatcher ? this.__targetDispatcher : this); a.currentTarget = this; var d = 1 == a.eventPhase; b = this.__iterators.h[b]; var f = b[0]; f.active && (f = new dg(c), b.push(f)); f.start(); for (var h = f; h.hasNext();) {
-                            var n = h.next(); if (null != n && n.useCapture == d) {
-                                if (n.useWeakReference &&
-                                    null != n.weakRefCallback) { var A = n.weakRefCallback.deref(); if (null == A) A = f.index - 1, c.splice(A, 1), f.remove(n, A); else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) try { A(a) } catch (p) { Ca.lastError = p, n = Z.caught(p).unwrap(), a instanceof pf || Na.get_current().stage.__handleError(n) } else A(a) } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) try { n.callback(a) } catch (p) {
-                                        Ca.lastError =
-                                        p, n = Z.caught(p).unwrap(), a instanceof pf || Na.get_current().stage.__handleError(n)
-                                    } else n.callback(a); if (a.__isCanceledNow) break
-                            }
-                        } f.stop(); f != b[0] ? N.remove(b, f) : f.reset(c); return !a.isDefaultPrevented()
-                    }, __addListenerByPriority: function (a, b) { for (var c = a.length, d = c, f = 0; f < c;) { var h = f++; if (a[h].priority < b.priority) { d = h; break } } a.splice(d, 0, b) }, __class__: ea
-                }; var fb = function () { }; g["openfl.display.IBitmapDrawable"] = fb; fb.__name__ = "openfl.display.IBitmapDrawable"; fb.__isInterface__ = !0; fb.prototype = { __class__: fb };
-            var ma = { toIntVector: function (a, b, c, d) { return new eg(b, c, d) }, toFloatVector: function (a, b, c, d) { return new Wd(b, c, d, !0) }, toObjectVector: function (a, b, c, d) { return new qf(b, c, d, !0) } }, mb = function (a, b, c) { this.__pool = new fa; this.inactiveObjects = this.activeObjects = 0; this.__inactiveObject1 = this.__inactiveObject0 = null; this.__inactiveObjectList = new La; null != a && (this.create = a); null != b && (this.clean = b); null != c && this.set_size(c) }; g["lime.utils.ObjectPool"] = mb; mb.__name__ = "lime.utils.ObjectPool"; mb.prototype = {
-                clean: function (a) { },
-                create: function () { return null }, get: function () {
-                    var a = null; if (0 < this.inactiveObjects) null != this.__inactiveObject0 ? (a = this.__inactiveObject0, this.__inactiveObject0 = null) : null != this.__inactiveObject1 ? (a = this.__inactiveObject1, this.__inactiveObject1 = null) : (a = this.__inactiveObjectList.pop(), 0 < this.__inactiveObjectList.length && (this.__inactiveObject0 = this.__inactiveObjectList.pop()), 0 < this.__inactiveObjectList.length && (this.__inactiveObject1 = this.__inactiveObjectList.pop())), this.inactiveObjects--, this.activeObjects++;
-                    else if (null == this.__size || this.activeObjects < this.__size) a = this.create(), null != a && (this.__pool.set(a, !0), this.activeObjects++); return a
-                }, release: function (a) { this.activeObjects--; null == this.__size || this.activeObjects + this.inactiveObjects < this.__size ? (this.clean(a), null == this.__inactiveObject0 ? this.__inactiveObject0 = a : null == this.__inactiveObject1 ? this.__inactiveObject1 = a : this.__inactiveObjectList.add(a), this.inactiveObjects++) : this.__pool.remove(a) }, __removeInactive: function (a) {
-                    if (!(0 >= a || 0 == this.inactiveObjects) &&
-                        (null != this.__inactiveObject0 && (this.__pool.remove(this.__inactiveObject0), this.__inactiveObject0 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects && (null != this.__inactiveObject1 && (this.__pool.remove(this.__inactiveObject1), this.__inactiveObject1 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects))) for (var b = this.__inactiveObjectList.h; null != b;) { var c = b.item; b = b.next; this.__pool.remove(c); this.__inactiveObjectList.remove(c); this.inactiveObjects--; --a; if (0 == a || 0 == this.inactiveObjects) break }
-                },
-                set_size: function (a) { if (null == a) this.__size = null; else { var b = this.inactiveObjects + this.activeObjects; this.__size = a; if (b > a) this.__removeInactive(b - a); else if (a > b) for (var c = 0, d = a - b; c < d;)if (c++, b = this.create(), null != b) this.__pool.set(b, !1), this.__inactiveObjectList.add(b), this.inactiveObjects++; else break } return a }, __class__: mb, __properties__: { set_size: "set_size" }
-            }; var U = function () { }; g["haxe.IMap"] = U; U.__name__ = "haxe.IMap"; U.__isInterface__ = !0; U.prototype = { __class__: U }; var fa = function () { this.h = { __keys__: {} } };
-            g["haxe.ds.ObjectMap"] = fa; fa.__name__ = "haxe.ds.ObjectMap"; fa.__interfaces__ = [U]; fa.prototype = { set: function (a, b) { var c = a.__id__; null == c && (c = a.__id__ = x.$haxeUID++); this.h[c] = b; this.h.__keys__[c] = a }, get: function (a) { return this.h[a.__id__] }, remove: function (a) { a = a.__id__; if (null == this.h.__keys__[a]) return !1; delete this.h[a]; delete this.h.__keys__[a]; return !0 }, keys: function () { var a = [], b; for (b in this.h.__keys__) this.h.hasOwnProperty(b) && a.push(this.h.__keys__[b]); return new Je(a) }, __class__: fa }; var La =
-                function () { this.length = 0 }; g["haxe.ds.List"] = La; La.__name__ = "haxe.ds.List"; La.prototype = {
-                    add: function (a) { a = new Qg(a, null); null == this.h ? this.h = a : this.q.next = a; this.q = a; this.length++ }, push: function (a) { this.h = a = new Qg(a, this.h); null == this.q && (this.q = a); this.length++ }, pop: function () { if (null == this.h) return null; var a = this.h.item; this.h = this.h.next; null == this.h && (this.q = null); this.length--; return a }, isEmpty: function () { return null == this.h }, clear: function () { this.q = this.h = null; this.length = 0 }, remove: function (a) {
-                        for (var b =
-                            null, c = this.h; null != c;) { if (c.item == a) return null == b ? this.h = c.next : b.next = c.next, this.q == c && (this.q = b), this.length--, !0; b = c; c = c.next } return !1
-                    }, iterator: function () { return new Gi(this.h) }, __class__: La
-                }; var aa = function () {
-                    ea.call(this); this.__alpha = this.__drawableType = 1; this.__blendMode = 10; this.__cacheAsBitmap = !1; this.__transform = new na; this.__visible = !0; this.__rotationSine = this.__rotation = 0; this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1; this.__worldBlendMode = 10; this.__worldTransform =
-                        new na; this.__worldColorTransform = new Cb; this.__renderTransform = new na; this.__worldVisible = !0; this.set_name("instance" + ++aa.__instanceCount); null != aa.__initStage && (this.stage = aa.__initStage, aa.__initStage = null, this.stage.addChild(this))
-                }; g["openfl.display.DisplayObject"] = aa; aa.__name__ = "openfl.display.DisplayObject"; aa.__interfaces__ = [fb]; aa.__super__ = ea; aa.prototype = u(ea.prototype, {
-                    addEventListener: function (a, b, c, d, f) {
-                        null == f && (f = !1); null == d && (d = 0); null == c && (c = !1); switch (a) {
-                            case "activate": case "deactivate": case "enterFrame": case "exitFrame": case "frameConstructed": case "render": Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h,
-                                a) || (aa.__broadcastEvents.h[a] = []); var h = aa.__broadcastEvents.h[a]; -1 == h.indexOf(this) && h.push(this); break; case "clearDOM": case "renderCairo": case "renderCanvas": case "renderDOM": case "renderOpenGL": null == this.__customRenderEvent && (this.__customRenderEvent = new Rg(null), this.__customRenderEvent.objectColorTransform = new Cb, this.__customRenderEvent.objectMatrix = new na, this.__customRenderClear = !0)
-                        }ea.prototype.addEventListener.call(this, a, b, c, d, f)
-                    }, dispatchEvent: function (a) {
-                        if (a instanceof wb) {
-                            var b =
-                                this.__getRenderTransform(); a.stageX = a.localX * b.a + a.localY * b.c + b.tx; b = this.__getRenderTransform(); a.stageY = a.localX * b.b + a.localY * b.d + b.ty
-                        } else a instanceof vd && (b = this.__getRenderTransform(), a.stageX = a.localX * b.a + a.localY * b.c + b.tx, b = this.__getRenderTransform(), a.stageY = a.localX * b.b + a.localY * b.d + b.ty); a.target = this; return this.__dispatchWithCapture(a)
-                    }, getBounds: function (a) {
-                        var b = na.__pool.get(); if (null != a && a != this) {
-                            b.copyFrom(this.__getWorldTransform()); var c = na.__pool.get(); c.copyFrom(a.__getWorldTransform());
-                            c.invert(); b.concat(c); na.__pool.release(c)
-                        } else b.identity(); a = new ha; this.__getBounds(a, b); na.__pool.release(b); return a
-                    }, getRect: function (a) { return this.getBounds(a) }, globalToLocal: function (a) { return this.__globalToLocal(a, new I) }, hitTestPoint: function (a, b, c) { null == c && (c = !1); return null != this.stage ? this.__hitTest(a, b, c, null, !1, this) : !1 }, localToGlobal: function (a) { return this.__getRenderTransform().transformPoint(a) }, removeEventListener: function (a, b, c) {
-                        null == c && (c = !1); ea.prototype.removeEventListener.call(this,
-                            a, b, c); switch (a) {
-                                case "activate": case "deactivate": case "enterFrame": case "exitFrame": case "frameConstructed": case "render": this.hasEventListener(a) || Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) && N.remove(aa.__broadcastEvents.h[a], this); break; case "clearDOM": case "renderCairo": case "renderCanvas": case "renderDOM": case "renderOpenGL": this.hasEventListener("clearDOM") || this.hasEventListener("renderCairo") || this.hasEventListener("renderCanvas") || this.hasEventListener("renderDOM") ||
-                                    this.hasEventListener("renderOpenGL") || (this.__customRenderEvent = null)
-                            }
-                    }, __cleanup: function () { this.__context = this.__canvas = this.__cairo = null; null != this.__graphics && this.__graphics.__cleanup(); null != this.__cacheBitmap && (this.__cacheBitmap.__cleanup(), this.__cacheBitmap = null); null != this.__cacheBitmapData && (this.__cacheBitmapData.dispose(), this.__cacheBitmapData = null) }, __dispatch: function (a) {
-                        if (null != this.__eventMap && this.hasEventListener(a.type)) {
-                            var b = ea.prototype.__dispatchEvent.call(this, a); return a.__isCanceled ?
-                                !0 : b
-                        } return !0
-                    }, __dispatchChildren: function (a) { }, __dispatchEvent: function (a) { var b = a.bubbles ? this.parent : null, c = ea.prototype.__dispatchEvent.call(this, a); if (a.__isCanceled) return !0; null != b && b != this && (a.eventPhase = 3, null == a.target && (a.target = this), b.__dispatchEvent(a)); return c }, __dispatchWithCapture: function (a) {
-                        null == a.target && (a.target = this); if (null != this.parent) if (a.eventPhase = 1, this.parent == this.stage) this.parent.__dispatch(a); else {
-                            for (var b = aa.__tempStack.get(), c = this.parent, d = 0; null != c;)b.set(d,
-                                c), c = c.parent, ++d; c = 0; for (var f = d; c < f;) { var h = c++; b.get(d - h - 1).__dispatch(a) } aa.__tempStack.release(b)
-                        } a.eventPhase = 2; return this.__dispatchEvent(a)
-                    }, __enterFrame: function (a) { }, __getBounds: function (a, b) { null != this.__graphics && this.__graphics.__getBounds(a, b) }, __getCursor: function () { return null }, __getFilterBounds: function (a, b) {
-                        this.__getRenderBounds(a, b); if (null != this.__filters) {
-                            b = ha.__pool.get(); for (var c = 0, d = this.__filters; c < d.length;) {
-                                var f = d[c]; ++c; b.__expand(-f.__leftExtension, -f.__topExtension,
-                                    f.__leftExtension + f.__rightExtension, f.__topExtension + f.__bottomExtension)
-                            } a.width += b.width; a.height += b.height; a.x += b.x; a.y += b.y; ha.__pool.release(b)
-                        }
-                    }, __getInteractive: function (a) { return !1 }, __getLocalBounds: function (a) { this.__getBounds(a, this.__transform); a.x -= this.__transform.tx; a.y -= this.__transform.ty }, __getRenderBounds: function (a, b) {
-                        if (null == this.__scrollRect) this.__getBounds(a, b); else {
-                            var c = ha.__pool.get(); c.copyFrom(this.__scrollRect); c.__transform(c, b); a.__expand(c.x, c.y, c.width, c.height);
-                            ha.__pool.release(c)
-                        }
-                    }, __getRenderTransform: function () { this.__getWorldTransform(); return this.__renderTransform }, __getWorldTransform: function () { if (this.__transformDirty || this.__worldTransformInvalid) { var a = [], b = this; if (null == this.parent) this.__update(!0, !1); else for (; b != this.stage && (a.push(b), b = b.parent, null != b);); for (var c = a.length; 0 <= --c;)b = a[c], b.__update(!0, !1) } return this.__worldTransform }, __globalToLocal: function (a, b) {
-                        this.__getRenderTransform(); if (a == b) {
-                            var c = this.__renderTransform, d = c.a * c.d -
-                                c.b * c.c; if (0 == d) a.x = -c.tx, a.y = -c.ty; else { var f = 1 / d * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx)); a.y = 1 / d * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)); a.x = f }
-                        } else c = this.__renderTransform, d = c.a * c.d - c.b * c.c, b.x = 0 == d ? -c.tx : 1 / d * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx)), c = this.__renderTransform, d = c.a * c.d - c.b * c.c, b.y = 0 == d ? -c.ty : 1 / d * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)); return b
-                    }, __hitTest: function (a, b, c, d, f, h) {
-                        if (null != this.__graphics) {
-                            if (!h.__visible || this.__isMask || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return !1; if (this.__graphics.__hitTest(a,
-                                b, c, this.__getRenderTransform())) return null == d || f || d.push(h), !0
-                        } return !1
-                    }, __hitTestMask: function (a, b) { return null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1 }, __readGraphicsData: function (a, b) { null != this.__graphics && this.__graphics.__readGraphicsData(a) }, __setParentRenderDirty: function () { var a = null != this.__renderParent ? this.__renderParent : this.parent; null == a || a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()) }, __setStageReference: function (a) {
-                        this.stage =
-                        a
-                    }, __setTransformDirty: function () { this.__transformDirty || (this.__transformDirty = !0, this.__setWorldTransformInvalid(), this.__setParentRenderDirty()) }, __setWorldTransformInvalid: function () { this.__worldTransformInvalid = !0 }, __update: function (a, b) {
-                        var c = null != this.__renderParent ? this.__renderParent : this.parent; this.__isMask && null == c && (c = this.__maskTarget); this.__renderable = this.__visible && 0 != this.__scaleX && 0 != this.__scaleY && !this.__isMask && (null == c || !c.__isMask); this.__updateTransforms(); this.__worldTransformInvalid =
-                            this.__transformDirty = !1; if (!a) if (aa.__supportDOM && (this.__renderTransformChanged = !this.__renderTransform.equals(this.__renderTransformCache), null == this.__renderTransformCache ? this.__renderTransformCache = this.__renderTransform.clone() : this.__renderTransformCache.copyFrom(this.__renderTransform)), null != c) {
-                                if (aa.__supportDOM) { var d = c.__worldVisible && this.__visible; this.__worldVisibleChanged = this.__worldVisible != d; this.__worldVisible = d } d = this.get_alpha() * c.__worldAlpha; this.__worldAlphaChanged = this.__worldAlpha !=
-                                    d; this.__worldAlpha = d; null != this.__objectTransform ? (this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform), this.__worldColorTransform.__combine(c.__worldColorTransform)) : this.__worldColorTransform.__copyFrom(c.__worldColorTransform); this.__worldBlendMode = null == this.__blendMode || 10 == this.__blendMode ? c.__worldBlendMode : this.__blendMode; this.__worldShader = null == this.__shader ? c.__shader : this.__shader; this.__worldScale9Grid = null == this.__scale9Grid ? c.__scale9Grid : this.__scale9Grid
-                            } else this.__worldAlpha =
-                                this.get_alpha(), aa.__supportDOM && (this.__worldVisibleChanged = this.__worldVisible != this.__visible, this.__worldVisible = this.__visible), this.__worldAlphaChanged = this.__worldAlpha != this.get_alpha(), null != this.__objectTransform ? this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform) : this.__worldColorTransform.__identity(), this.__worldBlendMode = this.__blendMode, this.__worldShader = this.__shader, this.__worldScale9Grid = this.__scale9Grid; b && null != this.get_mask() && this.get_mask().__update(a,
-                                    !0)
-                    }, __updateTransforms: function (a) {
-                        var b = null != a; a = b ? a : this.__transform; null == this.__worldTransform && (this.__worldTransform = new na); null == this.__renderTransform && (this.__renderTransform = new na); var c = null != this.__renderParent ? this.__renderParent : this.parent; if (b || null == this.parent) this.__worldTransform.copyFrom(a); else {
-                            var d = this.parent.__worldTransform, f = this.__worldTransform; f.a = a.a * d.a + a.b * d.c; f.b = a.a * d.b + a.b * d.d; f.c = a.c * d.a + a.d * d.c; f.d = a.c * d.b + a.d * d.d; f.tx = a.tx * d.a + a.ty * d.c + d.tx; f.ty = a.tx * d.b +
-                                a.ty * d.d + d.ty
-                        } b || null == c ? this.__renderTransform.copyFrom(a) : (d = c.__renderTransform, f = this.__renderTransform, f.a = a.a * d.a + a.b * d.c, f.b = a.a * d.b + a.b * d.d, f.c = a.c * d.a + a.d * d.c, f.d = a.c * d.b + a.d * d.d, f.tx = a.tx * d.a + a.ty * d.c + d.tx, f.ty = a.tx * d.b + a.ty * d.d + d.ty); null != this.__scrollRect && (b = this.__renderTransform, a = -this.__scrollRect.x, c = -this.__scrollRect.y, b.tx = a * b.a + c * b.c + b.tx, b.ty = a * b.b + c * b.d + b.ty)
-                    }, get_alpha: function () { return this.__alpha }, set_alpha: function (a) {
-                        1 < a && (a = 1); 0 > a && (a = 0); a == this.__alpha || this.get_cacheAsBitmap() ||
-                            this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__alpha = a
-                    }, get_blendMode: function () { return this.__blendMode }, set_blendMode: function (a) { null == a && (a = 10); a == this.__blendMode || this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__blendMode = a }, get_cacheAsBitmap: function () { return null == this.__filters ? this.__cacheAsBitmap : !0 }, get_filters: function () { return null == this.__filters ? [] : this.__filters.slice() }, get_height: function () {
-                        var a = ha.__pool.get();
-                        this.__getLocalBounds(a); var b = a.height; ha.__pool.release(a); return b
-                    }, set_height: function (a) { var b = ha.__pool.get(), c = na.__pool.get(); c.identity(); this.__getBounds(b, c); a != b.height ? this.set_scaleY(a / b.height) : this.set_scaleY(1); ha.__pool.release(b); na.__pool.release(c); return a }, get_loaderInfo: function () { return null != this.stage ? xc.current.__loaderInfo : null }, get_mask: function () { return this.__mask }, set_mask: function (a) {
-                        if (a == this.__mask) return a; a != this.__mask && (this.__setTransformDirty(), this.__renderDirty ||
-                            (this.__renderDirty = !0, this.__setParentRenderDirty())); if (null != this.__mask) { this.__mask.__isMask = !1; this.__mask.__maskTarget = null; this.__mask.__setTransformDirty(); var b = this.__mask; b.__renderDirty || (b.__renderDirty = !0, b.__setParentRenderDirty()) } null != a && (a.__isMask = !0, a.__maskTarget = this, a.__setWorldTransformInvalid()); null != this.__cacheBitmap && this.__cacheBitmap.get_mask() != a && this.__cacheBitmap.set_mask(a); return this.__mask = a
-                    }, get_mouseX: function () {
-                        var a = null != this.stage ? this.stage.__mouseX :
-                            xc.current.stage.__mouseX, b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY, c = this.__getRenderTransform(), d = c.a * c.d - c.b * c.c; return 0 == d ? -c.tx : 1 / d * (c.c * (c.ty - b) + c.d * (a - c.tx))
-                    }, get_mouseY: function () { var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX, b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY, c = this.__getRenderTransform(), d = c.a * c.d - c.b * c.c; return 0 == d ? -c.ty : 1 / d * (c.a * (b - c.ty) + c.b * (c.tx - a)) }, get_name: function () { return this.__name }, set_name: function (a) {
-                        return this.__name =
-                            a
-                    }, get_root: function () { return null != this.stage ? xc.current : null }, get_rotation: function () { return this.__rotation }, set_rotation: function (a) {
-                        if (a != this.__rotation) {
-                            a %= 360; 180 < a ? a -= 360 : -180 > a && (a += 360); this.__rotation = a; var b = Math.PI / 180 * this.__rotation; this.__rotationSine = Math.sin(b); this.__rotationCosine = Math.cos(b); this.__transform.a = this.__rotationCosine * this.__scaleX; this.__transform.b = this.__rotationSine * this.__scaleX; this.__transform.c = -this.__rotationSine * this.__scaleY; this.__transform.d = this.__rotationCosine *
-                                this.__scaleY; this.__setTransformDirty()
-                        } return a
-                    }, get_scaleX: function () { return this.__scaleX }, set_scaleX: function (a) { if (a != this.__scaleX) if (this.__scaleX = a, 0 == this.__transform.b) a != this.__transform.a && this.__setTransformDirty(), this.__transform.a = a; else { var b = this.__rotationCosine * a, c = this.__rotationSine * a; this.__transform.a == b && this.__transform.b == c || this.__setTransformDirty(); this.__transform.a = b; this.__transform.b = c } return a }, get_scaleY: function () { return this.__scaleY }, set_scaleY: function (a) {
-                        if (a !=
-                            this.__scaleY) if (this.__scaleY = a, 0 == this.__transform.c) a != this.__transform.d && this.__setTransformDirty(), this.__transform.d = a; else { var b = -this.__rotationSine * a, c = this.__rotationCosine * a; this.__transform.d == c && this.__transform.c == b || this.__setTransformDirty(); this.__transform.c = b; this.__transform.d = c } return a
-                    }, get_scrollRect: function () { return null == this.__scrollRect ? null : this.__scrollRect.clone() }, get_transform: function () { null == this.__objectTransform && (this.__objectTransform = new Sg(this)); return this.__objectTransform },
-                    set_transform: function (a) {
-                        if (null == a) throw new Ne("Parameter transform must be non-null."); null == this.__objectTransform && (this.__objectTransform = new Sg(this)); this.__setTransformDirty(); this.__objectTransform.set_matrix(a.get_matrix()); if (!this.__objectTransform.__colorTransform.__equals(a.__colorTransform, !0) || !this.get_cacheAsBitmap() && this.__objectTransform.__colorTransform.alphaMultiplier != a.__colorTransform.alphaMultiplier) this.__objectTransform.__colorTransform.__copyFrom(a.get_colorTransform()),
-                            this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__objectTransform
-                    }, get_visible: function () { return this.__visible }, set_visible: function (a) { a == this.__visible || this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); return this.__visible = a }, get_width: function () { var a = ha.__pool.get(); this.__getLocalBounds(a); var b = a.width; ha.__pool.release(a); return b }, set_width: function (a) {
-                        var b = ha.__pool.get(), c = na.__pool.get(); c.identity(); this.__getBounds(b, c);
-                        a != b.width ? this.set_scaleX(a / b.width) : this.set_scaleX(1); ha.__pool.release(b); na.__pool.release(c); return a
-                    }, get_x: function () { return this.__transform.tx }, set_x: function (a) { a != this.__transform.tx && this.__setTransformDirty(); return this.__transform.tx = a }, get_y: function () { return this.__transform.ty }, set_y: function (a) { a != this.__transform.ty && this.__setTransformDirty(); return this.__transform.ty = a }, __class__: aa, __properties__: {
-                        set_y: "set_y", get_y: "get_y", set_x: "set_x", get_x: "get_x", set_width: "set_width",
-                        get_width: "get_width", set_visible: "set_visible", get_visible: "get_visible", set_transform: "set_transform", get_transform: "get_transform", get_scrollRect: "get_scrollRect", set_scaleY: "set_scaleY", get_scaleY: "get_scaleY", set_scaleX: "set_scaleX", get_scaleX: "get_scaleX", set_rotation: "set_rotation", get_rotation: "get_rotation", get_root: "get_root", set_name: "set_name", get_name: "get_name", get_mouseY: "get_mouseY", get_mouseX: "get_mouseX", set_mask: "set_mask", get_mask: "get_mask", get_loaderInfo: "get_loaderInfo", set_height: "set_height",
-                        get_height: "get_height", get_filters: "get_filters", get_cacheAsBitmap: "get_cacheAsBitmap", set_blendMode: "set_blendMode", get_blendMode: "get_blendMode", set_alpha: "set_alpha", get_alpha: "get_alpha"
-                    }
-                }); var ka = function () { aa.call(this); this.doubleClickEnabled = !1; this.mouseEnabled = !0; this.needsSoftKeyboard = !1; this.__tabEnabled = null; this.__tabIndex = -1 }; g["openfl.display.InteractiveObject"] = ka; ka.__name__ = "openfl.display.InteractiveObject"; ka.__super__ = aa; ka.prototype = u(aa.prototype, {
-                    __allowMouseFocus: function () {
-                        return this.mouseEnabled ?
-                            this.get_tabEnabled() : !1
-                    }, __getInteractive: function (a) { null != a && (a.push(this), null != this.parent && this.parent.__getInteractive(a)); return !0 }, __hitTest: function (a, b, c, d, f, h) { return !h.get_visible() || this.__isMask || f && !this.mouseEnabled ? !1 : aa.prototype.__hitTest.call(this, a, b, c, d, f, h) }, __tabTest: function (a) { this.get_tabEnabled() && a.push(this) }, get_tabEnabled: function () { return 1 == this.__tabEnabled ? !0 : !1 }, get_tabIndex: function () { return this.__tabIndex }, __class__: ka, __properties__: u(aa.prototype.__properties__,
-                        { get_tabIndex: "get_tabIndex", get_tabEnabled: "get_tabEnabled" })
-                }); var Ya = function () { ka.call(this); this.__tabChildren = this.mouseChildren = !0; this.__children = []; this.__removedChildren = ma.toObjectVector(null) }; g["openfl.display.DisplayObjectContainer"] = Ya; Ya.__name__ = "openfl.display.DisplayObjectContainer"; Ya.__super__ = ka; Ya.prototype = u(ka.prototype, {
-                    addChild: function (a) { return this.addChildAt(a, this.get_numChildren()) }, addChildAt: function (a, b) {
-                        if (null == a) throw a = new Ne("Error #2007: Parameter child must be non-null."),
-                            a.errorID = 2007, a; if (a == this) throw a = new rf("Error #2024: An object cannot be added as a child of itself."), a.errorID = 2024, a; if (a.stage == a) throw a = new rf("Error #3783: A Stage object cannot be added as the child of another object."), a.errorID = 3783, a; if (b > this.__children.length || 0 > b) throw Z.thrown("Invalid index position " + b); if (a.parent == this) this.__children[b] != a && (N.remove(this.__children, a), this.__children.splice(b, 0, a), this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()));
-                        else { null != a.parent && a.parent.removeChild(a); this.__children.splice(b, 0, a); a.parent = this; (b = null != this.stage && null == a.stage) && a.__setStageReference(this.stage); a.__setTransformDirty(); a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()); this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty()); var c = new ra("added"); c.bubbles = !0; c.target = a; a.__dispatchWithCapture(c); b && (c = new ra("addedToStage", !1, !1), a.__dispatchWithCapture(c), a.__dispatchChildren(c)) } return a
-                    }, getChildAt: function (a) {
-                        return 0 <=
-                            a && a < this.__children.length ? this.__children[a] : null
-                    }, getChildByName: function (a) { for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; if (d.get_name() == a) return d } return null }, getChildIndex: function (a) { for (var b = 0, c = this.__children.length; b < c;) { var d = b++; if (this.__children[d] == a) return d } return -1 }, removeChild: function (a) {
-                        if (null != a && a.parent == this) {
-                            a.__setTransformDirty(); a.__renderDirty || (a.__renderDirty = !0, a.__setParentRenderDirty()); this.__renderDirty || (this.__renderDirty = !0, this.__setParentRenderDirty());
-                            var b = new ra("removed", !0); a.__dispatchWithCapture(b); null != this.stage && (null != a.stage && this.stage.get_focus() == a && this.stage.set_focus(null), b = new ra("removedFromStage", !1, !1), a.__dispatchWithCapture(b), a.__dispatchChildren(b), a.__setStageReference(null)); a.parent = null; N.remove(this.__children, a); this.__removedChildren.push(a); a.__setTransformDirty()
-                        } return a
-                    }, removeChildAt: function (a) { return 0 <= a && a < this.__children.length ? this.removeChild(this.__children[a]) : null }, removeChildren: function (a, b) {
-                        null ==
-                        b && (b = 2147483647); null == a && (a = 0); if (2147483647 == b && (b = this.__children.length - 1, 0 > b)) return; if (!(a > this.__children.length - 1)) { if (b < a || 0 > a || b > this.__children.length) throw new fg("The supplied index is out of bounds."); for (b -= a; 0 <= b;)this.removeChildAt(a), --b }
-                    }, __cleanup: function () { ka.prototype.__cleanup.call(this); for (var a = 0, b = this.__children; a < b.length;) { var c = b[a]; ++a; c.__cleanup() } for (a = this.__removedChildren.iterator(); a.hasNext();)b = a.next(), null == b.stage && b.__cleanup(); this.__removedChildren.set_length(0) },
-                    __dispatchChildren: function (a) { if (null != this.__children) for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; a.target = d; if (!d.__dispatchWithCapture(a)) break; d.__dispatchChildren(a) } }, __enterFrame: function (a) { for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__enterFrame(a) } }, __getBounds: function (a, b) {
-                        ka.prototype.__getBounds.call(this, a, b); if (0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 != h.__scaleY) {
-                                    var n =
-                                        h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b * b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; h.__getBounds(a, c)
-                                }
-                            } na.__pool.release(c)
-                        }
-                    }, __getFilterBounds: function (a, b) {
-                        ka.prototype.__getFilterBounds.call(this, a, b); if (null == this.__scrollRect && 0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
-                                    var n = h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b *
-                                        b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; n = ha.__pool.get(); h.__getFilterBounds(n, c); a.__expand(n.x, n.y, n.width, n.height); ha.__pool.release(n)
-                                }
-                            } na.__pool.release(c)
-                        }
-                    }, __getRenderBounds: function (a, b) {
-                        if (null != this.__scrollRect) ka.prototype.__getRenderBounds.call(this, a, b); else if (ka.prototype.__getBounds.call(this, a, b), 0 != this.__children.length) {
-                            for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length;) {
-                                var h = f[d]; ++d; if (0 != h.__scaleX && 0 !=
-                                    h.__scaleY && !h.__isMask) { var n = h.__transform; c.a = n.a * b.a + n.b * b.c; c.b = n.a * b.b + n.b * b.d; c.c = n.c * b.a + n.d * b.c; c.d = n.c * b.b + n.d * b.d; c.tx = n.tx * b.a + n.ty * b.c + b.tx; c.ty = n.tx * b.b + n.ty * b.d + b.ty; h.__getRenderBounds(a, c) }
-                            } na.__pool.release(c)
-                        }
-                    }, __hitTest: function (a, b, c, d, f, h) {
-                        if (!h.get_visible() || this.__isMask || f && !this.mouseEnabled && !this.mouseChildren || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return !1; if (null != this.__scrollRect) {
-                            var n = I.__pool.get(); n.setTo(a, b); var A = this.__getRenderTransform(),
-                                p = A.a * A.d - A.b * A.c; if (0 == p) n.x = -A.tx, n.y = -A.ty; else { var g = 1 / p * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx)); n.y = 1 / p * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x)); n.x = g } if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), !1; I.__pool.release(n)
-                        } n = this.__children.length; if (f) if (null == d || !this.mouseChildren) for (; 0 <= --n;) { if (this.__children[n].__hitTest(a, b, c, null, !0, this.__children[n])) return null != d && d.push(h), !0 } else {
-                            if (null != d) {
-                                f = d.length; for (p = !1; 0 <= --n && !(((A = this.__children[n].__getInteractive(null)) || this.mouseEnabled &&
-                                    !p) && this.__children[n].__hitTest(a, b, c, d, !0, this.__children[n]) && (p = !0, A && d.length > f));); if (p) return d.splice(f, 0, h), !0
-                            }
-                        } else { for (p = !1; 0 <= --n && (!this.__children[n].__hitTest(a, b, c, d, !1, this.__children[n]) || (p = !0, null != d));); return p } return !1
-                    }, __hitTestMask: function (a, b) { for (var c = this.__children.length; 0 <= --c;)if (this.__children[c].__hitTestMask(a, b)) return !0; return !1 }, __readGraphicsData: function (a, b) {
-                        ka.prototype.__readGraphicsData.call(this, a, b); if (b) for (var c = 0, d = this.__children; c < d.length;) {
-                            var f =
-                                d[c]; ++c; f.__readGraphicsData(a, b)
-                        }
-                    }, __setStageReference: function (a) { ka.prototype.__setStageReference.call(this, a); if (null != this.__children) for (var b = 0, c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__setStageReference(a) } }, __setWorldTransformInvalid: function () { if (!this.__worldTransformInvalid && (this.__worldTransformInvalid = !0, null != this.__children)) for (var a = 0, b = this.__children; a < b.length;) { var c = b[a]; ++a; c.__setWorldTransformInvalid() } }, __tabTest: function (a) {
-                        ka.prototype.__tabTest.call(this, a);
-                        if (this.get_tabChildren()) for (var b, c = 0, d = this.__children; c < d.length;) { var f = d[c]; ++c; if (b = f.__getInteractive(null)) b = f, b.__tabTest(a) }
-                    }, __update: function (a, b) { ka.prototype.__update.call(this, a, b); if (b) { b = 0; for (var c = this.__children; b < c.length;) { var d = c[b]; ++b; d.__update(a, !0) } } }, get_numChildren: function () { return this.__children.length }, get_tabChildren: function () { return this.__tabChildren }, __class__: Ya, __properties__: u(ka.prototype.__properties__, { get_tabChildren: "get_tabChildren", get_numChildren: "get_numChildren" })
-                });
-            var ja = function () { Ya.call(this); this.__drawableType = 4; this.__buttonMode = !1; this.useHandCursor = !0; if (null != this.__pendingBindLibrary) { var a = this.__pendingBindLibrary, b = this.__pendingBindClassName; this.__pendingBindClassName = this.__pendingBindLibrary = null; a.bind(b, this) } else null != ja.__constructor && (a = ja.__constructor, ja.__constructor = null, a(this)) }; g["openfl.display.Sprite"] = ja; ja.__name__ = "openfl.display.Sprite"; ja.__super__ = Ya; ja.prototype = u(Ya.prototype, {
-                stopDrag: function () { null != this.stage && this.stage.__stopDrag(this) },
-                __setStageReference: function (a) { this.stage != a && null != this.stage && this.stage.__dragObject == this && this.stopDrag(); Ya.prototype.__setStageReference.call(this, a) }, __getCursor: function () { return this.__buttonMode && this.useHandCursor ? "button" : null }, __hitTest: function (a, b, c, d, f, h) {
-                    if (f && !this.mouseEnabled && !this.mouseChildren) return !1; if (!h.get_visible() || this.__isMask || null != this.get_mask() && !this.get_mask().__hitTestMask(a, b)) return this.__hitTestHitArea(a, b, c, d, f, h); if (null != this.__scrollRect) {
-                        var n = I.__pool.get();
-                        n.setTo(a, b); var A = this.__getRenderTransform(), p = A.a * A.d - A.b * A.c; if (0 == p) n.x = -A.tx, n.y = -A.ty; else { var g = 1 / p * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx)); n.y = 1 / p * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x)); n.x = g } if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), this.__hitTestHitArea(a, b, c, d, !0, h); I.__pool.release(n)
-                    } return Ya.prototype.__hitTest.call(this, a, b, c, d, f, h) ? null != d ? f : !0 : null == this.hitArea && null != this.__graphics && this.__graphics.__hitTest(a, b, c, this.__getRenderTransform()) ? (null == d || f && !this.mouseEnabled ||
-                        d.push(h), !0) : this.__hitTestHitArea(a, b, c, d, f, h)
-                }, __hitTestHitArea: function (a, b, c, d, f, h) { return null == this.hitArea || this.hitArea.mouseEnabled ? !1 : (this.hitArea.mouseEnabled = !0, a = this.hitArea.__hitTest(a, b, c, null, !0, h), this.hitArea.mouseEnabled = !1, null != d && a && (d[d.length] = h), a) }, __hitTestMask: function (a, b) { return Ya.prototype.__hitTestMask.call(this, a, b) || null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1 }, get_graphics: function () {
-                    null == this.__graphics && (this.__graphics =
-                        new fd(this)); return this.__graphics
-                }, get_tabEnabled: function () { return null == this.__tabEnabled ? this.__buttonMode : this.__tabEnabled }, get_buttonMode: function () { return this.__buttonMode }, set_buttonMode: function (a) { return this.__buttonMode = a }, __class__: ja, __properties__: u(Ya.prototype.__properties__, { get_graphics: "get_graphics", set_buttonMode: "set_buttonMode", get_buttonMode: "get_buttonMode" })
-            }); var hb = function (a) { hb.instance = this; ja.call(this); this.prepareStage(); Va.useEnterFrame(this); hb.switchScene(a) };
-            g["com.watabou.coogee.Game"] = hb; hb.__name__ = "com.watabou.coogee.Game"; hb.switchScene = function (a) { hb.instance.switchSceneImp(a) }; hb.quit = function () { }; hb.__super__ = ja; hb.prototype = u(ja.prototype, {
-                prepareStage: function () {
-                    var a = this; this.stage.align = 6; this.stage.set_scaleMode(2); this.stage.addEventListener("resize", function (b) { a.layout() }); this.stage.application.onExit.add(k(this, this.onExit)); this.stage.application.__window.onActivate.add(k(this, this.onResume)); this.stage.application.__window.onDeactivate.add(k(this,
-                        this.onPause))
-                }, onExit: function (a) { Va.stop() }, onResume: function () { }, onPause: function () { }, layout: function () { if (null != hb.scene) { var a = this.stage.stageWidth, b = this.stage.stageHeight, c = this.getScale(a, b); hb.scene.set_scaleX(hb.scene.set_scaleY(c)); hb.scene.setSize(a / c, b / c) } }, getScale: function (a, b) { return 1 }, switchSceneImp: function (a) {
-                    null != hb.scene && (hb.scene.deactivate(), this.removeChild(hb.scene), hb.scene = null); null != a && (hb.scene = lb.createInstance(a, []), this.addChild(hb.scene), this.layout(), hb.scene.activate());
-                    this.stage.set_focus(this.stage)
-                }, __class__: hb
-            }); var nc = function () { v.reset(); O.useDefault(); this.stage.showDefaultContextMenu = !1; ob.baseURL += "one-page-dungeon/"; hb.call(this, oe) }; g["com.watabou.dungeon.Main"] = nc; nc.__name__ = "com.watabou.dungeon.Main"; nc.__super__ = hb; nc.prototype = u(hb.prototype, {
-                switchSceneImp: function (a) { null == T.layer && (T.layer = new S); hb.prototype.switchSceneImp.call(this, a); this.addChild(T.layer); T.wipe() }, layout: function () {
-                    hb.prototype.layout.call(this); var a = this.stage.stageWidth,
-                        b = this.stage.stageHeight; T.layer.set_scaleX(T.layer.set_scaleY(1)); T.layer.setSize(a / 1, b / 1); a = this.stage.stageWidth; b = this.stage.stageHeight; var c = 1 * G.normal; this.get_graphics().clear(); this.get_graphics().beginFill(G.ink); this.get_graphics().drawRect(0, 0, a, c); this.get_graphics().drawRect(0, c, c, b - 2 * c); this.get_graphics().drawRect(a - c, c, c, b - 2 * c); this.get_graphics().drawRect(0, b - c, a, c)
-                }, getScale: function (a, b) { return 1 * Math.min(1, Math.min(a, b) / 768) }, __class__: nc
-            }); var Wb = function (a) {
-                a.addChild(this);
-                nc.call(this); this.dispatchEvent(new ra("addedToStage", !1, !1))
-            }; g.DocumentClass = Wb; Wb.__name__ = "DocumentClass"; Wb.__super__ = nc; Wb.prototype = u(nc.prototype, { __class__: Wb }); var sa = function (a, b) { this.r = new RegExp(a, b.split("u").join("")) }; g.EReg = sa; sa.__name__ = "EReg"; sa.prototype = {
-                match: function (a) { this.r.global && (this.r.lastIndex = 0); this.r.m = this.r.exec(a); this.r.s = a; return null != this.r.m }, matched: function (a) {
-                    if (null != this.r.m && 0 <= a && a < this.r.m.length) return this.r.m[a]; throw Z.thrown("EReg::matched");
-                }, matchedPos: function () { if (null == this.r.m) throw Z.thrown("No string matched"); return { pos: this.r.m.index, len: this.r.m[0].length } }, matchSub: function (a, b, c) { null == c && (c = -1); if (this.r.global) { if (this.r.lastIndex = b, this.r.m = this.r.exec(0 > c ? a : N.substr(a, 0, b + c)), c = null != this.r.m) this.r.s = a } else if (c = this.match(0 > c ? N.substr(a, b, null) : N.substr(a, b, c))) this.r.s = a, this.r.m.index += b; return c }, split: function (a) { return a.replace(this.r, "#__delim__#").split("#__delim__#") }, map: function (a, b) {
-                    var c = 0, d = ""; do {
-                        if (c >=
-                            a.length) break; else if (!this.matchSub(a, c)) { d += m.string(N.substr(a, c, null)); break } var f = this.matchedPos(); d += m.string(N.substr(a, c, f.pos - c)); d += m.string(b(this)); 0 == f.len ? (d += m.string(N.substr(a, f.pos, 1)), c = f.pos + 1) : c = f.pos + f.len
-                    } while (this.r.global); !this.r.global && 0 < c && c < a.length && (d += m.string(N.substr(a, c, null))); return d
-                }, __class__: sa
-            }; var N = function () { }; g.HxOverrides = N; N.__name__ = "HxOverrides"; N.strDate = function (a) {
-                switch (a.length) {
-                    case 8: a = a.split(":"); var b = new Date; b.setTime(0); b.setUTCHours(a[0]);
-                        b.setUTCMinutes(a[1]); b.setUTCSeconds(a[2]); return b; case 10: return a = a.split("-"), new Date(a[0], a[1] - 1, a[2], 0, 0, 0); case 19: return a = a.split(" "), b = a[0].split("-"), a = a[1].split(":"), new Date(b[0], b[1] - 1, b[2], a[0], a[1], a[2]); default: throw Z.thrown("Invalid date format : " + a);
+            /**
+             * Função utilitária do Haxe para herança de protótipos.
+             * Cria um novo objeto com o protótipo de 'a' e copia as propriedades de 'b' para ele.
+             */
+            function u(a, b) {
+                a = Object.create(a);
+                for (var c in b) {
+                    a[c] = b[c];
                 }
-            }; N.cca = function (a, b) { a = a.charCodeAt(b); if (a == a) return a }; N.substr = function (a, b, c) { if (null == c) c = a.length; else if (0 > c) if (0 == b) c = a.length + c; else return ""; return a.substr(b, c) }; N.remove = function (a, b) {
-                b = a.indexOf(b); if (-1 == b) return !1;
-                a.splice(b, 1); return !0
-            }; N.now = function () { return Date.now() }; var C = function () { }; g.Lambda = C; C.__name__ = "Lambda"; C.array = function (a) { var b = []; for (a = K(a); a.hasNext();) { var c = a.next(); b.push(c) } return b }; var cb = function () { }; g.ManifestResources = cb; cb.__name__ = "ManifestResources"; cb.init = function (a) {
-                cb.preloadLibraries = []; cb.preloadLibraryNames = []; cb.rootPath = null; null != a && Object.prototype.hasOwnProperty.call(a, "rootPath") && (cb.rootPath = oa.field(a, "rootPath"), w.endsWith(cb.rootPath, "/") || (cb.rootPath += "/"));
-                null == cb.rootPath && (cb.rootPath = "./"); M.registerFont(R); M.registerFont(Gc); M.registerFont(va); M.registerFont(Ib); a = Xc.parse('{"name":null,"assets":"aoy4:pathy17:assets%2Ftags.txty4:sizei1234y4:typey4:TEXTy2:idy4:tagsy7:preloadtgoR0y21:assets%2Fgrammar.jsonR2i21664R3R4R5y7:grammarR7tgoR0y19:assets%2Fdemons.txtR2i677R3R4R5y6:demonsR7tgoR0y21:assets%2Fdefault.jsonR2i1028R3R4R5y7:defaultR7tgoR0y21:assets%2Fancient.jsonR2i1028R3R4R5y7:ancientR7tgoR0y20:assets%2Fmodern.jsonR2i1030R3R4R5y6:modernR7tgoR0y19:assets%2Flight.jsonR2i1043R3R4R5y5:lightR7tgoR0y18:assets%2Flink.jsonR2i1027R3R4R5y4:linkR7tgoR2i48956R3y4:FONTy9:classNamey44:__ASSET__assets_pathwaygothicone_regular_ttfR5y12:regular_fontR7tgoR2i30424R3R22R23y39:__ASSET__assets_germaniaone_regular_ttfR5y10:title_fontR7tgoR2i46596R3R22R23y37:__ASSET__assets_sharetech_regular_ttfR5y7:ui_fontR7tgoR2i42756R3R22R23y41:__ASSET__assets_sharetechmono_regular_ttfR5y12:ui_font_monoR7tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}',
-                    cb.rootPath); a = Db.fromManifest(a); wa.registerLibrary("default", a); a = wa.getLibrary("default"); null != a ? cb.preloadLibraries.push(a) : cb.preloadLibraryNames.push("default")
-            }; var za = function (a) {
+                if (b.toString !== Object.prototype.toString) {
+                    a.toString = b.toString;
+                }
+                return a;
+            }
+
+            /**
+             * Função utilitária do Haxe para obter um iterador de um objeto.
+             */
+            function K(a) {
+                return a instanceof Array ? new Je(a) : a.iterator();
+            }
+
+            /**
+             * Função utilitária do Haxe para "ligar" (bind) uma função a um escopo, com cache.
+             */
+            function k(a, b) {
+                if (null == b) return null;
+                if (null == b.__id__) {
+                    b.__id__ = x.$haxeUID++;
+                }
+                var c;
+                if (null == a.hx__closures__) {
+                    a.hx__closures__ = {};
+                } else {
+                    c = a.hx__closures__[b.__id__];
+                }
+                if (null == c) {
+                    c = b.bind(a);
+                    a.hx__closures__[b.__id__] = c;
+                }
+                return c;
+            }
+
+            r.lime = r.lime || {};
+            var g = {},
+                q = function() {
+                    return Ja.__string_rec(this, "");
+                },
+                D = D || {},
+                J,
+                pa = function() {};
+            g["lime.app.IModule"] = pa;
+            pa.__name__ = "lime.app.IModule";
+            pa.__isInterface__ = !0;
+            pa.prototype = {
+                __class__: pa,
+            };
+            var ca = function() {
+                this.onExit = new Ke();
+            };
+            g["lime.app.Module"] = ca;
+            ca.__name__ = "lime.app.Module";
+            ca.__interfaces__ = [pa];
+            ca.prototype = {
+                __registerLimeModule: function(a) {},
+                __unregisterLimeModule: function(a) {},
+                __class__: ca,
+            };
+            var B = function(a) {
+                this.gameDeviceCache = new Ub();
+                this.parent = a;
+                this.nextUpdate = this.lastUpdate = this.currentUpdate = 0;
+                this.framePeriod = -1;
+                Ud.init();
+                this.accelerometer = Vd.registerSensor(ek.ACCELEROMETER, 0);
+            };
+            g["lime._internal.backend.html5.HTML5Application"] = B;
+            B.__name__ = "lime._internal.backend.html5.HTML5Application";
+            B.prototype = {
+                convertKeyCode: function(a) {
+                    if (65 <= a && 90 >= a) return a + 32;
+                    switch (a) {
+                        case 12: return 1073741980; case 16: return 1073742049; case 17: return 1073742048; case 18: return 1073742050; case 19: return 1073741896; case 20: return 1073741881; case 33: return 1073741899; case 34: return 1073741902; case 35: return 1073741901;
+                        case 36: return 1073741898; case 37: return 1073741904; case 38: return 1073741906; case 39: return 1073741903; case 40: return 1073741905; case 41: return 1073741943; case 43: return 1073741940; case 44: return 1073741894; case 45: return 1073741897; case 46: return 127; case 91: return 1073742051; case 92: return 1073742055; case 93: return 1073742055; case 95: return 1073742106; case 96: return 1073741922; case 97: return 1073741913; case 98: return 1073741914; case 99: return 1073741915; case 100: return 1073741916; case 101: return 1073741917;
+                        case 102: return 1073741918; case 103: return 1073741919; case 104: return 1073741920; case 105: return 1073741921; case 106: return 1073741909; case 107: return 1073741911; case 108: return 1073741923; case 109: return 1073741910; case 110: return 1073741923; case 111: return 1073741908; case 112: return 1073741882; case 113: return 1073741883; case 114: return 1073741884; case 115: return 1073741885; case 116: return 1073741886; case 117: return 1073741887; case 118: return 1073741888; case 119: return 1073741889; case 120: return 1073741890;
+                        case 121: return 1073741891; case 122: return 1073741892; case 123: return 1073741893; case 124: return 1073741928; case 125: return 1073741929; case 126: return 1073741930; case 127: return 1073741931; case 128: return 1073741932; case 129: return 1073741933; case 130: return 1073741934; case 131: return 1073741935; case 132: return 1073741936; case 133: return 1073741937; case 134: return 1073741938; case 135: return 1073741939; case 144: return 1073741907; case 145: return 1073741895; case 160: return 94; case 161: return 33; case 163: return 35;
+                        case 164: return 36; case 166: return 1073742094; case 167: return 1073742095; case 168: return 1073742097; case 169: return 41; case 170: return 42; case 171: return 96; case 172: return 1073741898; case 173: return 45; case 174: return 1073741953; case 175: return 1073741952; case 176: return 1073742082; case 177: return 1073742083; case 178: return 1073742084; case 179: return 1073742085; case 180: return 1073742089; case 181: return 1073742086; case 182: return 1073741953; case 183: return 1073741952; case 186: return 59; case 187: return 61;
+                        case 188: return 44; case 189: return 45; case 190: return 46; case 191: return 47; case 192: return 96; case 193: return 63; case 194: return 1073741923; case 219: return 91; case 220: return 92; case 221: return 93; case 222: return 39; case 223: return 96; case 224: return 1073742051; case 226: return 92
+                    }
+                    return a;
+                },
+                exec: function() {
+                    window.addEventListener("keydown", k(this, this.handleKeyEvent), false);
+                    window.addEventListener("keyup", k(this, this.handleKeyEvent), false);
+                    window.addEventListener("focus", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("blur", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("resize", k(this, this.handleWindowEvent), false);
+                    window.addEventListener("beforeunload", k(this, this.handleWindowEvent), false);
+                    if (Object.prototype.hasOwnProperty.call(window, "Accelerometer")) {
+                        window.addEventListener("devicemotion", k(this, this.handleSensorEvent), false);
+                    }
+                    if (!CanvasRenderingContext2D.prototype.isPointInStroke) {
+                        CanvasRenderingContext2D.prototype.isPointInStroke = function(a, b, c) {
+                            return false;
+                        };
+                    }
+                    if (!CanvasRenderingContext2D.prototype.isPointInPath) {
+                        CanvasRenderingContext2D.prototype.isPointInPath = function(a, b, c) {
+                            return false;
+                        };
+                    }
+                    if (("performance" in window) == 0) {
+                        window.performance = {};
+                    }
+                    if (("now" in window.performance) == 0) {
+                        var a = Date.now();
+                        if (performance.timing && performance.timing.navigationStart) {
+                            a = performance.timing.navigationStart;
+                        }
+                        window.performance.now = function() {
+                            return Date.now() - a;
+                        };
+                    }
+                    for (var b = 0, c = ["ms", "moz", "webkit", "o"], d = 0; d < c.length && !window.requestAnimationFrame; ++d) {
+                        window.requestAnimationFrame = window[c[d] + "RequestAnimationFrame"];
+                        window.cancelAnimationFrame = window[c[d] + "CancelAnimationFrame"] || window[c[d] + "CancelRequestAnimationFrame"];
+                    }
+                    if (!window.requestAnimationFrame) {
+                        window.requestAnimationFrame = function(a, c) {
+                            var d = window.performance.now();
+                            var f = Math.max(0, 16 - (d - b));
+                            c = window.setTimeout(function() {
+                                a(d + f);
+                            }, f);
+                            b = d + f;
+                            return c;
+                        };
+                    }
+                    if (!window.cancelAnimationFrame) {
+                        window.cancelAnimationFrame = function(a) {
+                            clearTimeout(a);
+                        };
+                    }
+                    window.requestAnimFrame = window.requestAnimationFrame;
+                    this.lastUpdate = window.performance.now();
+                    this.handleApplicationEvent();
+                    return 0;
+                },
+                exit: function() {},
+                handleApplicationEvent: function(a) {
+                    a = 0;
+                    for (var b = this.parent.__windows; a < b.length;) {
+                        var c = b[a];
+                        ++a;
+                        c.__backend.updateSize();
+                    }
+                    this.updateGameDevices();
+                    this.currentUpdate = window.performance.now();
+                    if (this.currentUpdate >= this.nextUpdate) {
+                        this.deltaTime = this.currentUpdate - this.lastUpdate;
+                        a = 0;
+                        for (b = this.parent.__windows; a < b.length;) {
+                            c = b[a];
+                            ++a;
+                            this.parent.onUpdate.dispatch(this.deltaTime | 0);
+                            if (null != c.context) {
+                                c.onRender.dispatch(c.context);
+                            }
+                        }
+                        this.nextUpdate =
+                            0 > this.framePeriod ?
+                            this.currentUpdate :
+                            this.currentUpdate - (this.currentUpdate % this.framePeriod) + this.framePeriod;
+                        this.lastUpdate = this.currentUpdate;
+                    }
+                    window.requestAnimationFrame(k(this, this.handleApplicationEvent));
+                },
+                handleKeyEvent: function(a) {
+                    if (null != this.parent.__window) {
+                        var b = this.convertKeyCode(null != a.keyCode ? a.keyCode : a.which);
+                        var c = (a.shiftKey ? 3 : 0) | (a.ctrlKey ? 192 : 0) | (a.altKey ? 768 : 0) | (a.metaKey ? 3072 : 0);
+                        if ("keydown" == a.type) {
+                            this.parent.__window.onKeyDown.dispatch(b, c);
+                            if (this.parent.__window.onKeyDown.canceled && a.cancelable) {
+                                a.preventDefault();
+                            }
+                        } else {
+                            this.parent.__window.onKeyUp.dispatch(b, c);
+                            if (this.parent.__window.onKeyUp.canceled && a.cancelable) {
+                                a.preventDefault();
+                            }
+                        }
+                    }
+                },
+                handleSensorEvent: function(a) {
+                    this.accelerometer.onUpdate.dispatch(a.accelerationIncludingGravity.x, a.accelerationIncludingGravity.y, a.accelerationIncludingGravity.z);
+                },
+                handleWindowEvent: function(a) {
+                    if (null != this.parent.__window) {
+                        switch (a.type) {
+                            case "blur":
+                                if (!this.hidden) {
+                                    this.parent.__window.onFocusOut.dispatch();
+                                    this.parent.__window.onDeactivate.dispatch();
+                                    this.hidden = true;
+                                }
+                                break;
+                            case "focus":
+                                if (this.hidden) {
+                                    this.parent.__window.onFocusIn.dispatch();
+                                    this.parent.__window.onActivate.dispatch();
+                                    this.hidden = false;
+                                }
+                                break;
+                            case "resize":
+                                this.parent.__window.__backend.handleResizeEvent(a);
+                                break;
+                            case "visibilitychange":
+                                if (window.document.hidden) {
+                                    if (!this.hidden) {
+                                        this.parent.__window.onFocusOut.dispatch();
+                                        this.parent.__window.onDeactivate.dispatch();
+                                        this.hidden = true;
+                                    }
+                                } else if (this.hidden) {
+                                    this.parent.__window.onFocusIn.dispatch();
+                                    this.parent.__window.onActivate.dispatch();
+                                    this.hidden = false;
+                                }
+                        }
+                    }
+                },
+                updateGameDevices: function() {
+                    var a = ac.__getDeviceData();
+                    if (null != a) {
+                        for (var b, c, d, f, h, n = 0, A = a.length; n < A;) {
+                            b = n++;
+                            f = a[b];
+                            if (null != f) {
+                                if (!this.gameDeviceCache.h.hasOwnProperty(b)) {
+                                    h = new Di();
+                                    h.id = b;
+                                    h.connected = f.connected;
+                                    c = 0;
+                                    for (d = f.buttons.length; c < d;) {
+                                        var p = c++;
+                                        h.buttons.push(f.buttons[p].value);
+                                    }
+                                    c = 0;
+                                    for (d = f.axes.length; c < d;) {
+                                        p = c++;
+                                        h.axes.push(f.axes[p]);
+                                    }
+                                    if ("standard" == f.mapping) {
+                                        h.isGamepad = true;
+                                    }
+                                    this.gameDeviceCache.h[b] = h;
+                                    if (f.connected) {
+                                        ac.__connect(b);
+                                        if (h.isGamepad) {
+                                            cc.__connect(b);
+                                        }
+                                    }
+                                }
+                                h = this.gameDeviceCache.h[b];
+                                d = ac.devices.h[b];
+                                c = cc.devices.h[b];
+                                if (f.connected) {
+                                    for (var g = 0, t = f.buttons.length; g < t;) {
+                                        var l = g++;
+                                        p = f.buttons[l].value;
+                                        if (p != h.buttons[l]) {
+                                            if (6 == l) {
+                                                d.onAxisMove.dispatch(f.axes.length, p);
+                                                if (null != c) {
+                                                    c.onAxisMove.dispatch(4, p);
+                                                }
+                                            } else if (7 == l) {
+                                                d.onAxisMove.dispatch(f.axes.length + 1, p);
+                                                if (null != c) {
+                                                    c.onAxisMove.dispatch(5, p);
+                                                }
+                                            } else if (0 < p ? d.onButtonDown.dispatch(l) : d.onButtonUp.dispatch(l), null != c) {
+                                                switch (l) {
+                                                    case 0: b = 0; break;
+                                                    case 1: b = 1; break;
+                                                    case 2: b = 2; break;
+                                                    case 3: b = 3; break;
+                                                    case 4: b = 9; break;
+                                                    case 5: b = 10; break;
+                                                    case 8: b = 4; break;
+                                                    case 9: b = 6; break;
+                                                    case 10: b = 7; break;
+                                                    case 11: b = 8; break;
+                                                    case 12: b = 11; break;
+                                                    case 13: b = 12; break;
+                                                    case 14: b = 13; break;
+                                                    case 15: b = 14; break;
+                                                    case 16: b = 5; break;
+                                                    default: continue;
+                                                }
+                                                0 < p ? c.onButtonDown.dispatch(b) : c.onButtonUp.dispatch(b);
+                                            }
+                                            h.buttons[l] = p;
+                                        }
+                                    }
+                                    b = 0;
+                                    for (p = f.axes.length; b < p;) {
+                                        g = b++;
+                                        if (f.axes[g] != h.axes[g]) {
+                                            d.onAxisMove.dispatch(g, f.axes[g]);
+                                            if (null != c) {
+                                                c.onAxisMove.dispatch(g, f.axes[g]);
+                                            }
+                                            h.axes[g] = f.axes[g];
+                                        }
+                                    }
+                                } else if (h.connected) {
+                                    h.connected = false;
+                                    ac.__disconnect(b);
+                                    cc.__disconnect(b);
+                                }
+                            }
+                        }
+                    }
+                },
+                __class__: B,
+            };
+                
+            /**
+             * A classe Application (F) é a classe principal da aplicação, responsável pelo
+             * ciclo de vida, gerenciamento de módulos e eventos.
+             * @class
+             * @extends {ca} // ca é lime.app.Module
+             */
+            var F = function() {
+                this.onCreateWindow = new Ei(); // Ei é Event<Window>
+                this.onUpdate = new Ke(); // Ke é Event<Int>
+                this.onExit = new Ke(); // Ke é Event<Int>
+
+                if (null == F.current) {
+                    F.current = this;
+                }
+
+                this.meta = new Ma(); // Ma é StringMap
+                this.modules = [];
+                this.__windowByID = new Ub(); // Ub é IntMap
+                this.__windows = [];
+                this.__backend = new B(this); // B é HTML5Application
+                this.__registerLimeModule(this);
+                this.__preloader = new Fi(); // Fi é Preloader
+                this.__preloader.onProgress.add(k(this, this.onPreloadProgress));
+                this.__preloader.onComplete.add(k(this, this.onPreloadComplete));
+            };
+
+            g["lime.app.Application"] = F;
+            F.__name__ = "lime.app.Application";
+            F.__super__ = ca; // ca é lime.app.Module
+
+            F.prototype = u(ca.prototype, {
+                /**
+                 * Adiciona um módulo à aplicação.
+                 * @param {object} a - O módulo a ser adicionado.
+                 */
+                addModule: function(a) {
+                    a.__registerLimeModule(this);
+                    this.modules.push(a);
+                },
+
+                /**
+                 * Inicia a execução do backend da aplicação.
+                 */
+                exec: function() {
+                    F.current = this;
+                    return this.__backend.exec();
+                },
+
+                // --- Placeholder de Handlers de Eventos ---
+                // Estes métodos vazios são projetados para serem sobrescritos pelas classes filhas.
+                onGamepadAxisMove: function(a, b, c) {},
+                onGamepadButtonDown: function(a, b) {},
+                onGamepadButtonUp: function(a, b) {},
+                onGamepadConnect: function(a) {},
+                onGamepadDisconnect: function(a) {},
+                onJoystickAxisMove: function(a, b, c) {},
+                onJoystickButtonDown: function(a, b) {},
+                onJoystickButtonUp: function(a, b) {},
+                onJoystickConnect: function(a) {},
+                onJoystickDisconnect: function(a) {},
+                onJoystickHatMove: function(a, b, c) {},
+                onKeyDown: function(a, b) {},
+                onKeyUp: function(a, b) {},
+                onModuleExit: function(a) {},
+                onMouseDown: function(a, b, c) {},
+                onMouseMove: function(a, b) {},
+                onMouseMoveRelative: function(a, b) {},
+                onMouseUp: function(a, b, c) {},
+                onMouseWheel: function(a, b, c) {},
+                onPreloadComplete: function() {},
+                onPreloadProgress: function(a, b) {},
+                onRenderContextLost: function() {},
+                onRenderContextRestored: function(a) {},
+                onTextEdit: function(a, b, c) {},
+                onTextInput: function(a) {},
+                onTouchCancel: function(a) {},
+                onTouchEnd: function(a) {},
+                onTouchMove: function(a) {},
+                onTouchStart: function(a) {},
+                onWindowActivate: function() {},
+                onWindowClose: function() {},
+                onWindowCreate: function() {},
+                onWindowDeactivate: function() {},
+                onWindowDropFile: function(a) {},
+                onWindowEnter: function() {},
+                onWindowExpose: function() {},
+                onWindowFocusIn: function() {},
+                onWindowFocusOut: function() {},
+                onWindowFullscreen: function() {},
+                onWindowLeave: function() {},
+                onWindowMove: function(a, b) {},
+                onWindowMinimize: function() {},
+                onWindowResize: function(a, b) {},
+                onWindowRestore: function() {},
+
+                /**
+                 * Remove um módulo da aplicação.
+                 */
+                removeModule: function(a) {
+                    if (null != a) {
+                        a.__unregisterLimeModule(this);
+                        N.remove(this.modules, a); // N é HxOverrides
+                    }
+                },
+
+                /**
+                 * Placeholder para o evento de renderização.
+                 */
+                render: function(a) {},
+
+                /**
+                 * Placeholder para o evento de atualização.
+                 */
+                update: function(a) {},
+
+                /**
+                 * Registra os listeners de eventos para um módulo.
+                 */
+                __registerLimeModule: function(a) {
+                    a.onUpdate.add(k(this, this.update));
+                    a.onExit.add(k(this, this.onModuleExit), false, 0);
+                    a.onExit.add(k(this, this.__onModuleExit), false, -1000);
+
+                    for (var b, a = cc.devices.iterator(); a.hasNext();) {
+                        b = a.next();
+                        this.__onGamepadConnect(b);
+                    }
+                    cc.onConnect.add(k(this, this.__onGamepadConnect));
+
+                    for (a = ac.devices.iterator(); a.hasNext();) {
+                        b = a.next();
+                        this.__onJoystickConnect(b);
+                    }
+                    ac.onConnect.add(k(this, this.__onJoystickConnect));
+
+                    Pb.onCancel.add(k(this, this.onTouchCancel));
+                    Pb.onStart.add(k(this, this.onTouchStart));
+                    Pb.onMove.add(k(this, this.onTouchMove));
+                    Pb.onEnd.add(k(this, this.onTouchEnd));
+                },
+
+                /**
+                 * Remove uma janela da aplicação.
+                 */
+                __removeWindow: function(a) {
+                    if (null != a && this.__windowByID.h.hasOwnProperty(a.id)) {
+                        if (this.__window == a) {
+                            this.__window = null;
+                        }
+                        N.remove(this.__windows, a);
+                        this.__windowByID.remove(a.id);
+                        a.close();
+                        this.__checkForAllWindowsClosed();
+                    }
+                },
+
+                /**
+                 * Verifica se todas as janelas foram fechadas para encerrar a aplicação.
+                 */
+                __checkForAllWindowsClosed: function() {
+                    if (this.__windows.length == 0) {
+                        mc.exit(0);
+                    }
+                },
+
+                /**
+                 * Handler interno para conexão de gamepad.
+                 */
+                __onGamepadConnect: function(a) {
+                    this.onGamepadConnect(a);
+                    var b = this,
+                        c = function(c, d) {
+                            b.onGamepadAxisMove(a, c, d);
+                        };
+                    a.onAxisMove.add(c);
+                    var d = this;
+                    c = function(b) {
+                        d.onGamepadButtonDown(a, b);
+                    };
+                    a.onButtonDown.add(c);
+                    var f = this;
+                    c = function(b) {
+                        f.onGamepadButtonUp(a, b);
+                    };
+                    a.onButtonUp.add(c);
+                    var h = this;
+                    a.onDisconnect.add(function() {
+                        h.onGamepadDisconnect(a);
+                    });
+                },
+
+                /**
+                 * Handler interno para conexão de joystick.
+                 */
+                __onJoystickConnect: function(a) {
+                    this.onJoystickConnect(a);
+                    var b = this,
+                        c = function(c, d) {
+                            b.onJoystickAxisMove(a, c, d);
+                        };
+                    a.onAxisMove.add(c);
+                    var d = this;
+                    c = function(b) {
+                        d.onJoystickButtonDown(a, b);
+                    };
+                    a.onButtonDown.add(c);
+                    var f = this;
+                    c = function(b) {
+                        f.onJoystickButtonUp(a, b);
+                    };
+                    a.onButtonUp.add(c);
+                    var h = this;
+                    a.onDisconnect.add(function() {
+                        h.onJoystickDisconnect(a);
+                    });
+                    var n = this;
+                    c = function(b, c) {
+                        n.onJoystickHatMove(a, b, c);
+                    };
+                    a.onHatMove.add(c);
+                },
+
+                /**
+                 * Handler interno para a saída de um módulo.
+                 */
+                __onModuleExit: function(a) {
+                    if (!this.onExit.canceled) {
+                        this.__unregisterLimeModule(this);
+                        this.__backend.exit();
+                        if (F.current == this) {
+                            F.current = null;
+                        }
+                    }
+                },
+
+                /**
+                 * Handler interno para o fechamento de uma janela.
+                 */
+                __onWindowClose: function(a) {
+                    if (this.__window == a) {
+                        this.onWindowClose();
+                    }
+                    this.__removeWindow(a);
+                },
+
+                /**
+                 * Desregistra os listeners de eventos para um módulo.
+                 */
+                __unregisterLimeModule: function(a) {
+                    a.onUpdate.remove(k(this, this.update));
+                    a.onExit.remove(k(this, this.__onModuleExit));
+                    a.onExit.remove(k(this, this.onModuleExit));
+                    cc.onConnect.remove(k(this, this.__onGamepadConnect));
+                    ac.onConnect.remove(k(this, this.__onJoystickConnect));
+                    Pb.onCancel.remove(k(this, this.onTouchCancel));
+                    Pb.onStart.remove(k(this, this.onTouchStart));
+                    Pb.onMove.remove(k(this, this.onTouchMove));
+                    Pb.onEnd.remove(k(this, this.onTouchEnd));
+                },
+
+                __class__: F,
+            });
+
+            /**
+             * A classe estática ApplicationMain (V) é o ponto de entrada principal da aplicação.
+             * Ela é responsável por configurar o ambiente, carregar os recursos e
+             * iniciar a cena principal do jogo.
+             */
+            var ApplicationMain = function() {};
+            g.ApplicationMain = ApplicationMain;
+            ApplicationMain.__name__ = "ApplicationMain";
+
+            /**
+             * O método main, que registra o ponto de entrada da aplicação.
+             */
+            ApplicationMain.main = function() {
+                // mc é lime.system.System
+                mc.__registerEntryPoint("Dungeon", ApplicationMain.create);
+            };
+
+            /**
+             * Cria e configura a aplicação, o preloader e a janela principal.
+             * @param {object} config - Configurações de inicialização do Lime.
+             */
+            ApplicationMain.create = function(config) {
+                // bg é openfl.display.Application
+                var app = new bg();
+                ManifestResources.init(config);
+
+                // Define os metadados da aplicação
+                app.meta.h.build = "159";
+                app.meta.h.company = "Retronic Games";
+                app.meta.h.file = "Dungeon";
+                app.meta.h.name = "One Page Dungeon Generator";
+                app.meta.h.packageName = "com.watabou.dungeon";
+                app.meta.h.version = "1.2.5";
+
+                // Configurações padrão da janela
+                var windowConfig = {
+                    allowHighDPI: true,
+                    alwaysOnTop: false,
+                    borderless: false,
+                    element: null,
+                    frameRate: 60,
+                    height: 0,
+                    hidden: false,
+                    maximized: false,
+                    minimized: false,
+                    parameters: {},
+                    resizable: true,
+                    title: "One Page Dungeon Generator",
+                    width: 0,
+                    x: null,
+                    y: null,
+                    context: {
+                        antialiasing: 4,
+                        background: 16316660,
+                        colorDepth: 32,
+                        depth: true,
+                        hardware: true,
+                        stencil: true,
+                        type: null,
+                        vsync: true
+                    }
+                };
+
+                // Sobrescreve as configurações padrão com as recebidas
+                if (null == app.__window && null != config) {
+                    for (var i = 0, fields = oa.fields(config); i < fields.length;) {
+                        var field = fields[i];
+                        ++i;
+                        if (Object.prototype.hasOwnProperty.call(windowConfig, field)) {
+                            windowConfig[field] = oa.field(config, field);
+                        } else if (Object.prototype.hasOwnProperty.call(windowConfig.context, field)) {
+                            windowConfig.context[field] = oa.field(config, field);
+                        }
+                    }
+                }
+
+                app.createWindow(windowConfig);
+
+                // Cria o preloader
+                // Pg é openfl.display.Preloader, cg é openfl.display.DefaultPreloader
+                var preloader = new Pg(new cg());
+                app.__preloader.onProgress.add(function(loaded, total) {
+                    preloader.update(loaded, total);
+                });
+                app.__preloader.onComplete.add(function() {
+                    preloader.start();
+                });
+
+                var stage = app.__window.stage;
+                preloader.onComplete.add(function() {
+                    ApplicationMain.start(stage);
+                });
+
+                // Adiciona as bibliotecas de assets ao preloader e inicia o carregamento
+                for (var i = 0, libs = ManifestResources.preloadLibraries; i < libs.length;) {
+                    var lib = libs[i];
+                    ++i;
+                    app.__preloader.addLibrary(lib);
+                }
+                for (var i = 0, libNames = ManifestResources.preloadLibraryNames; i < libNames.length;) {
+                    var libName = libNames[i];
+                    ++i;
+                    app.__preloader.addLibraryName(libName);
+                }
+
+                app.__preloader.load();
+                app.exec();
+            };
+
+            /**
+             * Chamado após o carregamento de todos os assets.
+             * Inicia a classe principal da aplicação.
+             * @param {object} stage - O palco principal da aplicação.
+             */
+            ApplicationMain.start = function(stage) {
+                if (stage.__uncaughtErrorEvents.__enabled) {
+                    try {
+                        var root = stage.getChildAt(0);
+                        if (null == root || !(root instanceof Ya)) { // Ya é DisplayObjectContainer
+                            root = new Le(); // Le é MovieClip
+                            stage.addChild(root);
+                        }
+                        new Wb(root); // Wb é a DocumentClass (Main)
+                        stage.dispatchEvent(new ra("resize", false, false)); // ra é Event
+                        if (stage.window.__fullscreen) {
+                            stage.dispatchEvent(new ne("fullScreen", false, false, true, true)); // ne é FullScreenEvent
+                        }
+                    } catch (e) {
+                        Ca.lastError = e;
+                        var error = Z.caught(e).unwrap();
+                        stage.__handleError(error);
+                    }
+                } else {
+                    var root = stage.getChildAt(0);
+                    if (null == root || !(root instanceof Ya)) {
+                        root = new Le();
+                        stage.addChild(root);
+                    }
+                    new Wb(root);
+                    stage.dispatchEvent(new ra("resize", false, false));
+                    if (stage.window.__fullscreen) {
+                        stage.dispatchEvent(new ne("fullScreen", false, false, true, true));
+                    }
+                }
+            };
+                
+            /**
+             * A interface IEventDispatcher (L) define um "contrato" para qualquer classe
+             * que precise despachar eventos no OpenFL.
+             * @interface
+             */
+            var L = function() {};
+            g["openfl.events.IEventDispatcher"] = L;
+            L.__name__ = "openfl.events.IEventDispatcher";
+            L.__isInterface__ = true;
+
+            /**
+             * Construtor da classe EventDispatcher, a implementação base da
+             * interface IEventDispatcher e classe pai para todos os objetos
+             * que podem despachar eventos.
+             * @class
+             * @param {object} a - O objeto que será o alvo padrão para os eventos.
+             */
+            var ea = function(a) {
+                if (null != a) {
+                    this.__targetDispatcher = a;
+                }
+            };
+            
+            /**
+             * classe EventDispatcher (ea) é a implementação padrão de IEventDispatcher.
+             * Gerenciando comos os objetos podem registrar, despachar e remover ouvintes de eventos.
+             * @class
+             * @extends {L} // L é a interface IEventDispatcher
+             * @param {object} a - O objeto que será o alvo padrão para os eventos
+             */ 
+            g["openfl.events.EventDispatcher"] = ea;
+            ea.__name__ = "openfl.events.EventDispatcher";
+            ea.__interfaces__ = [L]; // L é a interface IEventDispatcher
+
+            ea.prototype = {
+                /**
+                 * Registra um ouvinte de evento para um objeto EventDispatcher.
+                 * @param {string} a - O tipo do evento (ex: "click").
+                 * @param {function} b - A função a ser chamada quando o evento ocorrer.
+                 * @param {boolean} c - Se o ouvinte deve ser ativado na fase de captura.
+                 * @param {number} d - A prioridade do ouvinte de evento.
+                 * @param {boolean} f - (Não aplicável em JS, mantido por compatibilidade).
+                 */
+                addEventListener: function(a, b, c, d, f) {
+                    if (null == f) f = false;
+                    if (null == d) d = 0;
+                    if (null == c) c = false;
+
+                    if (null != b) {
+                        if (null == this.__eventMap) {
+                            this.__eventMap = new Ma(); // Ma é StringMap
+                            this.__iterators = new Ma();
+                        }
+
+                        if (Object.prototype.hasOwnProperty.call(this.__eventMap.h, a)) {
+                            var p = this.__eventMap.h[a];
+                            for (var h = 0, n = p.length; h < n;) {
+                                var A = h++;
+                                if (p[A].match(b, c)) return;
+                            }
+
+                            var iterators = this.__iterators.h[a];
+                            for (h = 0; h < iterators.length;) {
+                                n = iterators[h];
+                                ++h;
+                                if (n.active) n.copy();
+                            }
+                            this.__addListenerByPriority(p, new Me(b, c, d, f)); // Me é um Listener
+                        } else {
+                            var p = [];
+                            p.push(new Me(b, c, d, f));
+                            var n = new dg(p); // dg é um DispatchIterator
+                            this.__eventMap.h[a] = p;
+                            this.__iterators.h[a] = [n];
+                        }
+                    }
+                },
+
+                /**
+                 * Despacha um evento no fluxo de eventos.
+                 * @param {object} a - O objeto Event a ser despachado.
+                 * @returns {boolean} Verdadeiro se a ação padrão não foi prevenida.
+                 */
+                dispatchEvent: function(a) {
+                    a.target = (null != this.__targetDispatcher) ? this.__targetDispatcher : this;
+                    return this.__dispatchEvent(a);
+                },
+
+                /**
+                 * Verifica se o EventDispatcher tem algum ouvinte registrado para um tipo específico de evento.
+                 * @param {string} a - O tipo do evento.
+                 * @returns {boolean} Verdadeiro se houver um ouvinte.
+                 */
+                hasEventListener: function(a) {
+                    return null == this.__eventMap ? false : Object.prototype.hasOwnProperty.call(this.__eventMap.h, a);
+                },
+
+                /**
+                 * Remove um ouvinte do EventDispatcher.
+                 * @param {string} a - O tipo do evento.
+                 * @param {function} b - A função ouvinte a ser removida.
+                 * @param {boolean} c - Se o ouvinte estava na fase de captura.
+                 */
+                removeEventListener: function(a, b, c) {
+                    if (null == c) c = false;
+
+                    if (null != this.__eventMap && null != b) {
+                        var d = this.__eventMap.h[a];
+                        if (null != d) {
+                            var f = this.__iterators.h[a];
+                            for (var h = 0, n = d.length; h < n;) {
+                                var A = h++;
+                                if (d[A].match(b, c)) {
+                                    for (var i = 0; i < f.length;) {
+                                        var j = f[i];
+                                        ++i;
+                                        j.remove(d[A], A);
+                                    }
+                                    d.splice(A, 1);
+                                    break;
+                                }
+                            }
+
+                            if (0 == d.length) {
+                                var map = this.__eventMap;
+                                var key = a;
+                                if (Object.prototype.hasOwnProperty.call(map.h, key)) delete map.h[key];
+
+                                map = this.__iterators;
+                                key = a;
+                                if (Object.prototype.hasOwnProperty.call(map.h, key)) delete map.h[key];
+                            }
+
+                            if (0 >= Object.keys(this.__eventMap.h).length) {
+                                this.__iterators = this.__eventMap = null;
+                            }
+                        }
+                    }
+                },
+
+                /**
+                 * Método interno que executa a lógica de despacho de eventos.
+                 * @private
+                 */
+                __dispatchEvent: function(a) {
+                    if (null == this.__eventMap || null == a) return true;
+
+                    var b = a.type;
+                    var c = this.__eventMap.h[b];
+                    if (null == c) return true;
+
+                    if (null == a.target) {
+                        a.target = (null != this.__targetDispatcher) ? this.__targetDispatcher : this;
+                    }
+                    a.currentTarget = this;
+
+                    var d = 1 == a.eventPhase;
+                    b = this.__iterators.h[b];
+                    var f = b[0];
+
+                    if (f.active) {
+                        f = new dg(c);
+                        b.push(f);
+                    }
+                    f.start();
+
+                    for (var h = f; h.hasNext();) {
+                        var n = h.next();
+                        if (null != n && n.useCapture == d) {
+                            if (n.useWeakReference && null != n.weakRefCallback) {
+                                var A = n.weakRefCallback.deref();
+                                if (null == A) {
+                                    A = f.index - 1;
+                                    c.splice(A, 1);
+                                    f.remove(n, A);
+                                } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) {
+                                    try {
+                                        A(a);
+                                    } catch (p) {
+                                        Ca.lastError = p;
+                                        n = Z.caught(p).unwrap();
+                                        if (!(a instanceof pf)) Na.get_current().stage.__handleError(n);
+                                    }
+                                } else {
+                                    A(a);
+                                }
+                            } else if (null != Na.get_current() && null != Na.get_current().stage && Na.get_current().stage.__uncaughtErrorEvents.__enabled) {
+                                try {
+                                    n.callback(a);
+                                } catch (p) {
+                                    Ca.lastError = p;
+                                    n = Z.caught(p).unwrap();
+                                    if (!(a instanceof pf)) Na.get_current().stage.__handleError(n);
+                                }
+                            } else {
+                                n.callback(a);
+                            }
+                            if (a.__isCanceledNow) break;
+                        }
+                    }
+                    f.stop();
+
+                    if (f != b[0]) {
+                        N.remove(b, f); // N é HxOverrides
+                    } else {
+                        f.reset(c);
+                    }
+
+                    return !a.isDefaultPrevented();
+                },
+
+                /**
+                 * Método interno para adicionar um ouvinte mantendo a ordem de prioridade.
+                 * @private
+                 */
+                __addListenerByPriority: function(a, b) {
+                    for (var c = a.length, d = c, f = 0; f < c;) {
+                        var h = f++;
+                        if (a[h].priority < b.priority) {
+                            d = h;
+                            break;
+                        }
+                    }
+                    a.splice(d, 0, b);
+                },
+
+                __class__: ea,
+            };
+
+            /**
+             * Interface (fb) que identifica objetos que podem ser desenhados em um BitmapData.
+             * @interface
+             */
+            var fb = function() {};
+            g["openfl.display.IBitmapDrawable"] = fb;
+            fb.__name__ = "openfl.display.IBitmapDrawable";
+            fb.__isInterface__ = true;
+            fb.prototype = {
+                __class__: fb
+            };
+
+            /**
+             * ==================================================================
+             * CLASSE lime.utils.ObjectPool (mb)
+             * ==================================================================
+             *
+             * Uma piscina de objetos para reutilização, otimizando a performance ao
+             * evitar a criação e destruição constante de objetos. O objeto 'ma'
+             * contém funções utilitárias para criar vetores (arrays tipados)
+             * específicos do Haxe.
+             *
+             * @class
+             * @param {function} a - Função para criar um novo objeto.
+             * @param {function} b - Função para limpar/resetar um objeto ao ser devolvido.
+             * @param {number} c - Tamanho máximo da piscina.
+             */
+            var ma = {
+                toIntVector: function(a, b, c, d) { return new eg(b, c, d); },
+                toFloatVector: function(a, b, c, d) { return new Wd(b, c, d, true); },
+                toObjectVector: function(a, b, c, d) { return new qf(b, c, d, true); }
+            };
+            var mb = function(a, b, c) {
+                this.__pool = new fa(); // fa é haxe.ds.ObjectMap
+                this.inactiveObjects = this.activeObjects = 0;
+                this.__inactiveObject1 = this.__inactiveObject0 = null;
+                this.__inactiveObjectList = new La(); // La é haxe.ds.List
+                if (null != a) this.create = a;
+                if (null != b) this.clean = b;
+                if (null != c) this.set_size(c);
+            };
+            g["lime.utils.ObjectPool"] = mb;
+            mb.__name__ = "lime.utils.ObjectPool";
+            mb.prototype = {
+                clean: function(a) {},
+                create: function() {
+                    return null;
+                },
+                get: function() {
+                    var a = null;
+                    if (0 < this.inactiveObjects) {
+                        if (null != this.__inactiveObject0) {
+                            a = this.__inactiveObject0;
+                            this.__inactiveObject0 = null;
+                        } else if (null != this.__inactiveObject1) {
+                            a = this.__inactiveObject1;
+                            this.__inactiveObject1 = null;
+                        } else {
+                            a = this.__inactiveObjectList.pop();
+                            if (0 < this.__inactiveObjectList.length) this.__inactiveObject0 = this.__inactiveObjectList.pop();
+                            if (0 < this.__inactiveObjectList.length) this.__inactiveObject1 = this.__inactiveObjectList.pop();
+                        }
+                        this.inactiveObjects--;
+                        this.activeObjects++;
+                    } else if (null == this.__size || this.activeObjects < this.__size) {
+                        a = this.create();
+                        if (null != a) {
+                            this.__pool.set(a, true);
+                            this.activeObjects++;
+                        }
+                    }
+                    return a;
+                },
+                release: function(a) {
+                    this.activeObjects--;
+                    if (null == this.__size || this.activeObjects + this.inactiveObjects < this.__size) {
+                        this.clean(a);
+                        if (null == this.__inactiveObject0) {
+                            this.__inactiveObject0 = a;
+                        } else if (null == this.__inactiveObject1) {
+                            this.__inactiveObject1 = a;
+                        } else {
+                            this.__inactiveObjectList.add(a);
+                        }
+                        this.inactiveObjects++;
+                    } else {
+                        this.__pool.remove(a);
+                    }
+                },
+                __removeInactive: function(a) {
+                    if (!(0 >= a || 0 == this.inactiveObjects) &&
+                        (null != this.__inactiveObject0 && (this.__pool.remove(this.__inactiveObject0), this.__inactiveObject0 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects && (null != this.__inactiveObject1 && (this.__pool.remove(this.__inactiveObject1), this.__inactiveObject1 = null, this.inactiveObjects--, --a), 0 != a && 0 != this.inactiveObjects))) {
+                        for (var b = this.__inactiveObjectList.h; null != b;) {
+                            var c = b.item;
+                            b = b.next;
+                            this.__pool.remove(c);
+                            this.__inactiveObjectList.remove(c);
+                            this.inactiveObjects--;
+                            --a;
+                            if (0 == a || 0 == this.inactiveObjects) break;
+                        }
+                    }
+                },
+                set_size: function(a) {
+                    if (null == a) {
+                        this.__size = null;
+                    } else {
+                        var b = this.inactiveObjects + this.activeObjects;
+                        this.__size = a;
+                        if (b > a) {
+                            this.__removeInactive(b - a);
+                        } else if (a > b) {
+                            for (var c = 0, d = a - b; c < d;) {
+                                if (c++, b = this.create(), null != b) {
+                                    this.__pool.set(b, false);
+                                    this.__inactiveObjectList.add(b);
+                                    this.inactiveObjects++;
+                                } else break;
+                            }
+                        }
+                    }
+                    return a;
+                },
+                __class__: mb,
+                __properties__: {
+                    set_size: "set_size"
+                }
+            };
+            
+            /**
+             * Interface (U) que define um "contrato" para estruturas de dados
+             * do tipo mapa (chave-valor).
+             * @interface
+             */
+            var U = function() {};
+            g["haxe.IMap"] = U;
+            U.__name__ = "haxe.IMap";
+            U.__isInterface__ = true;
+            U.prototype = {
+                __class__: U
+            };
+
+            /**
+             * Classe ObjectMap (fa), um mapa que usa objetos como chaves.
+             * Utiliza um ID interno (`__id__`) dos objetos para o mapeamento.
+             * @class
+             * @implements {U}
+             */
+            var fa = function() {
+                this.h = {
+                    __keys__: {}
+                };
+            };
+            g["haxe.ds.ObjectMap"] = fa;
+            fa.__name__ = "haxe.ds.ObjectMap";
+            fa.__interfaces__ = [U];
+            fa.prototype = {
+                set: function(a, b) {
+                    var c = a.__id__;
+                    if (null == c) {
+                        c = a.__id__ = x.$haxeUID++;
+                    }
+                    this.h[c] = b;
+                    this.h.__keys__[c] = a;
+                },
+                get: function(a) {
+                    return this.h[a.__id__];
+                },
+                remove: function(a) {
+                    a = a.__id__;
+                    if (null == this.h.__keys__[a]) return false;
+                    delete this.h[a];
+                    delete this.h.__keys__[a];
+                    return true;
+                },
+                keys: function() {
+                    var a = [], b;
+                    for (b in this.h.__keys__) {
+                        if (this.h.hasOwnProperty(b)) {
+                            a.push(this.h.__keys__[b]);
+                        }
+                    }
+                    return new Je(a); // Je é ArrayIterator
+                },
+                __class__: fa
+            };
+
+            /**
+             * Classe List (La), uma implementação de lista duplamente encadeada.
+             * @class
+             */
+            var La = function() {
+                this.length = 0;
+            };
+            g["haxe.ds.List"] = La;
+            La.__name__ = "haxe.ds.List";
+            La.prototype = {
+                add: function(a) {
+                    a = new Qg(a, null); // Qg é um nó da lista (ListNode)
+                    if (null == this.h) {
+                        this.h = a;
+                    } else {
+                        this.q.next = a;
+                    }
+                    this.q = a;
+                    this.length++;
+                },
+                push: function(a) {
+                    this.h = a = new Qg(a, this.h);
+                    if (null == this.q) {
+                        this.q = a;
+                    }
+                    this.length++;
+                },
+                pop: function() {
+                    if (null == this.h) return null;
+                    var a = this.h.item;
+                    this.h = this.h.next;
+                    if (null == this.h) {
+                        this.q = null;
+                    }
+                    this.length--;
+                    return a;
+                },
+                isEmpty: function() {
+                    return null == this.h;
+                },
+                clear: function() {
+                    this.q = this.h = null;
+                    this.length = 0;
+                },
+                remove: function(a) {
+                    for (var b = null, c = this.h; null != c;) {
+                        if (c.item == a) {
+                            if (null == b) {
+                                this.h = c.next;
+                            } else {
+                                b.next = c.next;
+                            }
+                            if (this.q == c) {
+                                this.q = b;
+                            }
+                            this.length--;
+                            return true;
+                        }
+                        b = c;
+                        c = c.next;
+                    }
+                    return false;
+                },
+                iterator: function() {
+                    return new Gi(this.h); // Gi é o iterador da lista (ListIterator)
+                },
+                __class__: La
+            };
+
+            /**
+             * Classe DisplayObject (aa) é base para todos os objetos que podem ser colocados
+             * na lista de exibição. Define as propriedades fundamentais para
+             * renderização, transformação e manipulação de eventos.
+             *
+             * @class
+             * @extends {ea} // ea é EventDispatcher
+             */
+            var aa = function () {
+                ea.call(this);
+                this.__alpha = this.__drawableType = 1;
+                this.__blendMode = 10;
+                this.__cacheAsBitmap = !1;
+                this.__transform = new na();
+                this.__visible = !0;
+                this.__rotationSine = this.__rotation = 0;
+                this.__worldAlpha = this.__scaleY = this.__scaleX = this.__rotationCosine = 1;
+                this.__worldBlendMode = 10;
+                this.__worldTransform = new na();
+                this.__worldColorTransform = new Cb();
+                this.__renderTransform = new na();
+                this.__worldVisible = !0;
+                this.set_name("instance" + ++aa.__instanceCount);
+                null != aa.__initStage && ((this.stage = aa.__initStage), (aa.__initStage = null), this.stage.addChild(this));
+            };
+
+            g["openfl.display.DisplayObject"] = aa;
+            aa.__name__ = "openfl.display.DisplayObject";
+            aa.__interfaces__ = [fb];
+            aa.__super__ = ea;
+            aa.prototype = u(ea.prototype, {
+                addEventListener: function (a, b, c, d, f) {
+                    null == f && (f = !1);
+                    null == d && (d = 0);
+                    null == c && (c = !1);
+                    switch (a) {
+                        case "activate":
+                        case "deactivate":
+                        case "enterFrame":
+                        case "exitFrame":
+                        case "frameConstructed":
+                        case "render":
+                            Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) || (aa.__broadcastEvents.h[a] = []);
+                            var h = aa.__broadcastEvents.h[a];
+                            -1 == h.indexOf(this) && h.push(this);
+                            break;
+                        case "clearDOM":
+                        case "renderCairo":
+                        case "renderCanvas":
+                        case "renderDOM":
+                        case "renderOpenGL":
+                            null == this.__customRenderEvent &&
+                                ((this.__customRenderEvent = new Rg(null)), (this.__customRenderEvent.objectColorTransform = new Cb()), (this.__customRenderEvent.objectMatrix = new na()), (this.__customRenderClear = !0));
+                    }
+                    ea.prototype.addEventListener.call(this, a, b, c, d, f);
+                },
+                dispatchEvent: function (a) {
+                    if (a instanceof wb) {
+                        var b = this.__getRenderTransform();
+                        a.stageX = a.localX * b.a + a.localY * b.c + b.tx;
+                        b = this.__getRenderTransform();
+                        a.stageY = a.localX * b.b + a.localY * b.d + b.ty;
+                    } else a instanceof vd && ((b = this.__getRenderTransform()), (a.stageX = a.localX * b.a + a.localY * b.c + b.tx), (b = this.__getRenderTransform()), (a.stageY = a.localX * b.b + a.localY * b.d + b.ty));
+                    a.target = this;
+                    return this.__dispatchWithCapture(a);
+                },
+                getBounds: function (a) {
+                    var b = na.__pool.get();
+                    if (null != a && a != this) {
+                        b.copyFrom(this.__getWorldTransform());
+                        var c = na.__pool.get();
+                        c.copyFrom(a.__getWorldTransform());
+                        c.invert();
+                        b.concat(c);
+                        na.__pool.release(c);
+                    } else b.identity();
+                    a = new ha();
+                    this.__getBounds(a, b);
+                    na.__pool.release(b);
+                    return a;
+                },
+                getRect: function (a) {
+                    return this.getBounds(a);
+                },
+                globalToLocal: function (a) {
+                    return this.__globalToLocal(a, new I());
+                },
+                hitTestPoint: function (a, b, c) {
+                    null == c && (c = !1);
+                    return null != this.stage ? this.__hitTest(a, b, c, null, !1, this) : !1;
+                },
+                localToGlobal: function (a) {
+                    return this.__getRenderTransform().transformPoint(a);
+                },
+                removeEventListener: function (a, b, c) {
+                    null == c && (c = !1);
+                    ea.prototype.removeEventListener.call(this, a, b, c);
+                    switch (a) {
+                        case "activate":
+                        case "deactivate":
+                        case "enterFrame":
+                        case "exitFrame":
+                        case "frameConstructed":
+                        case "render":
+                            this.hasEventListener(a) || (Object.prototype.hasOwnProperty.call(aa.__broadcastEvents.h, a) && N.remove(aa.__broadcastEvents.h[a], this));
+                            break;
+                        case "clearDOM":
+                        case "renderCairo":
+                        case "renderCanvas":
+                        case "renderDOM":
+                        case "renderOpenGL":
+                            this.hasEventListener("clearDOM") ||
+                                this.hasEventListener("renderCairo") ||
+                                this.hasEventListener("renderCanvas") ||
+                                this.hasEventListener("renderDOM") ||
+                                this.hasEventListener("renderOpenGL") ||
+                                (this.__customRenderEvent = null);
+                    }
+                },
+                __cleanup: function () {
+                    this.__context = this.__canvas = this.__cairo = null;
+                    null != this.__graphics && this.__graphics.__cleanup();
+                    null != this.__cacheBitmap && (this.__cacheBitmap.__cleanup(), (this.__cacheBitmap = null));
+                    null != this.__cacheBitmapData && (this.__cacheBitmapData.dispose(), (this.__cacheBitmapData = null));
+                },
+                __dispatch: function (a) {
+                    if (null != this.__eventMap && this.hasEventListener(a.type)) {
+                        var b = ea.prototype.__dispatchEvent.call(this, a);
+                        return a.__isCanceled ? !0 : b;
+                    }
+                    return !0;
+                },
+                __dispatchChildren: function (a) {},
+                __dispatchEvent: function (a) {
+                    var b = a.bubbles ? this.parent : null,
+                        c = ea.prototype.__dispatchEvent.call(this, a);
+                    if (a.__isCanceled) return !0;
+                    null != b && b != this && ((a.eventPhase = 3), null == a.target && (a.target = this), b.__dispatchEvent(a));
+                    return c;
+                },
+                __dispatchWithCapture: function (a) {
+                    null == a.target && (a.target = this);
+                    if (null != this.parent)
+                        if (((a.eventPhase = 1), this.parent == this.stage)) this.parent.__dispatch(a);
+                        else {
+                            for (var b = aa.__tempStack.get(), c = this.parent, d = 0; null != c; ) b.set(d, c), (c = c.parent), ++d;
+                            c = 0;
+                            for (var f = d; c < f; ) {
+                                var h = c++;
+                                b.get(d - h - 1).__dispatch(a);
+                            }
+                            aa.__tempStack.release(b);
+                        }
+                    a.eventPhase = 2;
+                    return this.__dispatchEvent(a);
+                },
+                __enterFrame: function (a) {},
+                __getBounds: function (a, b) {
+                    null != this.__graphics && this.__graphics.__getBounds(a, b);
+                },
+                __getCursor: function () {
+                    return null;
+                },
+                __getFilterBounds: function (a, b) {
+                    this.__getRenderBounds(a, b);
+                    if (null != this.__filters) {
+                        b = ha.__pool.get();
+                        for (var c = 0, d = this.__filters; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            b.__expand(-f.__leftExtension, -f.__topExtension, f.__leftExtension + f.__rightExtension, f.__topExtension + f.__bottomExtension);
+                        }
+                        a.width += b.width;
+                        a.height += b.height;
+                        a.x += b.x;
+                        a.y += b.y;
+                        ha.__pool.release(b);
+                    }
+                },
+                __getInteractive: function (a) {
+                    return !1;
+                },
+                __getLocalBounds: function (a) {
+                    this.__getBounds(a, this.__transform);
+                    a.x -= this.__transform.tx;
+                    a.y -= this.__transform.ty;
+                },
+                __getRenderBounds: function (a, b) {
+                    if (null == this.__scrollRect) this.__getBounds(a, b);
+                    else {
+                        var c = ha.__pool.get();
+                        c.copyFrom(this.__scrollRect);
+                        c.__transform(c, b);
+                        a.__expand(c.x, c.y, c.width, c.height);
+                        ha.__pool.release(c);
+                    }
+                },
+                __getRenderTransform: function () {
+                    this.__getWorldTransform();
+                    return this.__renderTransform;
+                },
+                __getWorldTransform: function () {
+                    if (this.__transformDirty || this.__worldTransformInvalid) {
+                        var a = [],
+                            b = this;
+                        if (null == this.parent) this.__update(!0, !1);
+                        else for (; b != this.stage && (a.push(b), (b = b.parent), null != b); );
+                        for (var c = a.length; 0 <= --c; ) (b = a[c]), b.__update(!0, !1);
+                    }
+                    return this.__worldTransform;
+                },
+                __globalToLocal: function (a, b) {
+                    this.__getRenderTransform();
+                    if (a == b) {
+                        var c = this.__renderTransform,
+                            d = c.a * c.d - c.b * c.c;
+                        if (0 == d) (a.x = -c.tx), (a.y = -c.ty);
+                        else {
+                            var f = (1 / d) * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx));
+                            a.y = (1 / d) * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x));
+                            a.x = f;
+                        }
+                    } else
+                        (c = this.__renderTransform),
+                            (d = c.a * c.d - c.b * c.c),
+                            (b.x = 0 == d ? -c.tx : (1 / d) * (c.c * (c.ty - a.y) + c.d * (a.x - c.tx))),
+                            (c = this.__renderTransform),
+                            (d = c.a * c.d - c.b * c.c),
+                            (b.y = 0 == d ? -c.ty : (1 / d) * (c.a * (a.y - c.ty) + c.b * (c.tx - a.x)));
+                    return b;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (null != this.__graphics) {
+                        if (!h.__visible || this.__isMask || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return !1;
+                        if (this.__graphics.__hitTest(a, b, c, this.__getRenderTransform())) return null == d || f || d.push(h), !0;
+                    }
+                    return !1;
+                },
+                __hitTestMask: function (a, b) {
+                    return null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform()) ? !0 : !1;
+                },
+                __readGraphicsData: function (a, b) {
+                    null != this.__graphics && this.__graphics.__readGraphicsData(a);
+                },
+                __setParentRenderDirty: function () {
+                    var a = null != this.__renderParent ? this.__renderParent : this.parent;
+                    null == a || a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                },
+                __setStageReference: function (a) {
+                    this.stage = a;
+                },
+                __setTransformDirty: function () {
+                    this.__transformDirty || ((this.__transformDirty = !0), this.__setWorldTransformInvalid(), this.__setParentRenderDirty());
+                },
+                __setWorldTransformInvalid: function () {
+                    this.__worldTransformInvalid = !0;
+                },
+                __update: function (a, b) {
+                    var c = null != this.__renderParent ? this.__renderParent : this.parent;
+                    this.__isMask && null == c && (c = this.__maskTarget);
+                    this.__renderable = this.__visible && 0 != this.__scaleX && 0 != this.__scaleY && !this.__isMask && (null == c || !c.__isMask);
+                    this.__updateTransforms();
+                    this.__worldTransformInvalid = this.__transformDirty = !1;
+                    if (!a)
+                        if (
+                            (aa.__supportDOM &&
+                                ((this.__renderTransformChanged = !this.__renderTransform.equals(this.__renderTransformCache)),
+                                null == this.__renderTransformCache ? (this.__renderTransformCache = this.__renderTransform.clone()) : this.__renderTransformCache.copyFrom(this.__renderTransform)),
+                            null != c)
+                        ) {
+                            if (aa.__supportDOM) {
+                                var d = c.__worldVisible && this.__visible;
+                                this.__worldVisibleChanged = this.__worldVisible != d;
+                                this.__worldVisible = d;
+                            }
+                            d = this.get_alpha() * c.__worldAlpha;
+                            this.__worldAlphaChanged = this.__worldAlpha != d;
+                            this.__worldAlpha = d;
+                            null != this.__objectTransform
+                                ? (this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform), this.__worldColorTransform.__combine(c.__worldColorTransform))
+                                : this.__worldColorTransform.__copyFrom(c.__worldColorTransform);
+                            this.__worldBlendMode = null == this.__blendMode || 10 == this.__blendMode ? c.__worldBlendMode : this.__blendMode;
+                            this.__worldShader = null == this.__shader ? c.__shader : this.__shader;
+                            this.__worldScale9Grid = null == this.__scale9Grid ? c.__scale9Grid : this.__scale9Grid;
+                        } else
+                            (this.__worldAlpha = this.get_alpha()),
+                                aa.__supportDOM && ((this.__worldVisibleChanged = this.__worldVisible != this.__visible), (this.__worldVisible = this.__visible)),
+                                (this.__worldAlphaChanged = this.__worldAlpha != this.get_alpha()),
+                                null != this.__objectTransform ? this.__worldColorTransform.__copyFrom(this.__objectTransform.__colorTransform) : this.__worldColorTransform.__identity(),
+                                (this.__worldBlendMode = this.__blendMode),
+                                (this.__worldShader = this.__shader),
+                                (this.__worldScale9Grid = this.__scale9Grid);
+                    b && null != this.get_mask() && this.get_mask().__update(a, !0);
+                },
+                __updateTransforms: function (a) {
+                    var b = null != a;
+                    a = b ? a : this.__transform;
+                    null == this.__worldTransform && (this.__worldTransform = new na());
+                    null == this.__renderTransform && (this.__renderTransform = new na());
+                    var c = null != this.__renderParent ? this.__renderParent : this.parent;
+                    if (b || null == this.parent) this.__worldTransform.copyFrom(a);
+                    else {
+                        var d = this.parent.__worldTransform,
+                            f = this.__worldTransform;
+                        f.a = a.a * d.a + a.b * d.c;
+                        f.b = a.a * d.b + a.b * d.d;
+                        f.c = a.c * d.a + a.d * d.c;
+                        f.d = a.c * d.b + a.d * d.d;
+                        f.tx = a.tx * d.a + a.ty * d.c + d.tx;
+                        f.ty = a.tx * d.b + a.ty * d.d + d.ty;
+                    }
+                    b || null == c
+                        ? this.__renderTransform.copyFrom(a)
+                        : ((d = c.__renderTransform),
+                        (f = this.__renderTransform),
+                        (f.a = a.a * d.a + a.b * d.c),
+                        (f.b = a.a * d.b + a.b * d.d),
+                        (f.c = a.c * d.a + a.d * d.c),
+                        (f.d = a.c * d.b + a.d * d.d),
+                        (f.tx = a.tx * d.a + a.ty * d.c + d.tx),
+                        (f.ty = a.tx * d.b + a.ty * d.d + d.ty));
+                    null != this.__scrollRect && ((b = this.__renderTransform), (a = -this.__scrollRect.x), (c = -this.__scrollRect.y), (b.tx = a * b.a + c * b.c + b.tx), (b.ty = a * b.b + c * b.d + b.ty));
+                },
+                get_alpha: function () {
+                    return this.__alpha;
+                },
+                set_alpha: function (a) {
+                    1 < a && (a = 1);
+                    0 > a && (a = 0);
+                    a == this.__alpha || this.get_cacheAsBitmap() || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__alpha = a);
+                },
+                get_blendMode: function () {
+                    return this.__blendMode;
+                },
+                set_blendMode: function (a) {
+                    null == a && (a = 10);
+                    a == this.__blendMode || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__blendMode = a);
+                },
+                get_cacheAsBitmap: function () {
+                    return null == this.__filters ? this.__cacheAsBitmap : !0;
+                },
+                get_filters: function () {
+                    return null == this.__filters ? [] : this.__filters.slice();
+                },
+                get_height: function () {
+                    var a = ha.__pool.get();
+                    this.__getLocalBounds(a);
+                    var b = a.height;
+                    ha.__pool.release(a);
+                    return b;
+                },
+                set_height: function (a) {
+                    var b = ha.__pool.get(),
+                        c = na.__pool.get();
+                    c.identity();
+                    this.__getBounds(b, c);
+                    a != b.height ? this.set_scaleY(a / b.height) : this.set_scaleY(1);
+                    ha.__pool.release(b);
+                    na.__pool.release(c);
+                    return a;
+                },
+                get_loaderInfo: function () {
+                    return null != this.stage ? xc.current.__loaderInfo : null;
+                },
+                get_mask: function () {
+                    return this.__mask;
+                },
+                set_mask: function (a) {
+                    if (a == this.__mask) return a;
+                    a != this.__mask && (this.__setTransformDirty(), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty()));
+                    if (null != this.__mask) {
+                        this.__mask.__isMask = !1;
+                        this.__mask.__maskTarget = null;
+                        this.__mask.__setTransformDirty();
+                        var b = this.__mask;
+                        b.__renderDirty || ((b.__renderDirty = !0), b.__setParentRenderDirty());
+                    }
+                    null != a && ((a.__isMask = !0), (a.__maskTarget = this), a.__setWorldTransformInvalid());
+                    null != this.__cacheBitmap && this.__cacheBitmap.get_mask() != a && this.__cacheBitmap.set_mask(a);
+                    return (this.__mask = a);
+                },
+                get_mouseX: function () {
+                    var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX,
+                        b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY,
+                        c = this.__getRenderTransform(),
+                        d = c.a * c.d - c.b * c.c;
+                    return 0 == d ? -c.tx : (1 / d) * (c.c * (c.ty - b) + c.d * (a - c.tx));
+                },
+                get_mouseY: function () {
+                    var a = null != this.stage ? this.stage.__mouseX : xc.current.stage.__mouseX,
+                        b = null != this.stage ? this.stage.__mouseY : xc.current.stage.__mouseY,
+                        c = this.__getRenderTransform(),
+                        d = c.a * c.d - c.b * c.c;
+                    return 0 == d ? -c.ty : (1 / d) * (c.a * (b - c.ty) + c.b * (c.tx - a));
+                },
+                get_name: function () {
+                    return this.__name;
+                },
+                set_name: function (a) {
+                    return (this.__name = a);
+                },
+                get_root: function () {
+                    return null != this.stage ? xc.current : null;
+                },
+                get_rotation: function () {
+                    return this.__rotation;
+                },
+                set_rotation: function (a) {
+                    if (a != this.__rotation) {
+                        a %= 360;
+                        180 < a ? (a -= 360) : -180 > a && (a += 360);
+                        this.__rotation = a;
+                        var b = (Math.PI / 180) * this.__rotation;
+                        this.__rotationSine = Math.sin(b);
+                        this.__rotationCosine = Math.cos(b);
+                        this.__transform.a = this.__rotationCosine * this.__scaleX;
+                        this.__transform.b = this.__rotationSine * this.__scaleX;
+                        this.__transform.c = -this.__rotationSine * this.__scaleY;
+                        this.__transform.d = this.__rotationCosine * this.__scaleY;
+                        this.__setTransformDirty();
+                    }
+                    return a;
+                },
+                get_scaleX: function () {
+                    return this.__scaleX;
+                },
+                set_scaleX: function (a) {
+                    if (a != this.__scaleX)
+                        if (((this.__scaleX = a), 0 == this.__transform.b)) a != this.__transform.a && this.__setTransformDirty(), (this.__transform.a = a);
+                        else {
+                            var b = this.__rotationCosine * a,
+                                c = this.__rotationSine * a;
+                            (this.__transform.a == b && this.__transform.b == c) || this.__setTransformDirty();
+                            this.__transform.a = b;
+                            this.__transform.b = c;
+                        }
+                    return a;
+                },
+                get_scaleY: function () {
+                    return this.__scaleY;
+                },
+                set_scaleY: function (a) {
+                    if (a != this.__scaleY)
+                        if (((this.__scaleY = a), 0 == this.__transform.c)) a != this.__transform.d && this.__setTransformDirty(), (this.__transform.d = a);
+                        else {
+                            var b = -this.__rotationSine * a,
+                                c = this.__rotationCosine * a;
+                            (this.__transform.d == c && this.__transform.c == b) || this.__setTransformDirty();
+                            this.__transform.c = b;
+                            this.__transform.d = c;
+                        }
+                    return a;
+                },
+                get_scrollRect: function () {
+                    return null == this.__scrollRect ? null : this.__scrollRect.clone();
+                },
+                get_transform: function () {
+                    null == this.__objectTransform && (this.__objectTransform = new Sg(this));
+                    return this.__objectTransform;
+                },
+                set_transform: function (a) {
+                    if (null == a) throw new Ne("Parameter transform must be non-null.");
+                    null == this.__objectTransform && (this.__objectTransform = new Sg(this));
+                    this.__setTransformDirty();
+                    this.__objectTransform.set_matrix(a.get_matrix());
+                    if (!this.__objectTransform.__colorTransform.__equals(a.__colorTransform, !0) || (!this.get_cacheAsBitmap() && this.__objectTransform.__colorTransform.alphaMultiplier != a.__colorTransform.alphaMultiplier))
+                        this.__objectTransform.__colorTransform.__copyFrom(a.get_colorTransform()), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return this.__objectTransform;
+                },
+                get_visible: function () {
+                    return this.__visible;
+                },
+                set_visible: function (a) {
+                    a == this.__visible || this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                    return (this.__visible = a);
+                },
+                get_width: function () {
+                    var a = ha.__pool.get();
+                    this.__getLocalBounds(a);
+                    var b = a.width;
+                    ha.__pool.release(a);
+                    return b;
+                },
+                set_width: function (a) {
+                    var b = ha.__pool.get(),
+                        c = na.__pool.get();
+                    c.identity();
+                    this.__getBounds(b, c);
+                    a != b.width ? this.set_scaleX(a / b.width) : this.set_scaleX(1);
+                    ha.__pool.release(b);
+                    na.__pool.release(c);
+                    return a;
+                },
+                get_x: function () {
+                    return this.__transform.tx;
+                },
+                set_x: function (a) {
+                    a != this.__transform.tx && this.__setTransformDirty();
+                    return (this.__transform.tx = a);
+                },
+                get_y: function () {
+                    return this.__transform.ty;
+                },
+                set_y: function (a) {
+                    a != this.__transform.ty && this.__setTransformDirty();
+                    return (this.__transform.ty = a);
+                },
+                __class__: aa,
+                __properties__: {
+                    set_y: "set_y",
+                    get_y: "get_y",
+                    set_x: "set_x",
+                    get_x: "get_x",
+                    set_width: "set_width",
+                    get_width: "get_width",
+                    set_visible: "set_visible",
+                    get_visible: "get_visible",
+                    set_transform: "set_transform",
+                    get_transform: "get_transform",
+                    get_scrollRect: "get_scrollRect",
+                    set_scaleY: "set_scaleY",
+                    get_scaleY: "get_scaleY",
+                    set_scaleX: "set_scaleX",
+                    get_scaleX: "get_scaleX",
+                    set_rotation: "set_rotation",
+                    get_rotation: "get_rotation",
+                    get_root: "get_root",
+                    set_name: "set_name",
+                    get_name: "get_name",
+                    get_mouseY: "get_mouseY",
+                    get_mouseX: "get_mouseX",
+                    set_mask: "set_mask",
+                    get_mask: "get_mask",
+                    get_loaderInfo: "get_loaderInfo",
+                    set_height: "set_height",
+                    get_height: "get_height",
+                    get_filters: "get_filters",
+                    get_cacheAsBitmap: "get_cacheAsBitmap",
+                    set_blendMode: "set_blendMode",
+                    get_blendMode: "get_blendMode",
+                    set_alpha: "set_alpha",
+                    get_alpha: "get_alpha",
+                },
+            });
+                
+                
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.InteractiveObject (ka)
+             * ==================================================================
+             *
+             * Esta classe é a base para todos os objetos visuais que podem
+             * interagir com o usuário através do mouse e do teclado. Ela
+             * herda de DisplayObject (aa).
+             *
+             * @class
+             * @extends {aa} // aa é DisplayObject
+             */
+            var ka = function () {
+                aa.call(this);
+                this.doubleClickEnabled = !1;
+                this.mouseEnabled = !0;
+                this.needsSoftKeyboard = !1;
+                this.__tabEnabled = null;
+                this.__tabIndex = -1;
+            };
+            g["openfl.display.InteractiveObject"] = ka;
+            ka.__name__ = "openfl.display.InteractiveObject";
+            ka.__super__ = aa;
+            ka.prototype = u(aa.prototype, {
+                __allowMouseFocus: function () {
+                    return this.mouseEnabled ? this.get_tabEnabled() : !1;
+                },
+                __getInteractive: function (a) {
+                    null != a && (a.push(this), null != this.parent && this.parent.__getInteractive(a));
+                    return !0;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    return !h.get_visible() || this.__isMask || (f && !this.mouseEnabled) ? !1 : aa.prototype.__hitTest.call(this, a, b, c, d, f, h);
+                },
+                __tabTest: function (a) {
+                    this.get_tabEnabled() && a.push(this);
+                },
+                get_tabEnabled: function () {
+                    return 1 == this.__tabEnabled ? !0 : !1;
+                },
+                get_tabIndex: function () {
+                    return this.__tabIndex;
+                },
+                __class__: ka,
+                __properties__: u(aa.prototype.__properties__, {
+                    get_tabIndex: "get_tabIndex",
+                    get_tabEnabled: "get_tabEnabled",
+                }),
+            });
+                
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.DisplayObjectContainer (Ya)
+             * ==================================================================
+             *
+             * A classe base para todos os objetos que podem servir como
+             * contêineres para outros objetos na lista de exibição. Ela herda
+             * de InteractiveObject (ka).
+             *
+             * @class
+             * @extends {ka} // ka é InteractiveObject
+             */
+            var Ya = function () {
+                ka.call(this);
+                this.__tabChildren = this.mouseChildren = !0;
+                this.__children = [];
+                this.__removedChildren = ma.toObjectVector(null);
+            };
+            g["openfl.display.DisplayObjectContainer"] = Ya;
+            Ya.__name__ = "openfl.display.DisplayObjectContainer";
+            Ya.__super__ = ka;
+            Ya.prototype = u(ka.prototype, {
+                addChild: function (a) {
+                    return this.addChildAt(a, this.get_numChildren());
+                },
+                addChildAt: function (a, b) {
+                    if (null == a) throw ((a = new Ne("Error #2007: Parameter child must be non-null.")), (a.errorID = 2007), a);
+                    if (a == this) throw ((a = new rf("Error #2024: An object cannot be added as a child of itself.")), (a.errorID = 2024), a);
+                    if (a.stage == a) throw ((a = new rf("Error #3783: A Stage object cannot be added as the child of another object.")), (a.errorID = 3783), a);
+                    if (b > this.__children.length || 0 > b) throw Z.thrown("Invalid index position " + b);
+                    if (a.parent == this) this.__children[b] != a && (N.remove(this.__children, a), this.__children.splice(b, 0, a), this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty()));
+                    else {
+                        null != a.parent && a.parent.removeChild(a);
+                        this.__children.splice(b, 0, a);
+                        a.parent = this;
+                        (b = null != this.stage && null == a.stage) && a.__setStageReference(this.stage);
+                        a.__setTransformDirty();
+                        a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                        this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                        var c = new ra("added");
+                        c.bubbles = !0;
+                        c.target = a;
+                        a.__dispatchWithCapture(c);
+                        b && ((c = new ra("addedToStage", !1, !1)), a.__dispatchWithCapture(c), a.__dispatchChildren(c));
+                    }
+                    return a;
+                },
+                getChildAt: function (a) {
+                    return 0 <= a && a < this.__children.length ? this.__children[a] : null;
+                },
+                getChildByName: function (a) {
+                    for (var b = 0, c = this.__children; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        if (d.get_name() == a) return d;
+                    }
+                    return null;
+                },
+                getChildIndex: function (a) {
+                    for (var b = 0, c = this.__children.length; b < c; ) {
+                        var d = b++;
+                        if (this.__children[d] == a) return d;
+                    }
+                    return -1;
+                },
+                removeChild: function (a) {
+                    if (null != a && a.parent == this) {
+                        a.__setTransformDirty();
+                        a.__renderDirty || ((a.__renderDirty = !0), a.__setParentRenderDirty());
+                        this.__renderDirty || ((this.__renderDirty = !0), this.__setParentRenderDirty());
+                        var b = new ra("removed", !0);
+                        a.__dispatchWithCapture(b);
+                        null != this.stage && (null != a.stage && this.stage.get_focus() == a && this.stage.set_focus(null), (b = new ra("removedFromStage", !1, !1)), a.__dispatchWithCapture(b), a.__dispatchChildren(b), a.__setStageReference(null));
+                        a.parent = null;
+                        N.remove(this.__children, a);
+                        this.__removedChildren.push(a);
+                        a.__setTransformDirty();
+                    }
+                    return a;
+                },
+                removeChildAt: function (a) {
+                    return 0 <= a && a < this.__children.length ? this.removeChild(this.__children[a]) : null;
+                },
+                removeChildren: function (a, b) {
+                    null == b && (b = 2147483647);
+                    null == a && (a = 0);
+                    if (2147483647 == b && ((b = this.__children.length - 1), 0 > b)) return;
+                    if (!(a > this.__children.length - 1)) {
+                        if (b < a || 0 > a || b > this.__children.length) throw new fg("The supplied index is out of bounds.");
+                        for (b -= a; 0 <= b; ) this.removeChildAt(a), --b;
+                    }
+                },
+                __cleanup: function () {
+                    ka.prototype.__cleanup.call(this);
+                    for (var a = 0, b = this.__children; a < b.length; ) {
+                        var c = b[a];
+                        ++a;
+                        c.__cleanup();
+                    }
+                    for (a = this.__removedChildren.iterator(); a.hasNext(); ) (b = a.next()), null == b.stage && b.__cleanup();
+                    this.__removedChildren.set_length(0);
+                },
+                __dispatchChildren: function (a) {
+                    if (null != this.__children)
+                        for (var b = 0, c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            a.target = d;
+                            if (!d.__dispatchWithCapture(a)) break;
+                            d.__dispatchChildren(a);
+                        }
+                },
+                __enterFrame: function (a) {
+                    for (var b = 0, c = this.__children; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        d.__enterFrame(a);
+                    }
+                },
+                __getBounds: function (a, b) {
+                    ka.prototype.__getBounds.call(this, a, b);
+                    if (0 != this.__children.length) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                h.__getBounds(a, c);
+                            }
+                        }
+                        na.__pool.release(c);
+                    }
+                },
+                __getFilterBounds: function (a, b) {
+                    ka.prototype.__getFilterBounds.call(this, a, b);
+                    if (null == this.__scrollRect && 0 != this.__children.length) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                n = ha.__pool.get();
+                                h.__getFilterBounds(n, c);
+                                a.__expand(n.x, n.y, n.width, n.height);
+                                ha.__pool.release(n);
+                            }
+                        }
+                        na.__pool.release(c);
+                    }
+                },
+                __getRenderBounds: function (a, b) {
+                    if (null != this.__scrollRect) ka.prototype.__getRenderBounds.call(this, a, b);
+                    else if ((ka.prototype.__getBounds.call(this, a, b), 0 != this.__children.length)) {
+                        for (var c = na.__pool.get(), d = 0, f = this.__children; d < f.length; ) {
+                            var h = f[d];
+                            ++d;
+                            if (0 != h.__scaleX && 0 != h.__scaleY && !h.__isMask) {
+                                var n = h.__transform;
+                                c.a = n.a * b.a + n.b * b.c;
+                                c.b = n.a * b.b + n.b * b.d;
+                                c.c = n.c * b.a + n.d * b.c;
+                                c.d = n.c * b.b + n.d * b.d;
+                                c.tx = n.tx * b.a + n.ty * b.c + b.tx;
+                                c.ty = n.tx * b.b + n.ty * b.d + b.ty;
+                                h.__getRenderBounds(a, c);
+                            }
+                        }
+                        na.__pool.release(c);
+                    }
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (!h.get_visible() || this.__isMask || (f && !this.mouseEnabled && !this.mouseChildren) || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return !1;
+                    if (null != this.__scrollRect) {
+                        var n = I.__pool.get();
+                        n.setTo(a, b);
+                        var A = this.__getRenderTransform(),
+                            p = A.a * A.d - A.b * A.c;
+                        if (0 == p) (n.x = -A.tx), (n.y = -A.ty);
+                        else {
+                            var g = (1 / p) * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx));
+                            n.y = (1 / p) * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x));
+                            n.x = g;
+                        }
+                        if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), !1;
+                        I.__pool.release(n);
+                    }
+                    n = this.__children.length;
+                    if (f)
+                        if (null == d || !this.mouseChildren)
+                            for (; 0 <= --n; ) {
+                                if (this.__children[n].__hitTest(a, b, c, null, !0, this.__children[n])) return null != d && d.push(h), !0;
+                            }
+                        else {
+                            if (null != d) {
+                                f = d.length;
+                                for (p = !1; 0 <= --n && !(((A = this.__children[n].__getInteractive(null)) || (this.mouseEnabled && !p)) && this.__children[n].__hitTest(a, b, c, d, !0, this.__children[n]) && ((p = !0), A && d.length > f)); );
+                                if (p) return d.splice(f, 0, h), !0;
+                            }
+                        }
+                    else {
+                        for (p = !1; 0 <= --n && (!this.__children[n].__hitTest(a, b, c, d, !1, this.__children[n]) || ((p = !0), null != d)); );
+                        return p;
+                    }
+                    return !1;
+                },
+                __hitTestMask: function (a, b) {
+                    for (var c = this.__children.length; 0 <= --c; ) if (this.__children[c].__hitTestMask(a, b)) return !0;
+                    return !1;
+                },
+                __readGraphicsData: function (a, b) {
+                    ka.prototype.__readGraphicsData.call(this, a, b);
+                    if (b)
+                        for (var c = 0, d = this.__children; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            f.__readGraphicsData(a, b);
+                        }
+                },
+                __setStageReference: function (a) {
+                    ka.prototype.__setStageReference.call(this, a);
+                    if (null != this.__children)
+                        for (var b = 0, c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            d.__setStageReference(a);
+                        }
+                },
+                __setWorldTransformInvalid: function () {
+                    if (!this.__worldTransformInvalid && ((this.__worldTransformInvalid = !0), null != this.__children))
+                        for (var a = 0, b = this.__children; a < b.length; ) {
+                            var c = b[a];
+                            ++a;
+                            c.__setWorldTransformInvalid();
+                        }
+                },
+                __tabTest: function (a) {
+                    ka.prototype.__tabTest.call(this, a);
+                    if (this.get_tabChildren())
+                        for (var b, c = 0, d = this.__children; c < d.length; ) {
+                            var f = d[c];
+                            ++c;
+                            if ((b = f.__getInteractive(null))) (b = f), b.__tabTest(a);
+                        }
+                },
+                __update: function (a, b) {
+                    ka.prototype.__update.call(this, a, b);
+                    if (b) {
+                        b = 0;
+                        for (var c = this.__children; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            d.__update(a, !0);
+                        }
+                    }
+                },
+                get_numChildren: function () {
+                    return this.__children.length;
+                },
+                get_tabChildren: function () {
+                    return this.__tabChildren;
+                },
+                __class__: Ya,
+                __properties__: u(ka.prototype.__properties__, { get_tabChildren: "get_tabChildren", get_numChildren: "get_numChildren" }),
+            });
+
+
+            /**
+             * ==================================================================
+             * CLASSE openfl.display.Sprite (ja)
+             * ==================================================================
+             *
+             * Um Sprite é um bloco de construção fundamental da lista de exibição.
+             * É um DisplayObjectContainer que possui uma linha do tempo e pode
+             * ter seus próprios gráficos vetoriais.
+             *
+             * @class
+             * @extends {Ya} // Ya é DisplayObjectContainer
+             */
+            var ja = function () {
+                Ya.call(this);
+                this.__drawableType = 4;
+                this.__buttonMode = !1;
+                this.useHandCursor = !0;
+                if (null != this.__pendingBindLibrary) {
+                    var a = this.__pendingBindLibrary,
+                        b = this.__pendingBindClassName;
+                    this.__pendingBindClassName = this.__pendingBindLibrary = null;
+                    a.bind(b, this);
+                } else null != ja.__constructor && ((a = ja.__constructor), (ja.__constructor = null), a(this));
+            };
+            g["openfl.display.Sprite"] = ja;
+            ja.__name__ = "openfl.display.Sprite";
+            ja.__super__ = Ya;
+            ja.prototype = u(Ya.prototype, {
+                stopDrag: function () {
+                    null != this.stage && this.stage.__stopDrag(this);
+                },
+                __setStageReference: function (a) {
+                    this.stage != a && null != this.stage && this.stage.__dragObject == this && this.stopDrag();
+                    Ya.prototype.__setStageReference.call(this, a);
+                },
+                __getCursor: function () {
+                    return this.__buttonMode && this.useHandCursor ? "button" : null;
+                },
+                __hitTest: function (a, b, c, d, f, h) {
+                    if (f && !this.mouseEnabled && !this.mouseChildren) return !1;
+                    if (!h.get_visible() || this.__isMask || (null != this.get_mask() && !this.get_mask().__hitTestMask(a, b))) return this.__hitTestHitArea(a, b, c, d, f, h);
+                    if (null != this.__scrollRect) {
+                        var n = I.__pool.get();
+                        n.setTo(a, b);
+                        var A = this.__getRenderTransform(),
+                            p = A.a * A.d - A.b * A.c;
+                        if (0 == p) (n.x = -A.tx), (n.y = -A.ty);
+                        else {
+                            var g = (1 / p) * (A.c * (A.ty - n.y) + A.d * (n.x - A.tx));
+                            n.y = (1 / p) * (A.a * (n.y - A.ty) + A.b * (A.tx - n.x));
+                            n.x = g;
+                        }
+                        if (!this.__scrollRect.containsPoint(n)) return I.__pool.release(n), this.__hitTestHitArea(a, b, c, d, !0, h);
+                        I.__pool.release(n);
+                    }
+                    return Ya.prototype.__hitTest.call(this, a, b, c, d, f, h)
+                        ? null != d
+                            ? f
+                            : !0
+                        : null == this.hitArea && null != this.__graphics && this.__graphics.__hitTest(a, b, c, this.__getRenderTransform())
+                        ? (null == d || (f && !this.mouseEnabled) || d.push(h), !0)
+                        : this.__hitTestHitArea(a, b, c, d, f, h);
+                },
+                __hitTestHitArea: function (a, b, c, d, f, h) {
+                    return null == this.hitArea || this.hitArea.mouseEnabled ? !1 : ((this.hitArea.mouseEnabled = !0), (a = this.hitArea.__hitTest(a, b, c, null, !0, h)), (this.hitArea.mouseEnabled = !1), null != d && a && (d[d.length] = h), a);
+                },
+                __hitTestMask: function (a, b) {
+                    return Ya.prototype.__hitTestMask.call(this, a, b) || (null != this.__graphics && this.__graphics.__hitTest(a, b, !0, this.__getRenderTransform())) ? !0 : !1;
+                },
+                get_graphics: function () {
+                    null == this.__graphics && (this.__graphics = new fd(this));
+                    return this.__graphics;
+                },
+                get_tabEnabled: function () {
+                    return null == this.__tabEnabled ? this.__buttonMode : this.__tabEnabled;
+                },
+                get_buttonMode: function () {
+                    return this.__buttonMode;
+                },
+                set_buttonMode: function (a) {
+                    return (this.__buttonMode = a);
+                },
+                __class__: ja,
+                __properties__: u(Ya.prototype.__properties__, { get_graphics: "get_graphics", set_buttonMode: "set_buttonMode", get_buttonMode: "get_buttonMode" }),
+            });
+            
+            /**
+             * ==================================================================
+             * CLASSE com.watabou.coogee.Game (Game)
+             * ==================================================================
+             *
+             * A classe base 'Game'(Game) do framework coogee. Controla o ciclo de vida
+             * da aplicação e o gerenciamento de cenas.
+             *
+             * @class
+             * @extends {ja} // ja é Sprite
+             * @param {class} a - A classe da primeira cena a ser exibida.
+             */
+            var Game = function (a) {
+                Game.instance = this;
+                ja.call(this);
+                this.prepareStage();
+                Va.useEnterFrame(this);
+                Game.switchScene(a);
+            };
+            g["com.watabou.coogee.Game"] = Game;
+            Game.__name__ = "com.watabou.coogee.Game";
+            Game.switchScene = function (a) {
+                Game.instance.switchSceneImp(a);
+            };
+            Game.quit = function () {};
+            Game.__super__ = ja;
+            Game.prototype = u(ja.prototype, {
+                prepareStage: function () {
+                    var a = this;
+                    this.stage.align = 6;
+                    this.stage.set_scaleMode(2);
+                    this.stage.addEventListener("resize", function (b) {
+                        a.layout();
+                    });
+                    this.stage.application.onExit.add(k(this, this.onExit));
+                    this.stage.application.__window.onActivate.add(k(this, this.onResume));
+                    this.stage.application.__window.onDeactivate.add(k(this, this.onPause));
+                },
+                onExit: function (a) {
+                    Va.stop();
+                },
+                onResume: function () {},
+                onPause: function () {},
+                layout: function () {
+                    if (null != Game.scene) {
+                        var a = this.stage.stageWidth,
+                            b = this.stage.stageHeight,
+                            c = this.getScale(a, b);
+                        Game.scene.set_scaleX(Game.scene.set_scaleY(c));
+                        Game.scene.setSize(a / c, b / c);
+                    }
+                },
+                getScale: function (a, b) {
+                    return 1;
+                },
+                switchSceneImp: function (a) {
+                    null != Game.scene && (Game.scene.deactivate(), this.removeChild(Game.scene), (Game.scene = null));
+                    null != a && ((Game.scene = lb.createInstance(a, [])), this.addChild(Game.scene), this.layout(), Game.scene.activate());
+                    this.stage.set_focus(this.stage);
+                },
+                __class__: Game,
+            });
+            
+            /**
+             * A classe dungeon.Main é a principal da aplicação, herda de Game (Game).
+             * Ela inicializa a aplicação e define o layout principal,
+             * incluindo a camada da UI e a borda da tela.
+             *
+             * @class
+             * @extends {Game}
+             */
+            var Main = function () {
+                v.reset();
+                O.useDefault();
+                this.stage.showDefaultContextMenu = !1;
+                ob.baseURL += "one-page-dungeon/";
+                Game.call(this, ViewScene);
+            };
+            g["com.watabou.dungeon.Main"] = Main;
+            Main.__name__ = "com.watabou.dungeon.Main";
+            Main.__super__ = Game;
+            Main.prototype = u(Game.prototype, {
+                switchSceneImp: function (a) {
+                    null == T.layer && (T.layer = new S());
+                    Game.prototype.switchSceneImp.call(this, a);
+                    this.addChild(T.layer);
+                    T.wipe();
+                },
+                layout: function () {
+                    Game.prototype.layout.call(this);
+                    var a = this.stage.stageWidth,
+                        b = this.stage.stageHeight;
+                    T.layer.set_scaleX(T.layer.set_scaleY(1));
+                    T.layer.setSize(a / 1, b / 1);
+                    a = this.stage.stageWidth;
+                    b = this.stage.stageHeight;
+                    var c = 1 * G.normal;
+                    this.get_graphics().clear();
+                    this.get_graphics().beginFill(G.ink);
+                    this.get_graphics().drawRect(0, 0, a, c);
+                    this.get_graphics().drawRect(0, c, c, b - 2 * c);
+                    this.get_graphics().drawRect(a - c, c, c, b - 2 * c);
+                    this.get_graphics().drawRect(0, b - c, a, c);
+                },
+                getScale: function (a, b) {
+                    return 1 * Math.min(1, Math.min(a, b) / 768);
+                },
+                __class__: Main,
+            });
+            
+            /**
+             * A DocumentClass (Wb) é a classe raiz da aplicação, um padrão em projetos OpenFL.
+             * Ela é a primeira a ser instanciada e adicionada ao palco, e
+             * sua única responsabilidade é iniciar a classe Main.
+             *
+             * @class
+             * @extends {Main} // Main é a classe refatorada de nc
+             */
+            var Wb = function (a) {
+                a.addChild(this);
+                Main.call(this);
+                this.dispatchEvent(new ra("addedToStage", !1, !1));
+            };
+            g.DocumentClass = Wb;
+            Wb.__name__ = "DocumentClass";
+            Wb.__super__ = Main;
+            Wb.prototype = u(Main.prototype, { __class__: Wb });
+
+            /**
+             * A EReg (sa) é uma classe do Haxe para trabalhar com Expressões Regulares (RegEx)
+             * de forma consistente entre diferentes plataformas.
+             *
+             * @class
+             */
+            var sa = function (a, b) {
+                this.r = new RegExp(a, b.split("u").join(""));
+            };
+            g.EReg = sa;
+            sa.__name__ = "EReg";
+            sa.prototype = {
+                match: function (a) {
+                    this.r.global && (this.r.lastIndex = 0);
+                    this.r.m = this.r.exec(a);
+                    this.r.s = a;
+                    return null != this.r.m;
+                },
+                matched: function (a) {
+                    if (null != this.r.m && 0 <= a && a < this.r.m.length) return this.r.m[a];
+                    throw Z.thrown("EReg::matched");
+                },
+                matchedPos: function () {
+                    if (null == this.r.m) throw Z.thrown("No string matched");
+                    return { pos: this.r.m.index, len: this.r.m[0].length };
+                },
+                matchSub: function (a, b, c) {
+                    null == c && (c = -1);
+                    if (this.r.global) {
+                        if (((this.r.lastIndex = b), (this.r.m = this.r.exec(0 > c ? a : N.substr(a, 0, b + c))), (c = null != this.r.m))) this.r.s = a;
+                    } else if ((c = this.match(0 > c ? N.substr(a, b, null) : N.substr(a, b, c)))) (this.r.s = a), (this.r.m.index += b);
+                    return c;
+                },
+                split: function (a) {
+                    return a.replace(this.r, "#__delim__#").split("#__delim__#");
+                },
+                map: function (a, b) {
+                    var c = 0,
+                        d = "";
+                    do {
+                        if (c >= a.length) break;
+                        else if (!this.matchSub(a, c)) {
+                            d += m.string(N.substr(a, c, null));
+                            break;
+                        }
+                        var f = this.matchedPos();
+                        d += m.string(N.substr(a, c, f.pos - c));
+                        d += m.string(b(this));
+                        0 == f.len ? ((d += m.string(N.substr(a, f.pos, 1))), (c = f.pos + 1)) : (c = f.pos + f.len);
+                    } while (this.r.global);
+                    !this.r.global && 0 < c && c < a.length && (d += m.string(N.substr(a, c, null)));
+                    return d;
+                },
+                __class__: sa,
+            };
+            
+            /**
+             * A classe HxOverrides (N) é como uma "caixa de ferramentas" interna gerada pelo compilador Haxe
+             * para garantir que funções do JavaScript se comportem da mesma forma
+             * que na linguagem Haxe original.
+             *
+             * @class
+             */
+            var N = function () {};
+            g.HxOverrides = N;
+            N.__name__ = "HxOverrides";
+            N.strDate = function (a) {
+                switch (a.length) {
+                    case 8:
+                        a = a.split(":");
+                        var b = new Date();
+                        b.setTime(0);
+                        b.setUTCHours(a[0]);
+                        b.setUTCMinutes(a[1]);
+                        b.setUTCSeconds(a[2]);
+                        return b;
+                    case 10:
+                        return (a = a.split("-")), new Date(a[0], a[1] - 1, a[2], 0, 0, 0);
+                    case 19:
+                        return (a = a.split(" ")), (b = a[0].split("-")), (a = a[1].split(":")), new Date(b[0], b[1] - 1, b[2], a[0], a[1], a[2]);
+                    default:
+                        throw Z.thrown("Invalid date format : " + a);
+                }
+            };
+            N.cca = function (a, b) {
+                a = a.charCodeAt(b);
+                if (a == a) return a;
+            };
+            N.substr = function (a, b, c) {
+                if (null == c) c = a.length;
+                else if (0 > c)
+                    if (0 == b) c = a.length + c;
+                    else return "";
+                return a.substr(b, c);
+            };
+            N.remove = function (a, b) {
+                b = a.indexOf(b);
+                if (-1 == b) return !1;
+                a.splice(b, 1);
+                return !0;
+            };
+            N.now = function () {
+                return Date.now();
+            };
+            
+            /**
+             * Classe utilitária Lambda, para manipulação de estruturas de dados iteráveis.
+             */
+            var C = function () { }; 
+            g.Lambda = C; 
+            C.__name__ = "Lambda"; 
+
+            /**
+             * Converte um objeto iterável em um Array padrão do JavaScript.
+             * @param {object} iterable - O objeto iterável a ser convertido (ex: uma Lista).
+             * @returns {Array} Um novo array contendo os elementos do iterável.
+             */
+            C.array = function (a) { 
+                var b = []; 
+                // K(a) é o mesmo que a.iterator()
+                for (a = K(a); a.hasNext();) { 
+                    var c = a.next(); b.push(c) 
+                } return b 
+            }; 
+            
+            /**
+             * A classe ManifestResources é responsável por inicializar
+             * e registrar todos os assets (recursos) da aplicação.
+             */
+            var ManifestResources = function() {};
+            g.ManifestResources = ManifestResources;
+            ManifestResources.__name__ = "ManifestResources";
+
+            /**
+             * Inicializa a lista de recursos da aplicação.
+             * @param {object} config - Um objeto de configuração opcional.
+             */
+            ManifestResources.init = function(config) {
+                ManifestResources.preloadLibraries = [];
+                ManifestResources.preloadLibraryNames = [];
+                ManifestResources.rootPath = null;
+
+                // Define o caminho raiz para os assets
+                if (null != config && Object.prototype.hasOwnProperty.call(config, "rootPath")) {
+                    ManifestResources.rootPath = oa.field(config, "rootPath");
+                    if (!w.endsWith(ManifestResources.rootPath, "/")) {
+                        ManifestResources.rootPath += "/";
+                    }
+                }
+                if (null == ManifestResources.rootPath) {
+                    ManifestResources.rootPath = "./";
+                }
+
+                // Registra as fontes embutidas
+                M.registerFont(R);
+                M.registerFont(Gc);
+                M.registerFont(va);
+                M.registerFont(Ib);
+
+                var manifestObject = {
+                    "name": null,
+                    "assets": [
+                        { "path": "assets/tags.txt", "size": 1234, "type": "TEXT", "id": "tags", "preload": true },
+                        { "path": "assets/grammar.json", "size": 21664, "type": "TEXT", "id": "grammar", "preload": true },
+                        { "path": "assets/demons.txt", "size": 677, "type": "TEXT", "id": "demons", "preload": true },
+                        { "path": "assets/default.json", "size": 1028, "type": "TEXT", "id": "default", "preload": true },
+                        { "path": "assets/ancient.json","size": 1028,"type": "TEXT","id": "ancient","preload": true },
+                        { "path": "assets/modern.json","size": 1030,"type": "TEXT","id": "modern","preload": true },
+                        { "path": "assets/light.json","size": 1043,"type": "TEXT","id": "light","preload": true },
+                        { "path": "assets/link.json","size": 1027,"type": "TEXT","id": "link","preload": true },
+                        { "path": "__ASSET__assets_pathwaygothicone_regular_ttf","size": 48956,"type": "FONT","className": "__ASSET__assets_pathwaygothicone_regular_ttf","id": "regular_font","preload": true },
+                        { "path": "__ASSET__assets_germaniaone_regular_ttf","size": 30424,"type": "FONT","className": "__ASSET__assets_germaniaone_regular_ttf","id": "title_font","preload": true },
+                        { "path": "__ASSET__assets_sharetech_regular_ttf","size": 46596,"type": "FONT","className": "__ASSET__assets_sharetech_regular_ttf","id": "ui_font","preload": true },
+                        { "path": "__ASSET__assets_sharetechmono_regular_ttf","size": 42756,"type": "FONT","className": "__ASSET__assets_sharetechmono_regular_ttf","id": "ui_font_mono","preload": true }
+                    ],
+                    "rootPath": null,
+                    "version": 2,
+                    "libraryArgs": [],
+                    "libraryType": null
+                };
+
+                var serializedAssets = bd.run(manifestObject.assets);
+
+                var finalManifestString = '{"name":null,"assets":' + JSON.stringify(serializedAssets) + ',"rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+
+                var manifestData = Xc.parse(
+                    finalManifestString,
+                    ManifestResources.rootPath
+                );
+
+                // Cria uma biblioteca de assets a partir do manifesto
+                var library = Db.fromManifest(manifestData);
+
+                // Registra a biblioteca como "default"
+                wa.registerLibrary("default", library);
+                
+                var defaultLibrary = wa.getLibrary("default");
+                if (null != defaultLibrary) {
+                    ManifestResources.preloadLibraries.push(defaultLibrary);
+                } else {
+                    ManifestResources.preloadLibraryNames.push("default");
+                }
+            };
+            
+            var za = function (a) {
                 null != a && (this.name = a); this.__init || (void 0 == this.ascender && (this.ascender = 0), void 0 == this.descender && (this.descender = 0), void 0 == this.height && (this.height = 0), void 0 == this.numGlyphs && (this.numGlyphs = 0), void 0 == this.underlinePosition && (this.underlinePosition = 0), void 0 == this.underlineThickness && (this.underlineThickness =
                     0), void 0 == this.unitsPerEM && (this.unitsPerEM = 0), null != this.__fontID ? wa.isLocal(this.__fontID) && this.__fromBytes(wa.getBytes(this.__fontID)) : null != this.__fontPath && this.__fromFile(this.__fontPath))
             }; g["lime.text.Font"] = za; za.__name__ = "lime.text.Font"; za.fromFile = function (a) { if (null == a) return null; var b = new za; b.__fromFile(a); return b }; za.loadFromName = function (a) { return (new za).__loadFromName(a) }; za.__measureFontNode = function (a) {
@@ -469,7 +2637,7 @@ var $lime_init = function (F, r) {
                 activate: function () {
                     Va.get_tick().add(k(this, this.onUpdate)); this.stage.addEventListener("keyDown", k(this, this.onKeyDown)); this.stage.addEventListener("keyUp",
                         k(this, this.onKeyUp))
-                }, deactivate: function () { Va.get_tick().remove(k(this, this.onUpdate)); this.stage.removeEventListener("keyDown", k(this, this.onKeyDown)); this.stage.removeEventListener("keyUp", k(this, this.onKeyUp)) }, onEsc: function () { hb.quit() }, onKeyDown: function (a) { switch (a.keyCode) { case 15: case 17: this.keyCtrl = !0; break; case 16: this.keyShift = !0; break; case 27: this.onEsc() }this.keyEvent.dispatch(a.keyCode, !0); null == this.stage || this.stage.get_focus() instanceof uc || a.preventDefault() }, onKeyUp: function (a) {
+                }, deactivate: function () { Va.get_tick().remove(k(this, this.onUpdate)); this.stage.removeEventListener("keyDown", k(this, this.onKeyDown)); this.stage.removeEventListener("keyUp", k(this, this.onKeyUp)) }, onEsc: function () { Game.quit() }, onKeyDown: function (a) { switch (a.keyCode) { case 15: case 17: this.keyCtrl = !0; break; case 16: this.keyShift = !0; break; case 27: this.onEsc() }this.keyEvent.dispatch(a.keyCode, !0); null == this.stage || this.stage.get_focus() instanceof uc || a.preventDefault() }, onKeyUp: function (a) {
                     switch (a.keyCode) {
                         case 15: case 17: this.keyCtrl =
                             !1; break; case 16: this.keyShift = !1
@@ -916,9 +3084,9 @@ var $lime_init = function (F, r) {
                         this.maxSize = 15; this.minSize = 6; this.style = [0, 0, 0, 1, 2, 3, 3]; this.order = [!0, !0, !0, !0, !1]; this.bp = a; this.rooms = []; this.doors = []; this.blocks = []; v.reset(a.seed); Rb.trace("Seed: " + v.seed, { fileName: "Source/com/watabou/dungeon/model/Dungeon.hx", lineNumber: 71, className: "com.watabou.dungeon.model.Dungeon", methodName: "new" }); if (null != a.tags) {
                             var b = !1, c = 0; do {
                                 for (var d = 0; 20 >
-                                    d;)if (d++, this.tags = [], this.story = new $a(this), Fa.difference(a.tags, this.tags).length <= c) { b = !0; break } ++c
-                            } while (!b); d = 0; for (b = a.tags; d < b.length;)c = b[d], ++d, -1 == this.tags.indexOf(c) && Pc.resolve(this.tags, c)
-                        } else this.tags = [], this.story = new $a(this); null != a.name && (this.story.name = a.name); Ta.init(this)
+                                    d;)if (d++, this.tags = [], this.story = new Story(this), Fa.difference(a.tags, this.tags).length <= c) { b = !0; break } ++c
+                            } while (!b); d = 0; for (b = a.tags; d < b.length;)c = b[d], ++d, -1 == this.tags.indexOf(c) && Tags.resolve(this.tags, c)
+                        } else this.tags = [], this.story = new Story(this); null != a.name && (this.story.name = a.name); Ta.init(this)
                     }; g["com.watabou.dungeon.model.Dungeon"] = Mi; Mi.__name__ = "com.watabou.dungeon.model.Dungeon"; Mi.prototype = {
                         getRect: function (a) {
                             null == a && (a = !0); for (var b = null, c = 0, d = this.rooms; c < d.length;) {
@@ -1115,7 +3283,10 @@ var $lime_init = function (F, r) {
             }; var lg = function (a, b, c, d, f) {
                 null ==
                 f && (f = 1); this.enviro = this.event = this.gate = this.loot = this.key = this.enemy = this.hidden = !1; var h = xa.UP; b.x == h.x && b.y == h.y ? pc.call(this, a.x - (c >> 1), a.y - d + 1, c, d) : (h = xa.DOWN, b.x == h.x && b.y == h.y ? pc.call(this, a.x - (c >> 1), a.y, c, d) : (h = xa.LEFT, b.x == h.x && b.y == h.y ? pc.call(this, a.x - d + 1, a.y - (c >> 1), d, c) : (h = xa.RIGHT, b.x == h.x && b.y == h.y ? pc.call(this, a.x, a.y - (c >> 1), d, c) : pc.call(this, a.x, this.y, c, this.h)))); this.origin = a; this.axis = b; this.width = c; this.depth = d; this.mirror = f; this.props = []
-            }; g["com.watabou.dungeon.model.Room"] =
+            }; 
+            
+            
+            g["com.watabou.dungeon.model.Room"] =
                 lg; lg.__name__ = "com.watabou.dungeon.model.Room"; lg.__interfaces__ = [kg]; lg.__super__ = pc; lg.prototype = u(pc.prototype, {
                     out: function (a) { return a.x == this.x ? xa.LEFT : a.x == this.x + this.w - 1 ? xa.RIGHT : a.y == this.y ? xa.UP : a.y == this.y + this.h - 1 ? xa.DOWN : null }, word: function () { if (3 < this.w && 3 < this.h) { var a = this.inflate(-1, -1); a = a.w * a.h; return 21 <= a ? Fa.random(["large room", "large chamber", "hall"]) : 15 <= a ? Fa.random(["room", "chamber"]) : Fa.random(["small room", "small chamber"]) } return Fa.fallOff(["corridor", "passage"]) }, getPoly: function () { return ta.getPoly(this) },
                     getHatchingArea: function () { return ta.getHatchingArea(this) }, getSeams: function () { return [] }, xy: function (a, b) { return new xa(this.origin.x - a * this.axis.y * this.mirror + b * this.axis.x, this.origin.y + b * this.axis.y + a * this.axis.x * this.mirror) }, pxy: function (a, b) { return new I(this.origin.x - a * this.axis.y * this.mirror + b * this.axis.x, this.origin.y + b * this.axis.y + a * this.axis.x * this.mirror) }, getDoors: function () { for (var a = [], b = 0, c = this.dungeon.doors; b < c.length;) { var d = c[b]; ++b; d.from != this && d.to != this || a.push(d) } return a },
@@ -1162,158 +3333,1314 @@ var $lime_init = function (F, r) {
                                 b - d.y * a, d.y * b + d.x * a); return new ha(a.x - c, a.y - c, 2 * c, 2 * c)
                         } return pc.prototype.getBounds.call(this, a, b)
                     }, __class__: lg
-                }); var $a = function (a) {
-                    this.dungeon = a; if (null == $a.grammar) { Bd.rng = v.float; var b = JSON.parse(Vb.getText("grammar")); $a.grammar = Bd.createGrammar(b); $a.grammar.addModifiers(Wa.get()); $a.grammar.defaultSelector = ah; $a.demonic = new de(Vb.getText("demons").split(" ")); $a.grammar.addExternal("demonicName", k(this, this.demonicName)) } else $a.grammar.clearState(); b = .6666666666666666; null == b && (b = .5);
-                    (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b && (b = $a.grammar, Fa.addAll(b.flags, (new sa(", +", "")).split("BOSS")), $a.grammar.fix("boss")); $a.grammar.fix("dung_noun"); $a.grammar.fix("dung"); $a.grammar.fix("raider"); $a.grammar.fix("native"); $a.grammar.fix("symbol"); $a.grammar.fix("location"); this.name = $a.grammar.flatten("#name#"); Fa.addAll(a.tags, Pc.deriveTags(this.name)); -1 == a.tags.indexOf("single-level") && .5 > (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 && Fa.add(a.tags, "multi-level"); -1 == a.tags.indexOf("winding") ?
-                        (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "string"); -1 == a.tags.indexOf("flat") ? (b = .05, null == b && (b = .5), b = (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < b) : b = !1; b && Fa.add(a.tags, "deep"); var c = 0; for (a = a.tags; c < a.length;) { var d = a[c]; ++c; b = $a.grammar; d = d.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(d)) } this.hook = $a.grammar.flatten("#story#")
-                }; g["com.watabou.dungeon.model.Story"] = $a; $a.__name__ = "com.watabou.dungeon.model.Story"; $a.num2text =
-                    function (a) { switch (a) { case 0: return "zero"; case 1: return "one"; case 2: return "two"; case 3: return "three"; case 4: return "four"; case 5: return "five"; default: return "many" } }; $a.prototype = {
-                        demonicName: function () { var a = .25; null == a && (a = .5); return (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < a ? bh.capitalize($a.demonic.generate(3)) + "-" + bh.capitalize($a.demonic.generate(3)) : bh.capitalize($a.demonic.generate(4)) }, getRoomDesc: function (a, b) {
-                            $a.grammar.pushRules("room", [b.word()]); var c = []; b == a.backdoor && c.push("A rear entrance into the " +
-                                $a.grammar.flatten("#dung_noun#") + "."); b.event && c.push(this.getEventText(a, b)); b.gate && c.push(this.getGateText(a, b)); b.loot && c.push(this.getLootText(a, b)); b.key && c.push(this.getKeyText(a, b)); $a.grammar.popRules("room"); return 0 < c.length ? c.join(" ") : null
-                        }, getGateText: function (a, b) {
-                            for (var c = [], d = 0, f = b.getExits(); d < f.length;) { var h = f[d]; ++d; 5 == h.type && c.push(h) } b = this.dir2text(b, c[0]); $a.grammar.pushRules("dir", [b]); $a.grammar.pushRules("num", [$a.num2text(a.nKeys)]); switch (a.nKeys) {
-                                case 0: a = "#gate_nokey#";
-                                    break; case 1: a = "#gate_onekey#"; break; default: a = "#gate_manykeys#"
-                            }a = $a.grammar.flatten(a); $a.grammar.popRules("num"); $a.grammar.popRules("dir"); return a
-                        }, getKeyText: function (a, b) { a = this.keys.pop(); $a.grammar.pushRules("treasure", [a]); $a.grammar.pushRules("special_item", [a]); a = $a.grammar.flatten("#loot#"); $a.grammar.popRules("special_item"); $a.grammar.popRules("treasure"); return a }, getLootText: function (a, b) { return $a.grammar.flatten("#loot#") }, getEventText: function (a, b) { return $a.grammar.flatten("#event#") },
-                        dir2text: function (a, b) { a = b.from == a ? b.dir : new xa(-b.dir.x, -b.dir.y); b = xa.UP; if (a.x == b.x && a.y == b.y) return $a.grammar.flatten("#north#"); b = xa.DOWN; if (a.x == b.x && a.y == b.y) return $a.grammar.flatten("#south#"); b = xa.LEFT; return a.x == b.x && a.y == b.y ? $a.grammar.flatten("#west#") : $a.grammar.flatten("#east#") }, initKeys: function (a) { var b = $a.grammar.flatten("#key.a#"), c = [], d = 0; for (a = a.nKeys; d < a;)d++, c.push(b); this.keys = c }, setFlag: function (a) { var b = $a.grammar; a = a.toUpperCase(); Fa.addAll(b.flags, (new sa(", +", "")).split(a)) },
-                        __class__: $a
-                    }; var Pc = function () { }; g["com.watabou.dungeon.model.Tags"] = Pc; Pc.__name__ = "com.watabou.dungeon.model.Tags"; Pc.init = function () { if (null == Pc.anchors) { Pc.anchors = new Ma; for (var a = Vb.getText("tags").split("\r\n"), b = 0; b < a.length;) { var c = a[b]; ++b; var d = c.split(":"); c = d[0].split(","); d = d[1].split(","); for (var f = 0; f < c.length;) { var h = c[f]; ++f; h = w.trim(h); var n = Pc.anchors.h[h]; null == n && (n = [], Pc.anchors.h[h] = n); for (h = 0; h < d.length;) { var A = d[h]; ++h; Fa.add(n, w.trim(A)) } } } } }; Pc.deriveTags = function (a) {
-                        Pc.init();
-                        a = a.split(" "); for (var b = [], c = 0; c < a.length;) { var d = a[c]; ++c; d = Pc.anchors.h[d.toLowerCase()]; null != d && Fa.addAll(b, d) } return b
-                    }; Pc.getPublic = function () { return "chaotic;ordered;winding;compact;cramped;spacious;large;small;medium;string;flat;deep;secret;no secrets;treasure;dangerous;round;square;colonnades;dry;wet;flooded;temple;tomb;dwelling;crumbling;multi-level;single-level;backdoor;no backdoor".split(";") }; Pc.resolve = function (a, b) {
-                        for (var c = [["chaotic", "ordered"], ["winding", "compact"], ["cramped", "spacious"],
-                        ["large", "medium", "small"], ["round", "square"], ["dry", "wet", "flooded"], ["single-level", "multi-level"], ["secret", "no secrets"], ["backdoor", "no backdoor"], ["flat", "deep"]], d = 0; d < c.length;) { var f = c[d]; ++d; -1 != f.indexOf(b) && Fa.removeAll(a, Fa.difference(f, [b])) } null != b && a.push(b)
-                    }; Pc.getInfo = function (a) {
-                        switch (a) {
-                            case "backdoor": return "Alternative entrance"; case "chaotic": return "No symmetry"; case "colonnades": return "More colonnades"; case "compact": return "No corridors"; case "cramped": return "Small rooms";
-                            case "crumbling": return "More cracks and rubble"; case "dangerous": return "More dead bodies"; case "deep": return "Many steps"; case "dry": return "No water"; case "dwelling": return "A throne at the last room, more wells and tapestries"; case "flat": return "No steps"; case "flooded": return "Much water"; case "large": return "Larger dungeon"; case "medium": return "Normal-sized dungeon"; case "multi-level": return "Stairs down at the last room"; case "no backdoor": return "No alternative entrance"; case "no secrets": return "No secret rooms";
-                            case "ordered": return "More symmetry"; case "round": return "More round rooms"; case "secret": return "More secret rooms"; case "single-level": return "Strictly no stairs down"; case "small": return "Smaller dungeon"; case "spacious": return "More large rooms"; case "square": return "No round rooms"; case "string": return "A sequence of rooms without branching"; case "temple": return "Some altars"; case "tomb": return "Some coffins, fewer fountains"; case "treasure": return "More valuable or exotic loot"; case "wet": return "Some water";
-                            case "winding": return "More corridors"; default: return Rb.trace('No info for a public tag "' + a + '"!!!', { fileName: "Source/com/watabou/dungeon/model/Tags.hx", lineNumber: 143, className: "com.watabou.dungeon.model.Tags", methodName: "getInfo" }), null
+                }); 
+                
+                
+            /**
+             * Construtor da classe Story. Responsável por toda a geração de texto procedural.
+             * @param {object} dungeon - A instância da masmorra, contendo a lista de tags.
+             */
+            var Story = function(dungeon) {
+                this.dungeon = dungeon;
+
+                // 1. INICIALIZA A GRAMÁTICA (apenas na primeira execução)
+                // Bd é Tracery, v é Random, Vb é Assets, Wa são os modificadores, de é Markov
+                if (null == Story.grammar) {
+                    Bd.rng = v.float;
+                    var grammarData = JSON.parse(Vb.getText("grammar"));
+                    Story.grammar = Bd.createGrammar(grammarData);
+                    Story.grammar.addModifiers(Wa.get());
+                    Story.grammar.defaultSelector = ah; // ah é um seletor de regras
+                    Story.demonic = new de(Vb.getText("demons").split(" "));
+                    Story.grammar.addExternal("demonicName", k(this, this.demonicName)); // k é a função de bind
+                } else {
+                    Story.grammar.clearState();
+                }
+
+                // Adiciona aleatoriamente a tag "BOSS"
+                if (Math.random() < 0.666) {
+                    var grammar = Story.grammar;
+                    Fa.addAll(grammar.flags, (new sa(", +", "")).split("BOSS")); // Fa é ArrayExtender
+                    Story.grammar.fix("boss");
+                }
+
+                // "Conserta" (gera e fixa) algumas regras básicas da gramática para consistência
+                Story.grammar.fix("dung_noun");
+                Story.grammar.fix("dung");
+                Story.grammar.fix("raider");
+                Story.grammar.fix("native");
+                Story.grammar.fix("symbol");
+                Story.grammar.fix("location");
+
+                // 2. GERA O NOME E DERIVA TAGS
+                this.name = Story.grammar.flatten("#name#");
+                Fa.addAll(dungeon.tags, Tags.deriveTags(this.name));
+
+                // 3. ADICIONA TAGS ALEATÓRIAS
+                // Adiciona "multi-level" com 50% de chance se não for "single-level"
+                if (dungeon.tags.indexOf("single-level") == -1 && Math.random() < 0.5) {
+                    Fa.add(dungeon.tags, "multi-level");
+                }
+                // Adiciona "string" (formato de corredor) com 5% de chance se não for "winding"
+                if (dungeon.tags.indexOf("winding") == -1 && Math.random() < 0.05) {
+                    Fa.add(dungeon.tags, "string");
+                }
+                // Adiciona "deep" (com escadas) com 5% de chance se não for "flat"
+                if (dungeon.tags.indexOf("flat") == -1 && Math.random() < 0.05) {
+                    Fa.add(dungeon.tags, "deep");
+                }
+
+                // 4. DEFINE O CONTEXTO DA GRAMÁTICA
+                // Adiciona todas as tags finais como "flags" para influenciar a geração de texto
+                for (var i = 0, tags = dungeon.tags; i < tags.length; i++) {
+                    var tag = tags[i];
+                    var grammar = Story.grammar;
+                    var upperTag = tag.toUpperCase();
+                    Fa.addAll(grammar.flags, (new sa(", +", "")).split(upperTag));
+                }
+
+                // 5. GERA A HISTÓRIA
+                this.hook = Story.grammar.flatten("#story#");
+            };
+
+            /**
+            * Define a classe `com.watabou.dungeon.model.Story`.
+            * Esta classe é responsável por toda a geração de texto procedural,
+            * criando nomes, descrições e a história da masmorra.
+            */
+            g["com.watabou.dungeon.model.Story"] = Story;
+            Story.__name__ = "com.watabou.dungeon.model.Story";
+
+            /**
+             * (Método Estático) Converte um número para sua representação em texto.
+             * @param {number} a - O número a ser convertido.
+             * @returns {string} O número por extenso.
+             */
+            Story.num2text = function (a) {
+                switch (a) {
+                    case 0: return "zero";
+                    case 1: return "one";
+                    case 2: return "two";
+                    case 3: return "three";
+                    case 4: return "four";
+                    case 5: return "five";
+                    default: return "many";
+                }
+            };
+
+            // Define os métodos da instância da classe Story
+            Story.prototype = {
+                /**
+                 * Gera um nome demoníaco proceduralmente.
+                 * @returns {string} Um nome demoníaco.
+                 */
+                demonicName: function () {
+                    var a = 0.25;
+                    if (null == a) {
+                        a = 0.5;
+                    }
+                    // Utiliza um gerador de Markov ($a.demonic.generate) para criar o nome
+                    return (v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647 < a
+                        ? bh.capitalize(Story.demonic.generate(3)) + "-" + bh.capitalize(Story.demonic.generate(3))
+                        : bh.capitalize(Story.demonic.generate(4));
+                },
+
+                /**
+                 * Gera a descrição de uma sala com base em suas propriedades (evento, tesouro, chave, etc.).
+                 * @param {object} a - O objeto planejador da masmorra.
+                 * @param {object} b - O objeto da sala.
+                 * @returns {string|null} A descrição completa da sala ou nulo se não houver.
+                 */
+                getRoomDesc: function (a, b) {
+                    Story.grammar.pushRules("room", [b.word()]);
+                    var c = [];
+
+                    if (b == a.backdoor) {
+                        c.push("A rear entrance into the " + Story.grammar.flatten("#dung_noun#") + ".");
+                    }
+                    if (b.event) {
+                        c.push(this.getEventText(a, b));
+                    }
+                    if (b.gate) {
+                        c.push(this.getGateText(a, b));
+                    }
+                    if (b.loot) {
+                        c.push(this.getLootText(a, b));
+                    }
+                    if (b.key) {
+                        c.push(this.getKeyText(a, b));
+                    }
+
+                    Story.grammar.popRules("room");
+                    return c.length > 0 ? c.join(" ") : null;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um portão, considerando o número de chaves necessárias.
+                 * @param {object} a - O objeto planejador da masmorra.
+                 * @param {object} b - O objeto da sala.
+                 * @returns {string} O texto gerado para o portão.
+                 */
+                getGateText: function (a, b) {
+                    var c = [];
+                    for (var d = 0, f = b.getExits(); d < f.length;) {
+                        var h = f[d];
+                        ++d;
+                        if (h.type == 5) {
+                            c.push(h);
                         }
-                    }; var Lc = function (a) {
-                        var b = 1 / Lc.scale; this.rect = a.getRect(); this.vb = new Ri(this.rect.w * Lc.scale, this.rect.h * Lc.scale, 2 * Lc.scale); for (var c = 0, d = a.doors; c < d.length;) { var f = d[c]; ++c; this.box(f.x - b, 1 + 2 * b, f.y - b, 1 + 2 * b, 1 - b, 1 + b, 1) } c = 0; for (d = a.rooms; c < d.length;)f = d[c], ++c,
-                            f = f.inflate(-1, -1), this.box(f.x - b, f.w + 2 * b, f.y - b, f.h + 2 * b, 1 - b, 1 + b, 1), this.box(f.x, f.w, f.y, f.h, 1, 1, 0); c = 0; for (d = a.doors; c < d.length;)switch (f = d[c], ++c, this.box(f.x, 1, f.y, 1, 1, 1, 0), f.type) {
-                                case 1: case 2: 0 == f.dir.x ? (this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1, 1), this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1 - b, 0)) : (this.box(f.x + b, 1 - 2 * b, f.y, 1, 1, 1, 1), this.box(f.x, 1, f.y + b, 1 - 2 * b, 1, 1 - b, 0)); break; case 3: a = 1; for (var h = Lc.scale; a < h;) {
-                                    var n = a++ / Lc.scale; 0 == f.dir.x ? 1 == f.dir.y ? this.box(f.x, 1, f.y + n - b, b, 1, 1 - n, 1) : this.box(f.x, 1, f.y + n, b, 1, n, 1) : 1 ==
-                                        f.dir.x ? this.box(f.x + n - b, b, f.y, 1, 1, 1 - n, 1) : this.box(f.x + n, b, f.y, 1, 1, n, 1)
-                                } break; case 4: case 7: this.box(f.x + b, b, f.y + b, b, 1, 1, 1)
+                    }
+                    b = this.dir2text(b, c[0]);
+
+                    Story.grammar.pushRules("dir", [b]);
+                    Story.grammar.pushRules("num", [Story.num2text(a.nKeys)]);
+
+                    switch (a.nKeys) {
+                        case 0: a = "#gate_nokey#"; break;
+                        case 1: a = "#gate_onekey#"; break;
+                        default: a = "#gate_manykeys#";
+                    }
+
+                    a = Story.grammar.flatten(a);
+                    Story.grammar.popRules("num");
+                    Story.grammar.popRules("dir");
+                    return a;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém uma chave.
+                 * @returns {string} O texto gerado.
+                 */
+                getKeyText: function (a, b) {
+                    a = this.keys.pop();
+                    Story.grammar.pushRules("treasure", [a]);
+                    Story.grammar.pushRules("special_item", [a]);
+                    a = Story.grammar.flatten("#loot#");
+                    Story.grammar.popRules("special_item");
+                    Story.grammar.popRules("treasure");
+                    return a;
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um tesouro (loot).
+                 * @returns {string} O texto gerado.
+                 */
+                getLootText: function (a, b) {
+                    return Story.grammar.flatten("#loot#");
+                },
+
+                /**
+                 * Gera o texto para uma sala que contém um evento.
+                 * @returns {string} O texto gerado.
+                 */
+                getEventText: function (a, b) {
+                    return Story.grammar.flatten("#event#");
+                },
+
+                /**
+                 * Converte um vetor de direção em uma palavra (norte, sul, leste, oeste).
+                 * @param {object} a - A sala de origem.
+                 * @param {object} b - A porta que contém o vetor de direção.
+                 * @returns {string} A direção por extenso.
+                 */
+                dir2text: function (a, b) {
+                    a = (b.from == a) ? b.dir : new xa(-b.dir.x, -b.dir.y);
+                    b = xa.UP;
+                    if (a.x == b.x && a.y == b.y) return Story.grammar.flatten("#north#");
+                    b = xa.DOWN;
+                    if (a.x == b.x && a.y == b.y) return Story.grammar.flatten("#south#");
+                    b = xa.LEFT;
+                    return (a.x == b.x && a.y == b.y) ? Story.grammar.flatten("#west#") : Story.grammar.flatten("#east#");
+                },
+
+                /**
+                 * Inicializa a lista de descrições de chaves com base na quantidade necessária.
+                 * @param {object} a - O objeto planejador da masmorra.
+                 */
+                initKeys: function (a) {
+                    var b = Story.grammar.flatten("#key.a#");
+                    var c = [];
+                    var d = 0;
+                    for (a = a.nKeys; d < a;) {
+                        d++;
+                        c.push(b);
+                    }
+                    this.keys = c;
+                },
+
+                /**
+                 * Adiciona uma flag (etiqueta) ao estado da gramática, podendo alterar o resultado da geração de texto.
+                 * @param {string} a - A flag a ser adicionada (ex: "WATER").
+                 */
+                setFlag: function (a) {
+                    var b = Story.grammar;
+                    a = a.toUpperCase();
+                    Fa.addAll(b.flags, (new sa(", +", "")).split(a));
+                },
+
+                // Identificador da classe para o sistema de tipos
+                __class__: Story
+            }; 
+            
+            /**
+             * Objeto estático para gerenciar as tags que controlam a geração da masmorra.
+             * @namespace com.watabou.dungeon.model.Tags
+             */
+            var Tags = function() {};
+            g["com.watabou.dungeon.model.Tags"] = Tags;
+            Tags.__name__ = "com.watabou.dungeon.model.Tags";
+
+            /**
+             * Inicializa e processa o arquivo de definições de tags (tags.txt), criando
+             * um mapa de âncoras para derivar tags a partir de palavras-chave.
+             * Roda apenas uma vez.
+             */
+            Tags.init = function() {
+                if (null == Tags.anchors) {
+                    Tags.anchors = new Ma(); // Ma é um StringMap minificado
+                    var lines = Vb.getText("tags").split("\r\n"); // Vb é Assets.getText
+
+                    for (var i = 0; i < lines.length; i++) {
+                        var line = lines[i];
+                        var parts = line.split(":");
+                        var anchors = parts[0].split(",");
+                        var derivedTags = parts[1].split(",");
+
+                        for (var j = 0; j < anchors.length; j++) {
+                            var anchor = w.trim(anchors[j]); // w é StringTools.trim
+                            var tagList = Tags.anchors.h[anchor];
+                            if (null == tagList) {
+                                tagList = [];
+                                Tags.anchors.h[anchor] = tagList;
                             }
-                    }; g["com.watabou.dungeon.model.VoxelData"] = Lc; Lc.__name__ = "com.watabou.dungeon.model.VoxelData"; Lc.prototype = { box: function (a, b, c, d, f, h, n) { this.vb.box(Math.round((a - this.rect.x) * Lc.scale), Math.round(b * Lc.scale), this.vb.ysize - Math.round((c - this.rect.y) * Lc.scale) - Math.round(d * Lc.scale), Math.round(d * Lc.scale), Math.round(f * Lc.scale), Math.round(h * Lc.scale), n) }, __class__: Lc }; var oe =
-                        function () { this.notes = []; oe.inst = this; Xb.call(this); G.restorePalette(); G.bw = eb.get("bw", !1); ta.gridScale = eb.get("gridScale", 1); var a = dc.DOTTED; ta.grid = lb.createEnum(dc, eb.get("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); a = Ga.NORMAL; Ha.mode = lb.createEnum(Ga, eb.get("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null); this.map = new ja; this.addChild(this.map); this.createHeader(); this.keyEvent.add(k(this, this.onKey)); a = Zc.fromURL(); this.reset(null != a ? a : Zc.random()) }; g["com.watabou.dungeon.scenes.ViewScene"] =
-                            oe; oe.__name__ = "com.watabou.dungeon.scenes.ViewScene"; oe.__super__ = Xb; oe.prototype = u(Xb.prototype, {
-                                activate: function () {
-                                    Xb.prototype.activate.call(this); this.stage.set_color(G.paper); this.stage.addEventListener("rightClick", k(this, this.onRightClick)); this.addEventListener("touchTap", k(this, this.onTap)); this.longPress = new mg(this.stage); var a = this.dungeon.bp; if (null != a.export) {
-                                        switch (this.dungeon.bp.export.toLowerCase()) {
-                                            case "json": Ea.exportJSON(this.dungeon); break; case "md": Ea.exportMarkdown(this.dungeon);
-                                                break; case "png": Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight); this.recreateTextfields(); break; case "svg": Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight); break; case "vox": Ea.exportVOX(this.dungeon)
-                                        }a.export = null
+                            for (var k = 0; k < derivedTags.length; k++) {
+                                var tag = derivedTags[k];
+                                Fa.add(tagList, w.trim(tag)); // Fa é ArrayExtender.add
+                            }
+                        }
+                    }
+                }
+            };
+
+            /**
+             * Deriva um conjunto de tags a partir de uma string (geralmente o nome da masmorra).
+             * @param {string} nameString - A string de onde derivar as tags.
+             * @returns {string[]} Uma lista de tags derivadas.
+             */
+            Tags.deriveTags = function(nameString) {
+                Tags.init();
+                var words = nameString.split(" ");
+                var derivedTags = [];
+                for (var i = 0; i < words.length; i++) {
+                    var word = words[i];
+                    var foundTags = Tags.anchors.h[word.toLowerCase()];
+                    if (null != foundTags) {
+                        Fa.addAll(derivedTags, foundTags); // Adiciona todas as tags encontradas
+                    }
+                }
+                return derivedTags;
+            };
+
+            /**
+             * Retorna a lista de todas as tags públicas que o usuário pode selecionar.
+             * @returns {string[]} A lista de tags.
+             */
+            Tags.getPublic = function() {
+                return "chaotic;ordered;winding;compact;cramped;spacious;large;small;medium;string;flat;deep;secret;no secrets;treasure;dangerous;round;square;colonnades;dry;wet;flooded;temple;tomb;dwelling;crumbling;multi-level;single-level;backdoor;no backdoor".split(";");
+            };
+
+            /**
+             * Resolve conflitos entre tags. Garante que tags mutuamente exclusivas não coexistam.
+             * Por exemplo, se a lista já tem "large" e "small" é adicionada, "large" é removida.
+             * @param {string[]} tagList - A lista de tags atual.
+             * @param {string} newTag - A nova tag a ser adicionada.
+             */
+            Tags.resolve = function(tagList, newTag) {
+                var mutuallyExclusiveGroups = [
+                    ["chaotic", "ordered"],
+                    ["winding", "compact"],
+                    ["cramped", "spacious"],
+                    ["large", "medium", "small"],
+                    ["round", "square"],
+                    ["dry", "wet", "flooded"],
+                    ["single-level", "multi-level"],
+                    ["secret", "no secrets"],
+                    ["backdoor", "no backdoor"],
+                    ["flat", "deep"]
+                ];
+
+                for (var i = 0; i < mutuallyExclusiveGroups.length; i++) {
+                    var group = mutuallyExclusiveGroups[i];
+                    if (group.indexOf(newTag) != -1) {
+                        // Remove todas as outras tags do mesmo grupo
+                        Fa.removeAll(tagList, Fa.difference(group, [newTag]));
+                    }
+                }
+
+                if (null != newTag) {
+                    tagList.push(newTag);
+                }
+            };
+
+            /**
+             * Retorna uma descrição em texto do efeito de uma tag específica.
+             * @param {string} tagName - O nome da tag.
+             * @returns {string|null} A descrição da tag.
+             */
+            Tags.getInfo = function(tagName) {
+                switch (tagName) {
+                    case "backdoor": return "Alternative entrance";
+                    case "chaotic": return "No symmetry";
+                    case "colonnades": return "More colonnades";
+                    case "compact": return "No corridors";
+                    case "cramped": return "Small rooms";
+                    case "crumbling": return "More cracks and rubble";
+                    case "dangerous": return "More dead bodies";
+                    case "deep": return "Many steps";
+                    case "dry": return "No water";
+                    case "dwelling": return "A throne at the last room, more wells and tapestries";
+                    case "flat": return "No steps";
+                    case "flooded": return "Much water";
+                    case "large": return "Larger dungeon";
+                    case "medium": return "Normal-sized dungeon";
+                    case "multi-level": return "Stairs down at the last room";
+                    case "no backdoor": return "No alternative entrance";
+                    case "no secrets": return "No secret rooms";
+                    case "ordered": return "More symmetry";
+                    case "round": return "More round rooms";
+                    case "secret": return "More secret rooms";
+                    case "single-level": return "Strictly no stairs down";
+                    case "small": return "Smaller dungeon";
+                    case "spacious": return "More large rooms";
+                    case "square": return "No round rooms";
+                    case "string": return "A sequence of rooms without branching";
+                    case "temple": return "Some altars";
+                    case "tomb": return "Some coffins, fewer fountains";
+                    case "treasure": return "More valuable or exotic loot";
+                    case "wet": return "Some water";
+                    case "winding": return "More corridors";
+                    default:
+                        Rb.trace('No info for a public tag "' + tagName + '"!!!', {
+                            fileName: "Source/com/watabou/dungeon/model/Tags.hx",
+                            lineNumber: 143,
+                            className: "com.watabou.dungeon.model.Tags",
+                            methodName: "getInfo"
+                        });
+                        return null;
+                }
+            }; 
+            
+            /**
+             * Construtor para o VoxelData. Converte a masmorra 2D em um modelo 3D de voxels.
+             * @param {object} dungeon - O objeto da masmorra contendo salas e portas.
+             */
+            var VoxelData = function(dungeon) {
+                // Escala e margem para os voxels.
+                var margin = 1 / VoxelData.scale;
+                this.rect = dungeon.getRect();
+                this.voxBuilder = new VoxBuilder(this.rect.w * VoxelData.scale, this.rect.h * VoxelData.scale, 2 * VoxelData.scale);
+
+                // 1. Desenha as portas (primeiro como blocos sólidos para garantir a conexão)
+                for (var i = 0, doors = dungeon.doors; i < doors.length; i++) {
+                    var door = doors[i];
+                    this.box(door.x - margin, 1 + 2 * margin, door.y - margin, 1 + 2 * margin, 1 - margin, 1 + margin, 1);
+                }
+
+                // 2. Desenha o chão e as paredes das salas
+                for (var i = 0, rooms = dungeon.rooms; i < rooms.length; i++) {
+                    var room = rooms[i];
+                    room = room.inflate(-1, -1); // Encolhe a sala para obter a área interna
+                    // Desenha o bloco sólido (paredes + chão)
+                    this.box(room.x - margin, room.w + 2 * margin, room.y - margin, room.h + 2 * margin, 1 - margin, 1 + margin, 1);
+                    // Esculpe o espaço vazio dentro da sala
+                    this.box(room.x, room.w, room.y, room.h, 1, 1, 0);
+                }
+
+                // 3. Desenha os detalhes das portas (arcos, escadas, etc.)
+                for (var i = 0, doors = dungeon.doors; i < doors.length; i++) {
+                    var door = doors[i];
+                    // Abre o buraco da porta
+                    this.box(door.x, 1, door.y, 1, 1, 1, 0);
+
+                    switch (door.type) {
+                        // Portas normais e secretas (desenha o arco/moldura)
+                        case 1:
+                        case 2:
+                            if (door.dir.x == 0) { // Porta vertical
+                                this.box(door.x, 1, door.y + margin, 1 - 2 * margin, 1, 1, 1);
+                                this.box(door.x + margin, 1 - 2 * margin, door.y, 1, 1, 1 - margin, 0);
+                            } else { // Porta horizontal
+                                this.box(door.x + margin, 1 - 2 * margin, door.y, 1, 1, 1, 1);
+                                this.box(door.x, 1, door.y + margin, 1 - 2 * margin, 1, 1 - margin, 0);
+                            }
+                            break;
+                        
+                        // Portas com escadas/rampas
+                        case 3:
+                            var step = 1;
+                            for (var totalSteps = VoxelData.scale; step < totalSteps;) {
+                                var n = step++ / VoxelData.scale;
+                                if (door.dir.x == 0) { // Escada vertical
+                                    if (door.dir.y == 1) {
+                                        this.box(door.x, 1, door.y + n - margin, margin, 1, 1 - n, 1);
+                                    } else {
+                                        this.box(door.x, 1, door.y + n, margin, 1, n, 1);
                                     }
-                                }, onKey: function (a, b) {
-                                    if (b && !(this.stage.get_focus() instanceof uc)) switch (a) {
-                                        case 9: case 84: this.showTagsForm(); break; case 13: this.newDungeon(Zc.random()); break; case 32: this.keyShift ? this.rerollNotes() : this.rearrangeNotes(); break; case 49: this.setGridScale(1); break; case 50: this.setGridScale(2);
-                                            break; case 69: this.keyShift ? Ea.exportPNG(this.dungeon, this.map) : (Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight), this.recreateTextfields()); break; case 71: this.toggleGrid(this.keyShift); break; case 72: this.toggleSecrets(); break; case 76: this.toggleLegend(); break; case 77: this.toggleBW(); break; case 78: this.toggleNotes(); break; case 80: this.toggleProps(); break; case 82: this.toggleRotation(); break; case 83: this.showPaletteForm(); break; case 87: this.keyShift ? this.raiseWater() : this.toggleWater()
+                                } else { // Escada horizontal
+                                    if (door.dir.x == 1) {
+                                        this.box(door.x + n - margin, margin, door.y, 1, 1, 1 - n, 1);
+                                    } else {
+                                        this.box(door.x + n, margin, door.y, 1, 1, n, 1);
                                     }
-                                }, onTap: function (a) {
-                                    this.longPress.activated ||
-                                    this.newDungeon(Zc.random())
-                                }, 
-                                // Função do menu de contexto
-                                onRightClick: function (a) { a = a.target; for (var b = a == T.layer; !b && null != a.parent;)a = a.parent, b = a == T.layer; b || this.showMenu() }, getMapPoint: function (a, b) { a = this.localToGlobal(new I(a, b)); a = this.map.globalToLocal(a); a.x *= .03333333333333333; a.y *= .03333333333333333; return a }, showMenu: function () { var a = new Jb, b = xa.fromPoint(this.getMapPoint(this.get_mouseX(), this.get_mouseY())); b = this.dungeon.findRoom(b.x, b.y); null != b && this.addRoomItems(a, b); this.buildMenu(a); T.showMenu(a) }, addRoomItems: function (a,
-                                    b) { var c = this; this.dungeon.planner.isSecret(b) && a.addItem("Hide room", function () { c.hideRoom(b) }); null == b.desc ? a.addItem("Add note", function () { c.addNote(b) }) : (a.addItem("Edit note...", function () { c.editNote(b) }), a.addItem("Delete note", function () { c.deleteNote(b) })); a.addSeparator() }, buildMenu: function (a) {
-                                        var b = this, c = new Jb; c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0)); c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0)); c.addItem("Full screen", k(this,
-                                            this.toggleFullScreen), 2 != this.stage.get_displayState()); c.addItem("Secret rooms", k(this, this.toggleSecrets), eb.get("secrets", !0)); var d = new Jb; Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem("Reroll notes", k(this, this.rerollNotes)); Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED || d.addItem("Rearrange notes", k(this, this.rearrangeNotes)); d.addSeparator(); var f = function (a, c) { d.addItem(a, function () { b.setNotesMode(c) }, Ha.mode == c) }; f("Off", Ga.HIDDEN); f("Default", Ga.NORMAL); f("Tailed", Ga.TAILED);
-                                        f("Legend", Ga.LEGEND); f("Symbols", Ga.SYMBOLS); f("Numbers", Ga.NUMBERS); var h = new Jb; f = function (a, c) { h.addItem(a, function () { b.setGridMode(c) }, ta.grid == c) }; f("Off", dc.HIDDEN); f("Dotted", dc.DOTTED); f("Dashed", dc.DASHED); f("Solid", dc.SOLID); f("Broken", dc.BROKEN); h.addSeparator(); h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale); f = new Jb; f.addSubmenu("Grid", h); f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible()); f.addItem("Water", k(this, this.toggleWater), eb.get("water",
-                                            !0)); f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0)); f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0)); f.addSeparator(); f.addItem("Water level...", k(this, this.showWaterForm)); var n = new Jb; n.addItem("PNG...", k(this, this.exportPNG)); n.addItem("SVG", k(this, this.exportSVG)); n.addItem("JSON", k(this, this.exportJSON)); n.addItem("VOX", k(this, this.exportVOX)); n.addItem("Markdown", k(this, this.exportMarkdown)); a.addItem("Procgen Arcana", k(this, this.arcana)); a.addSeparator();
-                                        a.addItem("New dungeon", function () { b.newDungeon(Zc.random()) }); a.addItem("Tags...", k(this, this.showTagsForm)); a.addSeparator(); a.addSubmenu("View", c); a.addSubmenu("Notes", d); a.addSubmenu("Layers", f); a.addItem("Monochrome", k(this, this.toggleBW), G.bw); a.addItem("Style...", k(this, this.showPaletteForm)); a.addSeparator(); a.addItem("Permalink...", k(this, this.showURL)); a.addItem("Save as PNG", k(this, this.savePNG)); a.addSubmenu("Export as", n)
-                                    },
-                                // Função para definir o layout
-                                layout: function () {
-                                    var a = this.rWidth - 100; this.layoutTitle(); this.layoutStory();
-                                    var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50, c = this.rHeight - b - 50, d = 0; if (Ha.mode == Ga.LEGEND) { for (var f = 0, h = this.notes; f < h.length;) { var n = h[f]; ++f; d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2)) } a -= d } h = 0; if (eb.get("autoRotation", !0)) { n = Math.log(a / c); var A = Infinity; for (f = -9; 9 > f;) { var p = f++ / 18 * Math.PI, g = this.dungeon.getBounds(p); g = Math.abs(n - Math.log(g.width / g.height)); 1.01 < A / g && (A = g, h = p) } } this.map.set_rotation(180 * h / Math.PI); g = this.dungeon.getBounds(h); a =
-                                        Math.min(a / g.width, c / g.height) / 30; 1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1); this.map.set_scaleX(this.map.set_scaleY(a)); this.shadow.adjustAngle(this.map.get_rotation()); f = ch.center(g); a *= 30; a = new I(f.x * a, f.y * a); this.map.set_x(this.rWidth / 2 - a.x + d / 2); this.map.set_y(b + c / 2 - a.y); this.layoutNotes()
-                                },
-                                // Layout do titulo    
-                                layoutTitle: function () { this.title.set_scaleX(this.title.set_scaleY(Math.min((this.rWidth - 100) / this.title.get_textWidth(), 1))); this.title.set_x((this.rWidth - this.title.get_width()) / 2) }, layoutStory: function () {
-                                    this.story.set_autoSize(1);
-                                    this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100); var a = this.story.get_numLines(); if (1 < a) for (; 0 < this.story.get_width();) { var b = this.story; b.set_width(b.get_width() - 10); if (this.story.get_numLines() > a) { a = this.story; a.set_width(a.get_width() + 10); break } } a = this.story.get_width(); b = this.story.get_height(); this.story.set_autoSize(2); this.story.set_width(a); this.story.set_height(b); this.story.set_x((this.rWidth - this.story.get_width()) / 2); this.story.set_y(this.title.get_height())
-                                },
-                                createHeader: function () { var a = this; this.title = Re.get(null, G.getFormat(G.fontTitle), k(this, this.layoutTitle), function () { a.dungeon.updateName(a.title.get_text()); a.layout() }); this.addChild(this.title); var b = G.getFormat(G.fontStory); b.align = 0; this.story = Re.get(null, b, null, k(this, this.layout)); this.story.set_multiline(!0); this.story.set_wordWrap(!0); this.addChild(this.story); this.title.set_visible(this.story.set_visible(eb.get("title", !0))) }, reset: function (a, b) {
-                                    null == b && (b = !0); if (b) {
-                                        this.dungeon = new Mi(a);
-                                        this.dungeon.build(); a = this.dungeon.planner.getSecrets(); if (0 < a.length && !eb.get("secrets", !0)) for (b = 0; b < a.length;) { var c = a[b]; ++b; c.hidden = !0 } this.updateDrawable(); this.notePosSeed = v.seed
-                                    } this.title.set_text(this.dungeon.story.name); this.story.set_text(this.dungeon.story.hook); this.drawAll(); this.recreateNotes()
-                                }, drawAll: function () {
-                                    this.recreateLayers(); this.drawShading(); for (var a = [], b = 0, c = this.drawable; b < c.length;) { var d = c[b]; ++b; a.push(rb.scale(d.getPoly(), 30, 30)) } var f = a, h = []; a = 0; for (b = this.drawable; a <
-                                        b.length;)for (d = b[a], ++a, c = 0, d = d.getSeams(); c < d.length;) { var n = d[c]; ++c; h.push(rb.scale(n, 30, 30)) } this.drawShape(f, h); this.drawWater(f); this.drawShadows(f); this.drawGrid(); a = 0; for (b = this.rooms; a < b.length;)for (f = b[a], ++a, c = 0, d = f.props; c < d.length;)f = d[c], ++c, f.draw(this.props.get_graphics()); a = 0; for (b = this.doors; a < b.length;)c = b[a], ++a, vb.draw(this.details.get_graphics(), c); a = 0; for (b = this.rooms; a < b.length;)f = b[a], ++a, ta.drawColonnades(this.details.get_graphics(), this.shadow.get_graphics(), f)
-                                }, newDungeon: function (a) {
-                                    this.reset(a);
-                                    this.layout()
-                                }, showTagsForm: function () { var a = this; null == T.findForm(ve) && (Kc.getTags = Pc.getPublic, Kc.resTags = Pc.resolve, Kc.getInfo = Pc.getInfo, T.showDialog(new ve(this.dungeon.tags, function (b) { a.newDungeon(Zc.fromTags(b)); return a.dungeon.tags }), "Tags").minimizable = !0) }, toggleRotation: function () { this.toggleFlag("autoRotation"); this.layout() }, toggleZoom: function () { this.toggleFlag("zoom2fit"); this.layout() }, toggleFullScreen: function () { this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2) },
-                                toggleSecrets: function () { var a = this.toggleFlag("secrets"), b = this.dungeon.planner.getSecrets(); if (0 < b.length) { for (var c = 0; c < b.length;) { var d = b[c]; ++c; d.hidden = !a } this.updateDrawable(); this.recreateNotes(); this.drawAll(); this.layout() } }, showPaletteForm: function () {
-                                    var a = this; if (null == T.findForm(Ab)) {
-                                        var b = new Ab(function (b) { G.fromPalette(b, !0); a.updatePalette() }, "Default default Ancient ancient Light light Modern modern Link link".split(" ")); b.getName = Ab.swatches(null, ["colorInk", "colorPaper"]); G.fillForm(b);
-                                        T.showDialog(b, "Style")
-                                    }
-                                }, toggleBW: function () { G.bw = this.toggleFlag("bw"); this.drawAll() }, showURL: function () { var a = this; null == T.findForm(ng) && T.showDialog(new ng(this.dungeon, function (b) { ob.fromString(b); a.newDungeon(Zc.fromURL()) })) }, rerollNotes: function () { Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && (this.dungeon.planner.rollNotes(), this.updateNotes()) }, rearrangeNotes: function () { if (Ha.mode == Ga.NORMAL || Ha.mode == Ga.TAILED) this.notePosSeed = v.seed, this.layoutNotes() }, toggleNotes: function () {
-                                    switch (Ha.mode._hx_index) {
-                                        case 0: var a =
-                                            Ga.TAILED; break; case 1: a = Ga.LEGEND; break; case 2: a = Ga.HIDDEN; break; default: a = Ga.NORMAL
-                                    }this.setNotesMode(a)
-                                }, toggleLegend: function () { this.setNotesMode(Ha.mode == Ga.LEGEND ? Ga.NORMAL : Ga.LEGEND) }, setNotesMode: function (a) { var b = Ha.mode; Ha.mode = a; this.recreateNotes(); a == Ga.LEGEND || b == Ga.LEGEND ? this.layout() : this.layoutNotes(); a = Ha.mode; eb.set("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name) }, addNote: function (a) {
-                                    var b = this; null == T.findForm(Ze) && T.showDialog(new Ze("", function (c) {
-                                        "" != c && (a.desc =
-                                            c, b.updateNotes())
-                                    }), "Add note")
-                                }, editNote: function (a) { var b = this; null == T.findForm(Ze) && T.showDialog(new Ze(a.desc, function (c) { "" == c ? b.deleteNote(a) : (a.desc = c, b.updateNotes()) }), "Note " + a.note.symb) }, deleteNote: function (a) { a.desc = null; this.updateNotes() }, updateNotes: function () { this.recreateNotes(); this.layoutNotes() }, recreateNotes: function () {
-                                    for (var a = 0, b = this.notes; a < b.length;) { var c = b[a]; ++a; this.removeChild(c) } this.notes = []; if (Ha.mode != Ga.HIDDEN) for (b = Ha.mode == Ga.NUMBERS ? this.dungeon.getNumbers() :
-                                        this.dungeon.getNotes(), a = 0; a < b.length;)c = b[a], ++a, c = new Ha(c), c.setWidth(Ha.mode == Ga.LEGEND ? 280 : 200), this.addChild(c), this.notes.push(c)
-                                }, layoutNotes: function () {
-                                    switch (Ha.mode._hx_index) {
-                                        case 0: case 1: this.layoutStickerNotes(); break; case 2: for (var a = this.rHeight - 50, b = 0, c = Fa.revert(this.notes); b < c.length;) { var d = c[b]; ++b; var f = d.note.point; f = new I(30 * f.x, 30 * f.y); f = this.globalToLocal(this.map.localToGlobal(f)); a -= d.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); d.place(new I(50, a), f) } break; case 3: case 4: for (b =
-                                            0, c = this.notes; b < c.length;)d = c[b], ++b, f = d.note.point, f = new I(30 * f.x, 30 * f.y), f = this.globalToLocal(this.map.localToGlobal(f)), d.place(f)
-                                    }
-                                }, layoutStickerNotes: function () {
-                                    var a = this, b = this.map.get_rotation() / 180 * Math.PI, c = Math.sin(b), d = Math.cos(b), f = this.dungeon.blocks.concat(this.dungeon.rooms); b = []; for (var h = 0; h < f.length;) { var n = f[h]; ++h; n = n.getBounds(c, d); ch.scale(n, 30 * this.map.get_scaleX()); n.offset(this.map.get_x(), this.map.get_y()); b.push(n) } var A = b; this.title.get_visible() && (A.push(this.title.getRect(this)),
-                                        A.push(this.story.getRect(this))); v.reset(this.notePosSeed); b = []; h = 0; for (var p = this.notes; h < p.length;)c = p[h], ++h, null != c.note.manual && b.push(c); h = b; c = Fa.difference(this.notes, h); d = function (b) { b = b.note.point; b = new I(30 * b.x, 30 * b.y); return a.globalToLocal(a.map.localToGlobal(b)) }; f = function (a, b, c) { A.push(new ha(a.x - b / 2 - 10, a.y - c / 2 - 10, b + 20, c + 20)) }; for (b = 0; b < h.length;) {
-                                            n = h[b]; ++b; var g = d(n), t = n.note.manual; t = new I(30 * t.x, 30 * t.y); t = this.globalToLocal(this.map.localToGlobal(t)); n.place(t, g); g = n.text.get_width() +
-                                                10 * (Ha.mode == Ga.LEGEND ? 1 : 2); var l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); f(t, g, l)
-                                        } for (b = 0; b < c.length;) {
-                                            n = c[b]; ++b; var m = d(n); g = n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2); var y = this.rWidth - 100 - g, q = this.rHeight - 100 - l, w = Infinity; t = null; var k = new I, z = new ha(0, 0, g, l); for (h = 0; 1E3 > h;) {
-                                                h++; k.x = 50 + g / 2 + y * ((v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647); k.y = 50 + l / 2 + q * ((v.seed = 48271 * v.seed % 2147483647 | 0) / 2147483647); z.x = k.x - g / 2; z.y = k.y - l / 2; var H = !1;
-                                                for (p = 0; p < A.length;) { var E = A[p]; ++p; if (z.intersects(E)) { H = !0; break } } H || (p = I.distance(k, m), w > p && (w = p, t = k.clone()))
-                                            } null == t && (h = m.add(new I(m.x + -this.rWidth / 2, m.y + -this.rHeight / 2)), t = Math.max(g, l), null == t && (t = 1), h = h.clone(), h.normalize(t), t = h); n.place(t, m); f(t, g, l)
-                                        }
-                                }, toggleFlag: function (a) { var b = !eb.get(a, !0); eb.set(a, b); return b }, toggleTitle: function () { this.story.set_visible(this.title.set_visible(this.toggleFlag("title"))); this.layout() }, toggleGrid: function (a) {
-                                    null == a && (a = !1); switch (ta.grid._hx_index) {
-                                        case 0: var b =
-                                            a ? dc.DOTTED : dc.BROKEN; break; case 1: b = a ? dc.DASHED : dc.HIDDEN; break; case 2: b = a ? dc.SOLID : dc.HIDDEN; break; case 3: b = a ? dc.BROKEN : dc.HIDDEN; break; case 4: b = dc.HIDDEN
-                                    }this.setGridMode(b)
-                                }, setGridMode: function (a) { ta.grid = a; this.drawGrid(); a = ta.grid; eb.set("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name) }, setGridScale: function (a) { ta.gridScale = a; this.drawGrid(); eb.set("gridScale", ta.gridScale) }, toggleSmallTiles: function () { this.setGridScale(1 == ta.gridScale ? 2 : 1) }, toggleWater: function () { this.water.set_visible(this.toggleFlag("water")) },
-                                raiseWater: function () { eb.set("water", this.water.set_visible(!0)); Ta.waterLevel = (Ta.waterLevel + .1) % 1.1; this.dungeon.flood.setLevel(Ta.waterLevel); this.water.updateFlood(this.dungeon.flood) }, toggleProps: function () { this.props.set_visible(this.toggleFlag("props")); this.drawGrid() }, toggleShadows: function () { this.shadow.set_visible(this.toggleFlag("shadows") && !G.bw) }, hideRoom: function (a) {
-                                    this.dungeon.planner.hideWing(a, !0); a = Fa.every(this.dungeon.planner.getSecrets(), function (a) { return a.hidden }); eb.set("secrets",
-                                        !a); this.updateDrawable(); this.recreateNotes(); this.drawAll(); this.layout()
-                                }, showWaterForm: function () { var a = this; null == T.findForm(og) && (eb.set("water", this.water.set_visible(!0)), T.showDialog(new og(Ta.waterLevel, function (b) { Ta.waterLevel = b; a.dungeon.flood.setLevel(b); a.water.updateFlood(a.dungeon.flood) }))) }, updateDrawable: function () {
-                                    for (var a = [], b = 0, c = this.dungeon.rooms; b < c.length;) { var d = c[b]; ++b; d.hidden || a.push(d) } this.rooms = a; a = []; b = 0; for (c = this.dungeon.doors; b < c.length;)d = c[b], ++b, (3 == d.type ||
-                                        8 == d.type || -1 != this.rooms.indexOf(d.from) && -1 != this.rooms.indexOf(d.to)) && a.push(d); this.doors = a; this.drawable = this.rooms.concat(this.doors)
-                                }, recreateLayers: function () {
-                                    for (; 0 < this.map.get_numChildren();)this.map.removeChildAt(0); this.shading = new Ra; this.map.addChild(this.shading); this.shape = new ja; this.map.addChild(this.shape); this.water = new dh; this.water.set_visible(eb.get("water", !0)); this.map.addChild(this.water); this.grid = new ja; this.map.addChild(this.grid); this.props = new ja; this.props.set_visible(eb.get("props",
-                                        !0)); this.map.addChild(this.props); this.shadow = new eh; this.shadow.set_visible(eb.get("shadows", !0) && !G.bw); this.map.addChild(this.shadow); this.details = new ja; this.map.addChild(this.details)
-                                }, drawShading: function () { for (var a = [], b = 0, c = this.drawable; b < c.length;) { var d = c[b]; ++b; d = d.getHatchingArea(); null != d && a.push(d) } this.shading.draw(a) }, drawShape: function (a, b) {
-                                    var c = this.shape.get_graphics(); c.lineStyle(2 * ("Stonework" == Ra.mode ? G.normal : G.thick), G.ink); for (var d = 0; d < a.length;) {
-                                        var f = a[d]; ++d; $b.drawPolygon(c,
-                                            f)
-                                    } c.endFill(); var h = G.bw ? G.paper : G.bg; for (d = 0; d < a.length;)f = a[d], ++d, c.beginFill(h), $b.drawPolygon(c, f); c.endFill(); c.lineStyle(1, h, null, null, null, 0); for (d = 0; d < b.length;)a = b[d], ++d, $b.drawPolyline(c, a); c.endFill()
-                                }, drawWater: function (a) { this.water.set_visible(eb.get("water", !0)); this.water.updateRooms(a); this.water.updateFlood(this.dungeon.flood) }, drawShadows: function (a) { 16777215 == G.shadowColor || G.bw || (this.shadow.update(a), this.shadow.adjustAngle(this.map.get_rotation())) }, drawGrid: function () {
-                                    var a =
-                                        this.grid.get_graphics(); a.clear(); if (eb.get("props", !0)) for (var b = 0, c = this.rooms; b < c.length;) { var d = c[b]; ++b; ta.drawCracks(a, d) } a.endFill(); if (ta.grid != dc.HIDDEN) { a.lineStyle(ta.grid == dc.DOTTED && 1 == ta.gridScale ? G.normal : G.thin, G.ink); b = 0; for (c = this.rooms; b < c.length;)d = c[b], ++b, ta.drawGrid(a, d); b = 0; for (c = this.doors; b < c.length;)d = c[b], ++b, vb.drawGrid(a, d) }
-                                }, updatePalette: function () {
-                                    this.stage.set_color(G.paper); this.title.setTextFormat(G.getFormat(G.fontTitle)); this.story.setTextFormat(G.getFormat(G.fontStory));
-                                    Ha.updateFormats(); this.reset(null, !1); this.layout()
-                                }, arcana: function () { var a = new fh("https://watabou.github.io/"); Na.navigateToURL(a, "arcana") }, recreateTextfields: function () { this.updateNotes(); this.removeChild(this.title); this.removeChild(this.story); this.createHeader(); this.title.set_text(this.dungeon.story.name); this.story.set_text(this.dungeon.story.hook); this.layoutTitle(); this.layoutStory() }, savePNG: function () { Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight); this.recreateTextfields() },
-                                exportPNG: function () { Ea.exportPNG(this.dungeon, this.map) }, exportJSON: function () { Ea.exportJSON(this.dungeon) }, exportSVG: function () { Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight) }, exportVOX: function () { Ea.exportVOX(this.dungeon) }, exportMarkdown: function () { Ea.exportMarkdown(this.dungeon) }, __class__: oe
-                            }); var jg = function (a, b) {
+                                }
+                            }
+                            break;
+
+                        // Portas trancadas (desenha um pequeno detalhe)
+                        case 4:
+                        case 7:
+                            this.box(door.x + margin, margin, door.y + margin, margin, 1, 1, 1);
+                            break;
+                    }
+                }
+            };
+
+            g["com.watabou.dungeon.model.VoxelData"] = VoxelData;
+            VoxelData.__name__ = "com.watabou.dungeon.model.VoxelData";
+            VoxelData.prototype = {
+                /**
+                 * Função auxiliar que desenha uma caixa de voxels.
+                 * O último parâmetro (n) determina se é um bloco sólido (1) ou espaço vazio (0).
+                 */
+                box: function(a, b, c, d, f, h, n) {
+                    this.voxBuilder.box(
+                        Math.round((a - this.rect.x) * VoxelData.scale),
+                        Math.round(b * VoxelData.scale),
+                        this.voxBuilder.ysize - Math.round((c - this.rect.y) * VoxelData.scale) - Math.round(d * VoxelData.scale),
+                        Math.round(d * VoxelData.scale),
+                        Math.round(f * VoxelData.scale),
+                        Math.round(h * VoxelData.scale),
+                        n
+                    );
+                },
+                __class__: VoxelData
+            };
+
+            /**
+             *
+             * Classe dungeon.scenes.ViewScene (ViewScene) Esta é a cena principal da aplicação, 
+             * responsável por gerenciar a exibição da masmorra, a interação do usuário e 
+             * a renderização de todos os elementos visuais.
+             *
+             * @class
+             * @extends {Xb} // Xb é com.watabou.coogee.Scene
+             */
+            var ViewScene = function () {
+                this.notes = [];
+                ViewScene.inst = this;
+                Xb.call(this);
+                G.restorePalette();
+                G.bw = eb.get("bw", !1);
+                ta.gridScale = eb.get("gridScale", 1);
+                var a = dc.DOTTED;
+                ta.grid = lb.createEnum(dc, eb.get("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null);
+                a = Ga.NORMAL;
+                Ha.mode = lb.createEnum(Ga, eb.get("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name), null);
+                this.map = new ja();
+                this.addChild(this.map);
+                this.createHeader();
+                this.keyEvent.add(k(this, this.onKey));
+                a = Zc.fromURL();
+                this.reset(null != a ? a : Zc.random());
+            };
+            g["com.watabou.dungeon.scenes.ViewScene"] = ViewScene;
+            ViewScene.__name__ = "com.watabou.dungeon.scenes.ViewScene";
+            ViewScene.__super__ = Xb;
+            ViewScene.prototype = u(Xb.prototype, {
+                activate: function () {
+                    Xb.prototype.activate.call(this);
+                    this.stage.set_color(G.paper);
+                    this.stage.addEventListener("rightClick", k(this, this.onRightClick));
+                    this.stage.addEventListener("touchTap", k(this, this.onTap));
+                    this.longPress = new mg(this.stage);
+                    var a = this.dungeon.bp;
+                    if (null != a.export) {
+                        switch (this.dungeon.bp.export.toLowerCase()) {
+                            case "json":
+                                Ea.exportJSON(this.dungeon);
+                                break;
+                            case "md":
+                                Ea.exportMarkdown(this.dungeon);
+                                break;
+                            case "png":
+                                Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight);
+                                this.recreateTextfields();
+                                break;
+                            case "svg":
+                                Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight);
+                                break;
+                            case "vox":
+                                Ea.exportVOX(this.dungeon);
+                        }
+                        a.export = null;
+                    }
+                },
+                onKey: function (a, b) {
+                    if (b && !(this.stage.get_focus() instanceof uc))
+                        switch (a) {
+                            case 9:
+                            case 84:
+                                this.showTagsForm();
+                                break;
+                            case 13:
+                                this.newDungeon(Zc.random());
+                                break;
+                            case 32:
+                                this.keyShift ? this.rerollNotes() : this.rearrangeNotes();
+                                break;
+                            case 49:
+                                this.setGridScale(1);
+                                break;
+                            case 50:
+                                this.setGridScale(2);
+                                break;
+                            case 69:
+                                this.keyShift ? Ea.exportPNG(this.dungeon, this.map) : (Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight), this.recreateTextfields());
+                                break;
+                            case 71:
+                                this.toggleGrid(this.keyShift);
+                                break;
+                            case 72:
+                                this.toggleSecrets();
+                                break;
+                            case 76:
+                                this.toggleLegend();
+                                break;
+                            case 77:
+                                this.toggleBW();
+                                break;
+                            case 78:
+                                this.toggleNotes();
+                                break;
+                            case 80:
+                                this.toggleProps();
+                                break;
+                            case 82:
+                                this.toggleRotation();
+                                break;
+                            case 83:
+                                this.showPaletteForm();
+                                break;
+                            case 87:
+                                this.keyShift ? this.raiseWater() : this.toggleWater();
+                        }
+                },
+                onTap: function (a) {
+                    this.longPress.activated || this.newDungeon(Zc.random());
+                },
+                onRightClick: function (a) {
+                    a = a.target;
+                    for (var b = a == T.layer; !b && null != a.parent; ) (a = a.parent), (b = a == T.layer);
+                    b || this.showMenu();
+                },
+                getMapPoint: function (a, b) {
+                    a = this.localToGlobal(new I(a, b));
+                    a = this.map.globalToLocal(a);
+                    a.x *= 0.03333333333333333;
+                    a.y *= 0.03333333333333333;
+                    return a;
+                },
+                showMenu: function () {
+                    var a = new Jb(),
+                        b = xa.fromPoint(this.getMapPoint(this.get_mouseX(), this.get_mouseY()));
+                    b = this.dungeon.findRoom(b.x, b.y);
+                    null != b && this.addRoomItems(a, b);
+                    this.buildMenu(a);
+                    T.showMenu(a);
+                },
+                addRoomItems: function (a, b) {
+                    var c = this;
+                    this.dungeon.planner.isSecret(b) &&
+                        a.addItem("Hide room", function () {
+                            c.hideRoom(b);
+                        });
+                    null == b.desc ?
+                        a.addItem("Add note", function () {
+                            c.addNote(b);
+                        }) :
+                        (a.addItem("Edit note...", function () {
+                            c.editNote(b);
+                        }),
+                        a.addItem("Delete note", function () {
+                            c.deleteNote(b);
+                        }));
+                    a.addSeparator();
+                },
+                buildMenu: function (a) {
+                    var b = this,
+                        c = new Jb();
+                    c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0));
+                    c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0));
+                    c.addItem("Full screen", k(this, this.toggleFullScreen), 2 != this.stage.get_displayState());
+                    c.addItem("Secret rooms", k(this, this.toggleSecrets), eb.get("secrets", !0));
+                    var d = new Jb();
+                    Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem("Reroll notes", k(this, this.rerollNotes));
+                    (Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED) || d.addItem("Rearrange notes", k(this, this.rearrangeNotes));
+                    d.addSeparator();
+                    var f = function (a, c) {
+                        d.addItem(
+                            a,
+                            function () {
+                                b.setNotesMode(c);
+                            },
+                            Ha.mode == c
+                        );
+                    };
+                    f("Off", Ga.HIDDEN);
+                    f("Default", Ga.NORMAL);
+                    f("Tailed", Ga.TAILED);
+                    f("Legend", Ga.LEGEND);
+                    f("Symbols", Ga.SYMBOLS);
+                    f("Numbers", Ga.NUMBERS);
+                    var h = new Jb();
+                    f = function (a, c) {
+                        h.addItem(
+                            a,
+                            function () {
+                                b.setGridMode(c);
+                            },
+                            ta.grid == c
+                        );
+                    };
+                    f("Off", dc.HIDDEN);
+                    f("Dotted", dc.DOTTED);
+                    f("Dashed", dc.DASHED);
+                    f("Solid", dc.SOLID);
+                    f("Broken", dc.BROKEN);
+                    h.addSeparator();
+                    h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale);
+                    f = new Jb();
+                    f.addSubmenu("Grid", h);
+                    f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible());
+                    f.addItem("Water", k(this, this.toggleWater), eb.get("water", !0));
+                    f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0));
+                    f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0));
+                    f.addSeparator();
+                    f.addItem("Water level...", k(this, this.showWaterForm));
+                    var n = new Jb();
+                    n.addItem("PNG...", k(this, this.exportPNG));
+                    n.addItem("SVG", k(this, this.exportSVG));
+                    n.addItem("JSON", k(this, this.exportJSON));
+                    n.addItem("VOX", k(this, this.exportVOX));
+                    n.addItem("Markdown", k(this, this.exportMarkdown));
+                    a.addSeparator();
+                    a.addItem("New dungeon", function () {
+                        b.newDungeon(Zc.random());
+                    });
+                    a.addItem("Tags...", k(this, this.showTagsForm));
+                    a.addSeparator();
+                    a.addSubmenu("View", c);
+                    a.addSubmenu("Notes", d);
+                    a.addSubmenu("Layers", f);
+                    a.addItem("Monochrome", k(this, this.toggleBW), G.bw);
+                    a.addItem("Style...", k(this, this.showPaletteForm));
+                    a.addSeparator();
+                    a.addItem("Permalink...", k(this, this.showURL));
+                    a.addItem("Save as PNG", k(this, this.savePNG));
+                    a.addSubmenu("Export as", n);
+                },
+                layout: function () {
+                    var a = this.rWidth - 100;
+                    this.layoutTitle();
+                    this.layoutStory();
+                    var b = this.title.get_visible() ? this.story.get_y() + this.story.get_height() : 50,
+                        c = this.rHeight - b - 50,
+                        d = 0;
+                    if (Ha.mode == Ga.LEGEND) {
+                        for (var f = 0, h = this.notes; f < h.length; ) {
+                            var n = h[f];
+                            ++f;
+                            d = Math.max(d, n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2));
+                        }
+                        a -= d;
+                    }
+                    h = 0;
+                    if (eb.get("autoRotation", !0)) {
+                        n = Math.log(a / c);
+                        var A = Infinity;
+                        for (f = -9; 9 > f; ) {
+                            var p = (f++ / 18) * Math.PI,
+                                g = this.dungeon.getBounds(p);
+                            g = Math.abs(n - Math.log(g.width / g.height));
+                            1.01 < A / g && ((A = g), (h = p));
+                        }
+                    }
+                    this.map.set_rotation((180 * h) / Math.PI);
+                    g = this.dungeon.getBounds(h);
+                    a = Math.min(a / g.width, c / g.height) / 30;
+                    1 < a && (a = eb.get("zoom2fit", !0) ? Math.sqrt(a) : 1);
+                    this.map.set_scaleX(this.map.set_scaleY(a));
+                    this.shadow.adjustAngle(this.map.get_rotation());
+                    f = ch.center(g);
+                    a *= 30;
+                    a = new I(f.x * a, f.y * a);
+                    this.map.set_x(this.rWidth / 2 - a.x + d / 2);
+                    this.map.set_y(b + c / 2 - a.y);
+                    this.layoutNotes();
+                },
+                layoutTitle: function () {
+                    this.title.set_scaleX(this.title.set_scaleY(Math.min((this.rWidth - 100) / this.title.get_textWidth(), 1)));
+                    this.title.set_x((this.rWidth - this.title.get_width()) / 2);
+                },
+                layoutStory: function () {
+                    this.story.set_autoSize(1);
+                    this.story.set_width(Math.max(Math.min(this.rWidth, this.rHeight), this.title.get_width()) - 100);
+                    var a = this.story.get_numLines();
+                    if (1 < a)
+                        for (; 0 < this.story.get_width(); ) {
+                            var b = this.story;
+                            b.set_width(b.get_width() - 10);
+                            if (this.story.get_numLines() > a) {
+                                a = this.story;
+                                a.set_width(a.get_width() + 10);
+                                break;
+                            }
+                        }
+                    a = this.story.get_width();
+                    b = this.story.get_height();
+                    this.story.set_autoSize(2);
+                    this.story.set_width(a);
+                    this.story.set_height(b);
+                    this.story.set_x((this.rWidth - this.story.get_width()) / 2);
+                    this.story.set_y(this.title.get_height());
+                },
+                createHeader: function () {
+                    var a = this;
+                    this.title = Re.get(
+                        null,
+                        G.getFormat(G.fontTitle),
+                        k(this, this.layoutTitle),
+                        function () {
+                            a.dungeon.updateName(a.title.get_text());
+                            a.layout();
+                        }
+                    );
+                    this.addChild(this.title);
+                    var b = G.getFormat(G.fontStory);
+                    b.align = 0;
+                    this.story = Re.get(null, b, null, k(this, this.layout));
+                    this.story.set_multiline(!0);
+                    this.story.set_wordWrap(!0);
+                    this.addChild(this.story);
+                    this.title.set_visible(this.story.set_visible(eb.get("title", !0)));
+                },
+                reset: function (a, b) {
+                    null == b && (b = !0);
+                    if (b) {
+                        this.dungeon = new Mi(a);
+                        this.dungeon.build();
+                        a = this.dungeon.planner.getSecrets();
+                        if (0 < a.length && !eb.get("secrets", !0))
+                            for (b = 0; b < a.length; ) {
+                                var c = a[b];
+                                ++b;
+                                c.hidden = !0;
+                            }
+                        this.updateDrawable();
+                        this.notePosSeed = v.seed;
+                    }
+                    this.title.set_text(this.dungeon.story.name);
+                    this.story.set_text(this.dungeon.story.hook);
+                    this.drawAll();
+                    this.recreateNotes();
+                },
+                drawAll: function () {
+                    this.recreateLayers();
+                    this.drawShading();
+                    for (var a = [], b = 0, c = this.drawable; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        a.push(rb.scale(d.getPoly(), 30, 30));
+                    }
+                    var f = a,
+                        h = [];
+                    a = 0;
+                    for (b = this.drawable; a < b.length; )
+                        for (d = b[a], ++a, c = 0, d = d.getSeams(); c < d.length; ) {
+                            var n = d[c];
+                            ++c;
+                            h.push(rb.scale(n, 30, 30));
+                        }
+                    this.drawShape(f, h);
+                    this.drawWater(f);
+                    this.drawShadows(f);
+                    this.drawGrid();
+                    a = 0;
+                    for (b = this.rooms; a < b.length; )
+                        for (f = b[a], ++a, c = 0, d = f.props; c < d.length; ) (f = d[c]), ++c, f.draw(this.props.get_graphics());
+                    a = 0;
+                    for (b = this.doors; a < b.length; ) (c = b[a]), ++a, vb.draw(this.details.get_graphics(), c);
+                    a = 0;
+                    for (b = this.rooms; a < b.length; ) (f = b[a]), ++a, ta.drawColonnades(this.details.get_graphics(), this.shadow.get_graphics(), f);
+                },
+                newDungeon: function (a) {
+                    this.reset(a);
+                    this.layout();
+                },
+                showTagsForm: function () {
+                    var a = this;
+                    null == T.findForm(ve) &&
+                        ((Kc.getTags = Tags.getPublic),
+                        (Kc.resTags = Tags.resolve),
+                        (Kc.getInfo = Tags.getInfo),
+                        (T.showDialog(
+                            new ve(this.dungeon.tags, function (b) {
+                                a.newDungeon(Zc.fromTags(b));
+                                return a.dungeon.tags;
+                            }),
+                            "Tags"
+                        ).minimizable = !0));
+                },
+                toggleRotation: function () {
+                    this.toggleFlag("autoRotation");
+                    this.layout();
+                },
+                toggleZoom: function () {
+                    this.toggleFlag("zoom2fit");
+                    this.layout();
+                },
+                toggleFullScreen: function () {
+                    this.stage.set_displayState(2 == this.stage.get_displayState() ? 1 : 2);
+                },
+                toggleSecrets: function () {
+                    var a = this.toggleFlag("secrets"),
+                        b = this.dungeon.planner.getSecrets();
+                    if (0 < b.length) {
+                        for (var c = 0; c < b.length; ) {
+                            var d = b[c];
+                            ++c;
+                            d.hidden = !a;
+                        }
+                        this.updateDrawable();
+                        this.recreateNotes();
+                        this.drawAll();
+                        this.layout();
+                    }
+                },
+                showPaletteForm: function () {
+                    var a = this;
+                    if (null == T.findForm(Ab)) {
+                        var b = new Ab(
+                            function (b) {
+                                G.fromPalette(b, !0);
+                                a.updatePalette();
+                            },
+                            "Default default Ancient ancient Light light Modern modern Link link".split(" ")
+                        );
+                        b.getName = Ab.swatches(null, ["colorInk", "colorPaper"]);
+                        G.fillForm(b);
+                        T.showDialog(b, "Style");
+                    }
+                },
+                toggleBW: function () {
+                    G.bw = this.toggleFlag("bw");
+                    this.drawAll();
+                },
+                showURL: function () {
+                    var a = this;
+                    null == T.findForm(ng) &&
+                        T.showDialog(
+                            new ng(this.dungeon, function (b) {
+                                ob.fromString(b);
+                                a.newDungeon(Zc.fromURL());
+                            })
+                        );
+                },
+                rerollNotes: function () {
+                    (Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN) && (this.dungeon.planner.rollNotes(), this.updateNotes());
+                },
+                rearrangeNotes: function () {
+                    if (Ha.mode == Ga.NORMAL || Ha.mode == Ga.TAILED) (this.notePosSeed = v.seed), this.layoutNotes();
+                },
+                toggleNotes: function () {
+                    switch (Ha.mode._hx_index) {
+                        case 0:
+                            var a = Ga.TAILED;
+                            break;
+                        case 1:
+                            a = Ga.LEGEND;
+                            break;
+                        case 2:
+                            a = Ga.HIDDEN;
+                            break;
+                        default:
+                            a = Ga.NORMAL;
+                    }
+                    this.setNotesMode(a);
+                },
+                toggleLegend: function () {
+                    this.setNotesMode(Ha.mode == Ga.LEGEND ? Ga.NORMAL : Ga.LEGEND);
+                },
+                setNotesMode: function (a) {
+                    var b = Ha.mode;
+                    Ha.mode = a;
+                    this.recreateNotes();
+                    a == Ga.LEGEND || b == Ga.LEGEND ? this.layout() : this.layoutNotes();
+                    a = Ha.mode;
+                    eb.set("notes", D[a.__enum__].__constructs__[a._hx_index]._hx_name);
+                },
+                addNote: function (a) {
+                    var b = this;
+                    null == T.findForm(Ze) &&
+                        T.showDialog(
+                            new Ze("", function (c) {
+                                "" != c && ((a.desc = c), b.updateNotes());
+                            }),
+                            "Add note"
+                        );
+                },
+                editNote: function (a) {
+                    var b = this;
+                    null == T.findForm(Ze) &&
+                        T.showDialog(
+                            new Ze(a.desc, function (c) {
+                                "" == c ? b.deleteNote(a) : ((a.desc = c), b.updateNotes());
+                            }),
+                            "Note " + a.note.symb
+                        );
+                },
+                deleteNote: function (a) {
+                    a.desc = null;
+                    this.updateNotes();
+                },
+                updateNotes: function () {
+                    this.recreateNotes();
+                    this.layoutNotes();
+                },
+                recreateNotes: function () {
+                    for (var a = 0, b = this.notes; a < b.length; ) {
+                        var c = b[a];
+                        ++a;
+                        this.removeChild(c);
+                    }
+                    this.notes = [];
+                    if (Ha.mode != Ga.HIDDEN)
+                        for (b = Ha.mode == Ga.NUMBERS ? this.dungeon.getNumbers() : this.dungeon.getNotes(), a = 0; a < b.length; )
+                            (c = b[a]), ++a, (c = new Ha(c)), c.setWidth(Ha.mode == Ga.LEGEND ? 280 : 200), this.addChild(c), this.notes.push(c);
+                },
+                layoutNotes: function () {
+                    switch (Ha.mode._hx_index) {
+                        case 0:
+                        case 1:
+                            this.layoutStickerNotes();
+                            break;
+                        case 2:
+                            for (var a = this.rHeight - 50, b = 0, c = Fa.revert(this.notes); b < c.length; ) {
+                                var d = c[b];
+                                ++b;
+                                var f = d.note.point;
+                                f = new I(30 * f.x, 30 * f.y);
+                                f = this.globalToLocal(this.map.localToGlobal(f));
+                                a -= d.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2);
+                                d.place(new I(50, a), f);
+                            }
+                            break;
+                        case 3:
+                        case 4:
+                            for (b = 0, c = this.notes; b < c.length; )
+                                (d = c[b]), ++b, (f = d.note.point), (f = new I(30 * f.x, 30 * f.y)), (f = this.globalToLocal(this.map.localToGlobal(f))), d.place(f);
+                    }
+                },
+                layoutStickerNotes: function () {
+                    var a = this,
+                        b = (this.map.get_rotation() / 180) * Math.PI,
+                        c = Math.sin(b),
+                        d = Math.cos(b),
+                        f = this.dungeon.blocks.concat(this.dungeon.rooms);
+                    b = [];
+                    for (var h = 0; h < f.length; ) {
+                        var n = f[h];
+                        ++h;
+                        n = n.getBounds(c, d);
+                        ch.scale(n, 30 * this.map.get_scaleX());
+                        n.offset(this.map.get_x(), this.map.get_y());
+                        b.push(n);
+                    }
+                    var A = b;
+                    this.title.get_visible() && (A.push(this.title.getRect(this)), A.push(this.story.getRect(this)));
+                    v.reset(this.notePosSeed);
+                    b = [];
+                    h = 0;
+                    for (var p = this.notes; h < p.length; ) (c = p[h]), ++h, null != c.note.manual && b.push(c);
+                    h = b;
+                    c = Fa.difference(this.notes, h);
+                    d = function (b) {
+                        b = b.note.point;
+                        b = new I(30 * b.x, 30 * b.y);
+                        return a.globalToLocal(a.map.localToGlobal(b));
+                    };
+                    f = function (a, b, c) {
+                        A.push(new ha(a.x - b / 2 - 10, a.y - c / 2 - 10, b + 20, c + 20));
+                    };
+                    for (b = 0; b < h.length; ) {
+                        n = h[b];
+                        ++b;
+                        var g = d(n),
+                            t = n.note.manual;
+                        t = new I(30 * t.x, 30 * t.y);
+                        t = this.globalToLocal(this.map.localToGlobal(t));
+                        n.place(t, g);
+                        g = n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2);
+                        var l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2);
+                        f(t, g, l);
+                    }
+                    for (b = 0; b < c.length; ) {
+                        n = c[b];
+                        ++b;
+                        var m = d(n);
+                        g = n.text.get_width() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2);
+                        l = n.text.get_height() + 10 * (Ha.mode == Ga.LEGEND ? 1 : 2);
+                        var y = this.rWidth - 100 - g,
+                            q = this.rHeight - 100 - l,
+                            w = Infinity;
+                        t = null;
+                        var k = new I(),
+                            z = new ha(0, 0, g, l);
+                        for (h = 0; 1e3 > h; ) {
+                            h++;
+                            k.x = 50 + g / 2 + y * ((v.seed = (48271 * v.seed) % 2147483647 | 0) / 2147483647);
+                            k.y = 50 + l / 2 + q * ((v.seed = (48271 * v.seed) % 2147483647 | 0) / 2147483647);
+                            z.x = k.x - g / 2;
+                            z.y = k.y - l / 2;
+                            var H = !1;
+                            for (p = 0; p < A.length; ) {
+                                var E = A[p];
+                                ++p;
+                                if (z.intersects(E)) {
+                                    H = !0;
+                                    break;
+                                }
+                            }
+                            H || ((p = I.distance(k, m)), w > p && ((w = p), (t = k.clone())));
+                        }
+                        null == t && ((h = m.add(new I(m.x + -this.rWidth / 2, m.y + -this.rHeight / 2))), (t = Math.max(g, l)), null == t && (t = 1), (h = h.clone()), h.normalize(t), (t = h));
+                        n.place(t, m);
+                        f(t, g, l);
+                    }
+                },
+                toggleFlag: function (a) {
+                    var b = !eb.get(a, !0);
+                    eb.set(a, b);
+                    return b;
+                },
+                toggleTitle: function () {
+                    this.story.set_visible(this.title.set_visible(this.toggleFlag("title")));
+                    this.layout();
+                },
+                toggleGrid: function (a) {
+                    null == a && (a = !1);
+                    switch (ta.grid._hx_index) {
+                        case 0:
+                            var b = a ? dc.DOTTED : dc.BROKEN;
+                            break;
+                        case 1:
+                            b = a ? dc.DASHED : dc.HIDDEN;
+                            break;
+                        case 2:
+                            b = a ? dc.SOLID : dc.HIDDEN;
+                            break;
+                        case 3:
+                            b = a ? dc.BROKEN : dc.HIDDEN;
+                            break;
+                        case 4:
+                            b = dc.HIDDEN;
+                    }
+                    this.setGridMode(b);
+                },
+                setGridMode: function (a) {
+                    ta.grid = a;
+                    this.drawGrid();
+                    a = ta.grid;
+                    eb.set("grid", D[a.__enum__].__constructs__[a._hx_index]._hx_name);
+                },
+                setGridScale: function (a) {
+                    ta.gridScale = a;
+                    this.drawGrid();
+                    eb.set("gridScale", ta.gridScale);
+                },
+                toggleSmallTiles: function () {
+                    this.setGridScale(1 == ta.gridScale ? 2 : 1);
+                },
+                toggleWater: function () {
+                    this.water.set_visible(this.toggleFlag("water"));
+                },
+                raiseWater: function () {
+                    eb.set("water", this.water.set_visible(!0));
+                    Ta.waterLevel = (Ta.waterLevel + 0.1) % 1.1;
+                    this.dungeon.flood.setLevel(Ta.waterLevel);
+                    this.water.updateFlood(this.dungeon.flood);
+                },
+                toggleProps: function () {
+                    this.props.set_visible(this.toggleFlag("props"));
+                    this.drawGrid();
+                },
+                toggleShadows: function () {
+                    this.shadow.set_visible(this.toggleFlag("shadows") && !G.bw);
+                },
+                hideRoom: function (a) {
+                    this.dungeon.planner.hideWing(a, !0);
+                    a = Fa.every(this.dungeon.planner.getSecrets(), function (a) {
+                        return a.hidden;
+                    });
+                    eb.set("secrets", !a);
+                    this.updateDrawable();
+                    this.recreateNotes();
+                    this.drawAll();
+                    this.layout();
+                },
+                showWaterForm: function () {
+                    var a = this;
+                    null == T.findForm(og) &&
+                        (eb.set("water", this.water.set_visible(!0)),
+                        T.showDialog(
+                            new og(Ta.waterLevel, function (b) {
+                                Ta.waterLevel = b;
+                                a.dungeon.flood.setLevel(b);
+                                a.water.updateFlood(a.dungeon.flood);
+                            })
+                        ));
+                },
+                updateDrawable: function () {
+                    for (var a = [], b = 0, c = this.dungeon.rooms; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        d.hidden || a.push(d);
+                    }
+                    this.rooms = a;
+                    a = [];
+                    b = 0;
+                    for (c = this.dungeon.doors; b < c.length; )
+                        (d = c[b]), ++b, (3 == d.type || 8 == d.type || (-1 != this.rooms.indexOf(d.from) && -1 != this.rooms.indexOf(d.to))) && a.push(d);
+                    this.doors = a;
+                    this.drawable = this.rooms.concat(this.doors);
+                },
+                recreateLayers: function () {
+                    for (; 0 < this.map.get_numChildren(); ) this.map.removeChildAt(0);
+                    this.shading = new Ra();
+                    this.map.addChild(this.shading);
+                    this.shape = new ja();
+                    this.map.addChild(this.shape);
+                    this.water = new dh();
+                    this.water.set_visible(eb.get("water", !0));
+                    this.map.addChild(this.water);
+                    this.grid = new ja();
+                    this.map.addChild(this.grid);
+                    this.props = new ja();
+                    this.props.set_visible(eb.get("props", !0));
+                    this.map.addChild(this.props);
+                    this.shadow = new eh();
+                    this.shadow.set_visible(eb.get("shadows", !0) && !G.bw);
+                    this.map.addChild(this.shadow);
+                    this.details = new ja();
+                    this.map.addChild(this.details);
+                },
+                drawShading: function () {
+                    for (var a = [], b = 0, c = this.drawable; b < c.length; ) {
+                        var d = c[b];
+                        ++b;
+                        d = d.getHatchingArea();
+                        null != d && a.push(d);
+                    }
+                    this.shading.draw(a);
+                },
+                drawShape: function (a, b) {
+                    var c = this.shape.get_graphics();
+                    c.lineStyle(2 * ("Stonework" == Ra.mode ? G.normal : G.thick), G.ink);
+                    for (var d = 0; d < a.length; ) {
+                        var f = a[d];
+                        ++d;
+                        $b.drawPolygon(c, f);
+                    }
+                    c.endFill();
+                    var h = G.bw ? G.paper : G.bg;
+                    for (d = 0; d < a.length; ) (f = a[d]), ++d, c.beginFill(h), $b.drawPolygon(c, f);
+                    c.endFill();
+                    c.lineStyle(1, h, null, null, null, 0);
+                    for (d = 0; d < b.length; ) (a = b[d]), ++d, $b.drawPolyline(c, a);
+                    c.endFill();
+                },
+                drawWater: function (a) {
+                    this.water.set_visible(eb.get("water", !0));
+                    this.water.updateRooms(a);
+                    this.water.updateFlood(this.dungeon.flood);
+                },
+                drawShadows: function (a) {
+                    16777215 == G.shadowColor || G.bw || (this.shadow.update(a), this.shadow.adjustAngle(this.map.get_rotation()));
+                },
+                drawGrid: function () {
+                    var a = this.grid.get_graphics();
+                    a.clear();
+                    if (eb.get("props", !0))
+                        for (var b = 0, c = this.rooms; b < c.length; ) {
+                            var d = c[b];
+                            ++b;
+                            ta.drawCracks(a, d);
+                        }
+                    a.endFill();
+                    if (ta.grid != dc.HIDDEN) {
+                        a.lineStyle(ta.grid == dc.DOTTED && 1 == ta.gridScale ? G.normal : G.thin, G.ink);
+                        b = 0;
+                        for (c = this.rooms; b < c.length; ) (d = c[b]), ++b, ta.drawGrid(a, d);
+                        b = 0;
+                        for (c = this.doors; b < c.length; ) (d = c[b]), ++b, vb.drawGrid(a, d);
+                    }
+                },
+                updatePalette: function () {
+                    this.stage.set_color(G.paper);
+                    this.title.setTextFormat(G.getFormat(G.fontTitle));
+                    this.story.setTextFormat(G.getFormat(G.fontStory));
+                    Ha.updateFormats();
+                    this.reset(null, !1);
+                    this.layout();
+                },
+                arcana: function () {
+                    var a = new fh("https://watabou.github.io/");
+                    Na.navigateToURL(a, "arcana");
+                },
+                recreateTextfields: function () {
+                    this.updateNotes();
+                    this.removeChild(this.title);
+                    this.removeChild(this.story);
+                    this.createHeader();
+                    this.title.set_text(this.dungeon.story.name);
+                    this.story.set_text(this.dungeon.story.hook);
+                    this.layoutTitle();
+                    this.layoutStory();
+                },
+                savePNG: function () {
+                    Ea.savePNG(this.dungeon, this, this.rWidth, this.rHeight);
+                    this.recreateTextfields();
+                },
+                exportPNG: function () {
+                    Ea.exportPNG(this.dungeon, this.map);
+                },
+                exportJSON: function () {
+                    Ea.exportJSON(this.dungeon);
+                },
+                exportSVG: function () {
+                    Ea.exportSVG(this.dungeon, this, this.rWidth, this.rHeight);
+                },
+                exportVOX: function () {
+                    Ea.exportVOX(this.dungeon);
+                },
+                exportMarkdown: function () {
+                    Ea.exportMarkdown(this.dungeon);
+                },
+                __class__: ViewScene,
+            });
+
+            
+                            var jg = function (a, b) {
                                 this.max = 200; this.def = 70; this.min = 10; var c = this; zb.call(this, ["OK", "Cancel"]); this.onOK = b; this.init(a); a = new Yc; b = new Ic("Cell size in pixels"); b.valign = "center"; a.add(b);
                                 this.input = new md(this.def, this.min, this.max, 3); this.input.enter.add(function (a) { c.onEnter() }); this.input.set_centered(!0); a.add(this.input); b = new wd("Max"); b.click.add(function () { c.input.set_value(c.max) }); b.valign = "fill"; a.add(b); this.add(a)
                             }; g["com.watabou.dungeon.ui.ExportForm"] = jg; jg.__name__ = "com.watabou.dungeon.ui.ExportForm"; jg.__super__ = zb; jg.prototype = u(zb.prototype, {
@@ -1322,6 +4649,8 @@ var $lime_init = function (F, r) {
                             }); var Ze = function (a, b) { var c = this; zb.call(this, ["OK", "Cancel"]); this.onOK = b; b = new Qe; this.area = new t(a); this.area.setSize(280, 140); this.area.enter.add(function (a) { c.onButton("OK") }); b.add(this.area); this.add(b) }; g["com.watabou.dungeon.ui.NoteForm"] =
                                 Ze; Ze.__name__ = "com.watabou.dungeon.ui.NoteForm"; Ze.__super__ = zb; Ze.prototype = u(zb.prototype, { onShow: function () { this.stage.set_focus(this.area) }, onButton: function (a) { if ("OK" == a) this.onOK(this.area.get_text()); zb.prototype.onButton.call(this, a) }, __class__: Ze }); var ng = function (a, b) { var c = this; zb.call(this, ["Copy", "Generate"]); this.onGenerate = b; a = new Qe; this.input = new y(ob.getURL()); this.input.enter.add(function (a) { c.onButton("Generate") }); this.input.set_width(500); a.add(this.input); this.add(a) }; g["com.watabou.dungeon.ui.URLForm"] =
                                     ng; ng.__name__ = "com.watabou.dungeon.ui.URLForm"; ng.__super__ = zb; ng.prototype = u(zb.prototype, { onShow: function () { this.highlight() }, getTitle: function () { return "Permalink" }, onButton: function (a) { switch (a) { case "Copy": Nd.get_generalClipboard().setData(2, this.input.get_text()); this.highlight(); break; case "Generate": this.onGenerate(this.input.get_text()); this.highlight(); break; default: zb.prototype.onButton.call(this, a) } }, highlight: function () { this.stage.set_focus(this.input); this.input.selecteAll() }, __class__: ng });
+
+
             var og = function (a, b) { zb.call(this, ["OK", "Cancel"]); this.prevLevel = a; this.onUpdate = b; b = new Yc; b.setMargins(12, 10); this.slLevel = new Zd(0, 1, 1); this.slLevel.set_value(a); this.slLevel.valign = "fill"; this.slLevel.change.add(k(this, this.onChanged)); b.add(this.slLevel); this.tiLevel = new y("0.1", !0); this.tiLevel.set_centered(!0); this.tiLevel.set_readOnly(!0); b.add(this.tiLevel); this.tiLevel.set_text(null == a ? "null" : "" + a); this.add(b) }; g["com.watabou.dungeon.ui.WaterLevelForm"] = og; og.__name__ = "com.watabou.dungeon.ui.WaterLevelForm";
             og.__super__ = zb; og.prototype = u(zb.prototype, { getTitle: function () { return "Water level" }, onChanged: function (a) { this.tiLevel.set_text(null == a ? "null" : "" + a); this.onUpdate(a) }, onButton: function (a) { if ("Cancel" == a) this.onUpdate(this.prevLevel); zb.prototype.onButton.call(this, a) }, __class__: og }); var Qi = function () { this.nodes = [] }; g["com.watabou.dungeon.utils.Graph"] = Qi; Qi.__name__ = "com.watabou.dungeon.utils.Graph"; Qi.prototype = {
                 add: function (a) { a = new Si(a); this.nodes.push(a); return a }, getNode: function (a) {
@@ -1382,11 +4711,11 @@ var $lime_init = function (F, r) {
                     Ha.mode == Ga.NORMAL ? this.text.addEventListener("mouseDown", k(this, this.onMouseDown)) : null != this.text && (this.text.mouseEnabled = !1)
             }; g["com.watabou.dungeon.visuals.NoteView"] = Ha; Ha.__name__ = "com.watabou.dungeon.visuals.NoteView"; Ha.updateFormats = function () { Ha.noteFormat = G.getFormat(G.fontNotes); Ha.legendFormat = G.getFormat(G.fontLegend); Ha.refFormat = G.getFormat(G.fontSymbols) }; Ha.__super__ = ja; Ha.prototype = u(ja.prototype, {
                 onRightClick: function (a) {
-                    a.stopPropagation(); a = new Jb; oe.inst.addRoomItems(a, this.note.room);
-                    oe.inst.buildMenu(a); T.showMenu(a)
+                    a.stopPropagation(); a = new Jb; ViewScene.inst.addRoomItems(a, this.note.room);
+                    ViewScene.inst.buildMenu(a); T.showMenu(a)
                 }, onMouseDown: function (a) { this.pos = new I; this.localX = this.get_mouseX(); this.localY = this.get_mouseY(); a.stopPropagation(); this.stage.addEventListener("mouseMove", k(this, this.onMouseMove)); this.stage.addEventListener("mouseUp", k(this, this.onMouseUp)) }, onMouseMove: function (a) { var b = this.parent.get_mouseX(); this.pos.x = b - this.localX; b = this.parent.get_mouseY(); this.pos.y = b - this.localY; this.place(this.pos, this.anchor); a.updateAfterEvent() }, onMouseUp: function (a) {
                     this.stage.removeEventListener("mouseMove",
-                        k(this, this.onMouseMove)); this.stage.removeEventListener("mouseUp", k(this, this.onMouseUp)); this.stage.set_focus(this.stage); this.note.manual = oe.inst.getMapPoint(this.pos.x, this.pos.y)
+                        k(this, this.onMouseMove)); this.stage.removeEventListener("mouseUp", k(this, this.onMouseUp)); this.stage.set_focus(this.stage); this.note.manual = ViewScene.inst.getMapPoint(this.pos.x, this.pos.y)
                 }, setWidth: function (a) {
                     if (Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS) {
                         this.text.set_width(a); var b = this.text.get_numLines(); if (1 < b && Ha.mode != Ga.LEGEND) { do a = this.text, a.set_width(a.get_width() - 4); while (this.text.get_numLines() == b); a = this.text; a.set_width(a.get_width() + 4) } else this.text.get_textWidth() < a - 4 && this.text.set_width(this.text.get_textWidth() +
@@ -4489,8 +7818,8 @@ var $lime_init = function (F, r) {
                                         !0; z.context.moveTo(K.buffer.f[K.fPos] - c + K.buffer.f[K.fPos + 2], K.buffer.f[K.fPos + 1] - d); z.context.arc(K.buffer.f[K.fPos] - c, K.buffer.f[K.fPos + 1] - d, K.buffer.f[K.fPos + 2], 0, 2 * Math.PI, !0); break; case 7: switch (l.prev._hx_index) {
                                             case 0: l.oPos += 2; l.bPos += 2; break; case 1: l.iPos += 1; l.fPos += 1; break; case 2: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 3: l.oPos += 1; break; case 4: l.fPos += 6; break; case 5: l.fPos += 4; break; case 6: l.fPos += 3; break; case 7: l.fPos += 4; break; case 8: l.oPos += 3; break; case 9: l.fPos += 4; break;
                                             case 10: l.fPos += 5; l.oPos += 1; break; case 12: l.oPos += 4; break; case 14: l.oPos += 2; l.bPos += 2; break; case 15: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 16: l.oPos += 4; l.iPos += 1; l.fPos += 2; l.bPos += 1; break; case 17: l.fPos += 2; break; case 18: l.fPos += 2; break; case 19: l.oPos += 1; break; case 20: l.oPos += 1
-                                        }l.prev = ba.DRAW_ELLIPSE; var jb = l; m = !0; var V = jb.buffer.f[jb.fPos]; var bb = jb.buffer.f[jb.fPos + 1]; var Q = jb.buffer.f[jb.fPos + 2]; var N = jb.buffer.f[jb.fPos + 3]; V -= c; bb -= d; var S = Q / 2 * .5522848; var aa = N / 2 * .5522848; var M = V +
-                                            Q; var P = bb + N; var lb = V + Q / 2; var W = bb + N / 2; z.context.moveTo(V, W); z.context.bezierCurveTo(V, W - aa, lb - S, bb, lb, bb); z.context.bezierCurveTo(lb + S, bb, M, W - aa, M, W); z.context.bezierCurveTo(M, W + aa, lb + S, P, lb, P); z.context.bezierCurveTo(lb - S, P, V, W + aa, V, W); break; case 8: switch (l.prev._hx_index) {
+                                        }l.prev = ba.DRAW_ELLIPSE; var jb = l; m = !0; var ApplicationMain = jb.buffer.f[jb.fPos]; var bb = jb.buffer.f[jb.fPos + 1]; var Q = jb.buffer.f[jb.fPos + 2]; var N = jb.buffer.f[jb.fPos + 3]; ApplicationMain -= c; bb -= d; var S = Q / 2 * .5522848; var aa = N / 2 * .5522848; var M = ApplicationMain +
+                                            Q; var P = bb + N; var lb = ApplicationMain + Q / 2; var W = bb + N / 2; z.context.moveTo(ApplicationMain, W); z.context.bezierCurveTo(ApplicationMain, W - aa, lb - S, bb, lb, bb); z.context.bezierCurveTo(lb + S, bb, M, W - aa, M, W); z.context.bezierCurveTo(M, W + aa, lb + S, P, lb, P); z.context.bezierCurveTo(lb - S, P, ApplicationMain, W + aa, ApplicationMain, W); break; case 8: switch (l.prev._hx_index) {
                                                 case 0: l.oPos += 2; l.bPos += 2; break; case 1: l.iPos += 1; l.fPos += 1; break; case 2: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 3: l.oPos += 1; break; case 4: l.fPos += 6; break; case 5: l.fPos += 4; break; case 6: l.fPos += 3; break; case 7: l.fPos +=
                                                     4; break; case 8: l.oPos += 3; break; case 9: l.fPos += 4; break; case 10: l.fPos += 5; l.oPos += 1; break; case 12: l.oPos += 4; break; case 14: l.oPos += 2; l.bPos += 2; break; case 15: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 16: l.oPos += 4; l.iPos += 1; l.fPos += 2; l.bPos += 1; break; case 17: l.fPos += 2; break; case 18: l.fPos += 2; break; case 19: l.oPos += 1; break; case 20: l.oPos += 1
                                             }l.prev = ba.DRAW_QUADS; var pb = l, Y = pb.buffer.o[pb.oPos], Z = pb.buffer.o[pb.oPos + 1], X = pb.buffer.o[pb.oPos + 2], R = null != Z, tb = !1, Xd = !1, L = R ? Z.get_length() : Math.floor(Y.get_length() /
@@ -4519,10 +7848,10 @@ var $lime_init = function (F, r) {
                                                 }l.prev = ba.DRAW_TRIANGLES; var ua = l, ta = ua.buffer.o[ua.oPos], Ya = ua.buffer.o[ua.oPos + 1], ja = ua.buffer.o[ua.oPos + 2], wa = null, fb = null == z.bitmapFill; if (fb && null != ja) break a; if (!fb) {
                                                     if (null == ja) { ja = ma.toFloatVector(null); for (var ya = 0, Ba = ta.get_length() / 2 | 0; ya < Ba;) { var Aa = ya++; ja.push(ta.get(2 * Aa) - c / z.bitmapFill.width); ja.push(ta.get(2 * Aa + 1) - d / z.bitmapFill.height) } } var Fa = ja.get_length() != ta.get_length(), Da = z.normalizeUVT(ja, Fa), Ka = Da.max; ja = Da.uvt; wa = 1 < Ka ? z.createTempPatternCanvas(z.bitmapFill,
                                                         z.bitmapRepeat, z.bounds.width | 0, z.bounds.height | 0) : z.createTempPatternCanvas(z.bitmapFill, z.bitmapRepeat, z.bitmapFill.width, z.bitmapFill.height)
-                                                } for (var xa = 0, gc = Ya.get_length(), Ia, hb, Ma, Na, Oa, Pa, qb, Qa, yd, Ca, Ja, Ea, Ga, Ha, za, Ta, Ua, Kb, Ab, Ra, cb, Wa, $a, mb, db, eb, ae, gb; xa < gc;) {
-                                                    Ia = xa; hb = xa + 1; Ma = xa + 2; Na = 2 * Ya.get(Ia); Oa = 2 * Ya.get(Ia) + 1; Pa = 2 * Ya.get(hb); qb = 2 * Ya.get(hb) + 1; Qa = 2 * Ya.get(Ma); yd = 2 * Ya.get(Ma) + 1; Ca = ta.get(Na) - c; Ja = ta.get(Oa) - d; Ea = ta.get(Pa) - c; Ga = ta.get(qb) - d; Ha = ta.get(Qa) - c; za = ta.get(yd) - d; switch (ua.buffer.o[ua.oPos +
-                                                        3]) { case 0: if (0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca)) { xa += 3; continue } break; case 2: if (!(0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca))) { xa += 3; continue } }fb ? (z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.hitTesting || z.context.fill(z.windingRule), xa += 3) : (Ta = ja.get(Na) * wa.width, Kb = ja.get(Pa) * wa.width, Ra = ja.get(Qa) * wa.width, Ua = ja.get(Oa) * wa.height, Ab = ja.get(qb) * wa.height, cb = ja.get(yd) * wa.height, Wa = Ta * (cb - Ab) - Kb * cb + Ra * Ab + (Kb - Ra) * Ua, 0 == Wa ? (xa += 3, z.context.restore()) :
-                                                            (z.context.save(), z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.context.clip(), $a = -(Ua * (Ha - Ea) - Ab * Ha + cb * Ea + (Ab - cb) * Ca) / Wa, mb = (Ab * za + Ua * (Ga - za) - cb * Ga + (cb - Ab) * Ja) / Wa, db = (Ta * (Ha - Ea) - Kb * Ha + Ra * Ea + (Kb - Ra) * Ca) / Wa, eb = -(Kb * za + Ta * (Ga - za) - Ra * Ga + (Ra - Kb) * Ja) / Wa, ae = (Ta * (cb * Ea - Ab * Ha) + Ua * (Kb * Ha - Ra * Ea) + (Ra * Ab - Kb * cb) * Ca) / Wa, gb = (Ta * (cb * Ga - Ab * za) + Ua * (Kb * za - Ra * Ga) + (Ra * Ab - Kb * cb) * Ja) / Wa, z.context.transform($a, mb, db, eb, ae, gb), z.context.drawImage(wa,
+                                                } for (var xa = 0, gc = Ya.get_length(), Ia, Game, Ma, Na, Oa, Pa, qb, Qa, yd, Ca, Ja, Ea, Ga, Ha, za, Ta, Ua, Kb, Ab, Ra, ManifestResources, Wa, Story, mb, db, eb, ae, gb; xa < gc;) {
+                                                    Ia = xa; Game = xa + 1; Ma = xa + 2; Na = 2 * Ya.get(Ia); Oa = 2 * Ya.get(Ia) + 1; Pa = 2 * Ya.get(Game); qb = 2 * Ya.get(Game) + 1; Qa = 2 * Ya.get(Ma); yd = 2 * Ya.get(Ma) + 1; Ca = ta.get(Na) - c; Ja = ta.get(Oa) - d; Ea = ta.get(Pa) - c; Ga = ta.get(qb) - d; Ha = ta.get(Qa) - c; za = ta.get(yd) - d; switch (ua.buffer.o[ua.oPos +
+                                                        3]) { case 0: if (0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca)) { xa += 3; continue } break; case 2: if (!(0 > (Ea - Ca) * (za - Ja) - (Ga - Ja) * (Ha - Ca))) { xa += 3; continue } }fb ? (z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.hitTesting || z.context.fill(z.windingRule), xa += 3) : (Ta = ja.get(Na) * wa.width, Kb = ja.get(Pa) * wa.width, Ra = ja.get(Qa) * wa.width, Ua = ja.get(Oa) * wa.height, Ab = ja.get(qb) * wa.height, ManifestResources = ja.get(yd) * wa.height, Wa = Ta * (ManifestResources - Ab) - Kb * ManifestResources + Ra * Ab + (Kb - Ra) * Ua, 0 == Wa ? (xa += 3, z.context.restore()) :
+                                                            (z.context.save(), z.context.beginPath(), z.context.moveTo(Ca, Ja), z.context.lineTo(Ea, Ga), z.context.lineTo(Ha, za), z.context.closePath(), z.context.clip(), Story = -(Ua * (Ha - Ea) - Ab * Ha + ManifestResources * Ea + (Ab - ManifestResources) * Ca) / Wa, mb = (Ab * za + Ua * (Ga - za) - ManifestResources * Ga + (ManifestResources - Ab) * Ja) / Wa, db = (Ta * (Ha - Ea) - Kb * Ha + Ra * Ea + (Kb - Ra) * Ca) / Wa, eb = -(Kb * za + Ta * (Ga - za) - Ra * Ga + (Ra - Kb) * Ja) / Wa, ae = (Ta * (ManifestResources * Ea - Ab * Ha) + Ua * (Kb * Ha - Ra * Ea) + (Ra * Ab - Kb * ManifestResources) * Ca) / Wa, gb = (Ta * (ManifestResources * Ga - Ab * za) + Ua * (Kb * za - Ra * Ga) + (Ra * Ab - Kb * ManifestResources) * Ja) / Wa, z.context.transform(Story, mb, db, eb, ae, gb), z.context.drawImage(wa,
                                                                 0, 0, wa.width, wa.height), z.context.restore(), xa += 3))
                                                 } break; case 14: switch (l.prev._hx_index) {
                                                     case 0: l.oPos += 2; l.bPos += 2; break; case 1: l.iPos += 1; l.fPos += 1; break; case 2: l.oPos += 4; l.iiPos += 2; l.ffPos += 1; l.fPos += 1; break; case 3: l.oPos += 1; break; case 4: l.fPos += 6; break; case 5: l.fPos += 4; break; case 6: l.fPos += 3; break; case 7: l.fPos += 4; break; case 8: l.oPos += 3; break; case 9: l.fPos += 4; break; case 10: l.fPos += 5; l.oPos += 1; break; case 12: l.oPos += 4; break; case 14: l.oPos += 2; l.bPos += 2; break; case 15: l.oPos += 4; l.iiPos += 2; l.ffPos +=
@@ -6214,7 +9543,7 @@ var $lime_init = function (F, r) {
                                 c = null == c ? m.leading : Math.max(c, m.leading) | 0; d = Math.max(d, m.height); f = m.offsetX - 2 + m.width; f > this.textWidth && (this.textWidth = f); p = Math.ceil(m.offsetY - 2 + m.ascent + m.descent); p > this.textHeight && (this.textHeight = p)
                             }
                         } 0 == this.textHeight && null != this.textField && 1 == this.type && (a = this.textField.__textFormat, b = yb.getFontInstance(a), null != a.__ascent ? (h = a.size * a.__ascent, g = a.size * a.__descent) : null != b && 0 != b.unitsPerEM ? (h = b.ascender / b.unitsPerEM * a.size, g = Math.abs(b.descender / b.unitsPerEM * a.size)) : (h = a.size, g = .185 *
-                            a.size), c = a.leading, a = h, b = g, this.textHeight = p = Math.ceil(h + g)); this.lineAscents.push(a); this.lineDescents.push(b); this.lineLeadings.push(null != c ? c : 0); this.lineHeights.push(d); this.lineWidths.push(f); 1 == this.numLines && 0 < c && (this.textHeight += c); if (2 != this.autoSize) switch (this.autoSize) { case 0: case 1: case 3: this.wordWrap || (this.width = this.textWidth + 4), this.height = this.textHeight + 4, this.bottomScrollV = this.numLines }this.maxScrollH = this.textWidth > this.width - 4 ? this.textWidth - this.width + 4 | 0 : 0; this.scrollH >
+                            a.size), c = a.leading, a = h, b = g, this.textHeight = p = Math.ceil(h + g)); this.lineAscents.push(a); this.lineDescents.push(b); this.lineLeadings.push(null != c ? c : 0); this.lineHeights.push(d); this.lineWidths.push(f); 1 == this.numLines && 0 < c && (this.textHeight += c); if (2 != this.autoSize) switch (this.autoSize) { case 0: case 1: case 3: this.wordWrap || (this.width = this.textWidth + 4), this.height = this.textHeight + 4, this.bottomScrollApplicationMain = this.numLines }this.maxScrollH = this.textWidth > this.width - 4 ? this.textWidth - this.width + 4 | 0 : 0; this.scrollH >
                                 this.maxScrollH && (this.scrollH = this.maxScrollH)
                 }, getLayoutGroups: function () {
                     var a = this; this.layoutGroups.set_length(0); if (null != this.text && "" != this.text) {
@@ -6231,25 +9560,25 @@ var $lime_init = function (F, r) {
                         }, B = function (b, d) { null == k || k.startIndex != k.endIndex ? (k = new yi(c.format, b, d), a.layoutGroups.push(k)) : (k.format = c.format, k.startIndex = b, k.endIndex = d) }, K = function () { null != f.__ascent ? (g = f.size * f.__ascent, p = f.size * f.__descent) : null != d && 0 != d.unitsPerEM ? (g = d.ascender / d.unitsPerEM * f.size, p = Math.abs(d.descender / d.unitsPerEM * f.size)) : (g = f.size, p = .185 * f.size); h = f.leading; E = Math.ceil(g + p + h); E > D && (D = E); g > t && (t = g) }, jb = function () {
                             w = !0; m = null != f.align ? f.align : 3; y = null != f.blockIndent ? f.blockIndent : 0; l = null !=
                                 f.indent ? f.indent : 0; q = null != f.leftMargin ? f.leftMargin : 0; v = null != f.rightMargin ? f.rightMargin : 0
-                        }, V = function () { if (b < a.textFormatRanges.get_length() - 1) { b += 1; c = a.textFormatRanges.get(b); f.__merge(c.format); var h = yb.getFont(f); yb.__context.font = h; d = yb.getFontInstance(f); return !0 } return !1 }, bb = function (d, f) {
+                        }, ApplicationMain = function () { if (b < a.textFormatRanges.get_length() - 1) { b += 1; c = a.textFormatRanges.get(b); f.__merge(c.format); var h = yb.getFont(f); yb.__context.font = h; d = yb.getFontInstance(f); return !0 } return !1 }, bb = function (d, f) {
                             if (d >= f) H = [], z = 0; else if (f <= c.end) H = U(a.text, d, f), z = ca(H); else {
                                 var h = d; d = c.end; var g = 0; H = []; for (z = 0; ;)if (h != d && (h = U(a.text, h, d), H = H.concat(h)), d != f) {
                                     if (!V()) {
                                         Da.warn("You found a bug in OpenFL's text code! Please save a copy of your project and create an issue on GitHub so we can fix this.",
                                             { fileName: "openfl/text/_internal/TextEngine.hx", lineNumber: 1121, className: "openfl.text._internal.TextEngine", methodName: "getLayoutGroups" }); break
                                     } h = d; d = f < c.end ? f : c.end; ++g
-                                } else { z = ca(H); break } b -= g + 1; V()
+                                } else { z = ca(H); break } b -= g + 1; ApplicationMain()
                             }
                         }, Q = function (b) {
-                            if (b <= c.end) { H = U(a.text, G, b); z = ca(H); B(G, b); k.positions = H; var d = J, f = pa(); k.offsetX = d + f; k.ascent = g; k.descent = p; k.leading = h; k.lineIndex = I; k.offsetY = la + 2; k.width = z; k.height = E; J += z; b == c.end && (k = null, V(), K()) } else for (; ;) {
+                            if (b <= c.end) { H = U(a.text, G, b); z = ca(H); B(G, b); k.positions = H; var d = J, f = pa(); k.offsetX = d + f; k.ascent = g; k.descent = p; k.leading = h; k.lineIndex = I; k.offsetY = la + 2; k.width = z; k.height = E; J += z; b == c.end && (k = null, ApplicationMain(), K()) } else for (; ;) {
                                 var l = b < c.end ? b : c.end; G != l && (H = U(a.text, G, l), z = ca(H), B(G, l), k.positions =
                                     H, d = J, f = pa(), k.offsetX = d + f, k.ascent = g, k.descent = p, k.leading = h, k.lineIndex = I, k.offsetY = la + 2, k.width = z, k.height = E, J += z, G = l); l == c.end && (k = null); if (l == b) break; if (!V()) { Da.warn("You found a bug in OpenFL's text code! Please save a copy of your project and create an issue on GitHub so we can fix this.", { fileName: "openfl/text/_internal/TextEngine.hx", lineNumber: 1209, className: "openfl.text._internal.TextEngine", methodName: "getLayoutGroups" }); break } K()
                             } G = b
                         }, S = function () {
                             K(); for (var b = a.layoutGroups.get_length(); -1 <
                                 --b;) { var c = a.layoutGroups.get(b); if (c.lineIndex < I) break; c.lineIndex > I || (c.ascent = t, c.height = D) } la += D; D = t = 0; I += 1; J = 0; w = !1
-                        }, aa = function (b) { if (4 <= a.width && a.wordWrap) { var c = H; var d = ca(c); for (var f = c.length - 1; 0 <= f;) { var h = N.cca(a.text, G + f); if (32 != h && 9 != h) break; d -= c[f]; --f } for (; 0 < c.length && J + d > F();) { for (h = f = d = 0; J + h < F();) { var g = c[f]; 0 == g ? (++f, ++d) : (h += g, ++f) } if (f == d) f = d + 1; else for (; 1 < f && J + h > F();)--f, 0 < f - d ? (bb(G, G + f - d), h = z) : (f = 1, d = 0, bb(G, G + 1), h = 0); c = G + f - d; Q(c); S(); bb(c, b); c = H; d = z } } Q(b) }; V(); jb(); K(); for (var M,
-                            lb = this.text.length + 1; G < lb;)if (-1 < T && (-1 == O || T < O)) G <= T ? (bb(G, T), aa(T), k = null) : null != k && k.startIndex != k.endIndex && (k.endIndex == O && (k.width -= k.positions[k.positions.length - 1]), k = null), S(), c.end == T && (V(), K()), G = T + 1, u = T, ++C, T = C < this.lineBreaks.get_length() ? this.lineBreaks.get(C) : -1, jb(); else if (-1 < O) for (null != k && k.startIndex != k.endIndex && (k = null), M = !1; G < this.text.length;) {
+                        }, aa = function (b) { if (4 <= a.width && a.wordWrap) { var c = H; var d = ca(c); for (var f = c.length - 1; 0 <= f;) { var h = N.cca(a.text, G + f); if (32 != h && 9 != h) break; d -= c[f]; --f } for (; 0 < c.length && J + d > F();) { for (h = f = d = 0; J + h < F();) { var g = c[f]; 0 == g ? (++f, ++d) : (h += g, ++f) } if (f == d) f = d + 1; else for (; 1 < f && J + h > F();)--f, 0 < f - d ? (bb(G, G + f - d), h = z) : (f = 1, d = 0, bb(G, G + 1), h = 0); c = G + f - d; Q(c); S(); bb(c, b); c = H; d = z } } Q(b) }; ApplicationMain(); jb(); K(); for (var M,
+                            lb = this.text.length + 1; G < lb;)if (-1 < T && (-1 == O || T < O)) G <= T ? (bb(G, T), aa(T), k = null) : null != k && k.startIndex != k.endIndex && (k.endIndex == O && (k.width -= k.positions[k.positions.length - 1]), k = null), S(), c.end == T && (ApplicationMain(), K()), G = T + 1, u = T, ++C, T = C < this.lineBreaks.get_length() ? this.lineBreaks.get(C) : -1, jb(); else if (-1 < O) for (null != k && k.startIndex != k.endIndex && (k = null), M = !1; G < this.text.length;) {
                                 var X = -1; -1 == O ? X = T : (X = O + 1, -1 < T && T < X && (X = T)); -1 == X && (X = this.text.length); bb(G, X); if (2 == m) {
                                     if (0 < H.length && G == r) {
                                         G += 1; var P = H.shift();
@@ -6260,7 +9589,7 @@ var $lime_init = function (F, r) {
                                         M = this.layoutGroups.get(this.layoutGroups.get_length() -
                                             P).offsetX; P = this.layoutGroups.get_length() - P; for (var W = this.layoutGroups.get_length(); P < W;) { var pb = P++; k = this.layoutGroups.get(pb); k.offsetX -= M; k.offsetY = la + 2; k.lineIndex = I; J += k.width }
                                     } aa(X); M = !1
-                                } else null != k && G == O && r != O - 1 ? (2 != m && (k.endIndex = O, k.positions = k.positions.concat(H), k.width += z), J += z, G = X) : null == k || 2 == m ? (aa(X), X == this.text.length && S()) : (P = X < c.end ? X : c.end, P < X && (H = U(this.text, G, P), z = ca(H)), k.endIndex = P, k.positions = k.positions.concat(H), k.width += z, J += z, P == c.end && (k = null, V(), K(), G = P, P != X && Q(X)),
+                                } else null != k && G == O && r != O - 1 ? (2 != m && (k.endIndex = O, k.positions = k.positions.concat(H), k.width += z), J += z, G = X) : null == k || 2 == m ? (aa(X), X == this.text.length && S()) : (P = X < c.end ? X : c.end, P < X && (H = U(this.text, G, P), z = ca(H)), k.endIndex = P, k.positions = k.positions.concat(H), k.width += z, J += z, P == c.end && (k = null, ApplicationMain(), K(), G = P, P != X && Q(X)),
                                     T == X && ++X, G = X, X == this.text.length && (S(), -1 != T && (u = T, ++C, T = C < this.lineBreaks.get_length() ? this.lineBreaks.get(C) : -1))); X = this.text.indexOf(" ", G); T == r && (k.endIndex = T, 0 > T - k.startIndex - k.positions.length && k.positions.push(0), G = T + 1); r = O; O = X; if (-1 < T && T <= G && (O > T || -1 == O) || G > this.text.length) break
                             } else G < this.text.length && (bb(G, this.text.length), aa(this.text.length), S()), G += 1; u == G - 2 && -1 < u && (B(G - 1, G - 1), k.positions = [], k.ascent = g, k.descent = p, k.leading = h, k.lineIndex = I, k.offsetX = pa(), k.offsetY = la + 2, k.width = 0,
                                 k.height = E)
@@ -6274,15 +9603,15 @@ var $lime_init = function (F, r) {
                         }0 < b && (c.offsetX += b)
                     } f && this.getLineMeasurements()
                 }, update: function () {
-                    null == this.text || 0 == this.textFormatRanges.get_length() ? (this.lineAscents.set_length(0), this.lineBreaks.set_length(0), this.lineDescents.set_length(0), this.lineLeadings.set_length(0), this.lineHeights.set_length(0), this.lineWidths.set_length(0), this.layoutGroups.set_length(0), this.textHeight = this.textWidth = 0, this.numLines = 1, this.maxScrollH = 0, this.bottomScrollV = this.maxScrollV = 1) : (this.getLineBreaks(),
+                    null == this.text || 0 == this.textFormatRanges.get_length() ? (this.lineAscents.set_length(0), this.lineBreaks.set_length(0), this.lineDescents.set_length(0), this.lineLeadings.set_length(0), this.lineHeights.set_length(0), this.lineWidths.set_length(0), this.layoutGroups.set_length(0), this.textHeight = this.textWidth = 0, this.numLines = 1, this.maxScrollH = 0, this.bottomScrollApplicationMain = this.maxScrollApplicationMain = 1) : (this.getLineBreaks(),
                         this.getLayoutGroups(), this.getLineMeasurements(), this.setTextAlignment()); this.getBounds()
                 }, get_bottomScrollV: function () {
                     if (1 == this.numLines || null == this.lineHeights) return 1; for (var a = this.lineHeights.get_length(), b = this.lineLeadings.get_length() == a ? -this.lineLeadings.get(a - 1) : 0, c = (0 < this.get_scrollV() ? this.get_scrollV() : 1) - 1, d = this.lineHeights.get_length(); c < d;) { var f = c++, h = this.lineHeights.get(f); b += h; if (b > this.height - 4) { a = f + (0 <= b - this.height ? 0 : 1); break } } return a < this.get_scrollV() ? this.get_scrollV() :
                         a
                 }, get_maxScrollV: function () { if (1 == this.numLines || null == this.lineHeights) return 1; for (var a = this.numLines - 1, b = 0; 0 <= a;) { b += this.lineHeights.get(a); if (b > this.height - 4) { a += 0 > b - this.height ? 1 : 2; break } --a } return 1 > a ? 1 : a }, set_restrict: function (a) { if (this.restrict == a) return this.restrict; this.restrict = a; this.__restrictRegexp = null == this.restrict || 0 == this.restrict.length ? null : this.createRestrictRegexp(a); return this.restrict }, get_scrollV: function () {
                     if (1 == this.numLines || null == this.lineHeights) return 1; var a =
-                        this.get_maxScrollV(); return this.scrollV > a ? a : this.scrollV
-                }, set_scrollV: function (a) { 1 > a ? a = 1 : a > this.get_maxScrollV() && (a = this.get_maxScrollV()); return this.scrollV = a }, set_text: function (a) { return this.text = a }, __class__: yb, __properties__: { set_text: "set_text", set_scrollV: "set_scrollV", get_scrollV: "get_scrollV", set_restrict: "set_restrict", get_maxScrollV: "get_maxScrollV", get_bottomScrollV: "get_bottomScrollV" }
+                        this.get_maxScrollV(); return this.scrollApplicationMain > a ? a : this.scrollV
+                }, set_scrollV: function (a) { 1 > a ? a = 1 : a > this.get_maxScrollV() && (a = this.get_maxScrollV()); return this.scrollApplicationMain = a }, set_text: function (a) { return this.text = a }, __class__: yb, __properties__: { set_text: "set_text", set_scrollV: "set_scrollV", get_scrollV: "get_scrollV", set_restrict: "set_restrict", get_maxScrollV: "get_maxScrollV", get_bottomScrollV: "get_bottomScrollV" }
             }; var Wc = function (a, b, c) { this.format = a; this.start = b; this.end = c }; g["openfl.text._internal.TextFormatRange"] =
                 Wc; Wc.__name__ = "openfl.text._internal.TextFormatRange"; Wc.prototype = { __class__: Wc }; var yi = function (a, b, c) { this.format = a; this.startIndex = b; this.endIndex = c }; g["openfl.text._internal.TextLayoutGroup"] = yi; yi.__name__ = "openfl.text._internal.TextLayoutGroup"; yi.prototype = { __class__: yi }; var Sa = function () { ea.call(this); Sa.__instances.push(this) }; g["openfl.ui.GameInput"] = Sa; Sa.__name__ = "openfl.ui.GameInput"; Sa.__getDevice = function (a) {
                     if (null == a) return null; if (null == Sa.__devices.h.__keys__[a.__id__]) {
@@ -6369,14 +9698,14 @@ var $lime_init = function (F, r) {
                                                     }); if (null == ca) { this.error = "error: could not find register name for operand " + la + " (" + T[la] + ")."; J = !0; break } if (h) { if (0 == (ca.flags & 32)) { this.error = "error: register operand " + la + " (" + T[la] + ") only allowed in vertex programs."; J = !0; break } if (I) { this.error = "error: register operand " + la + " (" + T[la] + ") relative adressing not allowed in fragment programs."; J = !0; break } } else if (0 == (ca.flags & 64)) {
                                                         this.error = "error: register operand " + la + " (" + T[la] + ") only allowed in fragment programs."; J =
                                                             !0; break
-                                                    } T[la] = N.substr(T[la], T[la].indexOf(ca.name) + ca.name.length, null); var pa = I ? this.match(x[0], v) : this.match(T[la], v); U = 0; 0 < pa.length && (U = m.parseInt(pa[0])); if (tb.gt(U, ca.range)) { r = ca.range + 1; this.error = "error: register operand " + la + " (" + T[la] + ") index exceeds limit of " + (null == r ? "null" : m.string(tb.toFloat(r))) + "."; J = !0; break } var F = this.match(T[la], k), B = 0 == la && 0 == (C.flags & 128), K = 2 == la && 0 != (C.flags & 8), V = 0, jb = 0, X = 0; if (B && I) { this.error = "error: relative can not be destination"; J = !0; break } if (0 < F.length) {
+                                                    } T[la] = N.substr(T[la], T[la].indexOf(ca.name) + ca.name.length, null); var pa = I ? this.match(x[0], v) : this.match(T[la], v); U = 0; 0 < pa.length && (U = m.parseInt(pa[0])); if (tb.gt(U, ca.range)) { r = ca.range + 1; this.error = "error: register operand " + la + " (" + T[la] + ") index exceeds limit of " + (null == r ? "null" : m.string(tb.toFloat(r))) + "."; J = !0; break } var F = this.match(T[la], k), B = 0 == la && 0 == (C.flags & 128), K = 2 == la && 0 != (C.flags & 8), ApplicationMain = 0, jb = 0, X = 0; if (B && I) { this.error = "error: relative can not be destination"; J = !0; break } if (0 < F.length) {
                                                         for (var bb =
                                                             pa = 0, M = F[0].length, P = 1; P < M;)bb = N.cca(F[0], P) - 120, tb.gt(bb, 2) && (bb = 3), pa = B ? pa | 1 << bb : pa | bb << (P - 1 << 1), ++P; if (!B) for (; 4 >= P;)pa |= bb << (P - 1 << 1), ++P
                                                     } else pa = B ? 15 : 228; if (I) {
-                                                        F = this.match(x[0], H); V = ia.REGMAP.h[F[0]]; if (null == V) { this.error = "error: bad index register"; J = !0; break } V = V.emitCode; bb = this.match(x[0], z); if (0 == bb.length) { this.error = "error: bad index register select"; J = !0; break } jb = N.cca(bb[0], 1) - 120; tb.gt(jb, 2) && (jb = 3); x = this.match(x[0], E); 0 < x.length && (X = m.parseInt(x[0])); if (0 > X || 255 < X) {
+                                                        F = this.match(x[0], H); ApplicationMain = ia.REGMAP.h[F[0]]; if (null == V) { this.error = "error: bad index register"; J = !0; break } ApplicationMain = ApplicationMain.emitCode; bb = this.match(x[0], z); if (0 == bb.length) { this.error = "error: bad index register select"; J = !0; break } jb = N.cca(bb[0], 1) - 120; tb.gt(jb, 2) && (jb = 3); x = this.match(x[0], E); 0 < x.length && (X = m.parseInt(x[0])); if (0 > X || 255 < X) {
                                                             this.error = "error: index offset " +
                                                                 X + " out of bounds. [0..255]"; J = !0; break
-                                                        } this.verbose && Da.info("RELATIVE: type=" + V + "==" + F[0] + " sel=" + (null == jb ? "null" : m.string(tb.toFloat(jb))) + "==" + bb[0] + " idx=" + (null == U ? "null" : m.string(tb.toFloat(U))) + " offset=" + X, { fileName: "openfl/utils/AGALMiniAssembler.hx", lineNumber: 518, className: "openfl.utils.AGALMiniAssembler", methodName: "assemble" })
+                                                        } this.verbose && Da.info("RELATIVE: type=" + ApplicationMain + "==" + F[0] + " sel=" + (null == jb ? "null" : m.string(tb.toFloat(jb))) + "==" + bb[0] + " idx=" + (null == U ? "null" : m.string(tb.toFloat(U))) + " offset=" + X, { fileName: "openfl/utils/AGALMiniAssembler.hx", lineNumber: 518, className: "openfl.utils.AGALMiniAssembler", methodName: "assemble" })
                                                     } this.verbose && Da.info("  emit argcode=" + m.string(ca) + "[" + (null == U ? "null" : m.string(tb.toFloat(U))) + "][" + pa + "]", {
                                                         fileName: "openfl/utils/AGALMiniAssembler.hx", lineNumber: 525,
                                                         className: "openfl.utils.AGALMiniAssembler", methodName: "assemble"
@@ -6480,7 +9809,7 @@ var $lime_init = function (F, r) {
                     }(this); G.ink = 2236450; G.shading = 13422286; G.water = 13422286; G.bg = 16316660; G.paper = 16316660; G.thick = 3; G.normal = 1.5; G.stroke = 1; G.thin = .5; G.shadowColor = 13421772; G.shadowDist = .2; G.fontTitle = { embedded: "title_font", size: 48, bold: !1, italic: !1 }; G.fontStory = { embedded: "regular_font", size: 24, bold: !1, italic: !0 }; G.fontNotes = { embedded: "regular_font", size: 20, bold: !1, italic: !1 }; G.fontLegend = {
                         embedded: "regular_font", size: 24, bold: !1,
                         italic: !1
-                    }; G.fontSymbols = { embedded: "regular_font", size: 30, bold: !0, italic: !1 }; G.bw = !1; xa.UP = new xa(0, -1); xa.DOWN = new xa(0, 1); xa.LEFT = new xa(-1, 0); xa.RIGHT = new xa(1, 0); Mc.REGULAR = [1, 2, 0]; Ta.columnRadius = .16666666666666666; Ta.columnSquare = !1; Ta.columnShattered = .0125; Ta.rotundaChance = 1; Ta.colonnadeChance = 1; Ta.waterLevel = .3; Ta.fountainChance = .1; Ta.wellChance = .02; Ta.tapestryChance = .5; Ta.crackChance = .1; Ta.stepsChance = .5; Ta.impassable = 4; Lc.scale = 3; I.__pool = new mb(function () { return new I }, function (a) {
+                    }; G.fontSymbols = { embedded: "regular_font", size: 30, bold: !0, italic: !1 }; G.bw = !1; xa.UP = new xa(0, -1); xa.DOWN = new xa(0, 1); xa.LEFT = new xa(-1, 0); xa.RIGHT = new xa(1, 0); Mc.REGULAR = [1, 2, 0]; Ta.columnRadius = .16666666666666666; Ta.columnSquare = !1; Ta.columnShattered = .0125; Ta.rotundaChance = 1; Ta.colonnadeChance = 1; Ta.waterLevel = .3; Ta.fountainChance = .1; Ta.wellChance = .02; Ta.tapestryChance = .5; Ta.crackChance = .1; Ta.stepsChance = .5; Ta.impassable = 4; VoxelData.scale = 3; I.__pool = new mb(function () { return new I }, function (a) {
                         a.setTo(0,
                             0)
                     }); vb.front = [new I(15, -15), new I(15, 15)]; Ha.mode = Ga.NORMAL; ta.grid = dc.BROKEN; ta.gridScale = 1; Ra.mode = "Default"; Ra.nStrokes = 3; Ra.clusterSize = 10; Ra.distance = 15; We.inst = new We; yf.inst = new yf; we.inst = [new we, new we, new we]; xf.inst = new xf; wf.inst = new wf; Ve.inst = new Ve; uf.inst = new uf; Xe.inst = new Xe; vf.inst = new vf; xe.inst = new xe; ce.instances = new Ub; Ye.inst = new Ye; Ue.inst = new Ue; Aa._p0 = new I(-819.2, 0); Aa._p1 = new I(819.2, 0); Tb.lx = 0; Tb.ly = 0; Qa.JOINTS = function (a) {
@@ -6549,14 +9878,15 @@ var $lime_init = function (F, r) {
             Ba.__regexRightMargin = new sa("rightmargin\\s?=\\s?(\"([^\"]+)\"|'([^']+)')", "i"); Ba.__regexSize = new sa("size\\s?=\\s?(\"([^\"]+)\"|'([^']+)')", "i"); Ba.__regexTabStops = new sa("tabstops\\s?=\\s?(\"([^\"]+)\"|'([^']+)')", "i"); $f.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; yb.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; yi.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; Sa.__meta__ = { fields: { addEventListener: { SuppressWarnings: ["checkstyle:Dynamic"] } } };
             Sa.numDevices = 0; Sa.__deviceList = []; Sa.__instances = []; Sa.__devices = new fa; uj.__cursor = "auto"; ia.__meta__ = { obj: { SuppressWarnings: [["checkstyle:ConstantName", "checkstyle:FieldDocComment"]] } }; ia.OPMAP = new Ma; ia.REGMAP = new Ma; ia.SAMPLEMAP = new Ma; ia.initialized = !1; kb.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; jd.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; Hb.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; Vb.cache = new Ai; jc.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } };
             jc.defaultObjectEncoding = 10; Ad.__meta__ = { statics: { __get: { SuppressWarnings: ["checkstyle:FieldDocComment"] } } }; Bi.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; Ci.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; xc.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] } }; lf.__meta__ = { obj: { SuppressWarnings: ["checkstyle:FieldDocComment"] }, fields: { touch: { SuppressWarnings: ["checkstyle:Dynamic"] } } }; lf.__pool = new mb(function () { return new lf }, function (a) { a.reset() });
-            V.main()
+            ApplicationMain.main()
         })("undefined" != typeof r ? r : "undefined" != typeof window ? window : "undefined" != typeof self ? self : this, "undefined" != typeof window ? window : "undefined" != typeof x ? x : "undefined" != typeof self ? self : this)
     }; "undefined" !== typeof self && self.constructor.name.includes("Worker") ? x({}, r) : (F.lime = F.lime || {}, F.lime.$scripts = F.lime.$scripts || {}, F.lime.$scripts.Dungeon = x, F.lime.embed = function (x) {
-        var B = {}, L = F.lime.$scripts[x]; if (!L) throw Error('Cannot find project name "' + x + '"'); L(B, r); for (var V in B) F[V] = F[V] || B[V];
+        var B = {}, L = F.lime.$scripts[x]; if (!L) throw Error('Cannot find project name "' + x + '"'); L(B, r); for (var ApplicationMain in B) F[ApplicationMain] = F[ApplicationMain] || B[ApplicationMain];
         (L = B.lime || window.lime) && L.embed && this !== L.embed && L.embed.apply(L, arguments); return B
     }); "function" === typeof define && define.amd && (define([], function () { return F.lime }), define.__amd = define.amd, define.amd = null)
 }; $lime_init("undefined" !== typeof exports ? exports : "function" === typeof define && define.amd ? {} : "undefined" !== typeof window ? window : "undefined" !== typeof self ? self : this, "undefined" !== typeof window ? window : "undefined" !== typeof global ? global : "undefined" !== typeof self ? self : this);
-"undefined" !== typeof self && self.constructor.name.includes("Worker") || (!function () {
+
+    "undefined" !== typeof self && self.constructor.name.includes("Worker") || (!function () {
     var F = function () { this.init() }; F.prototype = {
         init: function () { var g = this || r; return g._counter = 1E3, g._html5AudioPool = [], g.html5PoolSize = 10, g._codecs = {}, g._howls = [], g._muted = !1, g._volume = 1, g._canPlayEvent = "canplaythrough", g._navigator = "undefined" != typeof window && window.navigator ? window.navigator : null, g.masterGain = null, g.noAudio = !1, g.usingWebAudio = !0, g.autoSuspend = !0, g.ctx = null, g.autoUnlock = !0, g._setup(), g }, volume: function (g) {
             var q =
@@ -6619,7 +9949,7 @@ var $lime_init = function (F, r) {
                 !1), new B(this), this._webAudio && L(this), this) : void this._emit("loaderror", null, "No codec support for selected audio sources.")
         }, play: function (g, q) {
             var k = this, u = null; if ("number" == typeof g) u = g, g = null; else { if ("string" == typeof g && "loaded" === k._state && !k._sprite[g]) return null; if (void 0 === g && (g = "__default", !k._playLock)) { for (var x = 0, ca = 0; ca < k._sounds.length; ca++)k._sounds[ca]._paused && !k._sounds[ca]._ended && (x++, u = k._sounds[ca]._id); 1 === x ? g = null : u = null } } var B = u ? k._soundById(u) : k._inactiveSound(); if (!B) return null;
-            if (u && !g && (g = B._sprite || "__default"), "loaded" !== k._state) { B._sprite = g; B._ended = !1; var F = B._id; return k._queue.push({ event: "play", action: function () { k.play(F) } }), F } if (u && !B._paused) return q || k._loadQueue("play"), B._id; k._webAudio && r._autoResume(); var K = Math.max(0, 0 < B._seek ? B._seek : k._sprite[g][0] / 1E3), V = Math.max(0, (k._sprite[g][0] + k._sprite[g][1]) / 1E3 - K), W = 1E3 * V / Math.abs(B._rate), L = k._sprite[g][0] / 1E3, ma = (k._sprite[g][0] + k._sprite[g][1]) / 1E3; B._sprite = g; B._ended = !1; var mb = function () {
+            if (u && !g && (g = B._sprite || "__default"), "loaded" !== k._state) { B._sprite = g; B._ended = !1; var F = B._id; return k._queue.push({ event: "play", action: function () { k.play(F) } }), F } if (u && !B._paused) return q || k._loadQueue("play"), B._id; k._webAudio && r._autoResume(); var K = Math.max(0, 0 < B._seek ? B._seek : k._sprite[g][0] / 1E3), ApplicationMain = Math.max(0, (k._sprite[g][0] + k._sprite[g][1]) / 1E3 - K), W = 1E3 * ApplicationMain / Math.abs(B._rate), L = k._sprite[g][0] / 1E3, ma = (k._sprite[g][0] + k._sprite[g][1]) / 1E3; B._sprite = g; B._ended = !1; var mb = function () {
                 B._paused = !1; B._seek =
                     K; B._start = L; B._stop = ma; B._loop = !(!B._loop && !k._sprite[g][2])
             }; if (K >= ma) return void k._ended(B); var U = B._node; if (k._webAudio) u = function () {
@@ -6687,7 +10017,7 @@ var $lime_init = function (F, r) {
             var g, k, u = this, x = arguments; 0 === x.length ? u._sounds.length && (k = u._sounds[0]._id) : 1 === x.length ? 0 <= u._getSoundIds().indexOf(x[0]) ?
                 k = parseInt(x[0], 10) : u._sounds.length && (k = u._sounds[0]._id, g = parseFloat(x[0])) : 2 === x.length && (g = parseFloat(x[0]), k = parseInt(x[1], 10)); if (void 0 === k) return 0; if ("number" == typeof g && ("loaded" !== u._state || u._playLock)) return u._queue.push({ event: "seek", action: function () { u.seek.apply(u, x) } }), u; var B = u._soundById(k); if (B) {
                     if (!("number" == typeof g && 0 <= g)) return u._webAudio ? (g = u.playing(k) ? r.ctx.currentTime - B._playStart : 0, B._seek + ((B._rateSeek ? B._rateSeek - B._seek : 0) + g * Math.abs(B._rate))) : B._node.currentTime;
-                    var F = u.playing(k); F && u.pause(k, !0); B._seek = g; B._ended = !1; u._clearTimer(k); u._webAudio || !B._node || isNaN(B._node.duration) || (B._node.currentTime = g); var K = function () { F && u.play(k, !0); u._emit("seek", k) }; if (F && !u._webAudio) { var V = function () { u._playLock ? setTimeout(V, 0) : K() }; setTimeout(V, 0) } else K()
+                    var F = u.playing(k); F && u.pause(k, !0); B._seek = g; B._ended = !1; u._clearTimer(k); u._webAudio || !B._node || isNaN(B._node.duration) || (B._node.currentTime = g); var K = function () { F && u.play(k, !0); u._emit("seek", k) }; if (F && !u._webAudio) { var ApplicationMain = function () { u._playLock ? setTimeout(ApplicationMain, 0) : K() }; setTimeout(ApplicationMain, 0) } else K()
                 } return u
         }, playing: function (g) { if ("number" == typeof g) return g = this._soundById(g), !!g && !g._paused; for (g = 0; g < this._sounds.length; g++)if (!this._sounds[g]._paused) return !0; return !1 }, duration: function (g) {
             var k = this._duration;
@@ -6742,9 +10072,9 @@ var $lime_init = function (F, r) {
     }; var K = {}, L = function (g) {
         var k = g._src; if (K[k]) return g._duration = K[k].duration, void W(g); if (/^data:[^;]+;base64,/.test(k)) { for (var r = atob(k.split(",")[1]), x = new Uint8Array(r.length), B = 0; B < r.length; ++B)x[B] = r.charCodeAt(B); u(x.buffer, g) } else {
             var F = new XMLHttpRequest; F.open(g._xhr.method, k, !0); F.withCredentials = g._xhr.withCredentials; F.responseType =
-                "arraybuffer"; g._xhr.headers && Object.keys(g._xhr.headers).forEach(function (k) { F.setRequestHeader(k, g._xhr.headers[k]) }); F.onload = function () { var k = (F.status + "")[0]; if ("0" !== k && "2" !== k && "3" !== k) return void g._emit("loaderror", null, "Failed loading audio file with status: " + F.status + "."); u(F.response, g) }; F.onerror = function () { g._webAudio && (g._html5 = !0, g._webAudio = !1, g._sounds = [], delete K[k], g.load()) }; V(F)
+                "arraybuffer"; g._xhr.headers && Object.keys(g._xhr.headers).forEach(function (k) { F.setRequestHeader(k, g._xhr.headers[k]) }); F.onload = function () { var k = (F.status + "")[0]; if ("0" !== k && "2" !== k && "3" !== k) return void g._emit("loaderror", null, "Failed loading audio file with status: " + F.status + "."); u(F.response, g) }; F.onerror = function () { g._webAudio && (g._html5 = !0, g._webAudio = !1, g._sounds = [], delete K[k], g.load()) }; ApplicationMain(F)
         }
-    }, V = function (g) { try { g.send() } catch (q) { g.onerror() } }, u = function (g, k) {
+    }, ApplicationMain = function (g) { try { g.send() } catch (q) { g.onerror() } }, u = function (g, k) {
         var q = function () {
             k._emit("loaderror",
                 null, "Decoding audio data failed.")
@@ -6765,8 +10095,8 @@ var $lime_init = function (F, r) {
             (this.ctx.listener.positionX.setTargetAtTime(this._pos[0], Howler.ctx.currentTime, .1), this.ctx.listener.positionY.setTargetAtTime(this._pos[1], Howler.ctx.currentTime, .1), this.ctx.listener.positionZ.setTargetAtTime(this._pos[2], Howler.ctx.currentTime, .1)) : this.ctx.listener.setPosition(this._pos[0], this._pos[1], this._pos[2]), this)) : this
     }; HowlerGlobal.prototype.orientation = function (r, x, B, F, L, V) {
         if (!this.ctx || !this.ctx.listener) return this; var u = this._orientation; return x = "number" != typeof x ? u[1] : x, B = "number" !=
-            typeof B ? u[2] : B, F = "number" != typeof F ? u[3] : F, L = "number" != typeof L ? u[4] : L, V = "number" != typeof V ? u[5] : V, "number" != typeof r ? u : (this._orientation = [r, x, B, F, L, V], void 0 !== this.ctx.listener.forwardX ? (this.ctx.listener.forwardX.setTargetAtTime(r, Howler.ctx.currentTime, .1), this.ctx.listener.forwardY.setTargetAtTime(x, Howler.ctx.currentTime, .1), this.ctx.listener.forwardZ.setTargetAtTime(B, Howler.ctx.currentTime, .1), this.ctx.listener.upX.setTargetAtTime(F, Howler.ctx.currentTime, .1), this.ctx.listener.upY.setTargetAtTime(L,
-                Howler.ctx.currentTime, .1), this.ctx.listener.upZ.setTargetAtTime(V, Howler.ctx.currentTime, .1)) : this.ctx.listener.setOrientation(r, x, B, F, L, V), this)
+            typeof B ? u[2] : B, F = "number" != typeof F ? u[3] : F, L = "number" != typeof L ? u[4] : L, ApplicationMain = "number" != typeof ApplicationMain ? u[5] : ApplicationMain, "number" != typeof r ? u : (this._orientation = [r, x, B, F, L, V], void 0 !== this.ctx.listener.forwardX ? (this.ctx.listener.forwardX.setTargetAtTime(r, Howler.ctx.currentTime, .1), this.ctx.listener.forwardY.setTargetAtTime(x, Howler.ctx.currentTime, .1), this.ctx.listener.forwardZ.setTargetAtTime(B, Howler.ctx.currentTime, .1), this.ctx.listener.upX.setTargetAtTime(F, Howler.ctx.currentTime, .1), this.ctx.listener.upY.setTargetAtTime(L,
+                Howler.ctx.currentTime, .1), this.ctx.listener.upZ.setTargetAtTime(ApplicationMain, Howler.ctx.currentTime, .1)) : this.ctx.listener.setOrientation(r, x, B, F, L, V), this)
     }; Howl.prototype.init = function (r) {
         return function (x) {
             return this._orientation = x.orientation || [1, 0, 0], this._stereo = x.stereo || null, this._pos = x.pos || null, this._pannerAttr = {
@@ -6776,7 +10106,7 @@ var $lime_init = function (F, r) {
         }
     }(Howl.prototype.init); Howl.prototype.stereo = function (r, x) {
         var B = this; if (!B._webAudio) return B;
-        if ("loaded" !== B._state) return B._queue.push({ event: "stereo", action: function () { B.stereo(r, x) } }), B; var K = void 0 === Howler.ctx.createStereoPanner ? "spatial" : "stereo"; if (void 0 === x) { if ("number" != typeof r) return B._stereo; B._stereo = r; B._pos = [r, 0, 0] } for (var L = B._getSoundIds(x), V = 0; V < L.length; V++) {
+        if ("loaded" !== B._state) return B._queue.push({ event: "stereo", action: function () { B.stereo(r, x) } }), B; var K = void 0 === Howler.ctx.createStereoPanner ? "spatial" : "stereo"; if (void 0 === x) { if ("number" != typeof r) return B._stereo; B._stereo = r; B._pos = [r, 0, 0] } for (var L = B._getSoundIds(x), ApplicationMain = 0; ApplicationMain < L.length; V++) {
             var u = B._soundById(L[V]); if (u) {
                 if ("number" != typeof r) return u._stereo; u._stereo = r; u._pos = [r, 0, 0]; u._node && (u._pannerAttr.panningModel = "equalpower", u._panner && u._panner.pan || F(u, K), "spatial" === K ? void 0 !== u._panner.positionX ?
                     (u._panner.positionX.setValueAtTime(r, Howler.ctx.currentTime), u._panner.positionY.setValueAtTime(0, Howler.ctx.currentTime), u._panner.positionZ.setValueAtTime(0, Howler.ctx.currentTime)) : u._panner.setPosition(r, 0, 0) : u._panner.pan.setValueAtTime(r, Howler.ctx.currentTime)); B._emit("stereo", u._id)
@@ -6784,14 +10114,14 @@ var $lime_init = function (F, r) {
         } return B
     }; Howl.prototype.pos = function (r, x, B, K) {
         var L = this; if (!L._webAudio) return L; if ("loaded" !== L._state) return L._queue.push({ event: "pos", action: function () { L.pos(r, x, B, K) } }), L; if (x = "number" != typeof x ? 0 : x,
-            B = "number" != typeof B ? -.5 : B, void 0 === K) { if ("number" != typeof r) return L._pos; L._pos = [r, x, B] } for (var V = L._getSoundIds(K), u = 0; u < V.length; u++) {
+            B = "number" != typeof B ? -.5 : B, void 0 === K) { if ("number" != typeof r) return L._pos; L._pos = [r, x, B] } for (var ApplicationMain = L._getSoundIds(K), u = 0; u < ApplicationMain.length; u++) {
                 var W = L._soundById(V[u]); if (W) {
                     if ("number" != typeof r) return W._pos; W._pos = [r, x, B]; W._node && (W._panner && !W._panner.pan || F(W, "spatial"), void 0 !== W._panner.positionX ? (W._panner.positionX.setValueAtTime(r, Howler.ctx.currentTime), W._panner.positionY.setValueAtTime(x, Howler.ctx.currentTime), W._panner.positionZ.setValueAtTime(B, Howler.ctx.currentTime)) : W._panner.setPosition(r,
                         x, B)); L._emit("pos", W._id)
                 }
             } return L
     }; Howl.prototype.orientation = function (r, x, B, K) {
-        var L = this; if (!L._webAudio) return L; if ("loaded" !== L._state) return L._queue.push({ event: "orientation", action: function () { L.orientation(r, x, B, K) } }), L; if (x = "number" != typeof x ? L._orientation[1] : x, B = "number" != typeof B ? L._orientation[2] : B, void 0 === K) { if ("number" != typeof r) return L._orientation; L._orientation = [r, x, B] } for (var V = L._getSoundIds(K), u = 0; u < V.length; u++) {
+        var L = this; if (!L._webAudio) return L; if ("loaded" !== L._state) return L._queue.push({ event: "orientation", action: function () { L.orientation(r, x, B, K) } }), L; if (x = "number" != typeof x ? L._orientation[1] : x, B = "number" != typeof B ? L._orientation[2] : B, void 0 === K) { if ("number" != typeof r) return L._orientation; L._orientation = [r, x, B] } for (var ApplicationMain = L._getSoundIds(K), u = 0; u < ApplicationMain.length; u++) {
             var W = L._soundById(V[u]); if (W) {
                 if ("number" != typeof r) return W._orientation;
                 W._orientation = [r, x, B]; W._node && (W._panner || (W._pos || (W._pos = L._pos || [0, 0, -.5]), F(W, "spatial")), void 0 !== W._panner.orientationX ? (W._panner.orientationX.setValueAtTime(r, Howler.ctx.currentTime), W._panner.orientationY.setValueAtTime(x, Howler.ctx.currentTime), W._panner.orientationZ.setValueAtTime(B, Howler.ctx.currentTime)) : W._panner.setOrientation(r, x, B)); L._emit("orientation", W._id)
@@ -6809,8 +10139,8 @@ var $lime_init = function (F, r) {
             var L = x._pannerAttr; L = {
                 coneInnerAngle: void 0 !== K.coneInnerAngle ? K.coneInnerAngle : L.coneInnerAngle, coneOuterAngle: void 0 !== K.coneOuterAngle ? K.coneOuterAngle : L.coneOuterAngle, coneOuterGain: void 0 !== K.coneOuterGain ?
                     K.coneOuterGain : L.coneOuterGain, distanceModel: void 0 !== K.distanceModel ? K.distanceModel : L.distanceModel, maxDistance: void 0 !== K.maxDistance ? K.maxDistance : L.maxDistance, refDistance: void 0 !== K.refDistance ? K.refDistance : L.refDistance, rolloffFactor: void 0 !== K.rolloffFactor ? K.rolloffFactor : L.rolloffFactor, panningModel: void 0 !== K.panningModel ? K.panningModel : L.panningModel
-            }; var V = x._panner; V || (x._pos || (x._pos = this._pos || [0, 0, -.5]), F(x, "spatial"), V = x._panner); V.coneInnerAngle = L.coneInnerAngle; V.coneOuterAngle =
-                L.coneOuterAngle; V.coneOuterGain = L.coneOuterGain; V.distanceModel = L.distanceModel; V.maxDistance = L.maxDistance; V.refDistance = L.refDistance; V.rolloffFactor = L.rolloffFactor; V.panningModel = L.panningModel
+            }; var ApplicationMain = x._panner; ApplicationMain || (x._pos || (x._pos = this._pos || [0, 0, -.5]), F(x, "spatial"), ApplicationMain = x._panner); ApplicationMain.coneInnerAngle = L.coneInnerAngle; ApplicationMain.coneOuterAngle =
+                L.coneOuterAngle; ApplicationMain.coneOuterGain = L.coneOuterGain; ApplicationMain.distanceModel = L.distanceModel; ApplicationMain.maxDistance = L.maxDistance; ApplicationMain.refDistance = L.refDistance; ApplicationMain.rolloffFactor = L.rolloffFactor; ApplicationMain.panningModel = L.panningModel
         } return this
     }; Sound.prototype.init = function (r) { return function () { var x = this._parent; this._orientation = x._orientation; this._stereo = x._stereo; this._pos = x._pos; this._pannerAttr = x._pannerAttr; r.call(this); this._stereo ? x.stereo(this._stereo) : this._pos && x.pos(this._pos[0], this._pos[1], this._pos[2], this._id) } }(Sound.prototype.init);
     Sound.prototype.reset = function (r) { return function () { var x = this._parent; return this._orientation = x._orientation, this._stereo = x._stereo, this._pos = x._pos, this._pannerAttr = x._pannerAttr, this._stereo ? x.stereo(this._stereo) : this._pos ? x.pos(this._pos[0], this._pos[1], this._pos[2], this._id) : this._panner && (this._panner.disconnect(0), this._panner = void 0, x._refreshBuffer(this)), r.call(this) } }(Sound.prototype.reset); var F = function (r, x) {
@@ -6824,37 +10154,37 @@ var $lime_init = function (F, r) {
     return function K(r, x, B) {
         function L(u, k) {
             if (!x[u]) {
-                if (!r[u]) { var g = "function" == typeof require && require; if (!k && g) return g(u, !0); if (V) return V(u, !0); k = Error("Cannot find module '" + u + "'"); throw k.code = "MODULE_NOT_FOUND", k; } k = x[u] = { exports: {} };
+                if (!r[u]) { var g = "function" == typeof require && require; if (!k && g) return g(u, !0); if (V) return ApplicationMain(u, !0); k = Error("Cannot find module '" + u + "'"); throw k.code = "MODULE_NOT_FOUND", k; } k = x[u] = { exports: {} };
                 r[u][0].call(k.exports, function (g) { var k = r[u][1][g]; return L(k ? k : g) }, k, k.exports, K, r, x, B)
             } return x[u].exports
-        } for (var V = "function" == typeof require && require, u = 0; u < B.length; u++)L(B[u]); return L
+        } for (var ApplicationMain = "function" == typeof require && require, u = 0; u < B.length; u++)L(B[u]); return L
     }({
         1: [function (r, x, B) {
             function K(r) {
                 if (!(this instanceof K)) return new K(r); r = this.options = u.assign({ level: J, method: ca, chunkSize: 16384, windowBits: 15, memLevel: 8, strategy: pa, to: "" }, r || {}); r.raw && 0 < r.windowBits ? r.windowBits = -r.windowBits : r.gzip && 0 < r.windowBits && 16 > r.windowBits && (r.windowBits += 16); this.err = 0; this.msg =
-                    ""; this.ended = !1; this.chunks = []; this.strm = new g; this.strm.avail_out = 0; var x = V.deflateInit2(this.strm, r.level, r.method, r.windowBits, r.memLevel, r.strategy); if (x !== D) throw Error(k[x]); if (r.header && V.deflateSetHeader(this.strm, r.header), r.dictionary) { var B; if (B = "string" == typeof r.dictionary ? W.string2buf(r.dictionary) : "[object ArrayBuffer]" === q.call(r.dictionary) ? new Uint8Array(r.dictionary) : r.dictionary, x = V.deflateSetDictionary(this.strm, B), x !== D) throw Error(k[x]); this._dict_set = !0 }
+                    ""; this.ended = !1; this.chunks = []; this.strm = new g; this.strm.avail_out = 0; var x = ApplicationMain.deflateInit2(this.strm, r.level, r.method, r.windowBits, r.memLevel, r.strategy); if (x !== D) throw Error(k[x]); if (r.header && ApplicationMain.deflateSetHeader(this.strm, r.header), r.dictionary) { var B; if (B = "string" == typeof r.dictionary ? W.string2buf(r.dictionary) : "[object ArrayBuffer]" === q.call(r.dictionary) ? new Uint8Array(r.dictionary) : r.dictionary, x = ApplicationMain.deflateSetDictionary(this.strm, B), x !== D) throw Error(k[x]); this._dict_set = !0 }
             } function L(g, k) {
                 k =
                 new K(k); if (k.push(g, !0), k.err) throw k.msg; return k.result
-            } var V = r("./zlib/deflate"), u = r("./utils/common"), W = r("./utils/strings"), k = r("./zlib/messages"), g = r("./zlib/zstream"), q = Object.prototype.toString, D = 0, J = -1, pa = 0, ca = 8; K.prototype.push = function (g, k) {
+            } var ApplicationMain = r("./zlib/deflate"), u = r("./utils/common"), W = r("./utils/strings"), k = r("./zlib/messages"), g = r("./zlib/zstream"), q = Object.prototype.toString, D = 0, J = -1, pa = 0, ca = 8; K.prototype.push = function (g, k) {
                 var r, x = this.strm, B = this.options.chunkSize; if (this.ended) return !1; k = k === ~~k ? k : !0 === k ? 4 : 0; "string" == typeof g ? x.input = W.string2buf(g) : "[object ArrayBuffer]" === q.call(g) ? x.input = new Uint8Array(g) : x.input = g; x.next_in = 0; x.avail_in = x.input.length; do {
                     if (0 ===
-                        x.avail_out && (x.output = new u.Buf8(B), x.next_out = 0, x.avail_out = B), r = V.deflate(x, k), 1 !== r && r !== D) return this.onEnd(r), this.ended = !0, !1; 0 !== x.avail_out && (0 !== x.avail_in || 4 !== k && 2 !== k) || ("string" === this.options.to ? this.onData(W.buf2binstring(u.shrinkBuf(x.output, x.next_out))) : this.onData(u.shrinkBuf(x.output, x.next_out)))
-                } while ((0 < x.avail_in || 0 === x.avail_out) && 1 !== r); return 4 === k ? (r = V.deflateEnd(this.strm), this.onEnd(r), this.ended = !0, r === D) : 2 !== k || (this.onEnd(D), x.avail_out = 0, !0)
+                        x.avail_out && (x.output = new u.Buf8(B), x.next_out = 0, x.avail_out = B), r = ApplicationMain.deflate(x, k), 1 !== r && r !== D) return this.onEnd(r), this.ended = !0, !1; 0 !== x.avail_out && (0 !== x.avail_in || 4 !== k && 2 !== k) || ("string" === this.options.to ? this.onData(W.buf2binstring(u.shrinkBuf(x.output, x.next_out))) : this.onData(u.shrinkBuf(x.output, x.next_out)))
+                } while ((0 < x.avail_in || 0 === x.avail_out) && 1 !== r); return 4 === k ? (r = ApplicationMain.deflateEnd(this.strm), this.onEnd(r), this.ended = !0, r === D) : 2 !== k || (this.onEnd(D), x.avail_out = 0, !0)
             }; K.prototype.onData =
                 function (g) { this.chunks.push(g) }; K.prototype.onEnd = function (g) { g === D && ("string" === this.options.to ? this.result = this.chunks.join("") : this.result = u.flattenChunks(this.chunks)); this.chunks = []; this.err = g; this.msg = this.strm.msg }; B.Deflate = K; B.deflate = L; B.deflateRaw = function (g, k) { return k = k || {}, k.raw = !0, L(g, k) }; B.gzip = function (g, k) { return k = k || {}, k.gzip = !0, L(g, k) }
         }, { "./utils/common": 3, "./utils/strings": 4, "./zlib/deflate": 8, "./zlib/messages": 13, "./zlib/zstream": 15 }], 2: [function (r, x, B) {
             function K(r) {
                 if (!(this instanceof
-                    K)) return new K(r); var x = this.options = u.assign({ chunkSize: 16384, windowBits: 0, to: "" }, r || {}); x.raw && 0 <= x.windowBits && 16 > x.windowBits && (x.windowBits = -x.windowBits, 0 === x.windowBits && (x.windowBits = -15)); !(0 <= x.windowBits && 16 > x.windowBits) || r && r.windowBits || (x.windowBits += 32); 15 < x.windowBits && 48 > x.windowBits && 0 === (15 & x.windowBits) && (x.windowBits |= 15); this.err = 0; this.msg = ""; this.ended = !1; this.chunks = []; this.strm = new q; this.strm.avail_out = 0; r = V.inflateInit2(this.strm, x.windowBits); if (r !== k.Z_OK) throw Error(g[r]);
-                this.header = new D; V.inflateGetHeader(this.strm, this.header)
-            } function L(g, k) { k = new K(k); if (k.push(g, !0), k.err) throw k.msg; return k.result } var V = r("./zlib/inflate"), u = r("./utils/common"), W = r("./utils/strings"), k = r("./zlib/constants"), g = r("./zlib/messages"), q = r("./zlib/zstream"), D = r("./zlib/gzheader"), J = Object.prototype.toString; K.prototype.push = function (g, q) {
+                    K)) return new K(r); var x = this.options = u.assign({ chunkSize: 16384, windowBits: 0, to: "" }, r || {}); x.raw && 0 <= x.windowBits && 16 > x.windowBits && (x.windowBits = -x.windowBits, 0 === x.windowBits && (x.windowBits = -15)); !(0 <= x.windowBits && 16 > x.windowBits) || r && r.windowBits || (x.windowBits += 32); 15 < x.windowBits && 48 > x.windowBits && 0 === (15 & x.windowBits) && (x.windowBits |= 15); this.err = 0; this.msg = ""; this.ended = !1; this.chunks = []; this.strm = new q; this.strm.avail_out = 0; r = ApplicationMain.inflateInit2(this.strm, x.windowBits); if (r !== k.Z_OK) throw Error(g[r]);
+                this.header = new D; ApplicationMain.inflateGetHeader(this.strm, this.header)
+            } function L(g, k) { k = new K(k); if (k.push(g, !0), k.err) throw k.msg; return k.result } var ApplicationMain = r("./zlib/inflate"), u = r("./utils/common"), W = r("./utils/strings"), k = r("./zlib/constants"), g = r("./zlib/messages"), q = r("./zlib/zstream"), D = r("./zlib/gzheader"), J = Object.prototype.toString; K.prototype.push = function (g, q) {
                 var r, x, B, D, K, L = this.strm, ca = this.options.chunkSize, pa = this.options.dictionary, U = !1; if (this.ended) return !1; q = q === ~~q ? q : !0 === q ? k.Z_FINISH : k.Z_NO_FLUSH;
                 "string" == typeof g ? L.input = W.binstring2buf(g) : "[object ArrayBuffer]" === J.call(g) ? L.input = new Uint8Array(g) : L.input = g; L.next_in = 0; L.avail_in = L.input.length; do {
-                    if (0 === L.avail_out && (L.output = new u.Buf8(ca), L.next_out = 0, L.avail_out = ca), r = V.inflate(L, k.Z_NO_FLUSH), r === k.Z_NEED_DICT && pa && (K = "string" == typeof pa ? W.string2buf(pa) : "[object ArrayBuffer]" === J.call(pa) ? new Uint8Array(pa) : pa, r = V.inflateSetDictionary(this.strm, K)), r === k.Z_BUF_ERROR && !0 === U && (r = k.Z_OK, U = !1), r !== k.Z_STREAM_END && r !== k.Z_OK) return this.onEnd(r),
+                    if (0 === L.avail_out && (L.output = new u.Buf8(ca), L.next_out = 0, L.avail_out = ca), r = ApplicationMain.inflate(L, k.Z_NO_FLUSH), r === k.Z_NEED_DICT && pa && (K = "string" == typeof pa ? W.string2buf(pa) : "[object ArrayBuffer]" === J.call(pa) ? new Uint8Array(pa) : pa, r = ApplicationMain.inflateSetDictionary(this.strm, K)), r === k.Z_BUF_ERROR && !0 === U && (r = k.Z_OK, U = !1), r !== k.Z_STREAM_END && r !== k.Z_OK) return this.onEnd(r),
                         this.ended = !0, !1; L.next_out && (0 !== L.avail_out && r !== k.Z_STREAM_END && (0 !== L.avail_in || q !== k.Z_FINISH && q !== k.Z_SYNC_FLUSH) || ("string" === this.options.to ? (x = W.utf8border(L.output, L.next_out), B = L.next_out - x, D = W.buf2string(L.output, x), L.next_out = B, L.avail_out = ca - B, B && u.arraySet(L.output, L.output, x, B, 0), this.onData(D)) : this.onData(u.shrinkBuf(L.output, L.next_out)))); 0 === L.avail_in && 0 === L.avail_out && (U = !0)
                 } while ((0 < L.avail_in || 0 === L.avail_out) && r !== k.Z_STREAM_END); return r === k.Z_STREAM_END && (q = k.Z_FINISH),
-                    q === k.Z_FINISH ? (r = V.inflateEnd(this.strm), this.onEnd(r), this.ended = !0, r === k.Z_OK) : q !== k.Z_SYNC_FLUSH || (this.onEnd(k.Z_OK), L.avail_out = 0, !0)
+                    q === k.Z_FINISH ? (r = ApplicationMain.inflateEnd(this.strm), this.onEnd(r), this.ended = !0, r === k.Z_OK) : q !== k.Z_SYNC_FLUSH || (this.onEnd(k.Z_OK), L.avail_out = 0, !0)
             }; K.prototype.onData = function (g) { this.chunks.push(g) }; K.prototype.onEnd = function (g) { g === k.Z_OK && ("string" === this.options.to ? this.result = this.chunks.join("") : this.result = u.flattenChunks(this.chunks)); this.chunks = []; this.err = g; this.msg = this.strm.msg }; B.Inflate = K; B.inflate = L; B.inflateRaw = function (g, k) { return k = k || {}, k.raw = !0, L(g, k) }; B.ungzip = L
         }, {
             "./utils/common": 3,
@@ -6868,7 +10198,7 @@ var $lime_init = function (F, r) {
                     (B.Buf8 = Uint8Array, B.Buf16 = Uint16Array, B.Buf32 = Int32Array, B.assign(B, K)) : (B.Buf8 = Array, B.Buf16 = Array, B.Buf32 = Array, B.assign(B, L))
             }; B.setTyped(r)
         }, {}], 4: [function (r, x, B) {
-            function K(k, g) { if (65537 > g && (k.subarray && u || !k.subarray && V)) return String.fromCharCode.apply(null, L.shrinkBuf(k, g)); for (var q = "", r = 0; r < g; r++)q += String.fromCharCode(k[r]); return q } var L = r("./common"), V = !0, u = !0; try { String.fromCharCode.apply(null, [0]) } catch (k) { V = !1 } try { String.fromCharCode.apply(null, new Uint8Array(1)) } catch (k) { u = !1 } var W =
+            function K(k, g) { if (65537 > g && (k.subarray && u || !k.subarray && V)) return String.fromCharCode.apply(null, L.shrinkBuf(k, g)); for (var q = "", r = 0; r < g; r++)q += String.fromCharCode(k[r]); return q } var L = r("./common"), ApplicationMain = !0, u = !0; try { String.fromCharCode.apply(null, [0]) } catch (k) { ApplicationMain = !1 } try { String.fromCharCode.apply(null, new Uint8Array(1)) } catch (k) { u = !1 } var W =
                 new L.Buf8(256); for (r = 0; 256 > r; r++)W[r] = 252 <= r ? 6 : 248 <= r ? 5 : 240 <= r ? 4 : 224 <= r ? 3 : 192 <= r ? 2 : 1; W[254] = W[254] = 1; B.string2buf = function (k) {
                     var g, q, u, r = k.length, x = 0; for (q = 0; q < r; q++) { var B = k.charCodeAt(q); 55296 === (64512 & B) && q + 1 < r && (g = k.charCodeAt(q + 1), 56320 === (64512 & g) && (B = 65536 + (B - 55296 << 10) + (g - 56320), q++)); x += 128 > B ? 1 : 2048 > B ? 2 : 65536 > B ? 3 : 4 } var K = new L.Buf8(x); for (q = u = 0; u < x; q++)B = k.charCodeAt(q), 55296 === (64512 & B) && q + 1 < r && (g = k.charCodeAt(q + 1), 56320 === (64512 & g) && (B = 65536 + (B - 55296 << 10) + (g - 56320), q++)), 128 > B ? K[u++] =
                         B : 2048 > B ? (K[u++] = 192 | B >>> 6, K[u++] = 128 | 63 & B) : 65536 > B ? (K[u++] = 224 | B >>> 12, K[u++] = 128 | B >>> 6 & 63, K[u++] = 128 | 63 & B) : (K[u++] = 240 | B >>> 18, K[u++] = 128 | B >>> 12 & 63, K[u++] = 128 | B >>> 6 & 63, K[u++] = 128 | 63 & B); return K
@@ -6889,12 +10219,12 @@ var $lime_init = function (F, r) {
                 } return x
             }(); x.exports = function (r, x, u, B) { u = B + u; for (r ^= -1; B < u; B++)r = r >>> 8 ^ K[255 & (r ^ x[B])]; return r ^ -1 }
         }, {}], 8: [function (r, x, B) {
-            function K(g, k) { return g.msg = mb[k], k } function L(g) { for (var m = g.length; 0 <= --m;)g[m] = 0 } function V(g) {
+            function K(g, k) { return g.msg = mb[k], k } function L(g) { for (var m = g.length; 0 <= --m;)g[m] = 0 } function ApplicationMain(g) {
                 var m = g.state, k = m.pending; k > g.avail_out && (k = g.avail_out); 0 !== k && (ab.arraySet(g.output, m.pending_buf, m.pending_out, k, g.next_out), g.next_out += k, m.pending_out += k, g.total_out += k, g.avail_out -= k, m.pending -= k, 0 === m.pending && (m.pending_out =
                     0))
-            } function u(g, k) { ea._tr_flush_block(g, 0 <= g.block_start ? g.block_start : -1, g.strstart - g.block_start, k); g.block_start = g.strstart; V(g.strm) } function W(g, k) { g.pending_buf[g.pending++] = k } function k(g, k) { g.pending_buf[g.pending++] = k >>> 8 & 255; g.pending_buf[g.pending++] = 255 & k } function g(g, k) {
-                var m, q, u = g.max_chain_length, r = g.strstart, x = g.prev_length, B = g.nice_match, C = g.strstart > g.w_size - Pa ? g.strstart - (g.w_size - Pa) : 0, D = g.window, U = g.w_mask, K = g.prev, J = g.strstart + Oa, M = D[r + x - 1], V = D[r + x]; g.prev_length >= g.good_match &&
-                    (u >>= 2); B > g.lookahead && (B = g.lookahead); do if (m = k, D[m + x] === V && D[m + x - 1] === M && D[m] === D[r] && D[++m] === D[r + 1]) { r += 2; for (m++; D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && r < J;); if (q = Oa - (J - r), r = J - Oa, q > x) { if (g.match_start = k, x = q, q >= B) break; M = D[r + x - 1]; V = D[r + x] } } while ((k = K[k & U]) > C && 0 !== --u); return x <= g.lookahead ? x : g.lookahead
+            } function u(g, k) { ea._tr_flush_block(g, 0 <= g.block_start ? g.block_start : -1, g.strstart - g.block_start, k); g.block_start = g.strstart; ApplicationMain(g.strm) } function W(g, k) { g.pending_buf[g.pending++] = k } function k(g, k) { g.pending_buf[g.pending++] = k >>> 8 & 255; g.pending_buf[g.pending++] = 255 & k } function g(g, k) {
+                var m, q, u = g.max_chain_length, r = g.strstart, x = g.prev_length, B = g.nice_match, C = g.strstart > g.w_size - Pa ? g.strstart - (g.w_size - Pa) : 0, D = g.window, U = g.w_mask, K = g.prev, J = g.strstart + Oa, M = D[r + x - 1], ApplicationMain = D[r + x]; g.prev_length >= g.good_match &&
+                    (u >>= 2); B > g.lookahead && (B = g.lookahead); do if (m = k, D[m + x] === ApplicationMain && D[m + x - 1] === M && D[m] === D[r] && D[++m] === D[r + 1]) { r += 2; for (m++; D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && D[++r] === D[++m] && r < J;); if (q = Oa - (J - r), r = J - Oa, q > x) { if (g.match_start = k, x = q, q >= B) break; M = D[r + x - 1]; ApplicationMain = D[r + x] } } while ((k = K[k & U]) > C && 0 !== --u); return x <= g.lookahead ? x : g.lookahead
             } function q(g) {
                 var m, k, q = g.w_size; do {
                     if (k = g.window_size - g.lookahead - g.strstart, g.strstart >= q + (q -
@@ -6920,16 +10250,16 @@ var $lime_init = function (F, r) {
                 } return m.match_available && (ea._tr_tally(m, 0, m.window[m.strstart - 1]), m.match_available = 0), m.insert = m.strstart < Ka - 1 ? m.strstart : Ka - 1, k === fa ? (u(m, !0), 0 === m.strm.avail_out ? va : Ib) : m.last_lit && (u(m, !1), 0 === m.strm.avail_out) ? R : Gc
             } function pa(g, k, q, w, r) { this.good_length = g; this.max_lazy = k; this.nice_length = q; this.max_chain = w; this.func = r } function ca() {
                 this.strm =
-                null; this.status = 0; this.pending_buf = null; this.wrap = this.pending = this.pending_out = this.pending_buf_size = 0; this.gzhead = null; this.gzindex = 0; this.method = nc; this.last_flush = -1; this.w_mask = this.w_bits = this.w_size = 0; this.window = null; this.window_size = 0; this.head = this.prev = null; this.nice_match = this.good_match = this.strategy = this.level = this.max_lazy_match = this.max_chain_length = this.prev_length = this.lookahead = this.match_start = this.strstart = this.match_available = this.prev_match = this.match_length = this.block_start =
-                    this.hash_shift = this.hash_mask = this.hash_bits = this.hash_size = this.ins_h = 0; this.dyn_ltree = new ab.Buf16(2 * cb); this.dyn_dtree = new ab.Buf16(2 * (2 * N + 1)); this.bl_tree = new ab.Buf16(2 * (2 * C + 1)); L(this.dyn_ltree); L(this.dyn_dtree); L(this.bl_tree); this.bl_desc = this.d_desc = this.l_desc = null; this.bl_count = new ab.Buf16(za + 1); this.heap = new ab.Buf16(2 * sa + 1); L(this.heap); this.heap_max = this.heap_len = 0; this.depth = new ab.Buf16(2 * sa + 1); L(this.depth); this.bi_valid = this.bi_buf = this.insert = this.matches = this.static_len = this.opt_len =
+                null; this.status = 0; this.pending_buf = null; this.wrap = this.pending = this.pending_out = this.pending_buf_size = 0; this.gzhead = null; this.gzindex = 0; this.method = Main; this.last_flush = -1; this.w_mask = this.w_bits = this.w_size = 0; this.window = null; this.window_size = 0; this.head = this.prev = null; this.nice_match = this.good_match = this.strategy = this.level = this.max_lazy_match = this.max_chain_length = this.prev_length = this.lookahead = this.match_start = this.strstart = this.match_available = this.prev_match = this.match_length = this.block_start =
+                    this.hash_shift = this.hash_mask = this.hash_bits = this.hash_size = this.ins_h = 0; this.dyn_ltree = new ab.Buf16(2 * ManifestResources); this.dyn_dtree = new ab.Buf16(2 * (2 * N + 1)); this.bl_tree = new ab.Buf16(2 * (2 * C + 1)); L(this.dyn_ltree); L(this.dyn_dtree); L(this.bl_tree); this.bl_desc = this.d_desc = this.l_desc = null; this.bl_count = new ab.Buf16(za + 1); this.heap = new ab.Buf16(2 * sa + 1); L(this.heap); this.heap_max = this.heap_len = 0; this.depth = new ab.Buf16(2 * sa + 1); L(this.depth); this.bi_valid = this.bi_buf = this.insert = this.matches = this.static_len = this.opt_len =
                         this.d_buf = this.last_lit = this.lit_bufsize = this.l_buf = 0
-            } function bb(g) { var m; return g && g.state ? (g.total_in = g.total_out = 0, g.data_type = hb, m = g.state, m.pending = 0, m.pending_out = 0, 0 > m.wrap && (m.wrap = -m.wrap), m.status = m.wrap ? qa : M, g.adler = 2 === m.wrap ? 0 : 1, m.last_flush = U, ea._tr_init(m), La) : K(g, aa) } function Bb(g) {
+            } function bb(g) { var m; return g && g.state ? (g.total_in = g.total_out = 0, g.data_type = Game, m = g.state, m.pending = 0, m.pending_out = 0, 0 > m.wrap && (m.wrap = -m.wrap), m.status = m.wrap ? qa : M, g.adler = 2 === m.wrap ? 0 : 1, m.last_flush = U, ea._tr_init(m), La) : K(g, aa) } function Bb(g) {
                 var k = bb(g); k === La && (g = g.state, g.window_size = 2 * g.w_size, L(g.head), g.max_lazy_match = oa[g.level].max_lazy, g.good_match = oa[g.level].good_length, g.nice_match = oa[g.level].nice_length, g.max_chain_length = oa[g.level].max_chain,
                     g.strstart = 0, g.block_start = 0, g.lookahead = 0, g.insert = 0, g.match_length = g.prev_length = Ka - 1, g.match_available = 0, g.ins_h = 0); return k
             } function gc(g, k, q, w, r, u) {
-                if (!g) return aa; var m = 1; if (k === ka && (k = 6), 0 > w ? (m = 0, w = -w) : 15 < w && (m = 2, w -= 16), 1 > r || r > Wb || q !== nc || 8 > w || 15 < w || 0 > k || 9 < k || 0 > u || u > ja) return K(g, aa); 8 === w && (w = 9); var E = new ca; return g.state = E, E.strm = g, E.wrap = m, E.gzhead = null, E.w_bits = w, E.w_size = 1 << E.w_bits, E.w_mask = E.w_size - 1, E.hash_bits = r + 7, E.hash_size = 1 << E.hash_bits, E.hash_mask = E.hash_size - 1, E.hash_shift =
+                if (!g) return aa; var m = 1; if (k === ka && (k = 6), 0 > w ? (m = 0, w = -w) : 15 < w && (m = 2, w -= 16), 1 > r || r > Wb || q !== Main || 8 > w || 15 < w || 0 > k || 9 < k || 0 > u || u > ja) return K(g, aa); 8 === w && (w = 9); var E = new ca; return g.state = E, E.strm = g, E.wrap = m, E.gzhead = null, E.w_bits = w, E.w_size = 1 << E.w_bits, E.w_mask = E.w_size - 1, E.hash_bits = r + 7, E.hash_size = 1 << E.hash_bits, E.hash_mask = E.hash_size - 1, E.hash_shift =
                     ~~((E.hash_bits + Ka - 1) / Ka), E.window = new ab.Buf8(2 * E.w_size), E.head = new ab.Buf16(E.hash_size), E.prev = new ab.Buf16(E.w_size), E.lit_bufsize = 1 << r + 6, E.pending_buf_size = 4 * E.lit_bufsize, E.pending_buf = new ab.Buf8(E.pending_buf_size), E.d_buf = 1 * E.lit_bufsize, E.l_buf = 3 * E.lit_bufsize, E.level = k, E.strategy = u, E.method = q, Bb(g)
-            } var ab = r("../utils/common"), ea = r("./trees"), fb = r("./adler32"), ma = r("./crc32"), mb = r("./messages"), U = 0, fa = 4, La = 0, aa = -2, ka = -1, Ya = 1, ja = 4, hb = 2, nc = 8, Wb = 9, sa = 286, N = 30, C = 19, cb = 2 * sa + 1, za = 15, Ka = 3, Oa =
+            } var ab = r("../utils/common"), ea = r("./trees"), fb = r("./adler32"), ma = r("./crc32"), mb = r("./messages"), U = 0, fa = 4, La = 0, aa = -2, ka = -1, Ya = 1, ja = 4, Game = 2, Main = 8, Wb = 9, sa = 286, N = 30, C = 19, ManifestResources = 2 * sa + 1, za = 15, Ka = 3, Oa =
                 258, Pa = Oa + Ka + 1, qa = 42, M = 113, R = 1, Gc = 2, va = 3, Ib = 4; var oa = [new pa(0, 0, 0, 0, function (g, k) {
                     var m = 65535; for (m > g.pending_buf_size - 5 && (m = g.pending_buf_size - 5); ;) { if (1 >= g.lookahead) { if (q(g), 0 === g.lookahead && k === U) return R; if (0 === g.lookahead) break } g.strstart += g.lookahead; g.lookahead = 0; var w = g.block_start + m; if ((0 === g.strstart || g.strstart >= w) && (g.lookahead = g.strstart - w, g.strstart = w, u(g, !1), 0 === g.strm.avail_out) || g.strstart - g.block_start >= g.w_size - Pa && (u(g, !1), 0 === g.strm.avail_out)) return R } return g.insert = 0, k ===
                         fa ? (u(g, !0), 0 === g.strm.avail_out ? va : Ib) : (g.strstart > g.block_start && u(g, !1), R)
@@ -6937,13 +10267,13 @@ var $lime_init = function (F, r) {
                     r) {
                         var m, w; if (!g || !g.state || 5 < r || 0 > r) return g ? K(g, aa) : aa; if (w = g.state, !g.output || !g.input && 0 !== g.avail_in || 666 === w.status && r !== fa) return K(g, 0 === g.avail_out ? -5 : aa); if (w.strm = g, m = w.last_flush, w.last_flush = r, w.status === qa) if (2 === w.wrap) g.adler = 0, W(w, 31), W(w, 139), W(w, 8), w.gzhead ? (W(w, (w.gzhead.text ? 1 : 0) + (w.gzhead.hcrc ? 2 : 0) + (w.gzhead.extra ? 4 : 0) + (w.gzhead.name ? 8 : 0) + (w.gzhead.comment ? 16 : 0)), W(w, 255 & w.gzhead.time), W(w, w.gzhead.time >> 8 & 255), W(w, w.gzhead.time >> 16 & 255), W(w, w.gzhead.time >> 24 & 255), W(w, 9 === w.level ?
                             2 : 2 <= w.strategy || 2 > w.level ? 4 : 0), W(w, 255 & w.gzhead.os), w.gzhead.extra && w.gzhead.extra.length && (W(w, 255 & w.gzhead.extra.length), W(w, w.gzhead.extra.length >> 8 & 255)), w.gzhead.hcrc && (g.adler = ma(g.adler, w.pending_buf, w.pending, 0)), w.gzindex = 0, w.status = 69) : (W(w, 0), W(w, 0), W(w, 0), W(w, 0), W(w, 0), W(w, 9 === w.level ? 2 : 2 <= w.strategy || 2 > w.level ? 4 : 0), W(w, 3), w.status = M); else {
-                                var x = nc + (w.w_bits - 8 << 4) << 8; x |= (2 <= w.strategy || 2 > w.level ? 0 : 6 > w.level ? 1 : 6 === w.level ? 2 : 3) << 6; 0 !== w.strstart && (x |= 32); w.status = M; k(w, x + (31 - x % 31)); 0 !==
+                                var x = Main + (w.w_bits - 8 << 4) << 8; x |= (2 <= w.strategy || 2 > w.level ? 0 : 6 > w.level ? 1 : 6 === w.level ? 2 : 3) << 6; 0 !== w.strstart && (x |= 32); w.status = M; k(w, x + (31 - x % 31)); 0 !==
                                     w.strstart && (k(w, g.adler >>> 16), k(w, 65535 & g.adler)); g.adler = 1
-                        } if (69 === w.status) if (w.gzhead.extra) { for (x = w.pending; w.gzindex < (65535 & w.gzhead.extra.length) && (w.pending !== w.pending_buf_size || (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), V(g), x = w.pending, w.pending !== w.pending_buf_size));)W(w, 255 & w.gzhead.extra[w.gzindex]), w.gzindex++; w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); w.gzindex === w.gzhead.extra.length && (w.gzindex = 0, w.status = 73) } else w.status =
-                            73; if (73 === w.status) if (w.gzhead.name) { x = w.pending; do { if (w.pending === w.pending_buf_size && (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), V(g), x = w.pending, w.pending === w.pending_buf_size)) { var B = 1; break } B = w.gzindex < w.gzhead.name.length ? 255 & w.gzhead.name.charCodeAt(w.gzindex++) : 0; W(w, B) } while (0 !== B); w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); 0 === B && (w.gzindex = 0, w.status = 91) } else w.status = 91; if (91 === w.status) if (w.gzhead.comment) {
+                        } if (69 === w.status) if (w.gzhead.extra) { for (x = w.pending; w.gzindex < (65535 & w.gzhead.extra.length) && (w.pending !== w.pending_buf_size || (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), ApplicationMain(g), x = w.pending, w.pending !== w.pending_buf_size));)W(w, 255 & w.gzhead.extra[w.gzindex]), w.gzindex++; w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); w.gzindex === w.gzhead.extra.length && (w.gzindex = 0, w.status = 73) } else w.status =
+                            73; if (73 === w.status) if (w.gzhead.name) { x = w.pending; do { if (w.pending === w.pending_buf_size && (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), ApplicationMain(g), x = w.pending, w.pending === w.pending_buf_size)) { var B = 1; break } B = w.gzindex < w.gzhead.name.length ? 255 & w.gzhead.name.charCodeAt(w.gzindex++) : 0; W(w, B) } while (0 !== B); w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); 0 === B && (w.gzindex = 0, w.status = 91) } else w.status = 91; if (91 === w.status) if (w.gzhead.comment) {
                                 x = w.pending;
-                                do { if (w.pending === w.pending_buf_size && (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), V(g), x = w.pending, w.pending === w.pending_buf_size)) { B = 1; break } B = w.gzindex < w.gzhead.comment.length ? 255 & w.gzhead.comment.charCodeAt(w.gzindex++) : 0; W(w, B) } while (0 !== B); w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); 0 === B && (w.status = 103)
-                            } else w.status = 103; if (103 === w.status && (w.gzhead.hcrc ? (w.pending + 2 > w.pending_buf_size && V(g), w.pending + 2 <= w.pending_buf_size &&
+                                do { if (w.pending === w.pending_buf_size && (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), ApplicationMain(g), x = w.pending, w.pending === w.pending_buf_size)) { B = 1; break } B = w.gzindex < w.gzhead.comment.length ? 255 & w.gzhead.comment.charCodeAt(w.gzindex++) : 0; W(w, B) } while (0 !== B); w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); 0 === B && (w.status = 103)
+                            } else w.status = 103; if (103 === w.status && (w.gzhead.hcrc ? (w.pending + 2 > w.pending_buf_size && ApplicationMain(g), w.pending + 2 <= w.pending_buf_size &&
                                 (W(w, 255 & g.adler), W(w, g.adler >> 8 & 255), g.adler = 0, w.status = M)) : w.status = M), 0 !== w.pending) { if (V(g), 0 === g.avail_out) return w.last_flush = -1, La } else if (0 === g.avail_in && (r << 1) - (4 < r ? 9 : 0) <= (m << 1) - (4 < m ? 9 : 0) && r !== fa) return K(g, -5); if (666 === w.status && 0 !== g.avail_in) return K(g, -5); if (0 !== g.avail_in || 0 !== w.lookahead || r !== U && 666 !== w.status) {
                                     if (2 === w.strategy) a: {
                                         for (var C; ;) {
@@ -6958,9 +10288,9 @@ var $lime_init = function (F, r) {
                                             } if (w.match_length >= Ka ? (D = ea._tr_tally(w, 1, w.match_length - Ka), w.lookahead -= w.match_length, w.strstart += w.match_length, w.match_length = 0) : (D = ea._tr_tally(w, 0, w.window[w.strstart]), w.lookahead--, w.strstart++), D && (u(w, !1), 0 === w.strm.avail_out)) { D = R; break a }
                                         } D = (w.insert = 0, r === fa ? (u(w, !0), 0 === w.strm.avail_out ? va : Ib) : w.last_lit && (u(w, !1), 0 === w.strm.avail_out) ? R : Gc)
                                     } else D = oa[w.level].func(w,
-                                        r); if (D !== va && D !== Ib || (w.status = 666), D === R || D === va) return 0 === g.avail_out && (w.last_flush = -1), La; if (D === Gc && (1 === r ? ea._tr_align(w) : 5 !== r && (ea._tr_stored_block(w, 0, 0, !1), 3 === r && (L(w.head), 0 === w.lookahead && (w.strstart = 0, w.block_start = 0, w.insert = 0))), V(g), 0 === g.avail_out)) return w.last_flush = -1, La
+                                        r); if (D !== va && D !== Ib || (w.status = 666), D === R || D === va) return 0 === g.avail_out && (w.last_flush = -1), La; if (D === Gc && (1 === r ? ea._tr_align(w) : 5 !== r && (ea._tr_stored_block(w, 0, 0, !1), 3 === r && (L(w.head), 0 === w.lookahead && (w.strstart = 0, w.block_start = 0, w.insert = 0))), ApplicationMain(g), 0 === g.avail_out)) return w.last_flush = -1, La
                                 } return r !== fa ? La : 0 >= w.wrap ? 1 : (2 === w.wrap ? (W(w, 255 & g.adler), W(w, g.adler >> 8 & 255), W(w, g.adler >> 16 & 255), W(w, g.adler >> 24 & 255), W(w, 255 & g.total_in), W(w, g.total_in >> 8 & 255), W(w, g.total_in >> 16 & 255), W(w, g.total_in >> 24 &
-                                    255)) : (k(w, g.adler >>> 16), k(w, 65535 & g.adler)), V(g), 0 < w.wrap && (w.wrap = -w.wrap), 0 !== w.pending ? La : 1)
+                                    255)) : (k(w, g.adler >>> 16), k(w, 65535 & g.adler)), ApplicationMain(g), 0 < w.wrap && (w.wrap = -w.wrap), 0 !== w.pending ? La : 1)
                 }; B.deflateEnd = function (g) { var k; return g && g.state ? (k = g.state.status, k !== qa && 69 !== k && 73 !== k && 91 !== k && 103 !== k && k !== M && 666 !== k ? K(g, aa) : (g.state = null, k === M ? K(g, -3) : La)) : aa }; B.deflateSetDictionary = function (g, k) {
                     var m, w, r; var u = k.length; if (!g || !g.state || (m = g.state, w = m.wrap, 2 === w || 1 === w && m.status !== qa || m.lookahead)) return aa; 1 === w && (g.adler = fb(g.adler, k, u, 0)); m.wrap = 0; u >= m.w_size && (0 === w && (L(m.head), m.strstart =
                         0, m.block_start = 0, m.insert = 0), r = new ab.Buf8(m.w_size), ab.arraySet(r, k, u - m.w_size, m.w_size, 0), k = r, u = m.w_size); r = g.avail_in; var x = g.next_in; var B = g.input; g.avail_in = u; g.next_in = 0; g.input = k; for (q(m); m.lookahead >= Ka;) { k = m.strstart; u = m.lookahead - (Ka - 1); do m.ins_h = (m.ins_h << m.hash_shift ^ m.window[k + Ka - 1]) & m.hash_mask, m.prev[k & m.w_mask] = m.head[m.ins_h], m.head[m.ins_h] = k, k++; while (--u); m.strstart = k; m.lookahead = Ka - 1; q(m) } return m.strstart += m.lookahead, m.block_start = m.strstart, m.insert = m.lookahead, m.lookahead =
@@ -6992,29 +10322,29 @@ var $lime_init = function (F, r) {
             function K(g) { return (g >>> 24 & 255) + (g >>> 8 & 65280) + ((65280 & g) << 8) + ((255 & g) << 24) } function L() {
                 this.mode = 0; this.last = !1; this.wrap = 0; this.havedict =
                     !1; this.total = this.check = this.dmax = this.flags = 0; this.head = null; this.wnext = this.whave = this.wsize = this.wbits = 0; this.window = null; this.extra = this.offset = this.length = this.bits = this.hold = 0; this.distcode = this.lencode = null; this.have = this.ndist = this.nlen = this.ncode = this.distbits = this.lenbits = 0; this.next = null; this.lens = new J.Buf16(320); this.work = new J.Buf16(288); this.distdyn = this.lendyn = null; this.was = this.back = this.sane = 0
-            } function V(g) {
+            } function ApplicationMain(g) {
                 var k; return g && g.state ? (k = g.state, g.total_in = g.total_out = k.total = 0, g.msg =
                     "", k.wrap && (g.adler = 1 & k.wrap), k.mode = ea, k.last = 0, k.havedict = 0, k.dmax = 32768, k.head = null, k.hold = 0, k.bits = 0, k.lencode = k.lendyn = new J.Buf32(fb), k.distcode = k.distdyn = new J.Buf32(ma), k.sane = 1, k.back = -1, gc) : ab
-            } function u(g) { var k; return g && g.state ? (k = g.state, k.wsize = 0, k.whave = 0, k.wnext = 0, V(g)) : ab } function W(g, k) { var q, r; return g && g.state ? (r = g.state, 0 > k ? (q = 0, k = -k) : (q = (k >> 4) + 1, 48 > k && (k &= 15)), k && (8 > k || 15 < k) ? ab : (null !== r.window && r.wbits !== k && (r.window = null), r.wrap = q, r.wbits = k, u(g))) : ab } function k(g, k) {
+            } function u(g) { var k; return g && g.state ? (k = g.state, k.wsize = 0, k.whave = 0, k.wnext = 0, ApplicationMain(g)) : ab } function W(g, k) { var q, r; return g && g.state ? (r = g.state, 0 > k ? (q = 0, k = -k) : (q = (k >> 4) + 1, 48 > k && (k &= 15)), k && (8 > k || 15 < k) ? ab : (null !== r.window && r.wbits !== k && (r.window = null), r.wrap = q, r.wbits = k, u(g))) : ab } function k(g, k) {
                 var q,
                 r; return g ? (r = new L, g.state = r, r.window = null, q = W(g, k), q !== gc && (g.state = null), q) : ab
             } function g(g, k, q, r) {
                 var u; g = g.state; return null === g.window && (g.wsize = 1 << g.wbits, g.wnext = 0, g.whave = 0, g.window = new J.Buf8(g.wsize)), r >= g.wsize ? (J.arraySet(g.window, k, q - g.wsize, g.wsize, 0), g.wnext = 0, g.whave = g.wsize) : (u = g.wsize - g.wnext, u > r && (u = r), J.arraySet(g.window, k, q - r, u, g.wnext), r -= u, r ? (J.arraySet(g.window, k, q - r, r, 0), g.wnext = r, g.whave = g.wsize) : (g.wnext += u, g.wnext === g.wsize && (g.wnext = 0), g.whave < g.wsize && (g.whave += u))),
                     0
-            } var q, D, J = r("../utils/common"), pa = r("./adler32"), ca = r("./crc32"), bb = r("./inffast"), Bb = r("./inftrees"), gc = 0, ab = -2, ea = 1, fb = 852, ma = 592, mb = !0; B.inflateReset = u; B.inflateReset2 = W; B.inflateResetKeep = V; B.inflateInit = function (g) { return k(g, 15) }; B.inflateInit2 = k; B.inflate = function (k, r) {
-                var u, x, B, L, U, V, W, fa = 0, sa = new J.Buf8(4), N = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]; if (!k || !k.state || !k.output || !k.input && 0 !== k.avail_in) return ab; var C = k.state; 12 === C.mode && (C.mode = 13); var ma = k.next_out; var za = k.output;
+            } var q, D, J = r("../utils/common"), pa = r("./adler32"), ca = r("./crc32"), bb = r("./inffast"), Bb = r("./inftrees"), gc = 0, ab = -2, ea = 1, fb = 852, ma = 592, mb = !0; B.inflateReset = u; B.inflateReset2 = W; B.inflateResetKeep = ApplicationMain; B.inflateInit = function (g) { return k(g, 15) }; B.inflateInit2 = k; B.inflate = function (k, r) {
+                var u, x, B, L, U, ApplicationMain, W, fa = 0, sa = new J.Buf8(4), N = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]; if (!k || !k.state || !k.output || !k.input && 0 !== k.avail_in) return ab; var C = k.state; 12 === C.mode && (C.mode = 13); var ma = k.next_out; var za = k.output;
                 var Ka = k.avail_out; var Oa = k.next_in; var Pa = k.input; var qa = k.avail_in; var M = C.hold; var R = C.bits; var fb = qa; var va = Ka; var Ib = gc; a: for (; ;)switch (C.mode) {
                     case ea: if (0 === C.wrap) { C.mode = 13; break } for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (2 & C.wrap && 35615 === M) { C.check = 0; sa[0] = 255 & M; sa[1] = M >>> 8 & 255; C.check = ca(C.check, sa, 2, 0); R = M = 0; C.mode = 2; break } if (C.flags = 0, C.head && (C.head.done = !1), !(1 & C.wrap) || (((255 & M) << 8) + (M >> 8)) % 31) { k.msg = "incorrect header check"; C.mode = 30; break } if (8 !== (15 & M)) {
                         k.msg = "unknown compression method";
                         C.mode = 30; break
-                    } if (M >>>= 4, R -= 4, V = (15 & M) + 8, 0 === C.wbits) C.wbits = V; else if (V > C.wbits) { k.msg = "invalid window size"; C.mode = 30; break } C.dmax = 1 << V; k.adler = C.check = 1; C.mode = 512 & M ? 10 : 12; R = M = 0; break; case 2: for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (C.flags = M, 8 !== (255 & C.flags)) { k.msg = "unknown compression method"; C.mode = 30; break } if (57344 & C.flags) { k.msg = "unknown header flags set"; C.mode = 30; break } C.head && (C.head.text = M >> 8 & 1); 512 & C.flags && (sa[0] = 255 & M, sa[1] = M >>> 8 & 255, C.check = ca(C.check, sa, 2, 0)); R =
+                    } if (M >>>= 4, R -= 4, ApplicationMain = (15 & M) + 8, 0 === C.wbits) C.wbits = V; else if (ApplicationMain > C.wbits) { k.msg = "invalid window size"; C.mode = 30; break } C.dmax = 1 << V; k.adler = C.check = 1; C.mode = 512 & M ? 10 : 12; R = M = 0; break; case 2: for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (C.flags = M, 8 !== (255 & C.flags)) { k.msg = "unknown compression method"; C.mode = 30; break } if (57344 & C.flags) { k.msg = "unknown header flags set"; C.mode = 30; break } C.head && (C.head.text = M >> 8 & 1); 512 & C.flags && (sa[0] = 255 & M, sa[1] = M >>> 8 & 255, C.check = ca(C.check, sa, 2, 0)); R =
                         M = 0; C.mode = 3; case 3: for (; 32 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } C.head && (C.head.time = M); 512 & C.flags && (sa[0] = 255 & M, sa[1] = M >>> 8 & 255, sa[2] = M >>> 16 & 255, sa[3] = M >>> 24 & 255, C.check = ca(C.check, sa, 4, 0)); R = M = 0; C.mode = 4; case 4: for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } C.head && (C.head.xflags = 255 & M, C.head.os = M >> 8); 512 & C.flags && (sa[0] = 255 & M, sa[1] = M >>> 8 & 255, C.check = ca(C.check, sa, 2, 0)); R = M = 0; C.mode = 5; case 5: if (1024 & C.flags) {
                             for (; 16 > R;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } C.length = M; C.head &&
                                 (C.head.extra_len = M); 512 & C.flags && (sa[0] = 255 & M, sa[1] = M >>> 8 & 255, C.check = ca(C.check, sa, 2, 0)); R = M = 0
-                        } else C.head && (C.head.extra = null); C.mode = 6; case 6: if (1024 & C.flags && (u = C.length, u > qa && (u = qa), u && (C.head && (V = C.head.extra_len - C.length, C.head.extra || (C.head.extra = Array(C.head.extra_len)), J.arraySet(C.head.extra, Pa, Oa, u, V)), 512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, C.length -= u), C.length)) break a; C.length = 0; C.mode = 7; case 7: if (2048 & C.flags) {
-                            if (0 === qa) break a; u = 0; do V = Pa[Oa + u++], C.head && V && 65536 >
-                                C.length && (C.head.name += String.fromCharCode(V)); while (V && u < qa); if (512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, V) break a
-                        } else C.head && (C.head.name = null); C.length = 0; C.mode = 8; case 8: if (4096 & C.flags) { if (0 === qa) break a; u = 0; do V = Pa[Oa + u++], C.head && V && 65536 > C.length && (C.head.comment += String.fromCharCode(V)); while (V && u < qa); if (512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, V) break a } else C.head && (C.head.comment = null); C.mode = 9; case 9: if (512 & C.flags) {
+                        } else C.head && (C.head.extra = null); C.mode = 6; case 6: if (1024 & C.flags && (u = C.length, u > qa && (u = qa), u && (C.head && (ApplicationMain = C.head.extra_len - C.length, C.head.extra || (C.head.extra = Array(C.head.extra_len)), J.arraySet(C.head.extra, Pa, Oa, u, V)), 512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, C.length -= u), C.length)) break a; C.length = 0; C.mode = 7; case 7: if (2048 & C.flags) {
+                            if (0 === qa) break a; u = 0; do ApplicationMain = Pa[Oa + u++], C.head && ApplicationMain && 65536 >
+                                C.length && (C.head.name += String.fromCharCode(V)); while (ApplicationMain && u < qa); if (512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, V) break a
+                        } else C.head && (C.head.name = null); C.length = 0; C.mode = 8; case 8: if (4096 & C.flags) { if (0 === qa) break a; u = 0; do ApplicationMain = Pa[Oa + u++], C.head && ApplicationMain && 65536 > C.length && (C.head.comment += String.fromCharCode(V)); while (ApplicationMain && u < qa); if (512 & C.flags && (C.check = ca(C.check, Pa, u, Oa)), qa -= u, Oa += u, V) break a } else C.head && (C.head.comment = null); C.mode = 9; case 9: if (512 & C.flags) {
                             for (; 16 > R;) {
                                 if (0 === qa) break a; qa--; M +=
                                     Pa[Oa++] << R; R += 8
@@ -7031,10 +10361,10 @@ var $lime_init = function (F, r) {
                                 C.mode = 30; break
                             } C.have = 0; C.mode = 19; case 19: for (; C.have < C.nlen + C.ndist;) {
                                 for (; fa = C.lencode[M & (1 << C.lenbits) - 1], L = fa >>> 24, oa = 65535 & fa, !(L <= R);) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (16 > oa) M >>>= L, R -= L, C.lens[C.have++] = oa; else {
-                                    if (16 === oa) { for (B = L + 2; R < B;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (M >>>= L, R -= L, 0 === C.have) { k.msg = "invalid bit length repeat"; C.mode = 30; break } V = C.lens[C.have - 1]; u = 3 + (3 & M); M >>>= 2; R -= 2 } else if (17 === oa) {
+                                    if (16 === oa) { for (B = L + 2; R < B;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } if (M >>>= L, R -= L, 0 === C.have) { k.msg = "invalid bit length repeat"; C.mode = 30; break } ApplicationMain = C.lens[C.have - 1]; u = 3 + (3 & M); M >>>= 2; R -= 2 } else if (17 === oa) {
                                         for (B = L + 3; R < B;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } M >>>=
-                                            L; R -= L; V = 0; u = 3 + (7 & M); M >>>= 3; R -= 3
-                                    } else { for (B = L + 7; R < B;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } M >>>= L; R -= L; V = 0; u = 11 + (127 & M); M >>>= 7; R -= 7 } if (C.have + u > C.nlen + C.ndist) { k.msg = "invalid bit length repeat"; C.mode = 30; break } for (; u--;)C.lens[C.have++] = V
+                                            L; R -= L; ApplicationMain = 0; u = 3 + (7 & M); M >>>= 3; R -= 3
+                                    } else { for (B = L + 7; R < B;) { if (0 === qa) break a; qa--; M += Pa[Oa++] << R; R += 8 } M >>>= L; R -= L; ApplicationMain = 0; u = 11 + (127 & M); M >>>= 7; R -= 7 } if (C.have + u > C.nlen + C.ndist) { k.msg = "invalid bit length repeat"; C.mode = 30; break } for (; u--;)C.lens[C.have++] = V
                                 }
                             } if (30 === C.mode) break; if (0 === C.lens[256]) { k.msg = "invalid code -- missing end-of-block"; C.mode = 30; break } if (C.lenbits = 9, W = { bits: C.lenbits }, Ib = Bb(1, C.lens, 0, C.nlen, C.lencode, 0, C.work, W), C.lenbits = W.bits, Ib) { k.msg = "invalid literal/lengths set"; C.mode = 30; break } if (C.distbits =
                                 6, C.distcode = C.distdyn, W = { bits: C.distbits }, Ib = Bb(2, C.lens, C.nlen, C.ndist, C.distcode, 0, C.work, W), C.distbits = W.bits, Ib) { k.msg = "invalid distances set"; C.mode = 30; break } if (C.mode = 20, 6 === r) break a; case 20: C.mode = 21; case 21: if (6 <= qa && 258 <= Ka) { k.next_out = ma; k.avail_out = Ka; k.next_in = Oa; k.avail_in = qa; C.hold = M; C.bits = R; bb(k, va); ma = k.next_out; za = k.output; Ka = k.avail_out; Oa = k.next_in; Pa = k.input; qa = k.avail_in; M = C.hold; R = C.bits; 12 === C.mode && (C.back = -1); break } for (C.back = 0; fa = C.lencode[M & (1 << C.lenbits) - 1], L = fa >>> 24,
@@ -7058,27 +10388,27 @@ var $lime_init = function (F, r) {
                     k.state ? (r = k.state, 0 !== r.wrap && 11 !== r.mode ? ab : 11 === r.mode && (u = 1, u = pa(u, q, x, 0), u !== r.check) ? -3 : g(k, q, x, x) ? (r.mode = 31, -4) : (r.havedict = 1, gc)) : ab
             }; B.inflateInfo = "pako inflate (from Nodeca project)"
         }, { "../utils/common": 3, "./adler32": 5, "./crc32": 7, "./inffast": 10, "./inftrees": 12 }], 12: [function (r, x, B) {
-            var K = r("../utils/common"), L = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], V = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21,
+            var K = r("../utils/common"), L = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], ApplicationMain = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21,
                 16, 72, 78], u = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0], W = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64]; x.exports = function (k, g, q, r, x, B, ca, bb) {
-                    var D, J, pa, ea, fb, ma, mb = bb.bits, U, fa, La, aa, ka, Ya = 0, ja, hb = null, nc = 0, Wb = new K.Buf16(16); var sa = new K.Buf16(16); var N = null, C = 0; for (U = 0; 15 >= U; U++)Wb[U] = 0; for (fa = 0; fa < r; fa++)Wb[g[q + fa]]++; var cb = mb; for (La = 15; 1 <= La && 0 === Wb[La]; La--); if (cb > La &&
-                        (cb = La), 0 === La) return x[B++] = 20971520, x[B++] = 20971520, bb.bits = 1, 0; for (mb = 1; mb < La && 0 === Wb[mb]; mb++); cb < mb && (cb = mb); for (U = D = 1; 15 >= U; U++)if (D <<= 1, D -= Wb[U], 0 > D) return -1; if (0 < D && (0 === k || 1 !== La)) return -1; sa[1] = 0; for (U = 1; 15 > U; U++)sa[U + 1] = sa[U] + Wb[U]; for (fa = 0; fa < r; fa++)0 !== g[q + fa] && (ca[sa[g[q + fa]]++] = fa); if (0 === k ? (hb = N = ca, ea = 19) : 1 === k ? (hb = L, nc -= 257, N = V, C -= 257, ea = 256) : (hb = u, N = W, ea = -1), ja = 0, fa = 0, U = mb, sa = B, aa = cb, ka = 0, pa = -1, Ya = 1 << cb, r = Ya - 1, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; for (var za = 0; ;) {
+                    var D, J, pa, ea, fb, ma, mb = bb.bits, U, fa, La, aa, ka, Ya = 0, ja, Game = null, Main = 0, Wb = new K.Buf16(16); var sa = new K.Buf16(16); var N = null, C = 0; for (U = 0; 15 >= U; U++)Wb[U] = 0; for (fa = 0; fa < r; fa++)Wb[g[q + fa]]++; var ManifestResources = mb; for (La = 15; 1 <= La && 0 === Wb[La]; La--); if (ManifestResources > La &&
+                        (ManifestResources = La), 0 === La) return x[B++] = 20971520, x[B++] = 20971520, bb.bits = 1, 0; for (mb = 1; mb < La && 0 === Wb[mb]; mb++); ManifestResources < mb && (ManifestResources = mb); for (U = D = 1; 15 >= U; U++)if (D <<= 1, D -= Wb[U], 0 > D) return -1; if (0 < D && (0 === k || 1 !== La)) return -1; sa[1] = 0; for (U = 1; 15 > U; U++)sa[U + 1] = sa[U] + Wb[U]; for (fa = 0; fa < r; fa++)0 !== g[q + fa] && (ca[sa[g[q + fa]]++] = fa); if (0 === k ? (Game = N = ca, ea = 19) : 1 === k ? (Game = L, Main -= 257, N = ApplicationMain, C -= 257, ea = 256) : (Game = u, N = W, ea = -1), ja = 0, fa = 0, U = mb, sa = B, aa = ManifestResources, ka = 0, pa = -1, Ya = 1 << ManifestResources, r = Ya - 1, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; for (var za = 0; ;) {
                             za++; var Ka = U - ka;
-                            ca[fa] < ea ? (fb = 0, ma = ca[fa]) : ca[fa] > ea ? (fb = N[C + ca[fa]], ma = hb[nc + ca[fa]]) : (fb = 96, ma = 0); D = 1 << U - ka; mb = J = 1 << aa; do J -= D, x[sa + (ja >> ka) + J] = Ka << 24 | fb << 16 | ma | 0; while (0 !== J); for (D = 1 << U - 1; ja & D;)D >>= 1; if (0 !== D ? (ja &= D - 1, ja += D) : ja = 0, fa++, 0 === --Wb[U]) { if (U === La) break; U = g[q + ca[fa]] } if (U > cb && (ja & r) !== pa) { 0 === ka && (ka = cb); sa += mb; aa = U - ka; for (D = 1 << aa; aa + ka < La && (D -= Wb[aa + ka], !(0 >= D));)aa++, D <<= 1; if (Ya += 1 << aa, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; pa = ja & r; x[pa] = cb << 24 | aa << 16 | sa - B | 0 }
+                            ca[fa] < ea ? (fb = 0, ma = ca[fa]) : ca[fa] > ea ? (fb = N[C + ca[fa]], ma = Game[nc + ca[fa]]) : (fb = 96, ma = 0); D = 1 << U - ka; mb = J = 1 << aa; do J -= D, x[sa + (ja >> ka) + J] = Ka << 24 | fb << 16 | ma | 0; while (0 !== J); for (D = 1 << U - 1; ja & D;)D >>= 1; if (0 !== D ? (ja &= D - 1, ja += D) : ja = 0, fa++, 0 === --Wb[U]) { if (U === La) break; U = g[q + ca[fa]] } if (U > ManifestResources && (ja & r) !== pa) { 0 === ka && (ka = ManifestResources); sa += mb; aa = U - ka; for (D = 1 << aa; aa + ka < La && (D -= Wb[aa + ka], !(0 >= D));)aa++, D <<= 1; if (Ya += 1 << aa, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; pa = ja & r; x[pa] = ManifestResources << 24 | aa << 16 | sa - B | 0 }
                         } return 0 !== ja && (x[sa + ja] = U - ka << 24 | 4194304),
-                            bb.bits = cb, 0
+                            bb.bits = ManifestResources, 0
                 }
         }, { "../utils/common": 3 }], 13: [function (r, x, B) { x.exports = { 2: "need dictionary", 1: "stream end", 0: "", "-1": "file error", "-2": "stream error", "-3": "data error", "-4": "insufficient memory", "-5": "buffer error", "-6": "incompatible version" } }, {}], 14: [function (r, x, B) {
-            function K(g) { for (var k = g.length; 0 <= --k;)g[k] = 0 } function L(g, k, m, q, r) { this.static_tree = g; this.extra_bits = k; this.extra_base = m; this.elems = q; this.max_length = r; this.has_stree = g && g.length } function V(g, k) {
+            function K(g) { for (var k = g.length; 0 <= --k;)g[k] = 0 } function L(g, k, m, q, r) { this.static_tree = g; this.extra_bits = k; this.extra_base = m; this.elems = q; this.max_length = r; this.has_stree = g && g.length } function ApplicationMain(g, k) {
                 this.dyn_tree = g; this.max_code = 0; this.stat_desc =
                     k
-            } function u(g, k) { g.pending_buf[g.pending++] = 255 & k; g.pending_buf[g.pending++] = k >>> 8 & 255 } function W(g, k, m) { g.bi_valid > nc - m ? (g.bi_buf |= k << g.bi_valid & 65535, u(g, g.bi_buf), g.bi_buf = k >> nc - g.bi_valid, g.bi_valid += m - nc) : (g.bi_buf |= k << g.bi_valid & 65535, g.bi_valid += m) } function k(g, k, m) { W(g, m[2 * k], m[2 * k + 1]) } function g(g, k) { var m = 0; do m |= 1 & g, g >>>= 1, m <<= 1; while (0 < --k); return m >>> 1 } function q(k, m, q) { var r, u = Array(hb + 1), w = 0; for (r = 1; r <= hb; r++)u[r] = w = w + q[r - 1] << 1; for (q = 0; q <= m; q++)r = k[2 * q + 1], 0 !== r && (k[2 * q] = g(u[r]++, r)) }
+            } function u(g, k) { g.pending_buf[g.pending++] = 255 & k; g.pending_buf[g.pending++] = k >>> 8 & 255 } function W(g, k, m) { g.bi_valid > Main - m ? (g.bi_buf |= k << g.bi_valid & 65535, u(g, g.bi_buf), g.bi_buf = k >> Main - g.bi_valid, g.bi_valid += m - Main) : (g.bi_buf |= k << g.bi_valid & 65535, g.bi_valid += m) } function k(g, k, m) { W(g, m[2 * k], m[2 * k + 1]) } function g(g, k) { var m = 0; do m |= 1 & g, g >>>= 1, m <<= 1; while (0 < --k); return m >>> 1 } function q(k, m, q) { var r, u = Array(Game + 1), w = 0; for (r = 1; r <= Game; r++)u[r] = w = w + q[r - 1] << 1; for (q = 0; q <= m; q++)r = k[2 * q + 1], 0 !== r && (k[2 * q] = g(u[r]++, r)) }
             function D(g) { var k; for (k = 0; k < aa; k++)g.dyn_ltree[2 * k] = 0; for (k = 0; k < ka; k++)g.dyn_dtree[2 * k] = 0; for (k = 0; k < Ya; k++)g.bl_tree[2 * k] = 0; g.dyn_ltree[2 * Wb] = 1; g.opt_len = g.static_len = 0; g.last_lit = g.matches = 0 } function J(g) { 8 < g.bi_valid ? u(g, g.bi_buf) : 0 < g.bi_valid && (g.pending_buf[g.pending++] = g.bi_buf); g.bi_buf = 0; g.bi_valid = 0 } function pa(g, k, m, q) { var r = 2 * k, u = 2 * m; return g[r] < g[u] || g[r] === g[u] && q[k] <= q[m] } function ca(g, k, m) {
                 for (var q = g.heap[m], r = m << 1; r <= g.heap_len && (r < g.heap_len && pa(k, g.heap[r + 1], g.heap[r], g.depth) &&
                     r++, !pa(k, q, g.heap[r], g.depth));)g.heap[m] = g.heap[r], m = r, r <<= 1; g.heap[m] = q
-            } function bb(g, m, q) { var r, u, w = 0; if (0 !== g.last_lit) { do { var x = g.pending_buf[g.d_buf + 2 * w] << 8 | g.pending_buf[g.d_buf + 2 * w + 1]; var B = g.pending_buf[g.l_buf + w]; w++; 0 === x ? k(g, B, m) : (r = R[B], k(g, r + La + 1, m), u = cb[r], 0 !== u && (B -= Gc[r], W(g, B, u)), x--, r = 256 > x ? M[x] : M[256 + (x >>> 7)], k(g, r, q), u = za[r], 0 !== u && (x -= va[r], W(g, x, u))) } while (w < g.last_lit) } k(g, Wb, m) } function Bb(g, k) {
+            } function bb(g, m, q) { var r, u, w = 0; if (0 !== g.last_lit) { do { var x = g.pending_buf[g.d_buf + 2 * w] << 8 | g.pending_buf[g.d_buf + 2 * w + 1]; var B = g.pending_buf[g.l_buf + w]; w++; 0 === x ? k(g, B, m) : (r = R[B], k(g, r + La + 1, m), u = ManifestResources[r], 0 !== u && (B -= Gc[r], W(g, B, u)), x--, r = 256 > x ? M[x] : M[256 + (x >>> 7)], k(g, r, q), u = za[r], 0 !== u && (x -= va[r], W(g, x, u))) } while (w < g.last_lit) } k(g, Wb, m) } function Bb(g, k) {
                 var m, r = k.dyn_tree; var u = k.stat_desc.static_tree; var w = k.stat_desc.has_stree,
                     x = k.stat_desc.elems, B = -1; g.heap_len = 0; g.heap_max = ja; for (m = 0; m < x; m++)0 !== r[2 * m] ? (g.heap[++g.heap_len] = B = m, g.depth[m] = 0) : r[2 * m + 1] = 0; for (; 2 > g.heap_len;) { var E = g.heap[++g.heap_len] = 2 > B ? ++B : 0; r[2 * E] = 1; g.depth[E] = 0; g.opt_len--; w && (g.static_len -= u[2 * E + 1]) } k.max_code = B; for (m = g.heap_len >> 1; 1 <= m; m--)ca(g, r, m); E = x; do m = g.heap[1], g.heap[1] = g.heap[g.heap_len--], ca(g, r, 1), u = g.heap[1], g.heap[--g.heap_max] = m, g.heap[--g.heap_max] = u, r[2 * E] = r[2 * m] + r[2 * u], g.depth[E] = (g.depth[m] >= g.depth[u] ? g.depth[m] : g.depth[u]) + 1, r[2 *
-                        m + 1] = r[2 * u + 1] = E, g.heap[1] = E++, ca(g, r, 1); while (2 <= g.heap_len); g.heap[--g.heap_max] = g.heap[1]; var C, D; m = k.dyn_tree; E = k.max_code; x = k.stat_desc.static_tree; var J = k.stat_desc.has_stree, K = k.stat_desc.extra_bits, L = k.stat_desc.extra_base, M = k.stat_desc.max_length, N = 0; for (w = 0; w <= hb; w++)g.bl_count[w] = 0; m[2 * g.heap[g.heap_max] + 1] = 0; for (k = g.heap_max + 1; k < ja; k++)u = g.heap[k], w = m[2 * m[2 * u + 1] + 1] + 1, w > M && (w = M, N++), m[2 * u + 1] = w, u > E || (g.bl_count[w]++, C = 0, u >= L && (C = K[u - L]), D = m[2 * u], g.opt_len += D * (w + C), J && (g.static_len += D * (x[2 *
+                        m + 1] = r[2 * u + 1] = E, g.heap[1] = E++, ca(g, r, 1); while (2 <= g.heap_len); g.heap[--g.heap_max] = g.heap[1]; var C, D; m = k.dyn_tree; E = k.max_code; x = k.stat_desc.static_tree; var J = k.stat_desc.has_stree, K = k.stat_desc.extra_bits, L = k.stat_desc.extra_base, M = k.stat_desc.max_length, N = 0; for (w = 0; w <= Game; w++)g.bl_count[w] = 0; m[2 * g.heap[g.heap_max] + 1] = 0; for (k = g.heap_max + 1; k < ja; k++)u = g.heap[k], w = m[2 * m[2 * u + 1] + 1] + 1, w > M && (w = M, N++), m[2 * u + 1] = w, u > E || (g.bl_count[w]++, C = 0, u >= L && (C = K[u - L]), D = m[2 * u], g.opt_len += D * (w + C), J && (g.static_len += D * (x[2 *
                             u + 1] + C))); if (0 !== N) { do { for (w = M - 1; 0 === g.bl_count[w];)w--; g.bl_count[w]--; g.bl_count[w + 1] += 2; g.bl_count[M]--; N -= 2 } while (0 < N); for (w = M; 0 !== w; w--)for (u = g.bl_count[w]; 0 !== u;)C = g.heap[--k], C > E || (m[2 * C + 1] !== w && (g.opt_len += (w - m[2 * C + 1]) * m[2 * C], m[2 * C + 1] = w), u--) } q(r, B, g.bl_count)
             } function gc(g, k, m) {
                 var q, r = -1, u = k[1], w = 0, x = 7, B = 4; 0 === u && (x = 138, B = 3); k[2 * (m + 1) + 1] = 65535; for (q = 0; q <= m; q++) {
@@ -7088,12 +10418,12 @@ var $lime_init = function (F, r) {
             } function ab(g, m, q) { var r, u, w = -1, x = m[1], B = 0, E = 7, D = 4; 0 === x && (E = 138, D = 3); for (r = 0; r <= q; r++)if (u = x, x = m[2 * (r + 1) + 1], !(++B < E && u === x)) { if (B < D) { do k(g, u, g.bl_tree); while (0 !== --B) } else 0 !== u ? (u !== w && (k(g, u, g.bl_tree), B--), k(g, sa, g.bl_tree), W(g, B - 3, 2)) : 10 >= B ? (k(g, N, g.bl_tree), W(g, B - 3, 3)) : (k(g, C, g.bl_tree), W(g, B - 11, 7)); B = 0; w = u; 0 === x ? (E = 138, D = 3) : u === x ? (E = 6, D = 3) : (E = 7, D = 4) } } function ea(g) {
                 var k, m = 4093624447; for (k = 0; 31 >= k; k++, m >>>= 1)if (1 &
                     m && 0 !== g.dyn_ltree[2 * k]) return mb; if (0 !== g.dyn_ltree[18] || 0 !== g.dyn_ltree[20] || 0 !== g.dyn_ltree[26]) return U; for (k = 32; k < La; k++)if (0 !== g.dyn_ltree[2 * k]) return U; return mb
-            } function fb(g, k, m, q) { W(g, (fa << 1) + (q ? 1 : 0), 3); J(g); u(g, m); u(g, ~m); ma.arraySet(g.pending_buf, g.window, k, m, g.pending); g.pending += m } var ma = r("../utils/common"), mb = 0, U = 1, fa = 0, La = 256, aa = La + 1 + 29, ka = 30, Ya = 19, ja = 2 * aa + 1, hb = 15, nc = 16, Wb = 256, sa = 16, N = 17, C = 18, cb = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], za = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4,
+            } function fb(g, k, m, q) { W(g, (fa << 1) + (q ? 1 : 0), 3); J(g); u(g, m); u(g, ~m); ma.arraySet(g.pending_buf, g.window, k, m, g.pending); g.pending += m } var ma = r("../utils/common"), mb = 0, U = 1, fa = 0, La = 256, aa = La + 1 + 29, ka = 30, Ya = 19, ja = 2 * aa + 1, Game = 15, Main = 16, Wb = 256, sa = 16, N = 17, C = 18, ManifestResources = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], za = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4,
                 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13], Ka = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7], Oa = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15], Pa = Array(2 * (aa + 2)); K(Pa); var qa = Array(2 * ka); K(qa); var M = Array(512); K(M); var R = Array(256); K(R); var Gc = Array(29); K(Gc); var va = Array(ka); K(va); var Ib, oa, m, zc = !1; B._tr_init = function (k) {
                     if (!zc) {
-                        var r, u, x, B = Array(hb + 1); for (x = u = 0; 28 > x; x++)for (Gc[x] = u, r = 0; r < 1 << cb[x]; r++)R[u++] = x; R[u - 1] = x; for (x = u = 0; 16 > x; x++)for (va[x] = u, r = 0; r < 1 << za[x]; r++)M[u++] = x; for (u >>= 7; x < ka; x++)for (va[x] =
-                            u << 7, r = 0; r < 1 << za[x] - 7; r++)M[256 + u++] = x; for (r = 0; r <= hb; r++)B[r] = 0; for (r = 0; 143 >= r;)Pa[2 * r + 1] = 8, r++, B[8]++; for (; 255 >= r;)Pa[2 * r + 1] = 9, r++, B[9]++; for (; 279 >= r;)Pa[2 * r + 1] = 7, r++, B[7]++; for (; 287 >= r;)Pa[2 * r + 1] = 8, r++, B[8]++; q(Pa, aa + 1, B); for (r = 0; r < ka; r++)qa[2 * r + 1] = 5, qa[2 * r] = g(r, 5); Ib = new L(Pa, cb, La + 1, aa, hb); oa = new L(qa, za, 0, ka, hb); m = new L([], Ka, 0, Ya, 7); zc = !0
-                    } k.l_desc = new V(k.dyn_ltree, Ib); k.d_desc = new V(k.dyn_dtree, oa); k.bl_desc = new V(k.bl_tree, m); k.bi_buf = 0; k.bi_valid = 0; D(k)
+                        var r, u, x, B = Array(Game + 1); for (x = u = 0; 28 > x; x++)for (Gc[x] = u, r = 0; r < 1 << ManifestResources[x]; r++)R[u++] = x; R[u - 1] = x; for (x = u = 0; 16 > x; x++)for (va[x] = u, r = 0; r < 1 << za[x]; r++)M[u++] = x; for (u >>= 7; x < ka; x++)for (va[x] =
+                            u << 7, r = 0; r < 1 << za[x] - 7; r++)M[256 + u++] = x; for (r = 0; r <= Game; r++)B[r] = 0; for (r = 0; 143 >= r;)Pa[2 * r + 1] = 8, r++, B[8]++; for (; 255 >= r;)Pa[2 * r + 1] = 9, r++, B[9]++; for (; 279 >= r;)Pa[2 * r + 1] = 7, r++, B[7]++; for (; 287 >= r;)Pa[2 * r + 1] = 8, r++, B[8]++; q(Pa, aa + 1, B); for (r = 0; r < ka; r++)qa[2 * r + 1] = 5, qa[2 * r] = g(r, 5); Ib = new L(Pa, ManifestResources, La + 1, aa, Game); oa = new L(qa, za, 0, ka, Game); m = new L([], Ka, 0, Ya, 7); zc = !0
+                    } k.l_desc = new ApplicationMain(k.dyn_ltree, Ib); k.d_desc = new ApplicationMain(k.dyn_dtree, oa); k.bl_desc = new ApplicationMain(k.bl_tree, m); k.bi_buf = 0; k.bi_valid = 0; D(k)
                 }; B._tr_stored_block = fb; B._tr_flush_block =
                     function (g, k, m, q) {
                         var r = 0; if (0 < g.level) { 2 === g.strm.data_type && (g.strm.data_type = ea(g)); Bb(g, g.l_desc); Bb(g, g.d_desc); gc(g, g.dyn_ltree, g.l_desc.max_code); gc(g, g.dyn_dtree, g.d_desc.max_code); Bb(g, g.bl_desc); for (r = Ya - 1; 3 <= r && 0 === g.bl_tree[2 * Oa[r] + 1]; r--); r = (g.opt_len += 3 * (r + 1) + 14, r); var u = g.opt_len + 3 + 7 >>> 3; var w = g.static_len + 3 + 7 >>> 3; w <= u && (u = w) } else u = w = m + 5; if (m + 4 <= u && -1 !== k) fb(g, k, m, q); else if (4 === g.strategy || w === u) W(g, 2 + (q ? 1 : 0), 3), bb(g, Pa, qa); else {
@@ -7104,41 +10434,41 @@ var $lime_init = function (F, r) {
                         function (g) { W(g, 2, 3); k(g, Wb, Pa); 16 === g.bi_valid ? (u(g, g.bi_buf), g.bi_buf = 0, g.bi_valid = 0) : 8 <= g.bi_valid && (g.pending_buf[g.pending++] = 255 & g.bi_buf, g.bi_buf >>= 8, g.bi_valid -= 8) }
         }, { "../utils/common": 3 }], 15: [function (r, x, B) { x.exports = function () { this.input = null; this.total_in = this.avail_in = this.next_in = 0; this.output = null; this.total_out = this.avail_out = this.next_out = 0; this.msg = ""; this.state = null; this.data_type = 2; this.adler = 0 } }, {}], "/": [function (r, x, B) {
             B = r("./lib/utils/common").assign; var K = r("./lib/deflate"),
-                L = r("./lib/inflate"); r = r("./lib/zlib/constants"); var V = {}; B(V, K, L, r); x.exports = V
+                L = r("./lib/inflate"); r = r("./lib/zlib/constants"); var ApplicationMain = {}; B(ApplicationMain, K, L, r); x.exports = ApplicationMain
         }, { "./lib/deflate": 1, "./lib/inflate": 2, "./lib/utils/common": 3, "./lib/zlib/constants": 6 }]
     }, {}, [])("/")
 });
 if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
     var e = function () {
-        function F(g) { var t = []; return t[g - 1] = void 0, t } function r(g, k) { return K(g[0] + k[0], g[1] + k[1]) } function x(g, k) { var t = V(g) & V(k), m, y; return m = (~~Math.max(Math.min(g[1] / Zb, 2147483647), -2147483648) & ~~Math.max(Math.min(k[1] / Zb, 2147483647), -2147483648)) * Zb, y = t, 0 > t && (y += Zb), [y, m] } function B(g, k) { var t, m; return g[0] == k[0] && g[1] == k[1] ? 0 : (t = 0 > g[1], m = 0 > k[1], t && !m ? -1 : !t && m ? 1 : 0 > K(g[0] - k[0], g[1] - k[1])[1] ? -1 : 1) } function K(g, k) {
+        function F(g) { var t = []; return t[g - 1] = void 0, t } function r(g, k) { return K(g[0] + k[0], g[1] + k[1]) } function x(g, k) { var t = ApplicationMain(g) & ApplicationMain(k), m, y; return m = (~~Math.max(Math.min(g[1] / Zb, 2147483647), -2147483648) & ~~Math.max(Math.min(k[1] / Zb, 2147483647), -2147483648)) * Zb, y = t, 0 > t && (y += Zb), [y, m] } function B(g, k) { var t, m; return g[0] == k[0] && g[1] == k[1] ? 0 : (t = 0 > g[1], m = 0 > k[1], t && !m ? -1 : !t && m ? 1 : 0 > K(g[0] - k[0], g[1] - k[1])[1] ? -1 : 1) } function K(g, k) {
             k %=
             1.8446744073709552E19; g %= 1.8446744073709552E19; var t = k % Zb; var m = Math.floor(g / Zb) * Zb; k = k - t + m; for (g = g - m + t; 0 > g;)g += Zb, k -= Zb; for (; 4294967295 < g;)g -= Zb, k += Zb; for (k %= 1.8446744073709552E19; 0x7fffffff00000000 < k;)k -= 1.8446744073709552E19; for (; -9223372036854775808 > k;)k += 1.8446744073709552E19; return [g, k]
-        } function L(g) { return 0 <= g ? [g, 0] : [g + Zb, -Zb] } function V(g) { return 2147483648 <= g[0] ? ~~Math.max(Math.min(g[0] - Zb, 2147483647), -2147483648) : ~~Math.max(Math.min(g[0], 2147483647), -2147483648) } function u(g) {
+        } function L(g) { return 0 <= g ? [g, 0] : [g + Zb, -Zb] } function ApplicationMain(g) { return 2147483648 <= g[0] ? ~~Math.max(Math.min(g[0] - Zb, 2147483647), -2147483648) : ~~Math.max(Math.min(g[0], 2147483647), -2147483648) } function u(g) {
             return 30 >=
                 g ? 1 << g : u(30) * u(g - 30)
-        } function W(g, k) { var t, m, y, q; if (k &= 63, g[0] == Ic[0] && g[1] == Ic[1]) return k ? Jb : g; if (0 > g[1]) throw Error("Neg"); return q = u(k), m = g[1] * q % 1.8446744073709552E19, y = g[0] * q, t = y - y % Zb, m += t, y -= t, 0x7fffffffffffffff <= m && (m -= 1.8446744073709552E19), [y, m] } function k(g, k) { var t; return k &= 63, t = u(k), K(Math.floor(g[0] / t), g[1] / t) } function g(g, k) { return g.Mc = k, g.Lc = 0, g.Yb = k.length, g } function q(g) { return g.Lc >= g.Yb ? -1 : 255 & g.Mc[g.Lc++] } function D(g) { return g.Mc = F(32), g.Yb = 0, g } function J(g) {
+        } function W(g, k) { var t, m, y, q; if (k &= 63, g[0] == Ic[0] && g[1] == Ic[1]) return k ? Jb : g; if (0 > g[1]) throw Error("Neg"); return q = u(k), m = g[1] * q % 1.8446744073709552E19, y = g[0] * q, t = y - y % Zb, m += t, y -= t, 0x7fffffffffffffff <= m && (m -= 1.8446744073709552E19), [y, m] } function k(g, k) { var t; return k &= 63, t = u(k), K(Math.floor(g[0] / t), g[1] / t) } function g(g, k) { return g.Mc = k, g.VoxelData = 0, g.Yb = k.length, g } function q(g) { return g.VoxelData >= g.Yb ? -1 : 255 & g.Mc[g.Lc++] } function D(g) { return g.Mc = F(32), g.Yb = 0, g } function J(g) {
             var k = g.Mc; return k.length =
                 g.Yb, k
         } function pa(g, k, m, q, r) { for (var t = 0; r > t; ++t)m[q + t] = g[k + t] } function ca(t, m, q) {
-            t.Nb = D({}); var y = g({}, m), r = t.Nb, u = L(m.length); if (0 > B(u, Yd)) throw Error("invalid length " + u); t.Tb = u; m = {}; var w; m.v = F(4); m.a = []; m.d = {}; m.C = F(192); m.bb = F(12); m.hb = F(12); m.Ub = F(12); m.vc = F(12); m._ = F(192); m.K = []; m.Sb = F(114); m.S = lb({}, 4); m.$ = Ib({}); m.i = Ib({}); m.A = {}; m.m = []; m.P = []; m.lb = []; m.nc = F(16); m.x = F(4); m.Q = F(4); m.Xb = [Jb]; m.uc = [Jb]; m.Kc = [0]; m.fc = F(5); m.yc = F(128); m.vb = 0; m.X = 1; m.D = 0; m.Hb = -1; for (w = m.mb = 0; 4096 > w; ++w)m.a[w] =
-                {}; for (w = 0; 4 > w; ++w)m.K[w] = lb({}, 6); w = 1 << q.s; m.ab = w; for (var H = 0; w > 1 << H; ++H); m.$b = 2 * H; m.n = q.f; w = m.X; m.X = q.m; m.b && w != m.X && (m.wb = -1, m.b = null); m.eb = 0; m.fb = 3; m.Y = 2; m.y = 3; m.Gc = void 0 === e.disableEndMark; m.fc[0] = 9 * (5 * m.Y + m.eb) + m.fb << 24 >> 24; for (q = 0; 4 > q; ++q)m.fc[1 + q] = m.ab >> 8 * q << 24 >> 24; pa(m.fc, 0, r.Mc, r.Yb, 5); r.Yb += 5; for (q = 0; 64 > q; q += 8)w = 255 & V(k(u, q)), r.Mc[r.Yb++] = w << 24 >> 24; m.W = 0; m.oc = y; m.pc = 0; m.b || (y = {}, u = 4, m.X || (u = 2), y.qb = 2 < u, y.qb ? (y.w = 0, y.xb = 4, y.R = 66560) : (y.w = 2, y.xb = 3, y.R = 0), m.b = y); y = m.A; u = m.eb; q = m.fb; if (null ==
-                    y.V || y.u != q || y.I != u) for (y.I = u, y.qc = (1 << u) - 1, y.u = q, q = 1 << y.u + y.I, y.V = F(q), u = 0; q > u; ++u) { w = y.V; H = u; var x = {}; x = (x.tb = F(768), x); w[H] = x } if (m.ab != m.wb || m.Hb != m.n) y = m.b, u = m.ab, q = m.n, 1073741567 > u && (y.Fc = 16 + (q >> 1), H = u + 4096, w = q + 274, y.Bc = H, y._b = w, H = H + w + (~~((u + 4096 + q + 274) / 2) + 256), (null == y.c || y.Kb != H) && (y.c = null, y.Kb = H, y.c = F(y.Kb)), y.H = y.Kb - w, y.ob = q, q = u + 1, y.p != q && (y.L = F(2 * (y.p = q))), q = 65536, y.qb && (q = u - 1, q |= q >> 1, q |= q >> 2, q |= q >> 4, q |= q >> 8, q >>= 1, q |= 65535, 16777216 < q && (q >>= 1), y.Ec = q, ++q, q += y.R), q != y.rc && (y.ub = F(y.rc = q))),
-                        m.wb = m.ab, m.Hb = m.n; m.d.Ab = r; m.l = 0; for (r = m.J = 0; 4 > r; ++r)m.v[r] = 0; r = m.d; r.mc = Jb; r.xc = Jb; r.E = -1; r.Jb = 1; r.Oc = 0; S(m.C); S(m._); S(m.bb); S(m.hb); S(m.Ub); S(m.vc); S(m.Sb); r = m.A; u = 1 << r.u + r.I; for (y = 0; u > y; ++y)S(r.V[y].tb); for (r = 0; 4 > r; ++r)S(m.K[r].G); R(m.$, 1 << m.Y); R(m.i, 1 << m.Y); S(m.S.G); m.N = 0; m.jb = 0; m.q = 0; m.s = 0; C(m); N(m); m.$.rb = m.n + 1 - 2; oa(m.$, 1 << m.Y); m.i.rb = m.n + 1 - 2; oa(m.i, 1 << m.Y); void (m.g = Jb); r = {}; m = (r.cb = m, r.Z = null, r.zc = 1, r); t.yb = m; return t
+            t.Nb = D({}); var y = g({}, m), r = t.Nb, u = L(m.length); if (0 > B(u, Yd)) throw Error("invalid length " + u); t.Tb = u; m = {}; var w; m.v = F(4); m.a = []; m.d = {}; m.C = F(192); m.bb = F(12); m.Game = F(12); m.Ub = F(12); m.vc = F(12); m._ = F(192); m.K = []; m.Sb = F(114); m.S = lb({}, 4); m.$ = Ib({}); m.i = Ib({}); m.A = {}; m.m = []; m.P = []; m.lb = []; m.Main = F(16); m.x = F(4); m.Q = F(4); m.Xb = [Jb]; m.uc = [Jb]; m.Kc = [0]; m.fc = F(5); m.yc = F(128); m.vb = 0; m.X = 1; m.D = 0; m.Hb = -1; for (w = m.mb = 0; 4096 > w; ++w)m.a[w] =
+                {}; for (w = 0; 4 > w; ++w)m.K[w] = lb({}, 6); w = 1 << q.s; m.ab = w; for (var H = 0; w > 1 << H; ++H); m.$b = 2 * H; m.n = q.f; w = m.X; m.X = q.m; m.b && w != m.X && (m.wb = -1, m.b = null); m.eb = 0; m.fb = 3; m.Y = 2; m.y = 3; m.Gc = void 0 === e.disableEndMark; m.fc[0] = 9 * (5 * m.Y + m.eb) + m.fb << 24 >> 24; for (q = 0; 4 > q; ++q)m.fc[1 + q] = m.ab >> 8 * q << 24 >> 24; pa(m.fc, 0, r.Mc, r.Yb, 5); r.Yb += 5; for (q = 0; 64 > q; q += 8)w = 255 & ApplicationMain(k(u, q)), r.Mc[r.Yb++] = w << 24 >> 24; m.W = 0; m.oc = y; m.pc = 0; m.b || (y = {}, u = 4, m.X || (u = 2), y.qb = 2 < u, y.qb ? (y.w = 0, y.xb = 4, y.R = 66560) : (y.w = 2, y.xb = 3, y.R = 0), m.b = y); y = m.A; u = m.eb; q = m.fb; if (null ==
+                    y.ApplicationMain || y.u != q || y.I != u) for (y.I = u, y.qc = (1 << u) - 1, y.u = q, q = 1 << y.u + y.I, y.ApplicationMain = F(q), u = 0; q > u; ++u) { w = y.V; H = u; var x = {}; x = (x.tb = F(768), x); w[H] = x } if (m.ab != m.wb || m.Hb != m.n) y = m.b, u = m.ab, q = m.n, 1073741567 > u && (y.Fc = 16 + (q >> 1), H = u + 4096, w = q + 274, y.Bc = H, y._b = w, H = H + w + (~~((u + 4096 + q + 274) / 2) + 256), (null == y.c || y.Kb != H) && (y.c = null, y.Kb = H, y.c = F(y.Kb)), y.H = y.Kb - w, y.ob = q, q = u + 1, y.p != q && (y.L = F(2 * (y.p = q))), q = 65536, y.qb && (q = u - 1, q |= q >> 1, q |= q >> 2, q |= q >> 4, q |= q >> 8, q >>= 1, q |= 65535, 16777216 < q && (q >>= 1), y.Ec = q, ++q, q += y.R), q != y.rc && (y.ub = F(y.rc = q))),
+                        m.wb = m.ab, m.Hb = m.n; m.d.Ab = r; m.l = 0; for (r = m.J = 0; 4 > r; ++r)m.v[r] = 0; r = m.d; r.mc = Jb; r.xc = Jb; r.E = -1; r.Jb = 1; r.Oc = 0; S(m.C); S(m._); S(m.bb); S(m.Game); S(m.Ub); S(m.vc); S(m.Sb); r = m.A; u = 1 << r.u + r.I; for (y = 0; u > y; ++y)S(r.V[y].tb); for (r = 0; 4 > r; ++r)S(m.K[r].G); R(m.$, 1 << m.Y); R(m.i, 1 << m.Y); S(m.S.G); m.N = 0; m.jb = 0; m.q = 0; m.s = 0; C(m); N(m); m.$.rb = m.n + 1 - 2; oa(m.$, 1 << m.Y); m.i.rb = m.n + 1 - 2; oa(m.i, 1 << m.Y); void (m.g = Jb); r = {}; m = (r.ManifestResources = m, r.Z = null, r.zc = 1, r); t.yb = m; return t
         } function bb(k, m) {
             k.Nb = D({}); var t = g({}, m), y = k.Nb, r, u, x, B = "", C = []; for (r =
-                0; 5 > r; ++r) { if (u = q(t), -1 == u) throw Error("truncated input"); C[r] = u << 24 >> 24 } m = { B: {}, e: {} }; m.Gb = F(192); m.Zb = F(12); m.Cb = F(12); m.Db = F(12); m.Eb = F(12); m.pb = F(192); m.kb = F(4); m.kc = F(114); m.Fb = w({}, 4); m.Rb = nc({}); m.sb = nc({}); m.gb = {}; for (r = 0; 4 > r; ++r)m.kb[r] = w({}, 6); var E; if (5 > C.length) r = 0; else {
+                0; 5 > r; ++r) { if (u = q(t), -1 == u) throw Error("truncated input"); C[r] = u << 24 >> 24 } m = { B: {}, e: {} }; m.Gb = F(192); m.Zb = F(12); m.Cb = F(12); m.Db = F(12); m.Eb = F(12); m.pb = F(192); m.kb = F(4); m.kc = F(114); m.Fb = w({}, 4); m.Rb = Main({}); m.sb = Main({}); m.gb = {}; for (r = 0; 4 > r; ++r)m.kb[r] = w({}, 6); var E; if (5 > C.length) r = 0; else {
                     r = 255 & C[0]; var J = r % 9; r = ~~(r / 9); var K = r % 5; var M = ~~(r / 5); for (E = r = 0; 4 > E; ++E)r += (255 & C[1 + E]) << 8 * E; if (!(C = 99999999 < r)) {
                         if (8 < J || 4 < K || 4 < M) M = 0; else {
-                            C = m.gb; if (null == C.V || C.u != J || C.I != K) for (C.I = K, C.qc = (1 << K) - 1, C.u = J, K = 1 << C.u + C.I,
-                                C.V = F(K), J = 0; K > J; ++J) { E = C.V; var N = J; var V = {}; V = (V.Ib = F(768), V); E[N] = V } M = 1 << M; M = (ja(m.Rb, M), ja(m.sb, M), m.Dc = M - 1, 1)
+                            C = m.gb; if (null == C.ApplicationMain || C.u != J || C.I != K) for (C.I = K, C.qc = (1 << K) - 1, C.u = J, K = 1 << C.u + C.I,
+                                C.ApplicationMain = F(K), J = 0; K > J; ++J) { E = C.V; var N = J; var ApplicationMain = {}; ApplicationMain = (ApplicationMain.Ib = F(768), V); E[N] = ApplicationMain } M = 1 << M; M = (ja(m.Rb, M), ja(m.sb, M), m.Dc = M - 1, 1)
                         } C = !M
                     } C ? r = 0 : 0 > r ? r = 0 : (m.Ob != r && (m.Ob = r, m.nb = Math.max(m.Ob, 1), r = m.B, M = Math.max(m.nb, 4096), null != r.Lb && r.M == M || (r.Lb = F(M)), r.M = M, r.o = 0, r.h = 0), r = 1)
                 } if (!r) throw Error("corrupted input"); for (r = 0; 64 > r; r += 8) { if (u = q(t), -1 == u) throw Error("truncated input"); u = u.toString(16); 1 == u.length && (u = "0" + u); B = u + "" + B } /^0+$|^f+$/i.test(B) ? k.Tb = Yd : (x = parseInt(B, 16), k.Tb = 4294967295 < x ? Yd : L(x)); u = k.Tb; m.e.Ab = t; t =
-                    m.B; fa(t); t.cc = null; m.B.cc = y; m.B.h = 0; m.B.o = 0; S(m.Gb); S(m.pb); S(m.Zb); S(m.Cb); S(m.Db); S(m.Eb); S(m.kc); y = m.gb; x = 1 << y.u + y.I; for (t = 0; x > t; ++t)S(y.V[t].Ib); for (y = 0; 4 > y; ++y)S(m.kb[y].G); Wb(m.Rb); Wb(m.sb); S(m.Fb.G); y = m.e; y.Bb = 0; y.E = -1; for (t = 0; 5 > t; ++t)y.Bb = y.Bb << 8 | q(y.Ab); m.U = 0; m.ib = 0; m.Jc = 0; m.Ic = 0; m.Qc = 0; m.Nc = u; m.g = Jb; m.jc = 0; y = {}; m = (y.Z = m, y.cb = null, y.zc = 1, y); k.yb = m; return k
+                    m.B; fa(t); t.cc = null; m.B.cc = y; m.B.h = 0; m.B.o = 0; S(m.Gb); S(m.pb); S(m.Zb); S(m.Cb); S(m.Db); S(m.Eb); S(m.kc); y = m.gb; x = 1 << y.u + y.I; for (t = 0; x > t; ++t)S(y.V[t].Ib); for (y = 0; 4 > y; ++y)S(m.kb[y].G); Wb(m.Rb); Wb(m.sb); S(m.Fb.G); y = m.e; y.Bb = 0; y.E = -1; for (t = 0; 5 > t; ++t)y.Bb = y.Bb << 8 | q(y.Ab); m.U = 0; m.ib = 0; m.Jc = 0; m.Ic = 0; m.Qc = 0; m.Nc = u; m.g = Jb; m.jc = 0; y = {}; m = (y.Z = m, y.ManifestResources = null, y.zc = 1, y); k.yb = m; return k
         } function Bb(g, k) { return g.c[g.f + g.o + k] } function gc(g, k, m, q) {
             g.T && g.o + k + q > g.h && (q = g.h - (g.o + k)); ++m; var t = g.f + g.o + k; for (k = 0; q > k && g.c[t +
                 k] == g.c[t + k - m]; ++k); return k
-        } function ab(g) { return g.h - g.o } function ea(g) { var k, t, m; if (!g.T) for (; m = -g.f + g.Kb - g.h, m;) { var q = g.cc, r = m; if (k = q.Lc >= q.Yb ? -1 : (r = Math.min(r, q.Yb - q.Lc), pa(q.Mc, q.Lc, g.c, g.f + g.h, r), q.Lc += r, r), -1 == k) return g.zb = g.h, t = g.f + g.zb, t > g.H && (g.zb = g.H - g.f), void (g.T = 1); g.h += k; g.h >= g.o + g._b && (g.zb = g.h - g._b) } } function fb(g, k) { g.f += k; g.zb -= k; g.o -= k; g.h -= k } function ma(g) {
+        } function ab(g) { return g.h - g.o } function ea(g) { var k, t, m; if (!g.T) for (; m = -g.f + g.Kb - g.h, m;) { var q = g.cc, r = m; if (k = q.VoxelData >= q.Yb ? -1 : (r = Math.min(r, q.Yb - q.Lc), pa(q.Mc, q.Lc, g.c, g.f + g.h, r), q.VoxelData += r, r), -1 == k) return g.zb = g.h, t = g.f + g.zb, t > g.H && (g.zb = g.H - g.f), void (g.T = 1); g.h += k; g.h >= g.o + g._b && (g.zb = g.h - g._b) } } function fb(g, k) { g.f += k; g.zb -= k; g.o -= k; g.h -= k } function ma(g) {
             var k; ++g.k >= g.p && (g.k = 0); ++g.o; if (g.o > g.zb) {
                 var m = g.f + g.o; if (m > g.H) {
                     var t = g.f + g.o - g.Bc; 0 < t && --t; var q = g.f + g.h - t; for (m =
@@ -7152,45 +10482,45 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
             } while (0 != --k)
         } function fa(g) { var k = g.o - g.h; if (k) { var m = g.cc; pa(g.Lb, g.h, m.Mc, m.Yb, k); m.Yb += k; g.o >= g.M && (g.o = 0); g.h = g.o } }
         function La(g, k) { k = g.o - k - 1; return 0 > k && (k += g.M), g.Lb[k] } function aa(g) { return g -= 2, 4 > g ? g : 3 } function ka(g) { return 4 > g ? 0 : 10 > g ? g - 3 : g - 6 } function Ya(g) {
-            if (!g.zc) throw Error("bad state"); if (g.cb) {
+            if (!g.zc) throw Error("bad state"); if (g.ManifestResourcesManifestResources) {
                 a: {
-                    var k = g.cb, t = g.cb.Xb, u = g.cb.uc, w = g.cb.Kc, x, D; t[0] = Jb; u[0] = Jb; w[0] = 1; if (k.oc) { k.b.cc = k.oc; var E = k.b; E.f = 0; E.o = 0; E.h = 0; E.T = 0; ea(E); E.k = 0; fb(E, -1); k.W = 1; k.oc = null } if (!k.pc) {
+                    var k = g.ManifestResources, t = g.ManifestResources.Xb, u = g.ManifestResources.uc, w = g.ManifestResources.Kc, x, D; t[0] = Jb; u[0] = Jb; w[0] = 1; if (k.oc) { k.b.cc = k.oc; var E = k.b; E.f = 0; E.o = 0; E.h = 0; E.T = 0; ea(E); E.k = 0; fb(E, -1); k.W = 1; k.oc = null } if (!k.pc) {
                         k.pc = 1; var F = E = k.g; if (F[0] == Jb[0] && F[1] == Jb[1]) {
-                            if (!ab(k.b)) { cb(k, V(k.g)); break a } Pa(k); var J = V(k.g) & k.y; qb(k.d, k.C, (k.l << 4) + J, 0); k.l = ka(k.l);
-                            F = Bb(k.b, -k.s); zc(m(k.A, V(k.g), k.J), k.d, F); k.J = F; --k.s; k.g = r(k.g, re)
+                            if (!ab(k.b)) { ManifestResources(k, ApplicationMain(k.g)); break a } Pa(k); var J = ApplicationMain(k.g) & k.y; qb(k.d, k.C, (k.l << 4) + J, 0); k.l = ka(k.l);
+                            F = Bb(k.b, -k.s); zc(m(k.A, ApplicationMain(k.g), k.J), k.d, F); k.J = F; --k.s; k.g = r(k.g, re)
                         } if (ab(k.b)) for (; ;) {
-                            if (x = za(k, V(k.g)), D = k.mb, J = V(k.g) & k.y, F = (k.l << 4) + J, 1 == x && -1 == D) { qb(k.d, k.C, F, 0); F = Bb(k.b, -k.s); var S = m(k.A, V(k.g), k.J); if (7 > k.l) zc(S, k.d, F); else { var R = Bb(k.b, -k.v[0] - 1 - k.s); var U = void 0; var W; var ca = k.d; var ma = R, oa = F, pa = 1, sa = 1; for (W = 7; 0 <= W; --W) { var ja = oa >> W & 1; R = sa; pa && (U = ma >> W & 1, R += 1 + U << 8, pa = U == ja); qb(ca, S.tb, R, ja); sa = sa << 1 | ja } } k.J = F; k.l = ka(k.l) } else {
+                            if (x = za(k, ApplicationMain(k.g)), D = k.mb, J = ApplicationMain(k.g) & k.y, F = (k.l << 4) + J, 1 == x && -1 == D) { qb(k.d, k.C, F, 0); F = Bb(k.b, -k.s); var S = m(k.A, ApplicationMain(k.g), k.J); if (7 > k.l) zc(S, k.d, F); else { var R = Bb(k.b, -k.v[0] - 1 - k.s); var U = void 0; var W; var ca = k.d; var ma = R, oa = F, pa = 1, sa = 1; for (W = 7; 0 <= W; --W) { var ja = oa >> W & 1; R = sa; pa && (U = ma >> W & 1, R += 1 + U << 8, pa = U == ja); qb(ca, S.tb, R, ja); sa = sa << 1 | ja } } k.J = F; k.l = ka(k.l) } else {
                                 if (qb(k.d, k.C, F, 1), 4 > D) {
-                                    if (qb(k.d, k.bb, k.l, 1), D ? (qb(k.d, k.hb,
-                                        k.l, 1), 1 == D ? qb(k.d, k.Ub, k.l, 0) : (qb(k.d, k.Ub, k.l, 1), qb(k.d, k.vc, k.l, D - 2))) : (qb(k.d, k.hb, k.l, 0), 1 == x ? qb(k.d, k._, F, 0) : qb(k.d, k._, F, 1)), 1 == x ? k.l = 7 > k.l ? 9 : 11 : (va(k.i, k.d, x - 2, J), k.l = 7 > k.l ? 8 : 11), F = k.v[D], 0 != D) { for (U = D; 1 <= U; --U)k.v[U] = k.v[U - 1]; k.v[0] = F }
+                                    if (qb(k.d, k.bb, k.l, 1), D ? (qb(k.d, k.Game,
+                                        k.l, 1), 1 == D ? qb(k.d, k.Ub, k.l, 0) : (qb(k.d, k.Ub, k.l, 1), qb(k.d, k.vc, k.l, D - 2))) : (qb(k.d, k.Game, k.l, 0), 1 == x ? qb(k.d, k._, F, 0) : qb(k.d, k._, F, 1)), 1 == x ? k.l = 7 > k.l ? 9 : 11 : (va(k.i, k.d, x - 2, J), k.l = 7 > k.l ? 8 : 11), F = k.v[D], 0 != D) { for (U = D; 1 <= U; --U)k.v[U] = k.v[U - 1]; k.v[0] = F }
                                 } else {
                                     qb(k.d, k.bb, k.l, 0); k.l = 7 > k.l ? 7 : 10; va(k.$, k.d, x - 2, J); D -= 4; U = M(D); F = aa(x); tb(k.K[F], k.d, U); if (4 <= U) if (ca = (U >> 1) - 1, S = (2 | 1 & U) << ca, R = D - S, 14 > U) for (F = k.Sb, U = S - U - 1, S = k.d, ja = R, ma = 1, R = 0; ca > R; ++R)W = 1 & ja, qb(S, F, U + ma, W), ma = ma << 1 | W, ja >>= 1; else wd(k.d, R >> 4, ca - 4), X(k.S,
                                         k.d, 15 & R), ++k.Qb; F = D; for (U = 3; 1 <= U; --U)k.v[U] = k.v[U - 1]; k.v[0] = F; ++k.Mb
                                 } k.J = Bb(k.b, x - 1 - k.s)
-                            } if (k.s -= x, k.g = r(k.g, L(x)), !k.s) { 128 <= k.Mb && C(k); 16 <= k.Qb && N(k); t[0] = k.g; F = k.d; F = r(r(L(F.Jb), F.mc), [4, 0]); if (u[0] = F, !ab(k.b)) { cb(k, V(k.g)); break a } F = k.g; F = K(F[0] - E[0], F[1] - E[1]); if (0 <= B(F, [4096, 0])) { k.pc = 0; w[0] = 0; break a } }
-                        } else cb(k, V(k.g))
+                            } if (k.s -= x, k.g = r(k.g, L(x)), !k.s) { 128 <= k.Mb && C(k); 16 <= k.Qb && N(k); t[0] = k.g; F = k.d; F = r(r(L(F.Jb), F.mc), [4, 0]); if (u[0] = F, !ab(k.b)) { ManifestResources(k, ApplicationMain(k.g)); break a } F = k.g; F = K(F[0] - E[0], F[1] - E[1]); if (0 <= B(F, [4096, 0])) { k.pc = 0; w[0] = 0; break a } }
+                        } else ManifestResources(k, ApplicationMain(k.g))
                     }
-                } g.Pb = g.cb.Xb[0]; g.cb.Kc[0] && (x = g.cb, qa(x), x.d.Ab = null, g.zc = 0)
+                } g.Pb = g.ManifestResources.Xb[0]; g.ManifestResources.Kc[0] && (x = g.ManifestResources, qa(x), x.d.Ab = null, g.zc = 0)
             } else {
                 a: {
-                    x = g.Z; if (U = V(x.g) & x.Dc, Xb(x.e, x.Gb, (x.U << 4) + U)) {
+                    x = g.Z; if (U = ApplicationMain(x.g) & x.Dc, Xb(x.e, x.Gb, (x.U << 4) + U)) {
                         if (Xb(x.e, x.Zb, x.U)) k = 0, Xb(x.e, x.Cb, x.U) ? (Xb(x.e, x.Db,
-                            x.U) ? (Xb(x.e, x.Eb, x.U) ? (F = x.Qc, x.Qc = x.Ic) : F = x.Ic, x.Ic = x.Jc) : F = x.Jc, x.Jc = x.ib, x.ib = F) : Xb(x.e, x.pb, (x.U << 4) + U) || (x.U = 7 > x.U ? 9 : 11, k = 1), k || (k = hb(x.sb, x.e, U) + 2, x.U = 7 > x.U ? 8 : 11); else if (x.Qc = x.Ic, x.Ic = x.Jc, x.Jc = x.ib, k = 2 + hb(x.Rb, x.e, U), x.U = 7 > x.U ? 7 : 10, E = jb(x.kb[aa(k)], x.e), 4 <= E) if (t = (E >> 1) - 1, x.ib = (2 | 1 & E) << t, 14 > E) { D = x.ib; J = x.kc; u = x.ib - E - 1; w = x.e; U = 1; for (F = S = 0; t > F; ++F)E = Xb(w, J, u + U), U <<= 1, U += E, S |= E << F; x.ib = D + S } else {
+                            x.U) ? (Xb(x.e, x.Eb, x.U) ? (F = x.Qc, x.Qc = x.Ic) : F = x.Ic, x.Ic = x.Jc) : F = x.Jc, x.Jc = x.ib, x.ib = F) : Xb(x.e, x.pb, (x.U << 4) + U) || (x.U = 7 > x.U ? 9 : 11, k = 1), k || (k = Game(x.sb, x.e, U) + 2, x.U = 7 > x.U ? 8 : 11); else if (x.Qc = x.Ic, x.Ic = x.Jc, x.Jc = x.ib, k = 2 + Game(x.Rb, x.e, U), x.U = 7 > x.U ? 7 : 10, E = jb(x.kb[aa(k)], x.e), 4 <= E) if (t = (E >> 1) - 1, x.ib = (2 | 1 & E) << t, 14 > E) { D = x.ib; J = x.kc; u = x.ib - E - 1; w = x.e; U = 1; for (F = S = 0; t > F; ++F)E = Xb(w, J, u + U), U <<= 1, U += E, S |= E << F; x.ib = D + S } else {
                                 D = x.ib; J = x.e; u = 0; for (t -= 4; 0 != t; --t)J.E >>>= 1, w = J.Bb - J.E >>> 31, J.Bb -= J.E & w - 1, u = u << 1 | 1 - w, -16777216 & J.E ||
                                     (J.Bb = J.Bb << 8 | q(J.Ab), J.E <<= 8); x.ib = D + (u << 4); D = x.ib; J = x.Fb; t = x.e; E = 1; for (w = F = 0; J.F > w; ++w)u = Xb(t, J.G, E), E <<= 1, E += u, F |= u << w; if (x.ib = D + F, 0 > x.ib) { x = -1 == x.ib ? 1 : -1; break a }
                             } else x.ib = E; if (0 <= B(L(x.ib), x.g) || x.ib >= x.nb) { x = -1; break a } D = x.B; J = k; t = D.o - x.ib - 1; for (0 > t && (t += D.M); 0 != J; --J)t >= D.M && (t = 0), D.Lb[D.o++] = D.Lb[t++], D.o >= D.M && fa(D); x.g = r(x.g, L(k)); x.jc = La(x.B, 0)
                     } else {
-                        D = x.gb; J = V(x.g); D = D.V[((J & D.qc) << D.u) + ((255 & x.jc) >>> 8 - D.u)]; if (7 > x.U) { J = x.e; k = 1; do k = k << 1 | Xb(J, D.Ib, k); while (256 > k); D = k << 24 >> 24 } else {
+                        D = x.gb; J = ApplicationMain(x.g); D = D.V[((J & D.qc) << D.u) + ((255 & x.jc) >>> 8 - D.u)]; if (7 > x.U) { J = x.e; k = 1; do k = k << 1 | Xb(J, D.Ib, k); while (256 > k); D = k << 24 >> 24 } else {
                             J = x.e;
                             k = La(x.B, x.ib); t = 1; do if (w = k >> 7 & 1, k <<= 1, u = Xb(J, D.Ib, (1 + w << 8) + t), t = t << 1 | u, w != u) { for (; 256 > t;)t = t << 1 | Xb(J, D.Ib, t); break } while (256 > t); D = t << 24 >> 24
                         } x.jc = D; D = x.B; J = x.jc; D.Lb[D.o++] = J; D.o >= D.M && fa(D); x.U = ka(x.U); x.g = r(x.g, re)
                     } x = 0
                 } if (-1 == x) throw Error("corrupted input"); g.Pb = Yd; g.Pc = g.Z.g; if (x || 0 <= B(g.Z.Nc, Jb) && 0 <= B(g.Z.g, g.Z.Nc)) fa(g.Z.B), x = g.Z.B, fa(x), x.cc = null, g.Z.e.Ab = null, g.zc = 0
             } return g.zc
-        } function ja(g, k) { for (; k > g.O; ++g.O)g.ec[g.O] = w({}, 3), g.hc[g.O] = w({}, 3) } function hb(g, k, m) {
+        } function ja(g, k) { for (; k > g.O; ++g.O)g.ec[g.O] = w({}, 3), g.hc[g.O] = w({}, 3) } function Game(g, k, m) {
             return Xb(k, g.wc, 0) ? 8 +
                 (Xb(k, g.wc, 1) ? 8 + jb(g.tc, k) : jb(g.hc[m], k)) : jb(g.ec[m], k)
-        } function nc(g) { return g.wc = F(2), g.ec = F(16), g.hc = F(16), g.tc = w({}, 8), g.O = 0, g } function Wb(g) { S(g.wc); for (var k = 0; g.O > k; ++k)S(g.ec[k].G), S(g.hc[k].G); S(g.tc.G) } function sa(g, k) { g.jb = k; var m = g.a[k].r; var t = g.a[k].j; do { if (g.a[k].t) { var q = g.a[m]; q.j = -1; q.t = 0; g.a[m].r = m - 1; g.a[k].Ac && (g.a[m - 1].t = 0, g.a[m - 1].r = g.a[k].r2, g.a[m - 1].j = g.a[k].j2) } var r = m; q = t; t = g.a[r].j; m = g.a[r].r; g.a[r].j = q; g.a[r].r = k; k = r } while (0 < k); return g.mb = g.a[0].j, g.q = g.a[0].r } function N(g) {
+        } function Main(g) { return g.wc = F(2), g.ec = F(16), g.hc = F(16), g.tc = w({}, 8), g.O = 0, g } function Wb(g) { S(g.wc); for (var k = 0; g.O > k; ++k)S(g.ec[k].G), S(g.hc[k].G); S(g.tc.G) } function sa(g, k) { g.jb = k; var m = g.a[k].r; var t = g.a[k].j; do { if (g.a[k].t) { var q = g.a[m]; q.j = -1; q.t = 0; g.a[m].r = m - 1; g.a[k].Ac && (g.a[m - 1].t = 0, g.a[m - 1].r = g.a[k].r2, g.a[m - 1].j = g.a[k].j2) } var r = m; q = t; t = g.a[r].j; m = g.a[r].r; g.a[r].j = q; g.a[r].r = k; k = r } while (0 < k); return g.mb = g.a[0].j, g.q = g.a[0].r } function N(g) {
             for (var k =
                 0; 16 > k; ++k) { var m = g.nc, t = k, q, r = g.S, u = k, w = 1, x = 0; for (q = r.F; 0 != q; --q) { var B = 1 & u; u >>>= 1; x += oc(r.G[w], B); w = w << 1 | B } m[t] = x } g.Qb = 0
         } function C(g) {
@@ -7198,10 +10528,10 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
                 k = g.K[q]; r = q << 6; for (m = 0; g.$b > m; ++m)g.P[r + m] = pb(k, m); for (m = 14; g.$b > m; ++m)g.P[r + m] += (m >> 1) - 1 - 4 << 6; m = 128 * q; for (k = 0; 4 > k; ++k)g.lb[m + k] = g.P[r + k]; for (; 128 > k; ++k)g.lb[m + k] =
                     g.P[r + M(k)] + g.yc[k]
             } g.Mb = 0
-        } function cb(g, k) { qa(g); k &= g.y; g.Gc && (qb(g.d, g.C, (g.l << 4) + k, 1), qb(g.d, g.bb, g.l, 0), g.l = 7 > g.l ? 7 : 10, va(g.$, g.d, 0, k), k = aa(2), tb(g.K[k], g.d, 63), wd(g.d, 67108863, 26), X(g.S, g.d, 15)); for (k = 0; 5 > k; ++k)vc(g.d) } function za(g, k) {
-            var t, q, r, u, y, w, x, B, C, D, F, J, K, L, M, N, S, V, R, X, aa, W, ca, ea, fa, ma, pa, oa; if (g.jb != g.q) return D = g.a[g.q].r - g.q, g.mb = g.a[g.q].j, g.q = g.a[g.q].r, D; if (g.q = g.jb = 0, g.N ? (C = g.vb, g.N = 0) : C = Pa(g), D = g.D, S = ab(g.b) + 1, 2 > S) return g.mb = -1, 1; 273 < S && (S = 273); for (w = x = 0; 4 > w; ++w)g.x[w] = g.v[w],
+        } function ManifestResources(g, k) { qa(g); k &= g.y; g.Gc && (qb(g.d, g.C, (g.l << 4) + k, 1), qb(g.d, g.bb, g.l, 0), g.l = 7 > g.l ? 7 : 10, va(g.$, g.d, 0, k), k = aa(2), tb(g.K[k], g.d, 63), wd(g.d, 67108863, 26), X(g.S, g.d, 15)); for (k = 0; 5 > k; ++k)vc(g.d) } function za(g, k) {
+            var t, q, r, u, y, w, x, B, C, D, F, J, K, L, M, N, S, ApplicationMain, R, X, aa, W, ca, ea, fa, ma, pa, oa; if (g.jb != g.q) return D = g.a[g.q].r - g.q, g.mb = g.a[g.q].j, g.q = g.a[g.q].r, D; if (g.q = g.jb = 0, g.N ? (C = g.vb, g.N = 0) : C = Pa(g), D = g.D, S = ab(g.b) + 1, 2 > S) return g.mb = -1, 1; 273 < S && (S = 273); for (w = x = 0; 4 > w; ++w)g.x[w] = g.v[w],
                 g.Q[w] = gc(g.b, -1, g.x[w], 273), g.Q[w] > g.Q[x] && (x = w); if (g.Q[x] >= g.n) return g.mb = x, D = g.Q[x], k = D - 1, 0 < k && (U(g.b, k), g.s += k), D; if (C >= g.n) return g.mb = g.m[D - 1] + 4, k = C - 1, 0 < k && (U(g.b, k), g.s += k), C; if (y = Bb(g.b, -1), L = Bb(g.b, -g.v[0] - 1 - 1), 2 > C && y != L && 2 > g.Q[x]) return g.mb = -1, 1; g.a[0].Hc = g.l; var ja = k & g.y; g.a[1].z = ub[g.C[(g.l << 4) + ja] >>> 2] + E(m(g.A, k, g.J), 7 <= g.l, L, y); var qa = g.a[1]; qa.j = -1; qa.t = 0; qa = ub[2048 - g.C[(g.l << 4) + ja] >>> 2]; var va = qa + ub[2048 - g.bb[g.l] >>> 2]; if (L == y) {
-                    var za = g.l; za = va + (ub[g.hb[za] >>> 2] + ub[g._[(za << 4) + ja] >>>
+                    var za = g.l; za = va + (ub[g.Game[za] >>> 2] + ub[g._[(za << 4) + ja] >>>
                         2]); g.a[1].z > za && (g.a[1].z = za, w = g.a[1], w.j = 0, w.t = 0)
                 } if (B = C >= g.Q[x] ? C : g.Q[x], 2 > B) return g.mb = g.a[1].j, 1; g.a[1].r = 0; g.a[0].bc = g.x[0]; g.a[0].ac = g.x[1]; g.a[0].dc = g.x[2]; g.a[0].lc = g.x[3]; x = B; do g.a[x--].z = 268435455; while (2 <= x); for (w = 0; 4 > w; ++w)if (K = g.Q[w], !(2 > K)) { var La = va + Oa(g, w, g.l, ja); do { var Ea = La + g.i.Cc[272 * ja + (K - 2)]; var G = g.a[K]; G.z > Ea && (G.z = Ea, G.r = 0, G.j = w, G.t = 0) } while (2 <= --K) } if (K = qa + ub[g.bb[g.l] >>> 2], x = 2 <= g.Q[0] ? g.Q[0] + 1 : 2, C >= x) {
                     for (C = 0; x > g.m[C];)C += 2; for (; t = g.m[C + 1], Ea = K + Ka(g, t, x, ja), G = g.a[x], G.z >
@@ -7209,18 +10539,18 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
                 } for (t = 0; ;) {
                     if (++t, t == B) return sa(g, t); if (M = Pa(g), D = g.D, M >= g.n) return g.vb = M, g.N = 1, sa(g, t); if (++k, aa = g.a[t].r, g.a[t].t ? (--aa, g.a[t].Ac ? (W = g.a[g.a[t].r2].Hc, W = 4 > g.a[t].j2 ? 7 > W ? 8 : 11 : 7 > W ? 7 : 10) : W = g.a[aa].Hc, W = ka(W)) : W = g.a[aa].Hc, aa == t - 1 ? W = g.a[t].j ? ka(W) : 7 > W ? 9 : 11 : (g.a[t].t && g.a[t].Ac ? (aa = g.a[t].r2, X = g.a[t].j2, W = 7 > W ? 8 : 11) : (X = g.a[t].j, W = 4 > X ? 7 > W ? 8 : 11 : 7 > W ? 7 : 10), R = g.a[aa], 4 > X ? X ? 1 == X ? (g.x[0] = R.ac, g.x[1] = R.bc, g.x[2] = R.dc, g.x[3] = R.lc) : 2 == X ? (g.x[0] = R.dc,
                         g.x[1] = R.bc, g.x[2] = R.ac, g.x[3] = R.lc) : (g.x[0] = R.lc, g.x[1] = R.bc, g.x[2] = R.ac, g.x[3] = R.dc) : (g.x[0] = R.bc, g.x[1] = R.ac, g.x[2] = R.dc, g.x[3] = R.lc) : (g.x[0] = X - 4, g.x[1] = R.bc, g.x[2] = R.ac, g.x[3] = R.dc)), g.a[t].Hc = W, g.a[t].bc = g.x[0], g.a[t].ac = g.x[1], g.a[t].dc = g.x[2], g.a[t].lc = g.x[3], u = g.a[t].z, y = Bb(g.b, -1), L = Bb(g.b, -g.x[0] - 1 - 1), ja = k & g.y, q = u + ub[g.C[(W << 4) + ja] >>> 2] + E(m(g.A, k, Bb(g.b, -2)), 7 <= W, L, y), N = g.a[t + 1], C = 0, N.z > q && (N.z = q, N.r = t, N.j = -1, N.t = 0, C = 1), qa = u + ub[2048 - g.C[(W << 4) + ja] >>> 2], va = qa + ub[2048 - g.bb[W] >>> 2], L != y || t >
-                        N.r && !N.j || (za = va + (ub[g.hb[W] >>> 2] + ub[g._[(W << 4) + ja] >>> 2]), N.z >= za && (N.z = za, N.r = t, N.j = 0, N.t = 0, C = 1)), V = ab(g.b) + 1, V = V > 4095 - t ? 4095 - t : V, S = V, !(2 > S)) {
-                            if (S > g.n && (S = g.n), !C && L != y && (ca = Math.min(V - 1, g.n), J = gc(g.b, 0, g.x[0], ca), 2 <= J)) { w = ka(W); G = k + 1 & g.y; Ea = q + ub[2048 - g.C[(w << 4) + G] >>> 2] + ub[2048 - g.bb[w] >>> 2]; for (La = t + 1 + J; La > B;)g.a[++B].z = 268435455; Ea += (ea = g.i.Cc[272 * G + (J - 2)], ea + Oa(g, 0, w, G)); G = g.a[La]; G.z > Ea && (G.z = Ea, G.r = t + 1, G.j = 0, G.t = 1, G.Ac = 0) } x = 2; for (C = 0; 4 > C; ++C)if (F = gc(g.b, -1, g.x[C], S), !(2 > F)) {
+                        N.r && !N.j || (za = va + (ub[g.Game[W] >>> 2] + ub[g._[(W << 4) + ja] >>> 2]), N.z >= za && (N.z = za, N.r = t, N.j = 0, N.t = 0, C = 1)), ApplicationMain = ab(g.b) + 1, ApplicationMain = ApplicationMain > 4095 - t ? 4095 - t : ApplicationMain, S = ApplicationMain, !(2 > S)) {
+                            if (S > g.n && (S = g.n), !C && L != y && (ca = Math.min(ApplicationMain - 1, g.n), J = gc(g.b, 0, g.x[0], ca), 2 <= J)) { w = ka(W); G = k + 1 & g.y; Ea = q + ub[2048 - g.C[(w << 4) + G] >>> 2] + ub[2048 - g.bb[w] >>> 2]; for (La = t + 1 + J; La > B;)g.a[++B].z = 268435455; Ea += (ea = g.i.Cc[272 * G + (J - 2)], ea + Oa(g, 0, w, G)); G = g.a[La]; G.z > Ea && (G.z = Ea, G.r = t + 1, G.j = 0, G.t = 1, G.Ac = 0) } x = 2; for (C = 0; 4 > C; ++C)if (F = gc(g.b, -1, g.x[C], S), !(2 > F)) {
                                 K = F; do {
                                     for (; t + F >
                                         B;)g.a[++B].z = 268435455; Ea = va + (fa = g.i.Cc[272 * ja + (F - 2)], fa + Oa(g, C, W, ja)); G = g.a[t + F]; G.z > Ea && (G.z = Ea, G.r = t, G.j = C, G.t = 0)
-                                } while (2 <= --F); if (F = K, C || (x = F + 1), V > F && (ca = Math.min(V - 1 - F, g.n), J = gc(g.b, F, g.x[C], ca), 2 <= J)) {
+                                } while (2 <= --F); if (F = K, C || (x = F + 1), ApplicationMain > F && (ca = Math.min(ApplicationMain - 1 - F, g.n), J = gc(g.b, F, g.x[C], ca), 2 <= J)) {
                                     w = 7 > W ? 8 : 11; G = k + F & g.y; Ea = va + (ma = g.i.Cc[272 * ja + (F - 2)], ma + Oa(g, C, W, ja)) + ub[g.C[(w << 4) + G] >>> 2] + E(m(g.A, k + F, Bb(g.b, F - 1 - 1)), 1, Bb(g.b, F - 1 - (g.x[C] + 1)), Bb(g.b, F - 1)); w = ka(w); G = k + F + 1 & g.y; Ea += ub[2048 - g.C[(w << 4) + G] >>> 2]; Ea += ub[2048 - g.bb[w] >>> 2]; for (La = F + 1 + J; t + La > B;)g.a[++B].z = 268435455; Ea += (pa = g.i.Cc[272 *
                                         G + (J - 2)], pa + Oa(g, 0, w, G)); G = g.a[t + La]; G.z > Ea && (G.z = Ea, G.r = t + F + 1, G.j = 0, G.t = 1, G.Ac = 1, G.r2 = t, G.j2 = C)
                                 }
                             } if (M > S) { M = S; for (D = 0; M > g.m[D]; D += 2); g.m[D] = M; D += 2 } if (M >= x) {
                                 for (K = qa + ub[g.bb[W] >>> 2]; t + M > B;)g.a[++B].z = 268435455; for (C = 0; x > g.m[C];)C += 2; for (F = x; ; ++F)if (r = g.m[C + 1], Ea = K + Ka(g, r, F, ja), G = g.a[t + F], G.z > Ea && (G.z = Ea, G.r = t, G.j = r + 4, G.t = 0), F == g.m[C]) {
-                                    if (V > F && (ca = Math.min(V - 1 - F, g.n), J = gc(g.b, F, r, ca), 2 <= J)) {
+                                    if (ApplicationMain > F && (ca = Math.min(ApplicationMain - 1 - F, g.n), J = gc(g.b, F, r, ca), 2 <= J)) {
                                         w = 7 > W ? 7 : 10; G = k + F & g.y; Ea = Ea + ub[g.C[(w << 4) + G] >>> 2] + E(m(g.A, k + F, Bb(g.b, F - 1 - 1)), 1, Bb(g.b, F - (r + 1) - 1), Bb(g.b, F - 1));
                                         w = ka(w); G = k + F + 1 & g.y; Ea += ub[2048 - g.C[(w << 4) + G] >>> 2]; Ea += ub[2048 - g.bb[w] >>> 2]; for (La = F + 1 + J; t + La > B;)g.a[++B].z = 268435455; Ea += (oa = g.i.Cc[272 * G + (J - 2)], oa + Oa(g, 0, w, G)); G = g.a[t + La]; G.z > Ea && (G.z = Ea, G.r = t + F + 1, G.j = 0, G.t = 1, G.Ac = 1, G.r2 = t, G.j2 = r + 4)
                                     } if (C += 2, C == D) break
@@ -7228,9 +10558,9 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
                             }
                     }
                 }
-        } function Ka(g, k, m, q) { var t, r = aa(m); return t = 128 > k ? g.lb[128 * r + k] : g.P[(r << 6) + (131072 > k ? ld[k >> 6] + 12 : 134217728 > k ? ld[k >> 16] + 32 : ld[k >> 26] + 52)] + g.nc[15 & k], t + g.$.Cc[272 * q + (m - 2)] } function Oa(g, k, m, q) {
-            var t; return k ? (t = ub[2048 - g.hb[m] >>> 2], 1 == k ? t += ub[g.Ub[m] >>>
-                2] : (t += ub[2048 - g.Ub[m] >>> 2], t += oc(g.vc[m], k - 2))) : (t = ub[g.hb[m] >>> 2], t += ub[2048 - g._[(m << 4) + q] >>> 2]), t
+        } function Ka(g, k, m, q) { var t, r = aa(m); return t = 128 > k ? g.lb[128 * r + k] : g.P[(r << 6) + (131072 > k ? ld[k >> 6] + 12 : 134217728 > k ? ld[k >> 16] + 32 : ld[k >> 26] + 52)] + g.Main[15 & k], t + g.$.Cc[272 * q + (m - 2)] } function Oa(g, k, m, q) {
+            var t; return k ? (t = ub[2048 - g.Game[m] >>> 2], 1 == k ? t += ub[g.Ub[m] >>>
+                2] : (t += ub[2048 - g.Ub[m] >>> 2], t += oc(g.vc[m], k - 2))) : (t = ub[g.Game[m] >>> 2], t += ub[2048 - g._[(m << 4) + q] >>> 2]), t
         } function Pa(g) {
             var k = 0; a: {
                 var m = g.b; var t = g.m, q, r, u, w, x, B, C, D; if (m.h >= m.o + m.ob) var E = m.ob; else if (E = m.h - m.o, m.xb > E) { m = (ma(m), 0); break a } var F = 0; var J = m.o > m.p ? m.o - m.p : 0; var K = m.f + m.o; var L = 1; var M = x = 0; m.qb ? (r = db[255 & m.c[K]] ^ 255 & m.c[K + 1], x = 1023 & r, r ^= (255 & m.c[K + 2]) << 8, M = 65535 & r, B = (r ^ db[255 & m.c[K + 3]] << 5) & m.Ec) : B = 255 & m.c[K] ^ (255 & m.c[K + 1]) << 8; r = m.ub[m.R + B] || 0; m.qb && (q = m.ub[x] || 0, u = m.ub[1024 + M] || 0, m.ub[x] =
@@ -7257,7 +10587,7 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
                 g.E || (g.Bb = g.Bb << 8 | q(g.Ab), g.E <<= 8), 0) : (g.E -= r, g.Bb -= r, k[m] = t - (t >>> 5) << 16 >> 16, -16777216 & g.E || (g.Bb = g.Bb << 8 | q(g.Ab), g.E <<= 8), 1)
         } function S(g) { for (var k = g.length - 1; 0 <= k; --k)g[k] = 1024 } function qb(g, k, m, q) { var t = k[m]; var u = (g.E >>> 11) * t; q ? (g.xc = r(g.xc, x(L(u), [4294967295, 0])), g.E -= u, k[m] = t - (t >>> 5) << 16 >> 16) : (g.E = u, k[m] = t + (2048 - t >>> 5) << 16 >> 16); -16777216 & g.E || (g.E <<= 8, vc(g)) } function wd(g, k, m) { for (--m; 0 <= m; --m)g.E >>>= 1, 1 == (k >>> m & 1) && (g.xc = r(g.xc, L(g.E))), -16777216 & g.E || (g.E <<= 8, vc(g)) } function vc(g) {
             var m =
-                g.xc; var q = 32, t; m = (q &= 63, t = k(m, q), 0 > m[1] && (t = r(t, W([2, 0], 63 - q))), t); q = V(m); if (0 != q || 0 > B(g.xc, [4278190080, 0])) { g.mc = r(g.mc, L(g.Jb)); m = g.Oc; do t = g.Ab, m += q, t.Mc[t.Yb++] = m << 24 >> 24, m = 255; while (0 != --g.Jb); g.Oc = V(g.xc) >>> 24 } ++g.Jb; g.xc = W(x(g.xc, [16777215, 0]), 8)
+                g.xc; var q = 32, t; m = (q &= 63, t = k(m, q), 0 > m[1] && (t = r(t, W([2, 0], 63 - q))), t); q = ApplicationMain(m); if (0 != q || 0 > B(g.xc, [4278190080, 0])) { g.mc = r(g.mc, L(g.Jb)); m = g.Oc; do t = g.Ab, m += q, t.Mc[t.Yb++] = m << 24 >> 24, m = 255; while (0 != --g.Jb); g.Oc = ApplicationMain(g.xc) >>> 24 } ++g.Jb; g.xc = W(x(g.xc, [16777215, 0]), 8)
         } function oc(g, k) { return ub[(2047 & (g - k ^ -k)) >>> 2] } function zb(g) {
             for (var k, m, q, r = 0, t = 0, u = g.length, w = [], x = []; u > r; ++r, ++t) {
                 if (k = 255 & g[r], 128 & k) if (192 == (224 & k)) { if (r + 1 >= u || (m = 255 & g[++r], 128 != (192 & m))) return g; x[t] = (31 & k) << 6 | 63 & m } else {
@@ -7290,16 +10620,16 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
 if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
     var saveAs = saveAs || function (F) {
         if (!("undefined" === typeof F || "undefined" !== typeof navigator && /MSIE [1-9]\./.test(navigator.userAgent))) {
-            var r = F.document.createElementNS("http://www.w3.org/1999/xhtml", "a"), x = "download" in r, B = /constructor/i.test(F.HTMLElement) || F.safari, K = /CriOS\/[\d]+/.test(navigator.userAgent), L = function (g) { (F.setImmediate || F.setTimeout)(function () { throw g; }, 0) }, V = function (g) {
+            var r = F.document.createElementNS("http://www.w3.org/1999/xhtml", "a"), x = "download" in r, B = /constructor/i.test(F.HTMLElement) || F.safari, K = /CriOS\/[\d]+/.test(navigator.userAgent), L = function (g) { (F.setImmediate || F.setTimeout)(function () { throw g; }, 0) }, ApplicationMain = function (g) {
                 setTimeout(function () {
                     "string" ===
                     typeof g ? (F.URL || F.webkitURL || F).revokeObjectURL(g) : g.remove()
                 }, 4E4)
             }, u = function (g) { return /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(g.type) ? new Blob([String.fromCharCode(65279), g], { type: g.type }) : g }, W = function (g, k, D) {
                 D || (g = u(g)); var q = this, W = "application/octet-stream" === g.type, ca = function () { var g = ["writestart", "progress", "write", "writeend"]; g = [].concat(g); for (var k = g.length; k--;) { var r = q["on" + g[k]]; if ("function" === typeof r) try { r.call(q, q) } catch (ea) { L(ea) } } };
-                q.readyState = q.INIT; if (x) { var bb = (F.URL || F.webkitURL || F).createObjectURL(g); setTimeout(function () { r.href = bb; r.download = k; var g = new MouseEvent("click"); r.dispatchEvent(g); ca(); V(bb); q.readyState = q.DONE }) } else (function () {
+                q.readyState = q.INIT; if (x) { var bb = (F.URL || F.webkitURL || F).createObjectURL(g); setTimeout(function () { r.href = bb; r.download = k; var g = new MouseEvent("click"); r.dispatchEvent(g); ca(); ApplicationMain(bb); q.readyState = q.DONE }) } else (function () {
                     if ((K || W && B) && F.FileReader) { var k = new FileReader; k.onloadend = function () { var g = K ? k.result : k.result.replace(/^data:[^;]*;/, "data:attachment/file;"); F.open(g, "_blank") || (F.location.href = g); q.readyState = q.DONE; ca() }; k.readAsDataURL(g); q.readyState = q.INIT } else bb || (bb = (F.URL || F.webkitURL ||
-                        F).createObjectURL(g)), W ? F.location.href = bb : F.open(bb, "_blank") || (F.location.href = bb), q.readyState = q.DONE, ca(), V(bb)
+                        F).createObjectURL(g)), W ? F.location.href = bb : F.open(bb, "_blank") || (F.location.href = bb), q.readyState = q.DONE, ca(), ApplicationMain(bb)
                 })()
             }, k = W.prototype; if ("undefined" !== typeof navigator && navigator.msSaveOrOpenBlob) return function (g, k, r) { k = k || g.name || "download"; r || (g = u(g)); return navigator.msSaveOrOpenBlob(g, k) }; k.abort = function () { }; k.readyState = k.INIT = 0; k.WRITING = 1; k.DONE = 2; k.error = k.onwritestart = k.onprogress = k.onwrite = k.onabort = k.onerror = k.onwriteend = null; return function (g, k, r) {
                 return new W(g, k || g.name || "download",

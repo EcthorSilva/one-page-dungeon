@@ -2321,20 +2321,79 @@ var $lime_init = function (F, r) {
                 __class__: Main,
             });
             
+            /**
+             * A DocumentClass (Wb) é a classe raiz da aplicação, um padrão em projetos OpenFL.
+             * Ela é a primeira a ser instanciada e adicionada ao palco, e
+             * sua única responsabilidade é iniciar a classe Main.
+             *
+             * @class
+             * @extends {Main} // Main é a classe refatorada de nc
+             */
             var Wb = function (a) {
                 a.addChild(this);
-                Main.call(this); this.dispatchEvent(new ra("addedToStage", !1, !1))
-            }; 
-            g.DocumentClass = Wb; Wb.__name__ = "DocumentClass"; Wb.__super__ = Main; Wb.prototype = u(Main.prototype, { __class__: Wb }); var sa = function (a, b) { this.r = new RegExp(a, b.split("u").join("")) }; g.EReg = sa; sa.__name__ = "EReg"; sa.prototype = {
-                match: function (a) { this.r.global && (this.r.lastIndex = 0); this.r.m = this.r.exec(a); this.r.s = a; return null != this.r.m }, matched: function (a) {
-                    if (null != this.r.m && 0 <= a && a < this.r.m.length) return this.r.m[a]; throw Z.thrown("EReg::matched");
-                }, matchedPos: function () { if (null == this.r.m) throw Z.thrown("No string matched"); return { pos: this.r.m.index, len: this.r.m[0].length } }, matchSub: function (a, b, c) { null == c && (c = -1); if (this.r.global) { if (this.r.lastIndex = b, this.r.m = this.r.exec(0 > c ? a : N.substr(a, 0, b + c)), c = null != this.r.m) this.r.s = a } else if (c = this.match(0 > c ? N.substr(a, b, null) : N.substr(a, b, c))) this.r.s = a, this.r.m.index += b; return c }, split: function (a) { return a.replace(this.r, "#__delim__#").split("#__delim__#") }, map: function (a, b) {
-                    var c = 0, d = ""; do {
-                        if (c >=
-                            a.length) break; else if (!this.matchSub(a, c)) { d += m.string(N.substr(a, c, null)); break } var f = this.matchedPos(); d += m.string(N.substr(a, c, f.pos - c)); d += m.string(b(this)); 0 == f.len ? (d += m.string(N.substr(a, f.pos, 1)), c = f.pos + 1) : c = f.pos + f.len
-                    } while (this.r.global); !this.r.global && 0 < c && c < a.length && (d += m.string(N.substr(a, c, null))); return d
-                }, __class__: sa
-            }; 
+                Main.call(this);
+                this.dispatchEvent(new ra("addedToStage", !1, !1));
+            };
+            g.DocumentClass = Wb;
+            Wb.__name__ = "DocumentClass";
+            Wb.__super__ = Main;
+            Wb.prototype = u(Main.prototype, { __class__: Wb });
+
+            /**
+             * A EReg (sa) é uma classe do Haxe para trabalhar com Expressões Regulares (RegEx)
+             * de forma consistente entre diferentes plataformas.
+             *
+             * @class
+             */
+            var sa = function (a, b) {
+                this.r = new RegExp(a, b.split("u").join(""));
+            };
+            g.EReg = sa;
+            sa.__name__ = "EReg";
+            sa.prototype = {
+                match: function (a) {
+                    this.r.global && (this.r.lastIndex = 0);
+                    this.r.m = this.r.exec(a);
+                    this.r.s = a;
+                    return null != this.r.m;
+                },
+                matched: function (a) {
+                    if (null != this.r.m && 0 <= a && a < this.r.m.length) return this.r.m[a];
+                    throw Z.thrown("EReg::matched");
+                },
+                matchedPos: function () {
+                    if (null == this.r.m) throw Z.thrown("No string matched");
+                    return { pos: this.r.m.index, len: this.r.m[0].length };
+                },
+                matchSub: function (a, b, c) {
+                    null == c && (c = -1);
+                    if (this.r.global) {
+                        if (((this.r.lastIndex = b), (this.r.m = this.r.exec(0 > c ? a : N.substr(a, 0, b + c))), (c = null != this.r.m))) this.r.s = a;
+                    } else if ((c = this.match(0 > c ? N.substr(a, b, null) : N.substr(a, b, c)))) (this.r.s = a), (this.r.m.index += b);
+                    return c;
+                },
+                split: function (a) {
+                    return a.replace(this.r, "#__delim__#").split("#__delim__#");
+                },
+                map: function (a, b) {
+                    var c = 0,
+                        d = "";
+                    do {
+                        if (c >= a.length) break;
+                        else if (!this.matchSub(a, c)) {
+                            d += m.string(N.substr(a, c, null));
+                            break;
+                        }
+                        var f = this.matchedPos();
+                        d += m.string(N.substr(a, c, f.pos - c));
+                        d += m.string(b(this));
+                        0 == f.len ? ((d += m.string(N.substr(a, f.pos, 1))), (c = f.pos + 1)) : (c = f.pos + f.len);
+                    } while (this.r.global);
+                    !this.r.global && 0 < c && c < a.length && (d += m.string(N.substr(a, c, null)));
+                    return d;
+                },
+                __class__: sa,
+            };
             
             var N = function () { }; g.HxOverrides = N; N.__name__ = "HxOverrides"; N.strDate = function (a) {
                 switch (a.length) {

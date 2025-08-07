@@ -2274,15 +2274,58 @@ var $lime_init = function (F, r) {
                 __class__: Game,
             });
             
-            var nc = function () { v.reset(); O.useDefault(); this.stage.showDefaultContextMenu = !1; ob.baseURL += "one-page-dungeon/"; Game.call(this, oe) }; g["com.watabou.dungeon.Main"] = nc; nc.__name__ = "com.watabou.dungeon.Main"; nc.__super__ = Game; nc.prototype = u(Game.prototype, {
-                switchSceneImp: function (a) { null == T.layer && (T.layer = new S); Game.prototype.switchSceneImp.call(this, a); this.addChild(T.layer); T.wipe() }, layout: function () {
-                    Game.prototype.layout.call(this); var a = this.stage.stageWidth,
-                        b = this.stage.stageHeight; T.layer.set_scaleX(T.layer.set_scaleY(1)); T.layer.setSize(a / 1, b / 1); a = this.stage.stageWidth; b = this.stage.stageHeight; var c = 1 * G.normal; this.get_graphics().clear(); this.get_graphics().beginFill(G.ink); this.get_graphics().drawRect(0, 0, a, c); this.get_graphics().drawRect(0, c, c, b - 2 * c); this.get_graphics().drawRect(a - c, c, c, b - 2 * c); this.get_graphics().drawRect(0, b - c, a, c)
-                }, getScale: function (a, b) { return 1 * Math.min(1, Math.min(a, b) / 768) }, __class__: nc
-            }); var Wb = function (a) {
+            /**
+             * A classe dungeon.Main é a principal da aplicação, herda de Game (Game).
+             * Ela inicializa a aplicação e define o layout principal,
+             * incluindo a camada da UI e a borda da tela.
+             *
+             * @class
+             * @extends {Game}
+             */
+            var Main = function () {
+                v.reset();
+                O.useDefault();
+                this.stage.showDefaultContextMenu = !1;
+                ob.baseURL += "one-page-dungeon/";
+                Game.call(this, oe);
+            };
+            g["com.watabou.dungeon.Main"] = Main;
+            Main.__name__ = "com.watabou.dungeon.Main";
+            Main.__super__ = Game;
+            Main.prototype = u(Game.prototype, {
+                switchSceneImp: function (a) {
+                    null == T.layer && (T.layer = new S());
+                    Game.prototype.switchSceneImp.call(this, a);
+                    this.addChild(T.layer);
+                    T.wipe();
+                },
+                layout: function () {
+                    Game.prototype.layout.call(this);
+                    var a = this.stage.stageWidth,
+                        b = this.stage.stageHeight;
+                    T.layer.set_scaleX(T.layer.set_scaleY(1));
+                    T.layer.setSize(a / 1, b / 1);
+                    a = this.stage.stageWidth;
+                    b = this.stage.stageHeight;
+                    var c = 1 * G.normal;
+                    this.get_graphics().clear();
+                    this.get_graphics().beginFill(G.ink);
+                    this.get_graphics().drawRect(0, 0, a, c);
+                    this.get_graphics().drawRect(0, c, c, b - 2 * c);
+                    this.get_graphics().drawRect(a - c, c, c, b - 2 * c);
+                    this.get_graphics().drawRect(0, b - c, a, c);
+                },
+                getScale: function (a, b) {
+                    return 1 * Math.min(1, Math.min(a, b) / 768);
+                },
+                __class__: Main,
+            });
+            
+            var Wb = function (a) {
                 a.addChild(this);
-                nc.call(this); this.dispatchEvent(new ra("addedToStage", !1, !1))
-            }; g.DocumentClass = Wb; Wb.__name__ = "DocumentClass"; Wb.__super__ = nc; Wb.prototype = u(nc.prototype, { __class__: Wb }); var sa = function (a, b) { this.r = new RegExp(a, b.split("u").join("")) }; g.EReg = sa; sa.__name__ = "EReg"; sa.prototype = {
+                Main.call(this); this.dispatchEvent(new ra("addedToStage", !1, !1))
+            }; 
+            g.DocumentClass = Wb; Wb.__name__ = "DocumentClass"; Wb.__super__ = Main; Wb.prototype = u(Main.prototype, { __class__: Wb }); var sa = function (a, b) { this.r = new RegExp(a, b.split("u").join("")) }; g.EReg = sa; sa.__name__ = "EReg"; sa.prototype = {
                 match: function (a) { this.r.global && (this.r.lastIndex = 0); this.r.m = this.r.exec(a); this.r.s = a; return null != this.r.m }, matched: function (a) {
                     if (null != this.r.m && 0 <= a && a < this.r.m.length) return this.r.m[a]; throw Z.thrown("EReg::matched");
                 }, matchedPos: function () { if (null == this.r.m) throw Z.thrown("No string matched"); return { pos: this.r.m.index, len: this.r.m[0].length } }, matchSub: function (a, b, c) { null == c && (c = -1); if (this.r.global) { if (this.r.lastIndex = b, this.r.m = this.r.exec(0 > c ? a : N.substr(a, 0, b + c)), c = null != this.r.m) this.r.s = a } else if (c = this.match(0 > c ? N.substr(a, b, null) : N.substr(a, b, c))) this.r.s = a, this.r.m.index += b; return c }, split: function (a) { return a.replace(this.r, "#__delim__#").split("#__delim__#") }, map: function (a, b) {
@@ -2291,7 +2334,9 @@ var $lime_init = function (F, r) {
                             a.length) break; else if (!this.matchSub(a, c)) { d += m.string(N.substr(a, c, null)); break } var f = this.matchedPos(); d += m.string(N.substr(a, c, f.pos - c)); d += m.string(b(this)); 0 == f.len ? (d += m.string(N.substr(a, f.pos, 1)), c = f.pos + 1) : c = f.pos + f.len
                     } while (this.r.global); !this.r.global && 0 < c && c < a.length && (d += m.string(N.substr(a, c, null))); return d
                 }, __class__: sa
-            }; var N = function () { }; g.HxOverrides = N; N.__name__ = "HxOverrides"; N.strDate = function (a) {
+            }; 
+            
+            var N = function () { }; g.HxOverrides = N; N.__name__ = "HxOverrides"; N.strDate = function (a) {
                 switch (a.length) {
                     case 8: a = a.split(":"); var b = new Date; b.setTime(0); b.setUTCHours(a[0]);
                         b.setUTCMinutes(a[1]); b.setUTCSeconds(a[2]); return b; case 10: return a = a.split("-"), new Date(a[0], a[1] - 1, a[2], 0, 0, 0); case 19: return a = a.split(" "), b = a[0].split("-"), a = a[1].split(":"), new Date(b[0], b[1] - 1, b[2], a[0], a[1], a[2]); default: throw Z.thrown("Invalid date format : " + a);
@@ -9408,16 +9453,16 @@ var $lime_init = function (F, r) {
                 } return m.match_available && (ea._tr_tally(m, 0, m.window[m.strstart - 1]), m.match_available = 0), m.insert = m.strstart < Ka - 1 ? m.strstart : Ka - 1, k === fa ? (u(m, !0), 0 === m.strm.avail_out ? va : Ib) : m.last_lit && (u(m, !1), 0 === m.strm.avail_out) ? R : Gc
             } function pa(g, k, q, w, r) { this.good_length = g; this.max_lazy = k; this.nice_length = q; this.max_chain = w; this.func = r } function ca() {
                 this.strm =
-                null; this.status = 0; this.pending_buf = null; this.wrap = this.pending = this.pending_out = this.pending_buf_size = 0; this.gzhead = null; this.gzindex = 0; this.method = nc; this.last_flush = -1; this.w_mask = this.w_bits = this.w_size = 0; this.window = null; this.window_size = 0; this.head = this.prev = null; this.nice_match = this.good_match = this.strategy = this.level = this.max_lazy_match = this.max_chain_length = this.prev_length = this.lookahead = this.match_start = this.strstart = this.match_available = this.prev_match = this.match_length = this.block_start =
+                null; this.status = 0; this.pending_buf = null; this.wrap = this.pending = this.pending_out = this.pending_buf_size = 0; this.gzhead = null; this.gzindex = 0; this.method = Main; this.last_flush = -1; this.w_mask = this.w_bits = this.w_size = 0; this.window = null; this.window_size = 0; this.head = this.prev = null; this.nice_match = this.good_match = this.strategy = this.level = this.max_lazy_match = this.max_chain_length = this.prev_length = this.lookahead = this.match_start = this.strstart = this.match_available = this.prev_match = this.match_length = this.block_start =
                     this.hash_shift = this.hash_mask = this.hash_bits = this.hash_size = this.ins_h = 0; this.dyn_ltree = new ab.Buf16(2 * ManifestResources); this.dyn_dtree = new ab.Buf16(2 * (2 * N + 1)); this.bl_tree = new ab.Buf16(2 * (2 * C + 1)); L(this.dyn_ltree); L(this.dyn_dtree); L(this.bl_tree); this.bl_desc = this.d_desc = this.l_desc = null; this.bl_count = new ab.Buf16(za + 1); this.heap = new ab.Buf16(2 * sa + 1); L(this.heap); this.heap_max = this.heap_len = 0; this.depth = new ab.Buf16(2 * sa + 1); L(this.depth); this.bi_valid = this.bi_buf = this.insert = this.matches = this.static_len = this.opt_len =
                         this.d_buf = this.last_lit = this.lit_bufsize = this.l_buf = 0
             } function bb(g) { var m; return g && g.state ? (g.total_in = g.total_out = 0, g.data_type = Game, m = g.state, m.pending = 0, m.pending_out = 0, 0 > m.wrap && (m.wrap = -m.wrap), m.status = m.wrap ? qa : M, g.adler = 2 === m.wrap ? 0 : 1, m.last_flush = U, ea._tr_init(m), La) : K(g, aa) } function Bb(g) {
                 var k = bb(g); k === La && (g = g.state, g.window_size = 2 * g.w_size, L(g.head), g.max_lazy_match = oa[g.level].max_lazy, g.good_match = oa[g.level].good_length, g.nice_match = oa[g.level].nice_length, g.max_chain_length = oa[g.level].max_chain,
                     g.strstart = 0, g.block_start = 0, g.lookahead = 0, g.insert = 0, g.match_length = g.prev_length = Ka - 1, g.match_available = 0, g.ins_h = 0); return k
             } function gc(g, k, q, w, r, u) {
-                if (!g) return aa; var m = 1; if (k === ka && (k = 6), 0 > w ? (m = 0, w = -w) : 15 < w && (m = 2, w -= 16), 1 > r || r > Wb || q !== nc || 8 > w || 15 < w || 0 > k || 9 < k || 0 > u || u > ja) return K(g, aa); 8 === w && (w = 9); var E = new ca; return g.state = E, E.strm = g, E.wrap = m, E.gzhead = null, E.w_bits = w, E.w_size = 1 << E.w_bits, E.w_mask = E.w_size - 1, E.hash_bits = r + 7, E.hash_size = 1 << E.hash_bits, E.hash_mask = E.hash_size - 1, E.hash_shift =
+                if (!g) return aa; var m = 1; if (k === ka && (k = 6), 0 > w ? (m = 0, w = -w) : 15 < w && (m = 2, w -= 16), 1 > r || r > Wb || q !== Main || 8 > w || 15 < w || 0 > k || 9 < k || 0 > u || u > ja) return K(g, aa); 8 === w && (w = 9); var E = new ca; return g.state = E, E.strm = g, E.wrap = m, E.gzhead = null, E.w_bits = w, E.w_size = 1 << E.w_bits, E.w_mask = E.w_size - 1, E.hash_bits = r + 7, E.hash_size = 1 << E.hash_bits, E.hash_mask = E.hash_size - 1, E.hash_shift =
                     ~~((E.hash_bits + Ka - 1) / Ka), E.window = new ab.Buf8(2 * E.w_size), E.head = new ab.Buf16(E.hash_size), E.prev = new ab.Buf16(E.w_size), E.lit_bufsize = 1 << r + 6, E.pending_buf_size = 4 * E.lit_bufsize, E.pending_buf = new ab.Buf8(E.pending_buf_size), E.d_buf = 1 * E.lit_bufsize, E.l_buf = 3 * E.lit_bufsize, E.level = k, E.strategy = u, E.method = q, Bb(g)
-            } var ab = r("../utils/common"), ea = r("./trees"), fb = r("./adler32"), ma = r("./crc32"), mb = r("./messages"), U = 0, fa = 4, La = 0, aa = -2, ka = -1, Ya = 1, ja = 4, Game = 2, nc = 8, Wb = 9, sa = 286, N = 30, C = 19, ManifestResources = 2 * sa + 1, za = 15, Ka = 3, Oa =
+            } var ab = r("../utils/common"), ea = r("./trees"), fb = r("./adler32"), ma = r("./crc32"), mb = r("./messages"), U = 0, fa = 4, La = 0, aa = -2, ka = -1, Ya = 1, ja = 4, Game = 2, Main = 8, Wb = 9, sa = 286, N = 30, C = 19, ManifestResources = 2 * sa + 1, za = 15, Ka = 3, Oa =
                 258, Pa = Oa + Ka + 1, qa = 42, M = 113, R = 1, Gc = 2, va = 3, Ib = 4; var oa = [new pa(0, 0, 0, 0, function (g, k) {
                     var m = 65535; for (m > g.pending_buf_size - 5 && (m = g.pending_buf_size - 5); ;) { if (1 >= g.lookahead) { if (q(g), 0 === g.lookahead && k === U) return R; if (0 === g.lookahead) break } g.strstart += g.lookahead; g.lookahead = 0; var w = g.block_start + m; if ((0 === g.strstart || g.strstart >= w) && (g.lookahead = g.strstart - w, g.strstart = w, u(g, !1), 0 === g.strm.avail_out) || g.strstart - g.block_start >= g.w_size - Pa && (u(g, !1), 0 === g.strm.avail_out)) return R } return g.insert = 0, k ===
                         fa ? (u(g, !0), 0 === g.strm.avail_out ? va : Ib) : (g.strstart > g.block_start && u(g, !1), R)
@@ -9425,7 +9470,7 @@ var $lime_init = function (F, r) {
                     r) {
                         var m, w; if (!g || !g.state || 5 < r || 0 > r) return g ? K(g, aa) : aa; if (w = g.state, !g.output || !g.input && 0 !== g.avail_in || 666 === w.status && r !== fa) return K(g, 0 === g.avail_out ? -5 : aa); if (w.strm = g, m = w.last_flush, w.last_flush = r, w.status === qa) if (2 === w.wrap) g.adler = 0, W(w, 31), W(w, 139), W(w, 8), w.gzhead ? (W(w, (w.gzhead.text ? 1 : 0) + (w.gzhead.hcrc ? 2 : 0) + (w.gzhead.extra ? 4 : 0) + (w.gzhead.name ? 8 : 0) + (w.gzhead.comment ? 16 : 0)), W(w, 255 & w.gzhead.time), W(w, w.gzhead.time >> 8 & 255), W(w, w.gzhead.time >> 16 & 255), W(w, w.gzhead.time >> 24 & 255), W(w, 9 === w.level ?
                             2 : 2 <= w.strategy || 2 > w.level ? 4 : 0), W(w, 255 & w.gzhead.os), w.gzhead.extra && w.gzhead.extra.length && (W(w, 255 & w.gzhead.extra.length), W(w, w.gzhead.extra.length >> 8 & 255)), w.gzhead.hcrc && (g.adler = ma(g.adler, w.pending_buf, w.pending, 0)), w.gzindex = 0, w.status = 69) : (W(w, 0), W(w, 0), W(w, 0), W(w, 0), W(w, 0), W(w, 9 === w.level ? 2 : 2 <= w.strategy || 2 > w.level ? 4 : 0), W(w, 3), w.status = M); else {
-                                var x = nc + (w.w_bits - 8 << 4) << 8; x |= (2 <= w.strategy || 2 > w.level ? 0 : 6 > w.level ? 1 : 6 === w.level ? 2 : 3) << 6; 0 !== w.strstart && (x |= 32); w.status = M; k(w, x + (31 - x % 31)); 0 !==
+                                var x = Main + (w.w_bits - 8 << 4) << 8; x |= (2 <= w.strategy || 2 > w.level ? 0 : 6 > w.level ? 1 : 6 === w.level ? 2 : 3) << 6; 0 !== w.strstart && (x |= 32); w.status = M; k(w, x + (31 - x % 31)); 0 !==
                                     w.strstart && (k(w, g.adler >>> 16), k(w, 65535 & g.adler)); g.adler = 1
                         } if (69 === w.status) if (w.gzhead.extra) { for (x = w.pending; w.gzindex < (65535 & w.gzhead.extra.length) && (w.pending !== w.pending_buf_size || (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), ApplicationMain(g), x = w.pending, w.pending !== w.pending_buf_size));)W(w, 255 & w.gzhead.extra[w.gzindex]), w.gzindex++; w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); w.gzindex === w.gzhead.extra.length && (w.gzindex = 0, w.status = 73) } else w.status =
                             73; if (73 === w.status) if (w.gzhead.name) { x = w.pending; do { if (w.pending === w.pending_buf_size && (w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)), ApplicationMain(g), x = w.pending, w.pending === w.pending_buf_size)) { var B = 1; break } B = w.gzindex < w.gzhead.name.length ? 255 & w.gzhead.name.charCodeAt(w.gzindex++) : 0; W(w, B) } while (0 !== B); w.gzhead.hcrc && w.pending > x && (g.adler = ma(g.adler, w.pending_buf, w.pending - x, x)); 0 === B && (w.gzindex = 0, w.status = 91) } else w.status = 91; if (91 === w.status) if (w.gzhead.comment) {
@@ -9548,8 +9593,8 @@ var $lime_init = function (F, r) {
         }, { "../utils/common": 3, "./adler32": 5, "./crc32": 7, "./inffast": 10, "./inftrees": 12 }], 12: [function (r, x, B) {
             var K = r("../utils/common"), L = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], ApplicationMain = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21,
                 16, 72, 78], u = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0], W = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64]; x.exports = function (k, g, q, r, x, B, ca, bb) {
-                    var D, J, pa, ea, fb, ma, mb = bb.bits, U, fa, La, aa, ka, Ya = 0, ja, Game = null, nc = 0, Wb = new K.Buf16(16); var sa = new K.Buf16(16); var N = null, C = 0; for (U = 0; 15 >= U; U++)Wb[U] = 0; for (fa = 0; fa < r; fa++)Wb[g[q + fa]]++; var ManifestResources = mb; for (La = 15; 1 <= La && 0 === Wb[La]; La--); if (ManifestResources > La &&
-                        (ManifestResources = La), 0 === La) return x[B++] = 20971520, x[B++] = 20971520, bb.bits = 1, 0; for (mb = 1; mb < La && 0 === Wb[mb]; mb++); ManifestResources < mb && (ManifestResources = mb); for (U = D = 1; 15 >= U; U++)if (D <<= 1, D -= Wb[U], 0 > D) return -1; if (0 < D && (0 === k || 1 !== La)) return -1; sa[1] = 0; for (U = 1; 15 > U; U++)sa[U + 1] = sa[U] + Wb[U]; for (fa = 0; fa < r; fa++)0 !== g[q + fa] && (ca[sa[g[q + fa]]++] = fa); if (0 === k ? (Game = N = ca, ea = 19) : 1 === k ? (Game = L, nc -= 257, N = ApplicationMain, C -= 257, ea = 256) : (Game = u, N = W, ea = -1), ja = 0, fa = 0, U = mb, sa = B, aa = ManifestResources, ka = 0, pa = -1, Ya = 1 << ManifestResources, r = Ya - 1, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; for (var za = 0; ;) {
+                    var D, J, pa, ea, fb, ma, mb = bb.bits, U, fa, La, aa, ka, Ya = 0, ja, Game = null, Main = 0, Wb = new K.Buf16(16); var sa = new K.Buf16(16); var N = null, C = 0; for (U = 0; 15 >= U; U++)Wb[U] = 0; for (fa = 0; fa < r; fa++)Wb[g[q + fa]]++; var ManifestResources = mb; for (La = 15; 1 <= La && 0 === Wb[La]; La--); if (ManifestResources > La &&
+                        (ManifestResources = La), 0 === La) return x[B++] = 20971520, x[B++] = 20971520, bb.bits = 1, 0; for (mb = 1; mb < La && 0 === Wb[mb]; mb++); ManifestResources < mb && (ManifestResources = mb); for (U = D = 1; 15 >= U; U++)if (D <<= 1, D -= Wb[U], 0 > D) return -1; if (0 < D && (0 === k || 1 !== La)) return -1; sa[1] = 0; for (U = 1; 15 > U; U++)sa[U + 1] = sa[U] + Wb[U]; for (fa = 0; fa < r; fa++)0 !== g[q + fa] && (ca[sa[g[q + fa]]++] = fa); if (0 === k ? (Game = N = ca, ea = 19) : 1 === k ? (Game = L, Main -= 257, N = ApplicationMain, C -= 257, ea = 256) : (Game = u, N = W, ea = -1), ja = 0, fa = 0, U = mb, sa = B, aa = ManifestResources, ka = 0, pa = -1, Ya = 1 << ManifestResources, r = Ya - 1, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; for (var za = 0; ;) {
                             za++; var Ka = U - ka;
                             ca[fa] < ea ? (fb = 0, ma = ca[fa]) : ca[fa] > ea ? (fb = N[C + ca[fa]], ma = Game[nc + ca[fa]]) : (fb = 96, ma = 0); D = 1 << U - ka; mb = J = 1 << aa; do J -= D, x[sa + (ja >> ka) + J] = Ka << 24 | fb << 16 | ma | 0; while (0 !== J); for (D = 1 << U - 1; ja & D;)D >>= 1; if (0 !== D ? (ja &= D - 1, ja += D) : ja = 0, fa++, 0 === --Wb[U]) { if (U === La) break; U = g[q + ca[fa]] } if (U > ManifestResources && (ja & r) !== pa) { 0 === ka && (ka = ManifestResources); sa += mb; aa = U - ka; for (D = 1 << aa; aa + ka < La && (D -= Wb[aa + ka], !(0 >= D));)aa++, D <<= 1; if (Ya += 1 << aa, 1 === k && 852 < Ya || 2 === k && 592 < Ya) return 1; pa = ja & r; x[pa] = ManifestResources << 24 | aa << 16 | sa - B | 0 }
                         } return 0 !== ja && (x[sa + ja] = U - ka << 24 | 4194304),
@@ -9559,7 +9604,7 @@ var $lime_init = function (F, r) {
             function K(g) { for (var k = g.length; 0 <= --k;)g[k] = 0 } function L(g, k, m, q, r) { this.static_tree = g; this.extra_bits = k; this.extra_base = m; this.elems = q; this.max_length = r; this.has_stree = g && g.length } function ApplicationMain(g, k) {
                 this.dyn_tree = g; this.max_code = 0; this.stat_desc =
                     k
-            } function u(g, k) { g.pending_buf[g.pending++] = 255 & k; g.pending_buf[g.pending++] = k >>> 8 & 255 } function W(g, k, m) { g.bi_valid > nc - m ? (g.bi_buf |= k << g.bi_valid & 65535, u(g, g.bi_buf), g.bi_buf = k >> nc - g.bi_valid, g.bi_valid += m - nc) : (g.bi_buf |= k << g.bi_valid & 65535, g.bi_valid += m) } function k(g, k, m) { W(g, m[2 * k], m[2 * k + 1]) } function g(g, k) { var m = 0; do m |= 1 & g, g >>>= 1, m <<= 1; while (0 < --k); return m >>> 1 } function q(k, m, q) { var r, u = Array(Game + 1), w = 0; for (r = 1; r <= Game; r++)u[r] = w = w + q[r - 1] << 1; for (q = 0; q <= m; q++)r = k[2 * q + 1], 0 !== r && (k[2 * q] = g(u[r]++, r)) }
+            } function u(g, k) { g.pending_buf[g.pending++] = 255 & k; g.pending_buf[g.pending++] = k >>> 8 & 255 } function W(g, k, m) { g.bi_valid > Main - m ? (g.bi_buf |= k << g.bi_valid & 65535, u(g, g.bi_buf), g.bi_buf = k >> Main - g.bi_valid, g.bi_valid += m - Main) : (g.bi_buf |= k << g.bi_valid & 65535, g.bi_valid += m) } function k(g, k, m) { W(g, m[2 * k], m[2 * k + 1]) } function g(g, k) { var m = 0; do m |= 1 & g, g >>>= 1, m <<= 1; while (0 < --k); return m >>> 1 } function q(k, m, q) { var r, u = Array(Game + 1), w = 0; for (r = 1; r <= Game; r++)u[r] = w = w + q[r - 1] << 1; for (q = 0; q <= m; q++)r = k[2 * q + 1], 0 !== r && (k[2 * q] = g(u[r]++, r)) }
             function D(g) { var k; for (k = 0; k < aa; k++)g.dyn_ltree[2 * k] = 0; for (k = 0; k < ka; k++)g.dyn_dtree[2 * k] = 0; for (k = 0; k < Ya; k++)g.bl_tree[2 * k] = 0; g.dyn_ltree[2 * Wb] = 1; g.opt_len = g.static_len = 0; g.last_lit = g.matches = 0 } function J(g) { 8 < g.bi_valid ? u(g, g.bi_buf) : 0 < g.bi_valid && (g.pending_buf[g.pending++] = g.bi_buf); g.bi_buf = 0; g.bi_valid = 0 } function pa(g, k, m, q) { var r = 2 * k, u = 2 * m; return g[r] < g[u] || g[r] === g[u] && q[k] <= q[m] } function ca(g, k, m) {
                 for (var q = g.heap[m], r = m << 1; r <= g.heap_len && (r < g.heap_len && pa(k, g.heap[r + 1], g.heap[r], g.depth) &&
                     r++, !pa(k, q, g.heap[r], g.depth));)g.heap[m] = g.heap[r], m = r, r <<= 1; g.heap[m] = q
@@ -9576,7 +9621,7 @@ var $lime_init = function (F, r) {
             } function ab(g, m, q) { var r, u, w = -1, x = m[1], B = 0, E = 7, D = 4; 0 === x && (E = 138, D = 3); for (r = 0; r <= q; r++)if (u = x, x = m[2 * (r + 1) + 1], !(++B < E && u === x)) { if (B < D) { do k(g, u, g.bl_tree); while (0 !== --B) } else 0 !== u ? (u !== w && (k(g, u, g.bl_tree), B--), k(g, sa, g.bl_tree), W(g, B - 3, 2)) : 10 >= B ? (k(g, N, g.bl_tree), W(g, B - 3, 3)) : (k(g, C, g.bl_tree), W(g, B - 11, 7)); B = 0; w = u; 0 === x ? (E = 138, D = 3) : u === x ? (E = 6, D = 3) : (E = 7, D = 4) } } function ea(g) {
                 var k, m = 4093624447; for (k = 0; 31 >= k; k++, m >>>= 1)if (1 &
                     m && 0 !== g.dyn_ltree[2 * k]) return mb; if (0 !== g.dyn_ltree[18] || 0 !== g.dyn_ltree[20] || 0 !== g.dyn_ltree[26]) return U; for (k = 32; k < La; k++)if (0 !== g.dyn_ltree[2 * k]) return U; return mb
-            } function fb(g, k, m, q) { W(g, (fa << 1) + (q ? 1 : 0), 3); J(g); u(g, m); u(g, ~m); ma.arraySet(g.pending_buf, g.window, k, m, g.pending); g.pending += m } var ma = r("../utils/common"), mb = 0, U = 1, fa = 0, La = 256, aa = La + 1 + 29, ka = 30, Ya = 19, ja = 2 * aa + 1, Game = 15, nc = 16, Wb = 256, sa = 16, N = 17, C = 18, ManifestResources = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], za = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4,
+            } function fb(g, k, m, q) { W(g, (fa << 1) + (q ? 1 : 0), 3); J(g); u(g, m); u(g, ~m); ma.arraySet(g.pending_buf, g.window, k, m, g.pending); g.pending += m } var ma = r("../utils/common"), mb = 0, U = 1, fa = 0, La = 256, aa = La + 1 + 29, ka = 30, Ya = 19, ja = 2 * aa + 1, Game = 15, Main = 16, Wb = 256, sa = 16, N = 17, C = 18, ManifestResources = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0], za = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4,
                 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13], Ka = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7], Oa = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15], Pa = Array(2 * (aa + 2)); K(Pa); var qa = Array(2 * ka); K(qa); var M = Array(512); K(M); var R = Array(256); K(R); var Gc = Array(29); K(Gc); var va = Array(ka); K(va); var Ib, oa, m, zc = !1; B._tr_init = function (k) {
                     if (!zc) {
                         var r, u, x, B = Array(Game + 1); for (x = u = 0; 28 > x; x++)for (Gc[x] = u, r = 0; r < 1 << ManifestResources[x]; r++)R[u++] = x; R[u - 1] = x; for (x = u = 0; 16 > x; x++)for (va[x] = u, r = 0; r < 1 << za[x]; r++)M[u++] = x; for (u >>= 7; x < ka; x++)for (va[x] =
@@ -9608,13 +9653,13 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
             var k = g.Mc; return k.length =
                 g.Yb, k
         } function pa(g, k, m, q, r) { for (var t = 0; r > t; ++t)m[q + t] = g[k + t] } function ca(t, m, q) {
-            t.Nb = D({}); var y = g({}, m), r = t.Nb, u = L(m.length); if (0 > B(u, Yd)) throw Error("invalid length " + u); t.Tb = u; m = {}; var w; m.v = F(4); m.a = []; m.d = {}; m.C = F(192); m.bb = F(12); m.Game = F(12); m.Ub = F(12); m.vc = F(12); m._ = F(192); m.K = []; m.Sb = F(114); m.S = lb({}, 4); m.$ = Ib({}); m.i = Ib({}); m.A = {}; m.m = []; m.P = []; m.lb = []; m.nc = F(16); m.x = F(4); m.Q = F(4); m.Xb = [Jb]; m.uc = [Jb]; m.Kc = [0]; m.fc = F(5); m.yc = F(128); m.vb = 0; m.X = 1; m.D = 0; m.Hb = -1; for (w = m.mb = 0; 4096 > w; ++w)m.a[w] =
+            t.Nb = D({}); var y = g({}, m), r = t.Nb, u = L(m.length); if (0 > B(u, Yd)) throw Error("invalid length " + u); t.Tb = u; m = {}; var w; m.v = F(4); m.a = []; m.d = {}; m.C = F(192); m.bb = F(12); m.Game = F(12); m.Ub = F(12); m.vc = F(12); m._ = F(192); m.K = []; m.Sb = F(114); m.S = lb({}, 4); m.$ = Ib({}); m.i = Ib({}); m.A = {}; m.m = []; m.P = []; m.lb = []; m.Main = F(16); m.x = F(4); m.Q = F(4); m.Xb = [Jb]; m.uc = [Jb]; m.Kc = [0]; m.fc = F(5); m.yc = F(128); m.vb = 0; m.X = 1; m.D = 0; m.Hb = -1; for (w = m.mb = 0; 4096 > w; ++w)m.a[w] =
                 {}; for (w = 0; 4 > w; ++w)m.K[w] = lb({}, 6); w = 1 << q.s; m.ab = w; for (var H = 0; w > 1 << H; ++H); m.$b = 2 * H; m.n = q.f; w = m.X; m.X = q.m; m.b && w != m.X && (m.wb = -1, m.b = null); m.eb = 0; m.fb = 3; m.Y = 2; m.y = 3; m.Gc = void 0 === e.disableEndMark; m.fc[0] = 9 * (5 * m.Y + m.eb) + m.fb << 24 >> 24; for (q = 0; 4 > q; ++q)m.fc[1 + q] = m.ab >> 8 * q << 24 >> 24; pa(m.fc, 0, r.Mc, r.Yb, 5); r.Yb += 5; for (q = 0; 64 > q; q += 8)w = 255 & ApplicationMain(k(u, q)), r.Mc[r.Yb++] = w << 24 >> 24; m.W = 0; m.oc = y; m.pc = 0; m.b || (y = {}, u = 4, m.X || (u = 2), y.qb = 2 < u, y.qb ? (y.w = 0, y.xb = 4, y.R = 66560) : (y.w = 2, y.xb = 3, y.R = 0), m.b = y); y = m.A; u = m.eb; q = m.fb; if (null ==
                     y.ApplicationMain || y.u != q || y.I != u) for (y.I = u, y.qc = (1 << u) - 1, y.u = q, q = 1 << y.u + y.I, y.ApplicationMain = F(q), u = 0; q > u; ++u) { w = y.V; H = u; var x = {}; x = (x.tb = F(768), x); w[H] = x } if (m.ab != m.wb || m.Hb != m.n) y = m.b, u = m.ab, q = m.n, 1073741567 > u && (y.Fc = 16 + (q >> 1), H = u + 4096, w = q + 274, y.Bc = H, y._b = w, H = H + w + (~~((u + 4096 + q + 274) / 2) + 256), (null == y.c || y.Kb != H) && (y.c = null, y.Kb = H, y.c = F(y.Kb)), y.H = y.Kb - w, y.ob = q, q = u + 1, y.p != q && (y.L = F(2 * (y.p = q))), q = 65536, y.qb && (q = u - 1, q |= q >> 1, q |= q >> 2, q |= q >> 4, q |= q >> 8, q >>= 1, q |= 65535, 16777216 < q && (q >>= 1), y.Ec = q, ++q, q += y.R), q != y.rc && (y.ub = F(y.rc = q))),
                         m.wb = m.ab, m.Hb = m.n; m.d.Ab = r; m.l = 0; for (r = m.J = 0; 4 > r; ++r)m.v[r] = 0; r = m.d; r.mc = Jb; r.xc = Jb; r.E = -1; r.Jb = 1; r.Oc = 0; S(m.C); S(m._); S(m.bb); S(m.Game); S(m.Ub); S(m.vc); S(m.Sb); r = m.A; u = 1 << r.u + r.I; for (y = 0; u > y; ++y)S(r.V[y].tb); for (r = 0; 4 > r; ++r)S(m.K[r].G); R(m.$, 1 << m.Y); R(m.i, 1 << m.Y); S(m.S.G); m.N = 0; m.jb = 0; m.q = 0; m.s = 0; C(m); N(m); m.$.rb = m.n + 1 - 2; oa(m.$, 1 << m.Y); m.i.rb = m.n + 1 - 2; oa(m.i, 1 << m.Y); void (m.g = Jb); r = {}; m = (r.ManifestResources = m, r.Z = null, r.zc = 1, r); t.yb = m; return t
         } function bb(k, m) {
             k.Nb = D({}); var t = g({}, m), y = k.Nb, r, u, x, B = "", C = []; for (r =
-                0; 5 > r; ++r) { if (u = q(t), -1 == u) throw Error("truncated input"); C[r] = u << 24 >> 24 } m = { B: {}, e: {} }; m.Gb = F(192); m.Zb = F(12); m.Cb = F(12); m.Db = F(12); m.Eb = F(12); m.pb = F(192); m.kb = F(4); m.kc = F(114); m.Fb = w({}, 4); m.Rb = nc({}); m.sb = nc({}); m.gb = {}; for (r = 0; 4 > r; ++r)m.kb[r] = w({}, 6); var E; if (5 > C.length) r = 0; else {
+                0; 5 > r; ++r) { if (u = q(t), -1 == u) throw Error("truncated input"); C[r] = u << 24 >> 24 } m = { B: {}, e: {} }; m.Gb = F(192); m.Zb = F(12); m.Cb = F(12); m.Db = F(12); m.Eb = F(12); m.pb = F(192); m.kb = F(4); m.kc = F(114); m.Fb = w({}, 4); m.Rb = Main({}); m.sb = Main({}); m.gb = {}; for (r = 0; 4 > r; ++r)m.kb[r] = w({}, 6); var E; if (5 > C.length) r = 0; else {
                     r = 255 & C[0]; var J = r % 9; r = ~~(r / 9); var K = r % 5; var M = ~~(r / 5); for (E = r = 0; 4 > E; ++E)r += (255 & C[1 + E]) << 8 * E; if (!(C = 99999999 < r)) {
                         if (8 < J || 4 < K || 4 < M) M = 0; else {
                             C = m.gb; if (null == C.ApplicationMain || C.u != J || C.I != K) for (C.I = K, C.qc = (1 << K) - 1, C.u = J, K = 1 << C.u + C.I,
@@ -9678,7 +9723,7 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
         } function ja(g, k) { for (; k > g.O; ++g.O)g.ec[g.O] = w({}, 3), g.hc[g.O] = w({}, 3) } function Game(g, k, m) {
             return Xb(k, g.wc, 0) ? 8 +
                 (Xb(k, g.wc, 1) ? 8 + jb(g.tc, k) : jb(g.hc[m], k)) : jb(g.ec[m], k)
-        } function nc(g) { return g.wc = F(2), g.ec = F(16), g.hc = F(16), g.tc = w({}, 8), g.O = 0, g } function Wb(g) { S(g.wc); for (var k = 0; g.O > k; ++k)S(g.ec[k].G), S(g.hc[k].G); S(g.tc.G) } function sa(g, k) { g.jb = k; var m = g.a[k].r; var t = g.a[k].j; do { if (g.a[k].t) { var q = g.a[m]; q.j = -1; q.t = 0; g.a[m].r = m - 1; g.a[k].Ac && (g.a[m - 1].t = 0, g.a[m - 1].r = g.a[k].r2, g.a[m - 1].j = g.a[k].j2) } var r = m; q = t; t = g.a[r].j; m = g.a[r].r; g.a[r].j = q; g.a[r].r = k; k = r } while (0 < k); return g.mb = g.a[0].j, g.q = g.a[0].r } function N(g) {
+        } function Main(g) { return g.wc = F(2), g.ec = F(16), g.hc = F(16), g.tc = w({}, 8), g.O = 0, g } function Wb(g) { S(g.wc); for (var k = 0; g.O > k; ++k)S(g.ec[k].G), S(g.hc[k].G); S(g.tc.G) } function sa(g, k) { g.jb = k; var m = g.a[k].r; var t = g.a[k].j; do { if (g.a[k].t) { var q = g.a[m]; q.j = -1; q.t = 0; g.a[m].r = m - 1; g.a[k].Ac && (g.a[m - 1].t = 0, g.a[m - 1].r = g.a[k].r2, g.a[m - 1].j = g.a[k].j2) } var r = m; q = t; t = g.a[r].j; m = g.a[r].r; g.a[r].j = q; g.a[r].r = k; k = r } while (0 < k); return g.mb = g.a[0].j, g.q = g.a[0].r } function N(g) {
             for (var k =
                 0; 16 > k; ++k) { var m = g.nc, t = k, q, r = g.S, u = k, w = 1, x = 0; for (q = r.F; 0 != q; --q) { var B = 1 & u; u >>>= 1; x += oc(r.G[w], B); w = w << 1 | B } m[t] = x } g.Qb = 0
         } function C(g) {
@@ -9716,7 +9761,7 @@ if ("undefined" === typeof self || !self.constructor.name.includes("Worker")) {
                             }
                     }
                 }
-        } function Ka(g, k, m, q) { var t, r = aa(m); return t = 128 > k ? g.lb[128 * r + k] : g.P[(r << 6) + (131072 > k ? ld[k >> 6] + 12 : 134217728 > k ? ld[k >> 16] + 32 : ld[k >> 26] + 52)] + g.nc[15 & k], t + g.$.Cc[272 * q + (m - 2)] } function Oa(g, k, m, q) {
+        } function Ka(g, k, m, q) { var t, r = aa(m); return t = 128 > k ? g.lb[128 * r + k] : g.P[(r << 6) + (131072 > k ? ld[k >> 6] + 12 : 134217728 > k ? ld[k >> 16] + 32 : ld[k >> 26] + 52)] + g.Main[15 & k], t + g.$.Cc[272 * q + (m - 2)] } function Oa(g, k, m, q) {
             var t; return k ? (t = ub[2048 - g.Game[m] >>> 2], 1 == k ? t += ub[g.Ub[m] >>>
                 2] : (t += ub[2048 - g.Ub[m] >>> 2], t += oc(g.vc[m], k - 2))) : (t = ub[g.Game[m] >>> 2], t += ub[2048 - g._[(m << 4) + q] >>> 2]), t
         } function Pa(g) {

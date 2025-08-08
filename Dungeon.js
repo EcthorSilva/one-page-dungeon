@@ -3900,6 +3900,16 @@ var $lime_init = function (F, r) {
             };
 
             /**
+             * Altera o parâmetro 'lang' na URL e recarrega a página.
+             * @param {string} lang - O código do idioma ('pt' ou 'en').
+             */
+            function changeLanguage(lang) {
+                var urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('lang', lang);
+                window.location.search = urlParams.toString();
+            }
+
+            /**
              *
              * Classe dungeon.scenes.ViewScene (ViewScene) Esta é a cena principal da aplicação, 
              * responsável por gerenciar a exibição da masmorra, a interação do usuário e 
@@ -4051,7 +4061,24 @@ var $lime_init = function (F, r) {
                 },
                 buildMenu: function (a) {
                     var b = this,
-                        c = new Jb();
+
+                    // Detecta o idioma atual pela URL para saber qual opção marcar como selecionada.
+                    currentLang = new URLSearchParams(window.location.search).get('lang') || 'pt',
+                    // submenu de Idioma.
+                    menuIdioma = new Jb(); // Jb é a classe do Menu
+                    // Adiciona as opções de idioma ao submenu.
+                    menuIdioma.addItem(
+                        "Português (PT-BR)",
+                        function () { changeLanguage('pt'); }, // Ação ao clicar
+                        currentLang === 'pt' // Marcar se for o idioma atual
+                    );
+                    menuIdioma.addItem(
+                        "English (EN)",
+                        function () { changeLanguage('en'); }, // Ação ao clicar
+                        currentLang === 'en' // Marcar se for o idioma atual
+                    );
+
+                    c = new Jb();
                     c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0));
                     c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0));
                     c.addItem("Full screen", k(this, this.toggleFullScreen), 2 != this.stage.get_displayState());
@@ -4117,6 +4144,9 @@ var $lime_init = function (F, r) {
                     a.addSubmenu("Layers", f);
                     a.addItem("Monochrome", k(this, this.toggleBW), G.bw);
                     a.addItem("Style...", k(this, this.showPaletteForm));
+                    a.addSeparator();
+                    // submenu de Idioma ao menu principal.
+                    a.addSubmenu("Idioma / Language", menuIdioma);
                     a.addSeparator();
                     a.addItem("Permalink...", k(this, this.showURL));
                     a.addItem("Save as PNG", k(this, this.savePNG));

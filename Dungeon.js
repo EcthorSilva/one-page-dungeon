@@ -3418,7 +3418,7 @@ var $lime_init = function (F, r) {
             var Story = function(dungeon) {
                 this.dungeon = dungeon;
 
-                // 1. INICIALIZA A GRAMÁTICA (apenas na primeira execução)
+                // INICIALIZA A GRAMÁTICA (apenas na primeira execução)
                 // Bd é Tracery, v é Random, Vb é Assets, Wa são os modificadores, de é Markov
                 if (null == Story.grammar) {
                     Bd.rng = v.float;
@@ -3432,10 +3432,10 @@ var $lime_init = function (F, r) {
                     Story.grammar.clearState();
                 }
 
-                // Adiciona aleatoriamente a tag "BOSS"
-                if (Math.random() < 0.666) {
+                // Adiciona aleatoriamente a tag "BOSS" usando o gerador semeado
+                if (v.float() < 0.666) {
                     var grammar = Story.grammar;
-                    Fa.addAll(grammar.flags, (new sa(", +", "")).split("BOSS")); // Fa é ArrayExtender
+                    Fa.addAll(grammar.flags, (new sa(", +", "")).split("BOSS"));
                     Story.grammar.fix("boss");
                 }
 
@@ -3447,25 +3447,24 @@ var $lime_init = function (F, r) {
                 Story.grammar.fix("symbol");
                 Story.grammar.fix("location");
 
-                // 2. GERA O NOME E DERIVA TAGS
+                // GERA O NOME E DERIVA TAGS
                 this.name = Story.grammar.flatten("#name#");
                 Fa.addAll(dungeon.tags, Tags.deriveTags(this.name));
 
-                // 3. ADICIONA TAGS ALEATÓRIAS
                 // Adiciona "multi-level" com 50% de chance se não for "single-level"
-                if (dungeon.tags.indexOf("single-level") == -1 && Math.random() < 0.5) {
+                if (dungeon.tags.indexOf("single-level") == -1 && v.float() < 0.5) {
                     Fa.add(dungeon.tags, "multi-level");
                 }
                 // Adiciona "string" (formato de corredor) com 5% de chance se não for "winding"
-                if (dungeon.tags.indexOf("winding") == -1 && Math.random() < 0.05) {
+                if (dungeon.tags.indexOf("winding") == -1 && v.float() < 0.05) {
                     Fa.add(dungeon.tags, "string");
                 }
                 // Adiciona "deep" (com escadas) com 5% de chance se não for "flat"
-                if (dungeon.tags.indexOf("flat") == -1 && Math.random() < 0.05) {
+                if (dungeon.tags.indexOf("flat") == -1 && v.float() < 0.05) {
                     Fa.add(dungeon.tags, "deep");
                 }
 
-                // 4. DEFINE O CONTEXTO DA GRAMÁTICA
+                // DEFINE O CONTEXTO DA GRAMÁTICA
                 // Adiciona todas as tags finais como "flags" para influenciar a geração de texto
                 for (var i = 0, tags = dungeon.tags; i < tags.length; i++) {
                     var tag = tags[i];
@@ -3474,7 +3473,7 @@ var $lime_init = function (F, r) {
                     Fa.addAll(grammar.flags, (new sa(", +", "")).split(upperTag));
                 }
 
-                // 5. GERA A HISTÓRIA
+                // GERA A HISTÓRIA
                 this.hook = Story.grammar.flatten("#story#");
             };
 

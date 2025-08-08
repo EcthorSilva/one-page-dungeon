@@ -2477,6 +2477,13 @@ var $lime_init = function (F, r) {
              * @param {object} config - Um objeto de configuração opcional.
              */
             ManifestResources.init = function(config) {
+                // Lê o parâmetro 'lang' da URL. Se não existir, usa 'pt' como padrão.
+                var urlParams = new URLSearchParams(window.location.search);
+                var lang = urlParams.get('lang') || 'pt';
+
+                // Define o caminho do arquivo de gramática com base no idioma
+                var grammarFilePath = (lang === 'en') ? 'assets/grammar-en.json' : 'assets/grammar-pt.json';
+
                 ManifestResources.preloadLibraries = [];
                 ManifestResources.preloadLibraryNames = [];
                 ManifestResources.rootPath = null;
@@ -2502,7 +2509,8 @@ var $lime_init = function (F, r) {
                     "name": null,
                     "assets": [
                         { "path": "assets/tags.txt", "size": 1234, "type": "TEXT", "id": "tags", "preload": true },
-                        { "path": "assets/grammar.json", "size": 21664, "type": "TEXT", "id": "grammar", "preload": true },
+                        // { "path": "assets/grammar.json", "size": 21664, "type": "TEXT", "id": "grammar", "preload": true },
+                        { "path": grammarFilePath, "type": "TEXT", "id": "grammar", "preload": true },
                         { "path": "assets/demons.txt", "size": 677, "type": "TEXT", "id": "demons", "preload": true },
                         { "path": "assets/default.json", "size": 1028, "type": "TEXT", "id": "default", "preload": true },
                         { "path": "assets/ancient.json","size": 1028,"type": "TEXT","id": "ancient","preload": true },
@@ -2542,6 +2550,69 @@ var $lime_init = function (F, r) {
                     ManifestResources.preloadLibraryNames.push("default");
                 }
             };
+
+            /**
+             * Esta classe chamada de Blueprint (Blueprint) funciona como uma "receita" para a masmorra,
+             * armazenando a semente (seed), as tags e o nome que serão
+             * usados pelo algoritmo de geração.
+             *
+             * @class
+             * @param {number} a - A semente (seed) para o gerador de números aleatórios.
+             * @param {string[]} b - Um array de tags que definem o estilo da masmorra.
+             * @param {string} c - Um nome personalizado para a masmorra.
+             */
+            var Blueprint = function (a, b, c) {
+                null == a && (a = 0);
+                this.export = null;
+                // Define a semente. Se nenhuma for fornecida (a = 0), gera uma nova.
+                this.seed = 0 != a ? a : (v.seed = (48271 * v.seed) % 2147483647 | 0);
+                this.tags = b;
+                this.name = c;
+            };
+            g["com.watabou.dungeon.model.Blueprint"] = Blueprint;
+            Blueprint.__name__ = "com.watabou.dungeon.model.Blueprint";
+            /**
+             * (Método Estático) Cria um Blueprint com uma semente aleatória.
+             */
+            Blueprint.random = function () {
+                return new Blueprint();
+            };
+
+            // Cria um Blueprint a partir de uma lista de tags.
+            Blueprint.fromTags = function (a) {
+                return new Blueprint(null, a);
+            };
+
+            // Cria um Blueprint a partir dos parâmetros da URL. Isso permite que masmorras sejam compartilhadas via link.
+            Blueprint.fromURL = function () {
+                var a = ob.get("seed", 0), // ob é URLState
+                    b = ob.get("tags", null),
+                    c = ob.get("name", null);
+                if (0 == a && null == b) return null;
+                b = null == b ? null : b.split(",");
+                a = new Blueprint(a, b, c);
+                a.export = ob.get("export");
+                return a;
+            };
+
+            Blueprint.prototype = {
+                // Atualiza a URL do navegador com os dados do Blueprint atual,criando um permalink para a masmorra.
+                updateURL: function () {
+                    // Guarda o parâmetro 'lang' da URL atual ANTES de resetar.
+                    var lang = new URLSearchParams(window.location.search).get('lang');
+
+                    // Reseta a URL, limpando todos os parâmetros antigos.
+                    ob.reset(); // ob é o helper URLState
+
+                    // Adiciona os parâmetros da masmorra novamente usando a lógica de "short-circuiting".
+                    ob.set("seed", this.seed);
+                    (this.tags && this.tags.length > 0) && ob.set("tags", this.tags.join(","));
+                    this.name && ob.set("name", encodeURIComponent(this.name));
+                    lang && ob.set("lang", lang); // Se o parâmetro 'lang' existia, o adiciona de volta à URL.
+                },
+                __class__: Blueprint,
+            };
+
             
             var za = function (a) {
                 null != a && (this.name = a); this.__init || (void 0 == this.ascender && (this.ascender = 0), void 0 == this.descender && (this.descender = 0), void 0 == this.height && (this.height = 0), void 0 == this.numGlyphs && (this.numGlyphs = 0), void 0 == this.underlinePosition && (this.underlinePosition = 0), void 0 == this.underlineThickness && (this.underlineThickness =
@@ -3072,8 +3143,10 @@ var $lime_init = function (F, r) {
                     a.set_borderColor(a.get_defaultTextFormat().color);
                     a.set_border(!0)
                 }); a.addEventListener("focusOut", function (b) { a.set_border(!1); null != c && c() }); a.addEventListener("keyDown", function (b) { if (13 == b.keyCode || 27 == b.keyCode) a.stage.set_focus(a.stage), b.stopPropagation() }); a.addEventListener("change", function (a) { null != b && b() })
-            }; var Zc = function (a, b, c) { null == a && (a = 0); this.export = null; this.seed = 0 != a ? a : v.seed = 48271 * v.seed % 2147483647 | 0; this.tags = b; this.name = c }; g["com.watabou.dungeon.model.Blueprint"] = Zc; Zc.__name__ = "com.watabou.dungeon.model.Blueprint"; Zc.random =
-                function () { return new Zc }; Zc.fromTags = function (a) { return new Zc(null, a) }; Zc.fromURL = function () { var a = ob.get("seed", 0), b = ob.get("tags", null), c = ob.get("name", null); if (0 == a && null == b) return null; b = null == b ? null : b.split(","); a = new Zc(a, b, c); a.export = ob.get("export"); return a }; Zc.prototype = { updateURL: function () { ob.reset(); ob.set("seed", this.seed); null != this.tags && 0 < this.tags.length && ob.set("tags", this.tags.join(",")); null != this.name && ob.set("name", encodeURIComponent(this.name)) }, __class__: Zc }; var xa = function (a,
+            }; 
+            
+
+                var xa = function (a,
                     b) { null == b && (b = 0); null == a && (a = 0); this.x = a; this.y = b }; g["com.watabou.dungeon.utils.Dot"] = xa; xa.__name__ = "com.watabou.dungeon.utils.Dot"; xa.fromPoint = function (a, b) { null == b && (b = 1); return new xa(Math.floor(a.x * b), Math.floor(a.y * b)) }; xa.prototype = { __class__: xa }; var kg = function () { }; g["com.watabou.dungeon.visuals.IMapShape"] = kg; kg.__name__ = "com.watabou.dungeon.visuals.IMapShape"; kg.__isInterface__ = !0; kg.prototype = { __class__: kg }; var Mc = function (a, b, c) {
                         this.type = 0; xa.call(this, a.x, a.y); this.from = b; this.to =
                             c; this.type = Mc.autoType(b, c); null != b ? a = b.out(this) : null != c ? (a = c.out(this), a = new xa(-a.x, -a.y)) : a = null; this.dir = a
@@ -3850,8 +3923,8 @@ var $lime_init = function (F, r) {
                 this.addChild(this.map);
                 this.createHeader();
                 this.keyEvent.add(k(this, this.onKey));
-                a = Zc.fromURL();
-                this.reset(null != a ? a : Zc.random());
+                a = Blueprint.fromURL();
+                this.reset(null != a ? a : Blueprint.random());
             };
             g["com.watabou.dungeon.scenes.ViewScene"] = ViewScene;
             ViewScene.__name__ = "com.watabou.dungeon.scenes.ViewScene";
@@ -3893,7 +3966,7 @@ var $lime_init = function (F, r) {
                                 this.showTagsForm();
                                 break;
                             case 13:
-                                this.newDungeon(Zc.random());
+                                this.newDungeon(Blueprint.random());
                                 break;
                             case 32:
                                 this.keyShift ? this.rerollNotes() : this.rearrangeNotes();
@@ -3936,7 +4009,7 @@ var $lime_init = function (F, r) {
                         }
                 },
                 onTap: function (a) {
-                    this.longPress.activated || this.newDungeon(Zc.random());
+                    this.longPress.activated || this.newDungeon(Blueprint.random());
                 },
                 onRightClick: function (a) {
                     a = a.target;
@@ -4035,7 +4108,7 @@ var $lime_init = function (F, r) {
                     n.addItem("Markdown", k(this, this.exportMarkdown));
                     a.addSeparator();
                     a.addItem("New dungeon", function () {
-                        b.newDungeon(Zc.random());
+                        b.newDungeon(Blueprint.random());
                     });
                     a.addItem("Tags...", k(this, this.showTagsForm));
                     a.addSeparator();
@@ -4195,7 +4268,7 @@ var $lime_init = function (F, r) {
                         (Kc.getInfo = Tags.getInfo),
                         (T.showDialog(
                             new ve(this.dungeon.tags, function (b) {
-                                a.newDungeon(Zc.fromTags(b));
+                                a.newDungeon(Blueprint.fromTags(b));
                                 return a.dungeon.tags;
                             }),
                             "Tags"
@@ -4252,7 +4325,7 @@ var $lime_init = function (F, r) {
                         T.showDialog(
                             new ng(this.dungeon, function (b) {
                                 ob.fromString(b);
-                                a.newDungeon(Zc.fromURL());
+                                a.newDungeon(Blueprint.fromURL());
                             })
                         );
                 },

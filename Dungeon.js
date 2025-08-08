@@ -2478,8 +2478,9 @@ var $lime_init = function (F, r) {
              */
             ManifestResources.init = function(config) {
                 // Lê o parâmetro 'lang' da URL. Se não existir, usa 'pt' como padrão.
-                var urlParams = new URLSearchParams(window.location.search);
-                var lang = urlParams.get('lang') || 'pt';
+                var lang = new URLSearchParams(window.location.search).get('lang') || 'pt';
+                var grammarFilePath = (lang === 'en') ? 'assets/grammar-en.json' : 'assets/grammar-pt.json';
+                var uiLangFilePath = (lang === 'en') ? 'assets/ui-en.json' : 'assets/ui-pt.json';
 
                 // Define o caminho do arquivo de gramática com base no idioma
                 var grammarFilePath = (lang === 'en') ? 'assets/grammar-en.json' : 'assets/grammar-pt.json';
@@ -2511,6 +2512,7 @@ var $lime_init = function (F, r) {
                         { "path": "assets/tags.txt", "size": 1234, "type": "TEXT", "id": "tags", "preload": true },
                         // { "path": "assets/grammar.json", "size": 21664, "type": "TEXT", "id": "grammar", "preload": true },
                         { "path": grammarFilePath, "type": "TEXT", "id": "grammar", "preload": true },
+                        { "path": uiLangFilePath, "type": "TEXT", "id": "uiText", "preload": true },
                         { "path": "assets/demons.txt", "size": 677, "type": "TEXT", "id": "demons", "preload": true },
                         { "path": "assets/default.json", "size": 1028, "type": "TEXT", "id": "default", "preload": true },
                         { "path": "assets/ancient.json","size": 1028,"type": "TEXT","id": "ancient","preload": true },
@@ -3939,6 +3941,55 @@ var $lime_init = function (F, r) {
             g["com.watabou.dungeon.scenes.ViewScene"] = ViewScene;
             ViewScene.__name__ = "com.watabou.dungeon.scenes.ViewScene";
             ViewScene.__super__ = Xb;
+
+            /**
+             * @static
+             * @type {object | null}
+             * @description Armazena (em cache) o objeto JSON com os textos da interface do usuário (UI) após ser carregado.
+             * É inicializado como nulo e populado na primeira chamada da função `getText`.
+             * Isso evita que o arquivo JSON seja lido e parseado repetidamente, melhorando a performance.
+             */
+            ViewScene.uiStrings = null;
+
+            /**
+             * Recupera um texto traduzido da UI com base em uma chave.
+             * A função utiliza um sistema de chaves aninhadas (ex: 'menu.view.title') para navegar no
+             * objeto JSON de tradução carregado.
+             *
+             * @function
+             * @param {string} key - A chave do texto a ser recuperado, usando notação de ponto para acessar objetos aninhados.
+             * @returns {string} O texto traduzido correspondente à chave. Se a chave não for encontrada,
+             * a própria chave é retornada para facilitar a depuração.
+             */
+            function getText(key) {
+                // Bloco de inicialização "lazy-loading": só carrega o JSON na primeira vez que a função é chamada.
+                if (ViewScene.uiStrings == null) {
+                    // 'Vb' é a classe Assets minificada, responsável por carregar os recursos.
+                    // "uiText" é o ID do asset definido no ManifestResources, que aponta para ui-pt.json ou ui-en.json.
+                    ViewScene.uiStrings = JSON.parse(Vb.getText("uiText"));
+                }
+
+                // Inicia a busca a partir da raiz do objeto de traduções.
+                var value = ViewScene.uiStrings;
+                // Divide a chave em partes para navegar na estrutura do objeto. Ex: 'menu.view.title' -> ['menu', 'view', 'title']
+                var keys = key.split('.');
+
+                // Itera por cada parte da chave para "mergulhar" no objeto.
+                for (var i = 0; i < keys.length; i++) {
+                    value = value[keys[i]];
+
+                    // Se em qualquer ponto a chave não existir, o valor se tornará nulo.
+                    if (value == null) {
+                        // Retorna a chave original. Isso é útil para identificar facilmente
+                        // quais traduções estão faltando nos arquivos JSON.
+                        return key;
+                    }
+                }
+
+                // Retorna o valor final encontrado.
+                return value;
+            }
+
             ViewScene.prototype = u(Xb.prototype, {
                 activate: function () {
                     Xb.prototype.activate.call(this);
@@ -4044,113 +4095,89 @@ var $lime_init = function (F, r) {
                 addRoomItems: function (a, b) {
                     var c = this;
                     this.dungeon.planner.isSecret(b) &&
-                        a.addItem("Hide room", function () {
+                        a.addItem(getText('room.hide'), function () {
                             c.hideRoom(b);
                         });
                     null == b.desc ?
-                        a.addItem("Add note", function () {
+                        a.addItem(getText('room.addNote'), function () {
                             c.addNote(b);
                         }) :
-                        (a.addItem("Edit note...", function () {
+                        (a.addItem(getText('room.editNote'), function () {
                             c.editNote(b);
                         }),
-                        a.addItem("Delete note", function () {
+                        a.addItem(getText('room.deleteNote'), function () {
                             c.deleteNote(b);
                         }));
                     a.addSeparator();
                 },
                 buildMenu: function (a) {
                     var b = this,
-
-                    // Detecta o idioma atual pela URL para saber qual opção marcar como selecionada.
                     currentLang = new URLSearchParams(window.location.search).get('lang') || 'pt',
-                    // submenu de Idioma.
-                    menuIdioma = new Jb(); // Jb é a classe do Menu
-                    // Adiciona as opções de idioma ao submenu.
-                    menuIdioma.addItem(
-                        "Português (PT-BR)",
-                        function () { changeLanguage('pt'); }, // Ação ao clicar
-                        currentLang === 'pt' // Marcar se for o idioma atual
-                    );
-                    menuIdioma.addItem(
-                        "English (EN)",
-                        function () { changeLanguage('en'); }, // Ação ao clicar
-                        currentLang === 'en' // Marcar se for o idioma atual
-                    );
+                    menuLang = new Jb();
+
+                    menuLang.addItem(getText('menu.langItems.pt'), function () { changeLanguage('pt'); }, currentLang === 'pt');
+                    menuLang.addItem(getText('menu.langItems.en'), function () { changeLanguage('en'); }, currentLang === 'en');
 
                     c = new Jb();
-                    c.addItem("Rotate-to-fit", k(this, this.toggleRotation), eb.get("autoRotation", !0));
-                    c.addItem("Zoom-to-fit", k(this, this.toggleZoom), eb.get("zoom2fit", !0));
-                    c.addItem("Full screen", k(this, this.toggleFullScreen), 2 != this.stage.get_displayState());
-                    c.addItem("Secret rooms", k(this, this.toggleSecrets), eb.get("secrets", !0));
+                    c.addItem(getText('menu.viewItems.rotate'), k(this, this.toggleRotation), eb.get("autoRotation", !0));
+                    c.addItem(getText('menu.viewItems.zoom'), k(this, this.toggleZoom), eb.get("zoom2fit", !0));
+                    c.addItem(getText('menu.viewItems.fullscreen'), k(this, this.toggleFullScreen), 2 != this.stage.get_displayState());
+                    c.addItem(getText('menu.viewItems.secrets'), k(this, this.toggleSecrets), eb.get("secrets", !0));
+                    
                     var d = new Jb();
-                    Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem("Reroll notes", k(this, this.rerollNotes));
-                    (Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED) || d.addItem("Rearrange notes", k(this, this.rearrangeNotes));
+                    Ha.mode != Ga.SYMBOLS && Ha.mode != Ga.NUMBERS && Ha.mode != Ga.HIDDEN && d.addItem(getText('menu.notesItems.reroll'), k(this, this.rerollNotes));
+                    (Ha.mode != Ga.NORMAL && Ha.mode != Ga.TAILED) || d.addItem(getText('menu.notesItems.rearrange'), k(this, this.rearrangeNotes));
                     d.addSeparator();
-                    var f = function (a, c) {
-                        d.addItem(
-                            a,
-                            function () {
-                                b.setNotesMode(c);
-                            },
-                            Ha.mode == c
-                        );
-                    };
-                    f("Off", Ga.HIDDEN);
-                    f("Default", Ga.NORMAL);
-                    f("Tailed", Ga.TAILED);
-                    f("Legend", Ga.LEGEND);
-                    f("Symbols", Ga.SYMBOLS);
-                    f("Numbers", Ga.NUMBERS);
+                    
+                    var f = function (a, e) { d.addItem(a, function () { b.setNotesMode(e); }, Ha.mode == e); };
+                    f(getText('menu.notesItems.off'), Ga.HIDDEN);
+                    f(getText('menu.notesItems.default'), Ga.NORMAL);
+                    f(getText('menu.notesItems.tailed'), Ga.TAILED);
+                    f(getText('menu.notesItems.legend'), Ga.LEGEND);
+                    f(getText('menu.notesItems.symbols'), Ga.SYMBOLS);
+                    f(getText('menu.notesItems.numbers'), Ga.NUMBERS);
+                    
                     var h = new Jb();
-                    f = function (a, c) {
-                        h.addItem(
-                            a,
-                            function () {
-                                b.setGridMode(c);
-                            },
-                            ta.grid == c
-                        );
-                    };
-                    f("Off", dc.HIDDEN);
-                    f("Dotted", dc.DOTTED);
-                    f("Dashed", dc.DASHED);
-                    f("Solid", dc.SOLID);
-                    f("Broken", dc.BROKEN);
+                    f = function (a, e) { h.addItem(a, function () { b.setGridMode(e); }, ta.grid == e); };
+                    f(getText('menu.layersItems.gridItems.off'), dc.HIDDEN);
+                    f(getText('menu.layersItems.gridItems.dotted'), dc.DOTTED);
+                    f(getText('menu.layersItems.gridItems.dashed'), dc.DASHED);
+                    f(getText('menu.layersItems.gridItems.solid'), dc.SOLID);
+                    f(getText('menu.layersItems.gridItems.broken'), dc.BROKEN);
                     h.addSeparator();
-                    h.addItem("Small tiles", k(this, this.toggleSmallTiles), 1 < ta.gridScale);
+                    h.addItem(getText('menu.layersItems.gridItems.smallTiles'), k(this, this.toggleSmallTiles), 1 < ta.gridScale);
+                    
                     f = new Jb();
-                    f.addSubmenu("Grid", h);
-                    f.addItem("Title & story", k(this, this.toggleTitle), this.title.get_visible());
-                    f.addItem("Water", k(this, this.toggleWater), eb.get("water", !0));
-                    f.addItem("Props", k(this, this.toggleProps), eb.get("props", !0));
-                    f.addItem("Shadow", k(this, this.toggleShadows), eb.get("shadows", !0));
+                    f.addSubmenu(getText('menu.layersItems.grid'), h);
+                    f.addItem(getText('menu.layersItems.title'), k(this, this.toggleTitle), this.title.get_visible());
+                    f.addItem(getText('menu.layersItems.water'), k(this, this.toggleWater), eb.get("water", !0));
+                    f.addItem(getText('menu.layersItems.props'), k(this, this.toggleProps), eb.get("props", !0));
+                    f.addItem(getText('menu.layersItems.shadow'), k(this, this.toggleShadows), eb.get("shadows", !0));
                     f.addSeparator();
-                    f.addItem("Water level...", k(this, this.showWaterForm));
+                    f.addItem(getText('menu.layersItems.waterLevel'), k(this, this.showWaterForm));
+                    
                     var n = new Jb();
-                    n.addItem("PNG...", k(this, this.exportPNG));
-                    n.addItem("SVG", k(this, this.exportSVG));
-                    n.addItem("JSON", k(this, this.exportJSON));
-                    n.addItem("VOX", k(this, this.exportVOX));
-                    n.addItem("Markdown", k(this, this.exportMarkdown));
+                    n.addItem(getText('menu.exportItems.png'), k(this, this.exportPNG));
+                    n.addItem(getText('menu.exportItems.svg'), k(this, this.exportSVG));
+                    n.addItem(getText('menu.exportItems.json'), k(this, this.exportJSON));
+                    n.addItem(getText('menu.exportItems.vox'), k(this, this.exportVOX));
+                    n.addItem(getText('menu.exportItems.markdown'), k(this, this.exportMarkdown));
+                    
                     a.addSeparator();
-                    a.addItem("New dungeon", function () {
-                        b.newDungeon(Blueprint.random());
-                    });
-                    a.addItem("Tags...", k(this, this.showTagsForm));
+                    a.addItem(getText('menu.main.newDungeon'), function () { b.newDungeon(Blueprint.random()); });
+                    a.addItem(getText('menu.main.tags'), k(this, this.showTagsForm));
                     a.addSeparator();
-                    a.addSubmenu("View", c);
-                    a.addSubmenu("Notes", d);
-                    a.addSubmenu("Layers", f);
-                    a.addItem("Monochrome", k(this, this.toggleBW), G.bw);
-                    a.addItem("Style...", k(this, this.showPaletteForm));
+                    a.addSubmenu(getText('menu.view'), c);
+                    a.addSubmenu(getText('menu.notes'), d);
+                    a.addSubmenu(getText('menu.layers'), f);
+                    a.addItem(getText('menu.main.monochrome'), k(this, this.toggleBW), G.bw);
+                    a.addItem(getText('menu.main.style'), k(this, this.showPaletteForm));
                     a.addSeparator();
-                    // submenu de Idioma ao menu principal.
-                    a.addSubmenu("Idioma / Language", menuIdioma);
+                    a.addSubmenu(getText('menu.lang'), menuLang);
                     a.addSeparator();
-                    a.addItem("Permalink...", k(this, this.showURL));
-                    a.addItem("Save as PNG", k(this, this.savePNG));
-                    a.addSubmenu("Export as", n);
+                    a.addItem(getText('menu.main.permalink'), k(this, this.showURL));
+                    a.addItem(getText('menu.main.savePng'), k(this, this.savePNG));
+                    a.addSubmenu(getText('menu.exportAs'), n);
                 },
                 layout: function () {
                     var a = this.rWidth - 100;

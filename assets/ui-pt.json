@@ -1,0 +1,66 @@
+{
+	"room": {
+		"hide": "Ocultar sala",
+		"addNote": "Adicionar nota",
+		"editNote": "Editar nota...",
+		"deleteNote": "Apagar nota"
+	},
+	"menu": {
+		"view": "Visualização",
+		"notes": "Notas",
+		"layers": "Camadas",
+		"exportAs": "Exportar como",
+		"lang": "Idioma",
+		"viewItems": {
+			"rotate": "Girar para ajustar",
+			"zoom": "Zoom para ajustar",
+			"fullscreen": "Tela cheia",
+			"secrets": "Salas secretas"
+		},
+		"notesItems": {
+			"reroll": "Rerolar notas",
+			"rearrange": "Reorganizar notas",
+			"off": "Desligado",
+			"default": "Padrão",
+			"tailed": "Com cauda",
+			"legend": "Legenda",
+			"symbols": "Símbolos",
+			"numbers": "Números"
+		},
+		"layersItems": {
+			"grid": "Grade",
+			"gridItems": {
+				"off": "Desligada",
+				"dotted": "Pontilhada",
+				"dashed": "Tracejada",
+				"solid": "Sólida",
+				"broken": "Quebrada",
+				"smallTiles": "Ladrilhos pequenos"
+			},
+			"title": "Título e história",
+			"water": "Água",
+			"props": "Objetos",
+			"shadow": "Sombra",
+			"waterLevel": "Nível da água..."
+		},
+		"exportItems": {
+			"png": "PNG...",
+			"svg": "SVG",
+			"json": "JSON",
+			"vox": "VOX",
+			"markdown": "Markdown"
+		},
+		"main": {
+			"newDungeon": "Nova masmorra",
+			"tags": "Tags...",
+			"monochrome": "Monocromático",
+			"style": "Estilo...",
+			"permalink": "Link permanente...",
+			"savePng": "Salvar como PNG"
+		},
+		"langItems": {
+			"pt": "Português (PT-BR)",
+			"en": "English (EN)"
+		}
+	}
+}

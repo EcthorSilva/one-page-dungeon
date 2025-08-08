@@ -1,0 +1,66 @@
+{
+	"room": {
+		"hide": "Hide room",
+		"addNote": "Add note",
+		"editNote": "Edit note...",
+		"deleteNote": "Delete note"
+	},
+	"menu": {
+		"view": "View",
+		"notes": "Notes",
+		"layers": "Layers",
+		"exportAs": "Export as",
+		"lang": "Language",
+		"viewItems": {
+			"rotate": "Rotate-to-fit",
+			"zoom": "Zoom-to-fit",
+			"fullscreen": "Full screen",
+			"secrets": "Secret rooms"
+		},
+		"notesItems": {
+			"reroll": "Reroll notes",
+			"rearrange": "Rearrange notes",
+			"off": "Off",
+			"default": "Default",
+			"tailed": "Tailed",
+			"legend": "Legend",
+			"symbols": "Symbols",
+			"numbers": "Numbers"
+		},
+		"layersItems": {
+			"grid": "Grid",
+			"gridItems": {
+				"off": "Off",
+				"dotted": "Dotted",
+				"dashed": "Dashed",
+				"solid": "Solid",
+				"broken": "Broken",
+				"smallTiles": "Small tiles"
+			},
+			"title": "Title & story",
+			"water": "Water",
+			"props": "Props",
+			"shadow": "Shadow",
+			"waterLevel": "Water level..."
+		},
+		"exportItems": {
+			"png": "PNG...",
+			"svg": "SVG",
+			"json": "JSON",
+			"vox": "VOX",
+			"markdown": "Markdown"
+		},
+		"main": {
+			"newDungeon": "New dungeon",
+			"tags": "Tags...",
+			"monochrome": "Monochrome",
+			"style": "Style...",
+			"permalink": "Permalink...",
+			"savePng": "Save as PNG"
+		},
+		"langItems": {
+			"pt": "Português (PT-BR)",
+			"en": "English (EN)"
+		}
+	}
+}
